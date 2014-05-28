@@ -2,3 +2,11 @@
 **/hmc/bin
 **/bin
 **/classes
+**/build.xml
+**/extensioninfo.xsd
+**/hmc/classes/
+**/hmc/resources/hmc.xsd
+**/platformhome.properties
+**/resources/items.xsd
+**/web/webroot/WEB-INF/classes/
+**/resources/items.xsd

@@ -19,12 +19,135 @@
 
 	<!-- Configuration for extension arecoDeploymentScriptsManager -->
 
-<!--
 	<explorertree>
 		<group name="arecoDeploymentScriptsManagergroup">
-			<externalnode classname="org.areco.ecommerce.deploymentscripts.hmc.ArecoDeploymentScriptsManagerTreeLeafChip"/>		
+			<typeref type="ScriptExecution"></typeref>
 		</group>
 	</explorertree>
--->
-
+	
+   <type name="ScriptExecution" mode="append">
+      <organizer>
+         <search autoperform="false" mode="replace">
+            <condition attribute="extensionName" />
+            <condition attribute="scriptName" />
+            <condition attribute="result" />
+            <condition attribute="phase" />
+         </search>
+         <result defaultview="list" mode="replace">
+            <listview >
+               <itemlayout>
+                  <attribute name="creationtime"/>
+                  <attribute name="extensionName"/>
+                  <attribute name="scriptName"/>
+                  <attribute name="result"/>
+                  <attribute name="phase"/>
+               </itemlayout>
+            </listview>
+            <editview  mode="replace">
+               <itemlayout>
+                  <attribute name="creationtime"/>
+                  <attribute name="extensionName"/>
+                  <attribute name="scriptName"/>
+                  <attribute name="result"/>
+                  <attribute name="phase"/>
+               </itemlayout>
+            </editview>
+            <treeview  mode="replace">
+               <itemlayout>
+                  <attribute name="creationtime"/>
+                  <attribute name="extensionName"/>
+                  <attribute name="scriptName"/>
+                  <attribute name="result"/>
+                  <attribute name="phase"/>
+               </itemlayout>
+            </treeview>
+         </result>
+         <editor>
+            <essentials>
+               <columnlayout>
+                  <row>
+                     <attribute name="extensionName"/>
+                     <attribute name="scriptName"/>
+                  </row>
+                  <row>
+                     <attribute name="symbol"/>
+                     <attribute name="name"/>
+                  </row>
+                  <row>
+                     <attribute name="externalID"/>
+                     <void/>
+                  </row>
+               </columnlayout>
+            </essentials>
+            <tab name="common">
+               <section name="section.common">
+                  <listlayout>
+                    <attribute name="creationtime"/>
+                    <attribute name="result"/>
+                    <attribute name="phase"/>
+                  </listlayout>
+               </section>
+            </tab>
+         </editor>
+      </organizer>
+      <defaultreference searchattribute="scriptName" mode="replace"
+            sortattribute="creationtime">
+         <itemlayout>
+            <attribute name="extensionName"/>
+            <attribute name="scriptName"/>
+         </itemlayout>
+      </defaultreference>
+   </type>
+   
+    <type name="ScriptExecutionResult" mode="append">
+      <organizer>
+         <search autoperform="false" mode="replace">
+            <condition attribute="name" />
+            <condition attribute="description" />
+         </search>
+         <result defaultview="list" mode="replace">
+            <listview >
+               <itemlayout>
+                  <attribute name="name"/>
+                  <attribute name="description"/>
+               </itemlayout>
+            </listview>
+            <editview  mode="replace">
+               <itemlayout>
+                 <attribute name="name"/>
+                 <attribute name="description"/>
+               </itemlayout>
+            </editview>
+            <treeview  mode="replace">
+               <itemlayout>
+                  <attribute name="name"/>
+                  <attribute name="description"/>
+               </itemlayout>
+            </treeview>
+         </result>
+         <editor>
+            <essentials>
+               <columnlayout>
+                  <row>
+                     <attribute name="name" />
+                     <attribute name="description"/>
+                  </row>
+               </columnlayout>
+            </essentials>
+            <tab name="common">
+               <section name="section.common">
+                  <listlayout>
+                    <attribute name="canBeRunAgain"/>
+                  </listlayout>
+               </section>
+            </tab>
+         </editor>
+      </organizer>
+      <defaultreference searchattribute="name" mode="replace"
+            sortattribute="name">
+         <itemlayout>
+            <attribute name="name"/>
+         </itemlayout>
+      </defaultreference>
+   </type>
 </configuration>
