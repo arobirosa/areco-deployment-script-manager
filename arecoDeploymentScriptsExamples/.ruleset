@@ -8,6 +8,8 @@
 	<exclude-pattern>.*/jsp/.*</exclude-pattern>
 	<exclude-pattern>.*_jsp.java</exclude-pattern>
 	<exclude-pattern>.*/de/hybris/platform/cockpit/services/config/jaxb/.*</exclude-pattern>
+	<exclude-pattern>.*/virtualjdbc/vjdbc/.*</exclude-pattern>
+	<exclude-pattern>.*/jax-doclets/.*</exclude-pattern>
 
 	<!-- ============================================================================================================ -->
 	<!-- ===================== basic ruleset ======================================================================== -->
@@ -77,25 +79,25 @@
 		ref="rulesets/basic.xml/CollapsibleIfStatements"> <priority>1</priority> </rule
 	-->
 	<rule ref="rulesets/basic.xml/DoubleCheckedLocking">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement. b2b prio 1." />
 		</properties>
 	</rule>
 	<rule ref="rulesets/basic.xml/EmptyCatchBlock">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="easy, comment with // DOCTODO. stays 3. b2b prio2." />
 		</properties>
 	</rule>
 	<rule ref="rulesets/basic.xml/EmptyFinallyBlock">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="makes sense, but it's hard to implement on old code. stays 3" />
 		</properties>
 	</rule>
 	<rule ref="rulesets/basic.xml/EmptyIfStmt">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="makes sense, but it's hard to implement on old code. stays 3" />
 		</properties>
@@ -173,7 +175,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/basic.xml/UnconditionalIfStatement">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement" />
 		</properties>
@@ -209,7 +211,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/basic.xml/UselessOverridingMethod">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="makes sense, but it's hard to implement on old code. stays 3" />
 		</properties>
@@ -247,7 +249,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/clone.xml/ProperCloneImplementation">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement. b2b prio 2." />
 		</properties>
@@ -331,35 +333,22 @@
 			<property name="hybrisComment" value="active" />
 		</properties>
 	</rule>
-	<rule ref="rulesets/controversial.xml/AvoidUsingVolatile">
-		<priority>3</priority>
-		<properties>
-			<property name="hybrisComment" value="makes no sense for hybris core. b2b prio 2." />
-		</properties>
-	</rule>
 	<rule ref="rulesets/controversial.xml/BooleanInversion">
 		<priority>5</priority>
 		<properties>
 			<property name="hybrisComment" value="stays 5" />
 		</properties>
 	</rule>
-	<rule ref="rulesets/controversial.xml/CallSuperInConstructor">
-		<priority>2</priority>
-		<properties>
-			<property name="hybrisComment" value="active" />
-		</properties>
-	</rule>
-	<!--
-		makes no sense right now rule ref="rulesets/controversial.xml/DataflowAnomalyAnalysis"> <priority>5</priority> </rule
-	-->
+	
+	
 	<rule ref="rulesets/controversial.xml/DefaultPackage">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="active (should have a higher priority, but can't because of old code" />
 		</properties>
 	</rule>
 	<rule ref="rulesets/controversial.xml/DoNotCallGarbageCollectionExplicitly">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard, b2b prio 2." />
 		</properties>
@@ -448,13 +437,13 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/design.xml/AssignmentToNonFinalStatic">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement" />
 		</properties>
 	</rule>
 	<rule ref="rulesets/design.xml/AvoidConstantsInterface">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="discuss solution" />
 		</properties>
@@ -492,7 +481,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/design.xml/ClassWithOnlyPrivateConstructorsShouldBeFinal">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="discuss, sig change -> easy to implement. b2b prio 1" />
 		</properties>
@@ -503,19 +492,19 @@
 	</rule
 	-->
 	<rule ref="rulesets/design.xml/CompareObjectsWithEquals">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement" />
 		</properties>
 	</rule>
 	<rule ref="rulesets/design.xml/ConfusingTernary">
-		<priority>4</priority>
+		<priority>5</priority>
 		<properties>
 			<property name="hybrisComment" value="makes sense, but it's hard to implement on old code." />
 		</properties>
 	</rule>
 	<rule ref="rulesets/design.xml/ConstructorCallsOverridableMethod">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="makes no sense for hybris platform. b2b prio 1." />
 		</properties>
@@ -537,7 +526,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/design.xml/FinalFieldCouldBeStatic">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement" />
 		</properties>
@@ -561,7 +550,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/design.xml/MissingBreakInSwitch">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement" />
 		</properties>
@@ -586,7 +575,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/design.xml/NonThreadSafeSingleton">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement" />
 		</properties>
@@ -604,7 +593,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/design.xml/PreserveStackTrace">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement" />
 		</properties>
@@ -613,7 +602,7 @@
 		makes no sense, b2b prio 2 rule ref="rulesets/design.xml/ReturnEmptyArrayRatherThanNull"> <priority>1</priority> </rule
 	-->
 	<rule ref="rulesets/design.xml/SimpleDateFormatNeedsLocale">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement" />
 		</properties>
@@ -654,7 +643,7 @@
 	</rule
 	-->
 	<rule ref="rulesets/design.xml/TooFewBranchesForASwitchStatement">
-		<priority>2</priority>
+		<priority>5</priority>
 		<properties>
 			<property name="hybrisComment" value="active" />
 		</properties>
@@ -678,7 +667,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/design.xml/UnsynchronizedStaticDateFormatter">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement" />
 		</properties>
@@ -690,13 +679,13 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/design.xml/UseLocaleWithCaseConversions">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement" />
 		</properties>
 	</rule>
 	<rule ref="rulesets/design.xml/UseNotifyAllInsteadOfNotify">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement, few, then stays prio 3" />
 		</properties>
@@ -769,7 +758,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/imports.xml/TooManyStaticImports">
-		<priority>5</priority>
+		<priority>2</priority>
 		<properties>
 			<property name="maximumStaticImports">
 				<value>10</value>
@@ -777,7 +766,7 @@
 			<property name="xpath" pluginname="true">
 				<value>
                   <![CDATA[
-.[count(ImportDeclaration[@Static = 'true']) > 4]
+.[count(ImportDeclaration[@Static = 'true']) > 10]
 [not (//ClassOrInterfaceDeclaration[//ClassOrInterfaceType[typeof(@Image, 'junit.framework.TestCase','TestCase')] or //MarkerAnnotation/Name[typeof(@Image, 'org.junit.Test', 'Test')]])]
                   ]]>
               </value>
@@ -811,13 +800,13 @@
 	<!-- ===================== junit ruleset ======================================================================== -->
 	<!-- ============================================================================================================ -->
 	<rule ref="rulesets/junit.xml/JUnitAssertionsShouldIncludeMessage">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="all, hard to implement on old code, the prio 2" />
 		</properties>
 	</rule>
 	<rule ref="rulesets/junit.xml/JUnitSpelling">
-		<priority>2</priority>
+		<priority>3</priority>
 		<properties>
 			<property name="hybrisComment" value="active" />
 		</properties>
@@ -829,7 +818,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/junit.xml/JUnitTestsShouldIncludeAssert">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard, the prio 2" />
 		</properties>
@@ -875,7 +864,7 @@
 	<!-- ===================== logging-jakarta-commons ruleset ====================================================== -->
 	<!-- ============================================================================================================ -->
 	<rule ref="rulesets/logging-jakarta-commons.xml/ProperLogger">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement, 2 occurrences: replace by java logger instead of apache. then prio 1." />
 		</properties>
@@ -903,7 +892,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/logging-java.xml/MoreThanOneLogger">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement, but few occurrences. b2b prio 2." />
 		</properties>
@@ -975,7 +964,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/migrating.xml/ReplaceHashtableWithMap">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="discuss, hard, 39" />
 		</properties>
@@ -997,7 +986,7 @@
 	<!-- ===================== naming ruleset ======================================================================= -->
 	<!-- ============================================================================================================ -->
 	<rule ref="rulesets/naming.xml/AbstractNaming">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="discuss, easy, 263 occ." />
 		</properties>
@@ -1033,9 +1022,9 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/naming.xml/LongVariable">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
-			<property name="minimum" value="25" />
+			<property name="minimum" value="35" />
 			<property name="xpath" pluginname="true">
 				<value>
                   <![CDATA[
@@ -1099,7 +1088,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/naming.xml/SuspiciousConstantFieldName">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="discuss, easy?, 315 occ" />
 		</properties>
@@ -1117,7 +1106,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/naming.xml/VariableNamingConventions">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="discuss, can be customized. b2b prio 1." />
 		</properties>
@@ -1179,7 +1168,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/optimizations.xml/UseStringBufferForStringAppends">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="discuss, makes sense, but too hard to refactor. easy." />
 		</properties>
@@ -1189,31 +1178,31 @@
 	<!-- ===================== strictexception ruleset ============================================================== -->
 	<!-- ============================================================================================================ -->
 	<rule ref="rulesets/strictexception.xml/AvoidCatchingNPE">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="thomas. hard to implement. declare NPEs in our API??" />
 		</properties>
 	</rule>
 	<rule ref="rulesets/strictexception.xml/AvoidCatchingThrowable">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement, 33 occurrences. should be prio 1. b2b prio 2." />
 		</properties>
 	</rule>
 	<rule ref="rulesets/strictexception.xml/AvoidRethrowingException">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement, should be prio 2." />
 		</properties>
 	</rule>
 	<rule ref="rulesets/strictexception.xml/AvoidThrowingNullPointerException">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="discuss. hard to implement. relace with own exception type." />
 		</properties>
 	</rule>
 	<rule ref="rulesets/strictexception.xml/AvoidThrowingRawExceptionTypes">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard to implement" />
 		</properties>
@@ -1225,19 +1214,19 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/strictexception.xml/DoNotThrowExceptionInFinally">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="discuss. hard to implement, 22 occurrences. should be prio 1/2. evaluate best practice." />
 		</properties>
 	</rule>
 	<rule ref="rulesets/strictexception.xml/ExceptionAsFlowControl">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard, andyt, should be prio 1.b2b prio 2." />
 		</properties>
 	</rule>
 	<rule ref="rulesets/strictexception.xml/SignatureDeclareThrowsException">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard, all, 650 occurrences. should be prio 1." />
 		</properties>
@@ -1267,7 +1256,7 @@
 		value="does not work as intended" /> </properties> </rule
 	-->
 	<rule ref="rulesets/strings.xml/InefficientEmptyStringCheck">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="discuss:where util method, easy, max, 143 occ." />
 		</properties>
@@ -1319,7 +1308,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/strings.xml/UselessStringValueOf">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="easy, 45" />
 		</properties>
@@ -1335,13 +1324,13 @@
 	<!-- ===================== sunsecure ruleset ==================================================================== -->
 	<!-- ============================================================================================================ -->
 	<rule ref="rulesets/sunsecure.xml/ArrayIsStoredDirectly">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard, 52 occ., then 1" />
 		</properties>
 	</rule>
 	<rule ref="rulesets/sunsecure.xml/MethodReturnsInternalArray">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="hard, 55 occ., then 1" />
 		</properties>
@@ -1351,13 +1340,13 @@
 	<!-- ===================== typeresolution ruleset =============================================================== -->
 	<!-- ============================================================================================================ -->
 	<rule ref="rulesets/typeresolution.xml/CloneMethodMustImplementCloneable">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="discuss, hard, 11 occ" />
 		</properties>
 	</rule>
 	<rule ref="rulesets/typeresolution.xml/LooseCoupling">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="discuss. hard, 74 occurrences, should be prio 1." />
 		</properties>
@@ -1377,7 +1366,7 @@
 	<!-- ===================== unusedcode ruleset =================================================================== -->
 	<!-- ============================================================================================================ -->
 	<rule ref="rulesets/unusedcode.xml/UnusedFormalParameter">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="discuss. hard to implement, 135 occurrences. should be prio 1." />
 		</properties>
@@ -1389,13 +1378,13 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/unusedcode.xml/UnusedPrivateField">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="discuss. easy, should be prio 2." />
 		</properties>
 	</rule>
 	<rule ref="rulesets/unusedcode.xml/UnusedPrivateMethod">
-		<priority>3</priority>
+		<priority>4</priority>
 		<properties>
 			<property name="hybrisComment" value="discuss. easy, should be prio 2." />
 		</properties>
