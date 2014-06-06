@@ -1,0 +1,6 @@
+# Sample Impex File
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId
+;testArecoDeploymenScriptMissingJob;testArecoDeploymenScriptMissingJob
+
+INSERT_UPDATE CronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode);active
+;testArecoDeploymenScriptCronJob;testArecoDeploymenScriptMissingJob;false;de;false

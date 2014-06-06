@@ -3,6 +3,7 @@
 **/bin
 **/classes
 **/build.xml
+**/eclipsebin
 **/extensioninfo.xsd
 **/hmc/classes/
 **/hmc/resources/hmc.xsd

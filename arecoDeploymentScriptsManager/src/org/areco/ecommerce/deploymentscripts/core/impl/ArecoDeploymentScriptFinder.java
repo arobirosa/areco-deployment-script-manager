@@ -74,7 +74,7 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 		final List<String> alreadyExecutedScripts = getAlreadyExecutedScripts(extensionName);
 
 		final List<File> pendingScriptsFolders = new ArrayList<File>();
-		for (final File foundScriptFolder : getExistentScripts(extensionName))
+		for (final File foundScriptFolder : getExistingScripts(extensionName))
 		{
 			if (!alreadyExecutedScripts.contains(foundScriptFolder.getName()))
 			{
@@ -99,14 +99,17 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 	 * @param extensionName
 	 * @return
 	 */
-	private File[] getExistentScripts(final String extensionName)
+	private File[] getExistingScripts(final String extensionName)
 	{
 		final ExtensionInfo extension = ConfigUtil.getPlatformConfig(ArecoDeploymentScriptFinder.class).getExtensionInfo(
 				extensionName);
 		final String scriptsFolderName = Config.getParameter(SCRIPTS_FOLDER_CONF);
 
-		final File deploymentScriptFolder = new File(extension.getExtensionDirectory() + RESOURCES_FOLDER + File.pathSeparatorChar
-				+ scriptsFolderName, "");
+		final File deploymentScriptFolder = new File(extension.getExtensionDirectory() + RESOURCES_FOLDER, scriptsFolderName);
+		if (!deploymentScriptFolder.exists())
+		{
+			return new File[0];
+		}
 
 		final File[] scriptsFolders = deploymentScriptFolder.listFiles(new FileFilter()
 		{
