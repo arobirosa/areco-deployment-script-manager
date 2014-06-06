@@ -21,7 +21,7 @@ import de.hybris.platform.core.initialization.SystemSetupContext;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 
 /**
@@ -30,9 +30,9 @@ import org.springframework.stereotype.Component;
  * @author arobirosa
  * 
  */
-@Component("deploymentScriptStarter")
+@Service
 @Scope("tenant")
-@SystemSetup(type = SystemSetup.Type.PROJECT, process = SystemSetup.Process.UPDATE, extension = SystemSetup.ALL_EXTENSIONS)
+@SystemSetup(extension = "ALL_EXTENSIONS")
 public class DeploymentScriptStarter
 {
 	private static final Logger LOG = Logger.getLogger(DeploymentScriptStarter.class);
@@ -40,13 +40,25 @@ public class DeploymentScriptStarter
 	@Autowired
 	private DeploymentScriptService deploymentScriptService;
 
-	@SystemSetup(type = SystemSetup.Type.PROJECT, process = SystemSetup.Process.UPDATE, extension = SystemSetup.ALL_EXTENSIONS)
+	//We hook the essential data procsss. Due to this the deployment scripts could be run using
+	//ant updatessystem.
+	@SystemSetup(type = SystemSetup.Type.ESSENTIAL, process = SystemSetup.Process.ALL)
 	public void runUpdateDeploymentScripts(final SystemSetupContext context)
 	{
 		if (LOG.isDebugEnabled())
 		{
-			LOG.debug("Running the deployment scripts during the update running system.");
+			LOG.debug(context.getType().toString() + "Running the deployment scripts of the extension: "
+					+ context.getExtensionName());
 		}
-		this.deploymentScriptService.runUpdateDeploymentScripts(context);
+		try
+		{
+			this.deploymentScriptService.runUpdateDeploymentScripts(context);
+		}
+		catch (final RuntimeException re)
+		{
+			//We improve the error logging in case of a runtime exception.
+			LOG.error("There was an error running the deployment scripts: " + re.getLocalizedMessage(), re);
+			throw re;
+		}
 	}
 }

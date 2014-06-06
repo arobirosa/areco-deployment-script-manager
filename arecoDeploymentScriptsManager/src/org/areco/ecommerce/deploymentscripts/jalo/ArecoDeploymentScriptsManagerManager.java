@@ -19,7 +19,6 @@ import de.hybris.platform.util.JspContext;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
 
 
@@ -50,8 +49,8 @@ public class ArecoDeploymentScriptsManagerManager extends GeneratedArecoDeployme
 	 */
 	public static ArecoDeploymentScriptsManagerManager getInstance()
 	{
-		return (ArecoDeploymentScriptsManagerManager) Registry.getCurrentTenant().getJaloConnection().getExtensionManager().getExtension(
-				ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
+		return (ArecoDeploymentScriptsManagerManager) Registry.getCurrentTenant().getJaloConnection().getExtensionManager()
+				.getExtension(ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
 	}
 
 
@@ -127,6 +126,6 @@ public class ArecoDeploymentScriptsManagerManager extends GeneratedArecoDeployme
 	@Override
 	public void createProjectData(final Map<String, String> params, final JspContext jspc)
 	{
-		// implement here code creating project data
+		// We don't use it
 	}
 }
