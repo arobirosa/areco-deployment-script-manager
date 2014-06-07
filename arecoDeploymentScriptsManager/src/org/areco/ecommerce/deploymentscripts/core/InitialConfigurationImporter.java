@@ -15,26 +15,23 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
-import de.hybris.platform.impex.jalo.ImpExException;
-
-import java.io.File;
+import de.hybris.platform.core.initialization.SystemSetupContext;
 
 
 /**
- * This service is responsible for importing the impex files of the deployment scripts.
+ * It is responsible for the import of the objects required by the extension. We don't use the ImpexManager automated
+ * import of impex scripts because it is implemented using the Jalo Layer.
  * 
  * @author arobirosa
  * 
  */
-public interface ImpexImportService
+public interface InitialConfigurationImporter
 {
 	/**
-	 * Imports the given file and returns an importResult. It throws an exception if there was an error and the caller
-	 * has to manage it.
+	 * It imports the initial objects if the haven't been imported yet. It throws an exception is there was an error.
 	 * 
-	 * @param impexFile
+	 * @param context
 	 *           Required
-	 * @throws ImpExException
 	 */
-	void importImpexFile(final File impexFile) throws ImpExException;
+	void importConfigurationIfRequired(final SystemSetupContext context);
 }

@@ -23,7 +23,7 @@ import java.io.File;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
-import org.areco.ecommerce.deploymentscripts.core.ImpexImportService;
+import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
 
 
 /**

@@ -29,7 +29,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import org.apache.log4j.Logger;
-import org.areco.ecommerce.deploymentscripts.core.ImpexImportService;
+import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
