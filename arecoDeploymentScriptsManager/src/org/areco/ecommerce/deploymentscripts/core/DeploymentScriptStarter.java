@@ -40,8 +40,8 @@ public class DeploymentScriptStarter
 	@Autowired
 	private DeploymentScriptService deploymentScriptService;
 
-	//We hook the essential data procsss. Due to this the deployment scripts could be run using
-	//ant updatessystem.
+	//We hook the essential data proceess. Due to this the deployment scripts could be run using
+	//"ant updatessystem".
 	@SystemSetup(type = SystemSetup.Type.ESSENTIAL, process = SystemSetup.Process.ALL)
 	public void runUpdateDeploymentScripts(final SystemSetupContext context)
 	{

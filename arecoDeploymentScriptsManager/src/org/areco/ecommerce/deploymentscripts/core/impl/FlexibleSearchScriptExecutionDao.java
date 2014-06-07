@@ -15,11 +15,19 @@
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.FlexibleSearchService;
+import de.hybris.platform.servicelayer.search.SearchResult;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
+import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
@@ -35,6 +43,11 @@ import org.springframework.stereotype.Repository;
 public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao
 {
 
+	private static final Logger LOG = Logger.getLogger(FlexibleSearchScriptExecutionDao.class);
+
+	@Autowired
+	FlexibleSearchService flexibleSearchService;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -44,7 +57,32 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao
 	@Override
 	public List<ScriptExecutionModel> getSuccessfullyExecutedScripts(final String extensionName)
 	{
-		// YTODO Auto-generated method stub
-		return new ArrayList<ScriptExecutionModel>();
+		if (LOG.isDebugEnabled())
+		{
+			LOG.debug("Getting the executed scripts of the extension " + extensionName);
+		}
+		final StringBuilder queryBuilder = new StringBuilder();
+
+		queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {")
+				.append(ScriptExecutionModel._TYPECODE).append(" as es ").append("JOIN ")
+				.append(ScriptExecutionResultModel._TYPECODE).append(" as r ").append("ON {es.").append(ScriptExecutionModel.RESULT)
+				.append("} = {r.").append(ScriptExecutionResultModel.PK).append("} AND {r.")
+				.append(ScriptExecutionResultModel.CANBERUNNEDAGAIN).append("} = ?")
+				.append(ScriptExecutionResultModel.CANBERUNNEDAGAIN).append(" } ").append("WHERE ").append(" {es.")
+				.append(ScriptExecutionModel.EXTENSIONNAME).append("} = ?").append(ScriptExecutionModel.EXTENSIONNAME);
+
+		final Map<String, Object> queryParams = new HashMap<String, Object>();
+		queryParams.put(ScriptExecutionResultModel.CANBERUNNEDAGAIN, Boolean.FALSE);
+		queryParams.put(ScriptExecutionModel.EXTENSIONNAME, extensionName);
+
+		if (LOG.isTraceEnabled())
+		{
+			LOG.trace("Executing the query: '" + queryBuilder.toString() + "' with the parameters " + queryParams);
+		}
+
+		final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
+
+		final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
+		return result.getResult();
 	}
 }

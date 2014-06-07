@@ -17,6 +17,9 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.bootstrap.config.ConfigUtil;
 import de.hybris.bootstrap.config.ExtensionInfo;
+import de.hybris.platform.core.initialization.SystemSetup;
+import de.hybris.platform.core.initialization.SystemSetup.Process;
+import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import de.hybris.platform.util.Config;
 
@@ -31,6 +34,7 @@ import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
+import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -56,17 +60,20 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 	@Autowired
 	private ScriptExecutionDao scriptExecutionDao;
 
+	@Autowired
+	private ModelService modelService;
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder#getPendingScripts(java.lang.String)
 	 */
 	@Override
-	public List<DeploymentScript> getPendingScripts(final String extensionName)
+	public List<DeploymentScript> getPendingScripts(final String extensionName, final Process process)
 	{
 		ServicesUtil.validateParameterNotNullStandardMessage(extensionName, extensionName);
 		final List<File> pendingScriptsFolders = getScriptsToBeRun(extensionName);
-		return getDeploymentScripts(pendingScriptsFolders, extensionName);
+		return getDeploymentScripts(pendingScriptsFolders, extensionName, process);
 	}
 
 	private List<File> getScriptsToBeRun(final String extensionName)
@@ -95,10 +102,6 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 		return alreadyExecutedScripts;
 	}
 
-	/**
-	 * @param extensionName
-	 * @return
-	 */
 	private File[] getExistingScripts(final String extensionName)
 	{
 		final ExtensionInfo extension = ConfigUtil.getPlatformConfig(ArecoDeploymentScriptFinder.class).getExtensionInfo(
@@ -132,13 +135,14 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 	 *           Required
 	 * @return Never null
 	 */
-	private List<DeploymentScript> getDeploymentScripts(final List<File> pendingScriptsFolders, final String extensionName)
+	private List<DeploymentScript> getDeploymentScripts(final List<File> pendingScriptsFolders, final String extensionName,
+			final Process process)
 	{
 		final List<DeploymentScript> newDeploymentScripts = new ArrayList<DeploymentScript>();
 
 		for (final File pendingScriptsFolder : pendingScriptsFolders)
 		{
-			final DeploymentScript newScript = createDeploymentScript(pendingScriptsFolder, extensionName);
+			final DeploymentScript newScript = createDeploymentScript(pendingScriptsFolder, extensionName, process);
 			if (newScript != null)
 			{
 				newDeploymentScripts.add(newScript);
@@ -147,7 +151,8 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 		return newDeploymentScripts;
 	}
 
-	private DeploymentScript createDeploymentScript(final File pendingScriptsFolder, final String extensionName)
+	private DeploymentScript createDeploymentScript(final File pendingScriptsFolder, final String extensionName,
+			final Process process)
 	{
 		final List<DeploymentScriptStep> orderedSteps = createOrderedSteps(pendingScriptsFolder);
 
@@ -159,6 +164,14 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 		newScript.setName(pendingScriptsFolder.getName());
 		newScript.setExtensionName(extensionName);
 		newScript.setOrderedSteps(orderedSteps);
+		if (SystemSetup.Process.UPDATE.equals(process))
+		{
+			newScript.setPhase(SystemPhase.UPDATE);
+		}
+		else
+		{
+			newScript.setPhase(SystemPhase.INITIALIZATION);
+		}
 		return newScript;
 	}
 
@@ -177,7 +190,9 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 
 		for (final File impexFile : impexFiles)
 		{
-			steps.add(new ImpexImportStep(impexFile));
+			//TODO Find a better way to inject the model service or to create
+			//the steps
+			steps.add(new ImpexImportStep(impexFile, this.modelService));
 		}
 		return steps;
 	}

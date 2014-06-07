@@ -60,7 +60,8 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService
 	{
 		ServicesUtil.validateParameterNotNullStandardMessage("context", context);
 		context.getJspContext().println("Running update scripts of the extension " + context.getExtensionName());
-		final List<DeploymentScript> scriptsToBeRun = this.finder.getPendingScripts(context.getExtensionName());
+		final List<DeploymentScript> scriptsToBeRun = this.finder.getPendingScripts(context.getExtensionName(),
+				context.getProcess());
 		if (scriptsToBeRun.isEmpty())
 		{
 			if (LOG.isDebugEnabled())

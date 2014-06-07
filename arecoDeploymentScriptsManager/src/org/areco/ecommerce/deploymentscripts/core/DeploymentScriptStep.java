@@ -32,6 +32,8 @@ public interface DeploymentScriptStep
 
 	/**
 	 * Does the actual job.
+	 * 
+	 * @throws DeploymentScriptExecutionException
 	 */
-	void run();
+	void run() throws DeploymentScriptExecutionException;
 }

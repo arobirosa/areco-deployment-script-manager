@@ -15,29 +15,29 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
-import de.hybris.platform.core.initialization.SystemSetup.Process;
-
-import java.util.List;
+import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 
 
 /**
- * It looks for the deployment scripts.
+ * It manages the script execution result instances which aren't a Hybris Enumeration because their have behavior.
  * 
  * @author arobirosa
  * 
  */
-public interface DeploymentScriptFinder
+public interface ScriptExecutionResultDAO
 {
 
 	/**
-	 * Returns the list of deployment scripts located in the extension which must be run.
+	 * Returns the instance which represents an error.
 	 * 
-	 * @param extensionName
-	 *           Required
-	 * @param process
-	 *           Required
-	 * @return Never null
+	 * @return ScriptExecutionResultModel Never null.
 	 */
-	List<DeploymentScript> getPendingScripts(String extensionName, Process process);
+	ScriptExecutionResultModel getErrorResult();
 
+	/**
+	 * Returns the instance which represents an error.
+	 * 
+	 * @return ScriptExecutionResultModel Never null.
+	 */
+	ScriptExecutionResultModel getSuccessResult();
 }

@@ -18,6 +18,9 @@ package org.areco.ecommerce.deploymentscripts.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
+
 
 /**
  * @author arobirosa
@@ -25,11 +28,40 @@ import java.util.List;
  */
 public class DeploymentScript
 {
+	private static final Logger LOG = Logger.getLogger(DeploymentScript.class);
+
 	private String name;
 
 	private String extensionName;
 
 	private List<DeploymentScriptStep> orderedSteps;
+
+	private SystemPhase phase;
+
+	/**
+	 * Does the actual job.
+	 * 
+	 * @throws DeploymentScriptExecutionException
+	 */
+	public void run() throws DeploymentScriptExecutionException
+	{
+		if (LOG.isDebugEnabled())
+		{
+			LOG.debug("Running " + this.getLongName() + " - Start");
+		}
+		if (this.getOrderedSteps() == null)
+		{
+			throw new IllegalStateException("The ordered steps of the deployment script " + this.getName() + " are null.");
+		}
+		for (final DeploymentScriptStep aStep : this.getOrderedSteps())
+		{
+			aStep.run();
+		}
+		if (LOG.isDebugEnabled())
+		{
+			LOG.debug("Running " + this.getLongName() + " - Ended successfully");
+		}
+	}
 
 	/**
 	 * @return the name
@@ -37,6 +69,11 @@ public class DeploymentScript
 	public String getName()
 	{
 		return name;
+	}
+
+	public String getLongName()
+	{
+		return this.getExtensionName() + ':' + this.getName();
 	}
 
 	/**
@@ -162,8 +199,27 @@ public class DeploymentScript
 		builder.append(extensionName);
 		builder.append(", orderedSteps=");
 		builder.append(orderedSteps);
+		builder.append(", phase=");
+		builder.append(phase);
 		builder.append("]");
 		return builder.toString();
+	}
+
+	/**
+	 * @return the phase
+	 */
+	public SystemPhase getPhase()
+	{
+		return phase;
+	}
+
+	/**
+	 * @param phase
+	 *           the phase to set
+	 */
+	public void setPhase(final SystemPhase phase)
+	{
+		this.phase = phase;
 	}
 
 
