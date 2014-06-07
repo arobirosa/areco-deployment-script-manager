@@ -40,4 +40,16 @@ public interface ScriptExecutionResultDAO
 	 * @return ScriptExecutionResultModel Never null.
 	 */
 	ScriptExecutionResultModel getSuccessResult();
+
+	/**
+	 * It checks if the results are already in the database.
+	 * 
+	 * @return boolean True if they are
+	 */
+	boolean theInitialResultsWereImported();
+
+	/**
+	 * It loads the internal data. This method may be called many times.
+	 */
+	void initialize();
 }

@@ -54,6 +54,7 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 	FlexibleSearchService flexibleSearchService;
 
 	@PostConstruct
+	@Override
 	public void initialize()
 	{
 		this.resultsByCode = this.getInstances();
@@ -63,6 +64,7 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 	 * This method is used to know if the default configuration of the Areco Deployments Script Manager Extension was
 	 * imported.
 	 */
+	@Override
 	public boolean theInitialResultsWereImported()
 	{
 		return !this.resultsByCode.isEmpty();
@@ -102,6 +104,10 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 
 	private Map<String, ScriptExecutionResultModel> getInstances()
 	{
+		if (LOG.isDebugEnabled())
+		{
+			LOG.debug("Loading the results.");
+		}
 		final Map<String, ScriptExecutionResultModel> instances = new HashMap<String, ScriptExecutionResultModel>();
 
 		final StringBuilder queryBuilder = new StringBuilder();

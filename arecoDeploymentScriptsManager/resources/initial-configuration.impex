@@ -1,0 +1,3 @@
+INSERT_UPDATE ScriptExecutionResult;name[unique=true];canBeRunnedAgain;description[lang=en];description[lang=de];description[lang=es];
+;SUCCESS;false;Success;Erfolgreich;Exitosa
+;ERROR;true;Error;Fehler;Error

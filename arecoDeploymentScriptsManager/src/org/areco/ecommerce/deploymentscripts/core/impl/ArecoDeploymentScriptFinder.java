@@ -19,7 +19,6 @@ import de.hybris.bootstrap.config.ConfigUtil;
 import de.hybris.bootstrap.config.ExtensionInfo;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetup.Process;
-import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import de.hybris.platform.util.Config;
 
@@ -33,6 +32,7 @@ import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
+import org.areco.ecommerce.deploymentscripts.core.ImpexImportService;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
@@ -61,7 +61,7 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 	private ScriptExecutionDao scriptExecutionDao;
 
 	@Autowired
-	private ModelService modelService;
+	private ImpexImportService impexImportService;
 
 	/*
 	 * (non-Javadoc)
@@ -190,9 +190,9 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 
 		for (final File impexFile : impexFiles)
 		{
-			//TODO Find a better way to inject the model service or to create
+			//TODO Find a better way to inject the service or to create
 			//the steps
-			steps.add(new ImpexImportStep(impexFile, this.modelService));
+			steps.add(new ImpexImportStep(impexFile, this.impexImportService));
 		}
 		return steps;
 	}
