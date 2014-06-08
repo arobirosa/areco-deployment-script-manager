@@ -20,23 +20,9 @@
                managername="ArecoDeploymentScriptsExamplesManager"
                managersuperclass="de.hybris.platform.jalo.extension.Extension"
       >
-               
-      <!-- you should add all required extensions to this list, except platform extensions which are automatically required -->         
-      <!-- <requires-extension name="cms"/> -->         
-      
-
       <coremodule	packageroot="org.areco.ecommerce.deploymentscripts.examples"
 					manager="org.areco.ecommerce.deploymentscripts.examples.jalo.ArecoDeploymentScriptsExamplesManager"
 					generated="true" 
 					/>
-
-      <webmodule	jspcompile="false" 
-					webroot="/arecoDeploymentScriptsExamples"
-					/>
-
-      <hmcmodule	extensionclassname="org.areco.ecommerce.deploymentscripts.examples.hmc.ArecoDeploymentScriptsExamplesHMCExtension"
-					/>
-
    </extension>
-      
 </extensioninfo>
