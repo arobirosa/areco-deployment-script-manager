@@ -28,6 +28,7 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -90,8 +91,30 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 				pendingScriptsFolders.add(foundScriptFolder);
 			}
 		}
-		Collections.sort(pendingScriptsFolders);
+		sortFilesCaseInsensitive(pendingScriptsFolders);
 		return pendingScriptsFolders;
+	}
+
+	/**
+	 * It sorts the given collection ignoring the case of the filenames. This results in the same order of the files in
+	 * Windows and Unix-like systems.
+	 * 
+	 * All the files MUST be in the same directory because the path isn't compared.
+	 * 
+	 * @param files
+	 *           Required
+	 */
+	private void sortFilesCaseInsensitive(final List<File> files)
+	{
+		Collections.sort(files, new Comparator<File>()
+		{
+
+			@Override
+			public int compare(final File f1, final File f2)
+			{
+				return f1.getName().toLowerCase().compareTo(f2.getName().toLowerCase());
+			}
+		});
 	}
 
 	private List<String> getAlreadyExecutedScripts(final String extensionName)
@@ -196,7 +219,7 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 			}
 		});
 		final List<File> sortedImpexFiles = Arrays.asList(impexFiles);
-		Collections.sort(sortedImpexFiles);
+		sortFilesCaseInsensitive(sortedImpexFiles);
 
 		for (final File impexFile : sortedImpexFiles)
 		{
