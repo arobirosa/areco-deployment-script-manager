@@ -167,13 +167,18 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 		newScript.setName(pendingScriptsFolder.getName());
 		newScript.setExtensionName(extensionName);
 		newScript.setOrderedSteps(orderedSteps);
-		if (SystemSetup.Process.UPDATE.equals(process))
+		if (LOG.isTraceEnabled())
 		{
-			newScript.setPhase(SystemPhase.UPDATE);
+			LOG.trace("Current Hybris process: " + process);
+		}
+		if (SystemSetup.Process.INIT.equals(process))
+		{
+			newScript.setPhase(SystemPhase.INITIALIZATION);
 		}
 		else
 		{
-			newScript.setPhase(SystemPhase.INITIALIZATION);
+			//In a normal Update Running System, the value of process is ALL.
+			newScript.setPhase(SystemPhase.UPDATE);
 		}
 		return newScript;
 	}
