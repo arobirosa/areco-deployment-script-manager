@@ -26,6 +26,8 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -88,6 +90,7 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 				pendingScriptsFolders.add(foundScriptFolder);
 			}
 		}
+		Collections.sort(pendingScriptsFolders);
 		return pendingScriptsFolders;
 	}
 
@@ -187,8 +190,10 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 				return name.toLowerCase().endsWith(".impex");
 			}
 		});
+		final List<File> sortedImpexFiles = Arrays.asList(impexFiles);
+		Collections.sort(sortedImpexFiles);
 
-		for (final File impexFile : impexFiles)
+		for (final File impexFile : sortedImpexFiles)
 		{
 			//TODO Find a better way to inject the service or to create
 			//the steps

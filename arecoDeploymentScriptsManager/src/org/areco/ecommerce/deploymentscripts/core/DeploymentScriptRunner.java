@@ -32,7 +32,7 @@ public interface DeploymentScriptRunner
 	 * 
 	 * @param scriptsToBeRun
 	 *           Required
-	 * @return boolean True is everything was sucessfull. False if there was an error.
+	 * @return boolean False is everything was successful. True if there was an error.
 	 */
 	boolean run(List<DeploymentScript> scriptsToBeRun);
 

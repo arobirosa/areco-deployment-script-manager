@@ -17,7 +17,6 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.bootstrap.config.ConfigUtil;
 import de.hybris.bootstrap.config.ExtensionInfo;
-import de.hybris.platform.constants.CoreConstants;
 import de.hybris.platform.core.initialization.SystemSetupContext;
 import de.hybris.platform.impex.jalo.ImpExException;
 import de.hybris.platform.servicelayer.exceptions.ConfigurationException;
@@ -30,7 +29,10 @@ import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsMan
 import org.areco.ecommerce.deploymentscripts.core.InitialConfigurationImporter;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
+import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 
 /**
@@ -39,6 +41,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author arobirosa
  * 
  */
+@Scope("tenant")
+@Service
 public class ImpexInitialConfigurationImporter implements InitialConfigurationImporter
 {
 
@@ -54,6 +58,9 @@ public class ImpexInitialConfigurationImporter implements InitialConfigurationIm
 	@Autowired
 	private ImpexImportService impexImportService;
 
+	@Autowired
+	private ExtensionHelper extensionHelper;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -65,13 +72,14 @@ public class ImpexInitialConfigurationImporter implements InitialConfigurationIm
 	public void importConfigurationIfRequired(final SystemSetupContext context)
 	{
 		ServicesUtil.validateParameterNotNullStandardMessage("context", context);
-		if (!isFirstExtension(context))
+		if (!this.extensionHelper.isFirstExtension(context))
 		{
 			if (LOG.isDebugEnabled())
 			{
 				LOG.debug("This is not the first extension. Quitting without checking if the initial "
 						+ " configuration was imported.");
 			}
+			return;
 		}
 		if (this.scriptExecutionResultDAO.theInitialResultsWereImported())
 		{
@@ -109,12 +117,6 @@ public class ImpexInitialConfigurationImporter implements InitialConfigurationIm
 		{
 			LOG.debug("The initial configuration was sucessfully imported.");
 		}
-	}
-
-	private boolean isFirstExtension(final SystemSetupContext context)
-	{
-		//There must be a better way to find out which one is the first extension
-		return CoreConstants.EXTENSIONNAME.equalsIgnoreCase(context.getExtensionName());
 	}
 
 }

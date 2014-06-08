@@ -31,6 +31,7 @@ public interface DeploymentScriptService
 	 * 
 	 * @param context
 	 *           Required
+	 * @return boolean True if there was an error.
 	 */
-	void runUpdateDeploymentScripts(SystemSetupContext context);
+	boolean runUpdateDeploymentScripts(SystemSetupContext context);
 }

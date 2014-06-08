@@ -60,7 +60,7 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService
 	 * .core.initialization.SystemSetupContext)
 	 */
 	@Override
-	public void runUpdateDeploymentScripts(final SystemSetupContext context)
+	public boolean runUpdateDeploymentScripts(final SystemSetupContext context)
 	{
 		ServicesUtil.validateParameterNotNullStandardMessage("context", context);
 		this.initialConfigurationImporter.importConfigurationIfRequired(context);
@@ -73,12 +73,13 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService
 			if (LOG.isDebugEnabled())
 			{
 				LOG.debug("There aren't any pending deployment scripts in the extension " + context.getExtensionName());
-				return;
+				return false;
 			}
 		}
 		context.getJspContext().println("Running update scripts of the extension " + context.getExtensionName());
-		this.runner.run(scriptsToBeRun);
+		final boolean wasThereAnError = this.runner.run(scriptsToBeRun);
 		context.getJspContext().println("Finished running update scripts of the extension " + context.getExtensionName());
+		return wasThereAnError;
 	}
 
 

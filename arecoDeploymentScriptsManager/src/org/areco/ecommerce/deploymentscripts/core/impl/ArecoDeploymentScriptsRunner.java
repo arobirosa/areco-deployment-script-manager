@@ -77,12 +77,12 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner
 				LOG.error("There was an error running " + aScript.getLongName() + ':' + e.getLocalizedMessage(), e);
 				scriptExecution.setResult(this.scriptExecutionResultDao.getErrorResult());
 				modelService.save(scriptExecution);
-				return false;//We stop after the first error.
+				return true;//We stop after the first error.
 			}
 			scriptExecution.setResult(this.scriptExecutionResultDao.getSuccessResult());
 			modelService.save(scriptExecution);
 		}
-		return true; //Everything when successfully
+		return false; //Everything when successfully
 	}
 
 }
