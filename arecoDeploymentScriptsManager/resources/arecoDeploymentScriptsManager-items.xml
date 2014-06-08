@@ -12,13 +12,8 @@
 
   
 -->
-<!--
-	ATTENTION: This is just an example file. You have to edit it according to your needs.
--->
-
 <items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 			xsi:noNamespaceSchemaLocation="items.xsd">
-
 	<enumtypes>
 		<enumtype code="SystemPhase" dynamic="false" >
             <value code="INITIALIZATION" />

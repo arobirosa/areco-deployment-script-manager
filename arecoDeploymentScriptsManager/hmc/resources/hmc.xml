@@ -36,10 +36,10 @@
          <result defaultview="list" mode="replace">
             <listview >
                <itemlayout>
-                  <attribute name="creationtime" width="120"/>
+                  <attribute name="creationtime" width="130"/>
                   <attribute name="extensionName" width="250"/>
                   <attribute name="scriptName" width="300"/>
-                  <attribute name="result" width="100"/>
+                  <attribute name="result" width="80"/>
                   <attribute name="phase" width="100"/>
                </itemlayout>
             </listview>
@@ -74,7 +74,6 @@
             <tab name="common">
                <section name="section.common">
                   <listlayout>
-                    <attribute name="creationtime" editable="false"/>
                     <attribute name="result" editable="false"/>
                     <attribute name="phase" editable="false"/>
                   </listlayout>
@@ -121,7 +120,7 @@
             <essentials>
                <columnlayout>
                   <row>
-                     <attribute name="name" />
+                     <attribute name="name" editable="false"/>
                      <attribute name="description"/>
                   </row>
                </columnlayout>
@@ -129,7 +128,7 @@
             <tab name="common">
                <section name="section.common">
                   <listlayout>
-                    <attribute name="canBeRunAgain"/>
+                    <attribute name="canBeRunnedAgain" editable="false"/>
                   </listlayout>
                </section>
             </tab>
