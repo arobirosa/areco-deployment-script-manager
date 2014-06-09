@@ -24,7 +24,6 @@ import de.hybris.platform.util.Config;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -65,6 +64,9 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 
 	@Autowired
 	private ImpexImportService impexImportService;
+
+	@Autowired
+	private ImpexDeploymentScriptStepFactory impexStepFactory;
 
 	/*
 	 * (non-Javadoc)
@@ -209,23 +211,23 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 	private List<DeploymentScriptStep> createOrderedSteps(final File scriptFolder)
 	{
 		final List<DeploymentScriptStep> steps = new ArrayList<DeploymentScriptStep>();
-
-		final File[] impexFiles = scriptFolder.listFiles(new FilenameFilter()
+		final List<File> sortedFiles = Arrays.asList(scriptFolder.listFiles(new FileFilter()
 		{
 			@Override
-			public boolean accept(final File dir, final String name)
+			public boolean accept(final File pathname)
 			{
-				return name.toLowerCase().endsWith(".impex");
+				return pathname.isFile();
 			}
-		});
-		final List<File> sortedImpexFiles = Arrays.asList(impexFiles);
-		sortFilesCaseInsensitive(sortedImpexFiles);
+		}));
 
-		for (final File impexFile : sortedImpexFiles)
+		sortFilesCaseInsensitive(sortedFiles);
+		for (final File impexFile : sortedFiles)
 		{
-			//TODO Find a better way to inject the service or to create
-			//the steps
-			steps.add(new ImpexImportStep(impexFile, this.impexImportService));
+			final DeploymentScriptStep newStep = this.impexStepFactory.create(impexFile);
+			if (newStep != null)
+			{
+				steps.add(newStep);
+			}
 		}
 		return steps;
 	}

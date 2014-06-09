@@ -16,7 +16,6 @@
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.platform.impex.jalo.ImpExException;
-import de.hybris.platform.servicelayer.util.ServicesUtil;
 
 import java.io.File;
 
@@ -24,6 +23,9 @@ import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -32,20 +34,17 @@ import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
  * @author arobirosa
  * 
  */
+@Component
+//Every time the step factory is called, it creates a new instance.
+@Scope("prototype")
 public class ImpexImportStep implements DeploymentScriptStep
 {
 	private static final Logger LOG = Logger.getLogger(ImpexImportStep.class);
 
-	private final File impexFile;
+	@Autowired
+	private ImpexImportService impexImportService;
 
-	private final ImpexImportService impexImportService;
-
-	public ImpexImportStep(final File impexFile, final ImpexImportService impexImportService)
-	{
-		ServicesUtil.validateParameterNotNullStandardMessage("impexFile", impexFile);
-		this.impexFile = impexFile;
-		this.impexImportService = impexImportService; //TODO This service must be injected by Spring.
-	}
+	private File impexFile;
 
 	/*
 	 * (non-Javadoc)
@@ -55,7 +54,11 @@ public class ImpexImportStep implements DeploymentScriptStep
 	@Override
 	public String getId()
 	{
-		return this.impexFile.getName();
+		if (this.getImpexFile() == null)
+		{
+			return null;
+		}
+		return this.getImpexFile().getName();
 	}
 
 	/*
@@ -72,7 +75,7 @@ public class ImpexImportStep implements DeploymentScriptStep
 		}
 		try
 		{
-			this.impexImportService.importImpexFile(this.impexFile);
+			this.impexImportService.importImpexFile(this.getImpexFile());
 		}
 		catch (final ImpExException cause)
 		{
@@ -90,12 +93,21 @@ public class ImpexImportStep implements DeploymentScriptStep
 	{
 		final StringBuilder builder = new StringBuilder();
 		builder.append("ImpexImportStep [impexFile=");
-		builder.append(impexFile);
+		builder.append(this.getImpexFile());
 		builder.append(", getId()=");
 		builder.append(getId());
 		builder.append("]");
 		return builder.toString();
 	}
 
+	private File getImpexFile()
+	{
+		return impexFile;
+	}
+
+	public void setImpexFile(final File impexFile)
+	{
+		this.impexFile = impexFile;
+	}
 
 }
