@@ -24,8 +24,8 @@
 
     <context:component-scan base-package="org.areco.ecommerce.deploymentscripts" />
 			
-    <bean id="impexDeploymentScriptStepFactory"
-        class="org.areco.ecommerce.deploymentscripts.core.impl.ImpexDeploymentScriptStepFactory"
+    <bean id="impexImportStepFactory"
+        class="org.areco.ecommerce.deploymentscripts.core.impl.ImpexImportStepFactory"
         scope="tenant">
         <lookup-method name="createStep" bean="impexImportStep"/>
     </bean>

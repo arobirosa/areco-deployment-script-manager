@@ -34,6 +34,7 @@ import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStepFactory;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
@@ -66,7 +67,7 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 	private ImpexImportService impexImportService;
 
 	@Autowired
-	private ImpexDeploymentScriptStepFactory impexStepFactory;
+	private List<DeploymentScriptStepFactory> stepFactories;
 
 	/*
 	 * (non-Javadoc)
@@ -223,11 +224,16 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 		sortFilesCaseInsensitive(sortedFiles);
 		for (final File impexFile : sortedFiles)
 		{
-			final DeploymentScriptStep newStep = this.impexStepFactory.create(impexFile);
-			if (newStep != null)
+			for (final DeploymentScriptStepFactory aStepFactory : this.stepFactories)
 			{
-				steps.add(newStep);
+				final DeploymentScriptStep newStep = aStepFactory.create(impexFile);
+				if (newStep != null)
+				{
+					steps.add(newStep);
+					break; //After the a step is created for a file, we ignore the next factories.
+				}
 			}
+
 		}
 		return steps;
 	}

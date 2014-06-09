@@ -20,6 +20,7 @@ import de.hybris.platform.servicelayer.util.ServicesUtil;
 import java.io.File;
 
 import org.apache.log4j.Logger;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStepFactory;
 
 
 /**
@@ -29,10 +30,14 @@ import org.apache.log4j.Logger;
  * 
  */
 //The configuration of this bean is in the spring application context.
-public abstract class ImpexDeploymentScriptStepFactory
+public abstract class ImpexImportStepFactory implements DeploymentScriptStepFactory
 {
-	private static final Logger LOG = Logger.getLogger(ImpexDeploymentScriptStepFactory.class);
+	private static final Logger LOG = Logger.getLogger(ImpexImportStepFactory.class);
 
+	/* (non-Javadoc)
+	 * @see org.areco.ecommerce.deploymentscripts.core.impl.DeploymentScriptStepFactory#create(java.io.File)
+	 */
+	@Override
 	public ImpexImportStep create(final File aFile)
 	{
 		if (LOG.isDebugEnabled())
