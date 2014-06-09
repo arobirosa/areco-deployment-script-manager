@@ -62,11 +62,5 @@
 	            </essentials>
 	         </editor>
 	      </organizer>
-	      <defaultreference searchattribute="priceDate" mode="replace"
-	            sortattribute="priceDate">
-	         <itemlayout>
-	            <attribute name="priceDate"/>
-	         </itemlayout>
-	      </defaultreference>
 	   </type>
 </configuration>

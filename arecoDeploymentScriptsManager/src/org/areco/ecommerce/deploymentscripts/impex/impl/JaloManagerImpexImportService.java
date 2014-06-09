@@ -29,6 +29,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import org.apache.log4j.Logger;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -48,11 +49,6 @@ public class JaloManagerImpexImportService implements ImpexImportService
 {
 
 	private static final Logger LOG = Logger.getLogger(JaloManagerImpexImportService.class);
-
-	/**
-	 * This is the encoding used by the impex scripts.
-	 */
-	private static final String DEFAULT_IMPEX_ENCODING = "UTF-8";
 
 	@Autowired
 	ModelService modelService;
@@ -82,8 +78,8 @@ public class JaloManagerImpexImportService implements ImpexImportService
 	private void importImpexFile(final InputStream inputStream) throws ImpExException
 	{
 		//There must be a service for the impex scripts but I couldn't find it.
-		final ImpExImportCronJob resultCronJob = ImpExManager.getInstance()
-				.importData(inputStream, DEFAULT_IMPEX_ENCODING, true /* We allow code execution */);
+		final ImpExImportCronJob resultCronJob = ImpExManager.getInstance().importData(inputStream,
+				DeploymentScript.DEFAULT_FILE_ENCODING, true /* We allow code execution */);
 		if (resultCronJob == null)
 		{
 			return; //Everything went ok.

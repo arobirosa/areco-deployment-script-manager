@@ -29,4 +29,10 @@
         scope="tenant">
         <lookup-method name="createStep" bean="impexImportStep"/>
     </bean>
+    
+       <bean id="sqlScriptStepFactory"
+        class="org.areco.ecommerce.deploymentscripts.sql.SqlScriptStepFactory"
+        scope="tenant">
+        <lookup-method name="createStep" bean="sqlScriptStep"/>
+    </bean>
 </beans>
