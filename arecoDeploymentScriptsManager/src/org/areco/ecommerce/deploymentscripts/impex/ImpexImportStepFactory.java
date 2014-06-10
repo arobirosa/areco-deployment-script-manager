@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.areco.ecommerce.deploymentscripts.sql;
+package org.areco.ecommerce.deploymentscripts.impex;
 
 import java.io.File;
 
@@ -21,17 +21,18 @@ import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptS
 
 
 /**
- * Creates a new sql step if the given file is a sql7 script.
+ * Creates a new impexDeploymentScriptStep if the given file is a impex script.
  * 
  * @author arobirosa
  * 
  */
 //The configuration of this bean is in the spring application context.
-public abstract class SqlScriptStepFactory extends AbstractSingleFileScriptStepFactory
+public abstract class ImpexImportStepFactory extends AbstractSingleFileScriptStepFactory
 {
 	@Override
 	protected boolean canCreateStepWith(final File aFile)
 	{
-		return aFile.getName().toLowerCase().endsWith(".sql");
+		return aFile.getName().toLowerCase().endsWith(".impex");
 	}
+
 }

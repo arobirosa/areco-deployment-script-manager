@@ -15,7 +15,6 @@
  */
 package org.areco.ecommerce.deploymentscripts.sql;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -23,7 +22,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
+import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -38,29 +37,12 @@ import org.springframework.stereotype.Component;
 @Component
 //Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
-public class SqlScriptStep implements DeploymentScriptStep
+public class SqlScriptStep extends AbstractSingleFileScriptStep
 {
 	private static final Logger LOG = Logger.getLogger(SqlScriptStep.class);
 
 	@Autowired
 	private SqlScriptService sqlScriptService;
-
-	private File sqlScript;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep#getId()
-	 */
-	@Override
-	public String getId()
-	{
-		if (this.sqlScript == null)
-		{
-			return null;
-		}
-		return this.sqlScript.getName();
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -74,10 +56,6 @@ public class SqlScriptStep implements DeploymentScriptStep
 		executeStatement(sqlStatement);
 	}
 
-	/**
-	 * @param sqlStatement
-	 * @throws DeploymentScriptExecutionException
-	 */
 	private void executeStatement(final String sqlStatement) throws DeploymentScriptExecutionException
 	{
 		if (LOG.isDebugEnabled())
@@ -105,7 +83,7 @@ public class SqlScriptStep implements DeploymentScriptStep
 		String sqlStatement;
 		try
 		{
-			sqlStatement = FileUtils.readFileToString(this.sqlScript, DeploymentScript.DEFAULT_FILE_ENCODING);
+			sqlStatement = FileUtils.readFileToString(this.getScriptFile(), DeploymentScript.DEFAULT_FILE_ENCODING);
 		}
 		catch (final IOException e)
 		{
@@ -113,87 +91,6 @@ public class SqlScriptStep implements DeploymentScriptStep
 					+ this.getId() + ':' + e.getLocalizedMessage(), e);
 		}
 		return sqlStatement;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString()
-	{
-		final StringBuilder builder = new StringBuilder();
-		builder.append("SqlScriptStep [sqlScript=");
-		builder.append(sqlScript);
-		builder.append("]");
-		return builder.toString();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode()
-	{
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((this.getId() == null) ? 0 : this.getId().hashCode());
-		return result;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(final Object obj)
-	{
-		if (this == obj)
-		{
-			return true;
-		}
-		if (obj == null)
-		{
-			return false;
-		}
-		if (getClass() != obj.getClass())
-		{
-			return false;
-		}
-		final SqlScriptStep other = (SqlScriptStep) obj;
-		if (this.getId() == null)
-		{
-			if (other.getId() != null)
-			{
-				return false;
-			}
-		}
-		else if (!this.getId().equals(other.getId()))
-		{
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * @return the sqlScript
-	 */
-	public File getSqlScript()
-	{
-		return sqlScript;
-	}
-
-	/**
-	 * @param sqlScript
-	 *           the sqlScript to set
-	 */
-	public void setSqlScript(final File sqlScript)
-	{
-		this.sqlScript = sqlScript;
 	}
 
 }

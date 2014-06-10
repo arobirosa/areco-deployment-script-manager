@@ -24,31 +24,32 @@ import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStepFactory;
 
 
 /**
- * Creates a new impexDeploymentScriptStep if the given file is a impex script.
+ * Its subclasses create the step which only require one single file.
  * 
  * @author arobirosa
  * 
  */
-//The configuration of this bean is in the spring application context.
-public abstract class ImpexImportStepFactory implements DeploymentScriptStepFactory
+public abstract class AbstractSingleFileScriptStepFactory implements DeploymentScriptStepFactory
 {
-	private static final Logger LOG = Logger.getLogger(ImpexImportStepFactory.class);
+	private static final Logger LOG = Logger.getLogger(AbstractSingleFileScriptStepFactory.class);
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.areco.ecommerce.deploymentscripts.core.impl.DeploymentScriptStepFactory#create(java.io.File)
 	 */
 	@Override
-	public ImpexImportStep create(final File aFile)
+	public AbstractSingleFileScriptStep create(final File aFile)
 	{
 		if (LOG.isDebugEnabled())
 		{
-			LOG.debug("Trying to create a impex import step from the file " + aFile);
+			LOG.debug("Trying to create a single file script step from the file " + aFile);
 		}
 		ServicesUtil.validateParameterNotNullStandardMessage("aFile", aFile);
-		if (aFile.getName().toLowerCase().endsWith(".impex"))
+		if (canCreateStepWith(aFile))
 		{
-			final ImpexImportStep aStep = this.createStep();
-			aStep.setImpexFile(aFile);
+			final AbstractSingleFileScriptStep aStep = this.createStep();
+			aStep.setScriptFile(aFile);
 			if (LOG.isDebugEnabled())
 			{
 				LOG.debug("Created step: " + aStep);
@@ -61,5 +62,8 @@ public abstract class ImpexImportStepFactory implements DeploymentScriptStepFact
 		}
 	}
 
-	protected abstract ImpexImportStep createStep();
+	protected abstract boolean canCreateStepWith(final File aFile);
+
+	//Used by Spring to create new instances.
+	protected abstract AbstractSingleFileScriptStep createStep();
 }
