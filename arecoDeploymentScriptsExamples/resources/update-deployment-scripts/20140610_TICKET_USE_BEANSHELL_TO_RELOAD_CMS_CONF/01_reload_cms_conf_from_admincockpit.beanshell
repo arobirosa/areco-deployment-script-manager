@@ -1,15 +1,11 @@
-import de.hybris.platform.core.initialization.SystemSetupContext;
-import de.hybris.platform.cockpit.systemsetup.CockpitImportConfig;
 import de.hybris.platform.core.Registry;
 import java.io.PrintStream;
+import org.areco.ecommerce.deploymentscripts.beanshell.util.CockpitConfigurationReloader;
 final String extensionName = "admincockpit";
  
 try {
-//We use the context to store the name of the extension.
-SystemSetupContext context = new SystemSetupContext(null, null, null, extensionName);
-//We get the bean from the application context to have it autowired.
-CockpitImportConfig importer = (CockpitImportConfig) Registry.getApplicationContext().getBean("cockpitImportConfig");
-importer.importCockpitConfig(context);
+  CockpitConfigurationReloader reloader = (CockpitConfigurationReloader) Registry.getApplicationContext().getBean("cockpitConfigurationReloader");
+  reloader.reloadCockpitConfiguration(extensionName);
 } catch (Exception e) {
   System.err.println("There was an error:");
   e.printStackTrace(System.err);
