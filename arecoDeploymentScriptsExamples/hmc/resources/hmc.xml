@@ -19,12 +19,48 @@
 
 	<!-- Configuration for extension arecoDeploymentScriptsExamples -->
 
-<!--
-	<explorertree>
-		<group name="arecoDeploymentScriptsExamplesgroup">
-			<externalnode classname="org.areco.ecommerce.deploymentscripts.examples.hmc.ArecoDeploymentScriptsExamplesTreeLeafChip"/>		
-		</group>
-	</explorertree>
--->
-
+    <explorertree>
+        <group name="arecoDeploymentScriptsManagergroup">
+            <typeref type="ArecoHistoricalPriceExample"></typeref>
+        </group>
+    </explorertree>
+	
+	<type name="ArecoHistoricalPriceExample" mode="append">
+	      <organizer>
+	         <search autoperform="false" mode="replace">
+	            <condition attribute="priceDate" />
+	            <condition attribute="pricePerUnit" />
+	         </search>
+	         <result defaultview="list" mode="replace">
+	            <listview >
+	               <itemlayout>
+	                  <attribute name="priceDate"/>
+	                  <attribute name="pricePerUnit"/>
+	               </itemlayout>
+	            </listview>
+	            <editview  mode="replace">
+	               <itemlayout>
+	                 <attribute name="priceDate"/>
+	                 <attribute name="pricePerUnit"/>
+	               </itemlayout>
+	            </editview>
+	            <treeview  mode="replace">
+	               <itemlayout>
+	                  <attribute name="priceDate"/>
+	                  <attribute name="pricePerUnit"/>
+	               </itemlayout>
+	            </treeview>
+	         </result>
+	         <editor>
+	            <essentials>
+	               <columnlayout>
+	                  <row>
+	                     <attribute name="priceDate" />
+	                     <attribute name="pricePerUnit"/>
+	                  </row>
+	               </columnlayout>
+	            </essentials>
+	         </editor>
+	      </organizer>
+	   </type>
 </configuration>

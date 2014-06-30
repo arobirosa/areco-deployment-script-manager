@@ -30,6 +30,11 @@ public class DeploymentScript
 {
 	private static final Logger LOG = Logger.getLogger(DeploymentScript.class);
 
+	/**
+	 * This is the encoding used by the scripts.
+	 */
+	public static final String DEFAULT_FILE_ENCODING = "UTF-8";
+
 	private String name;
 
 	private String extensionName;

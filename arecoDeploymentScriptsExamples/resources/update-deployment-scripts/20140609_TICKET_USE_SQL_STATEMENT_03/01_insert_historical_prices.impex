@@ -1,0 +1,4 @@
+INSERT_UPDATE ArecoHistoricalPriceExample;priceDate[unique=true,dateformat=dd.MM.yyyy];pricePerUnit
+;01.06.2014;1,034
+;02.06.2014;1,032
+;03.06.2014;1,031

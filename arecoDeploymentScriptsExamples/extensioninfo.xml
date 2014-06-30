@@ -24,5 +24,8 @@
 					manager="org.areco.ecommerce.deploymentscripts.examples.jalo.ArecoDeploymentScriptsExamplesManager"
 					generated="true" 
 					/>
+      
+      <hmcmodule    extensionclassname="org.areco.ecommerce.deploymentscripts.examples.hmc.ArecoDeploymentScriptsExamplesHMCExtension"
+                    />
    </extension>
 </extensioninfo>

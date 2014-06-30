@@ -20,6 +20,7 @@
                managername="ArecoDeploymentScriptsManagerManager"
                managersuperclass="de.hybris.platform.jalo.extension.Extension"
                >
+
       <coremodule	packageroot="org.areco.ecommerce.deploymentscripts"
 					manager="org.areco.ecommerce.deploymentscripts.jalo.ArecoDeploymentScriptsManagerManager"
 					generated="true" 
