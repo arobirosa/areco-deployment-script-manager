@@ -18,7 +18,11 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 
 
 import java.io.File;
+import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
 
 
@@ -41,6 +45,21 @@ public abstract class AbstractSingleFileScriptStep implements DeploymentScriptSt
 			return null;
 		}
 		return this.scriptFile.getName();
+	}
+
+	protected String loadFileContent() throws DeploymentScriptExecutionException
+	{
+		String sqlStatement;
+		try
+		{
+			sqlStatement = FileUtils.readFileToString(this.getScriptFile(), DeploymentScript.DEFAULT_FILE_ENCODING);
+		}
+		catch (final IOException e)
+		{
+			throw new DeploymentScriptExecutionException("There was an error while reading the contents of the SQL Script "
+					+ this.getId() + ':' + e.getLocalizedMessage(), e);
+		}
+		return sqlStatement;
 	}
 
 	public File getScriptFile()

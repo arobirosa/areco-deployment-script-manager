@@ -30,9 +30,15 @@
         <lookup-method name="createStep" bean="impexImportStep"/>
     </bean>
     
-       <bean id="sqlScriptStepFactory"
+    <bean id="sqlScriptStepFactory"
         class="org.areco.ecommerce.deploymentscripts.sql.SqlScriptStepFactory"
         scope="tenant">
         <lookup-method name="createStep" bean="sqlScriptStep"/>
+    </bean>
+    
+    <bean id="beanShellScriptStepFactory"
+        class="org.areco.ecommerce.deploymentscripts.beanshell.BeanShellScriptStepFactory"
+        scope="tenant">
+        <lookup-method name="createStep" bean="beanShellScriptStep"/>
     </bean>
 </beans>
