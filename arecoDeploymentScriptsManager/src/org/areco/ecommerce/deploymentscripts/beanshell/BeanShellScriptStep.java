@@ -13,9 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.areco.ecommerce.deploymentscripts.sql;
-
-import java.sql.SQLException;
+package org.areco.ecommerce.deploymentscripts.beanshell;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
@@ -26,7 +24,7 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * Represents an SQL script.
+ * It represents a bean shell script.
  * 
  * @author arobirosa
  * 
@@ -34,12 +32,13 @@ import org.springframework.stereotype.Component;
 @Component
 //Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
-public class SqlScriptStep extends AbstractSingleFileScriptStep
+public class BeanShellScriptStep extends AbstractSingleFileScriptStep
 {
-	private static final Logger LOG = Logger.getLogger(SqlScriptStep.class);
+
+	private static final Logger LOG = Logger.getLogger(BeanShellScriptStep.class);
 
 	@Autowired
-	private SqlScriptService sqlScriptService;
+	private BeanShellService beanShellService;
 
 	/*
 	 * (non-Javadoc)
@@ -49,29 +48,18 @@ public class SqlScriptStep extends AbstractSingleFileScriptStep
 	@Override
 	public void run() throws DeploymentScriptExecutionException
 	{
-		final String sqlStatement = loadFileContent();
-		executeStatement(sqlStatement);
-	}
-
-	private void executeStatement(final String sqlStatement) throws DeploymentScriptExecutionException
-	{
 		if (LOG.isDebugEnabled())
 		{
-			LOG.debug("Running the SQL Statement: '" + sqlStatement + "'.");
+			LOG.debug("Running the beanShell script " + this.getId());
 		}
-		int rows = -1;
 		try
 		{
-			rows = this.sqlScriptService.runDeleteOrUpdateStatement(sqlStatement);
+			this.beanShellService.executeScript(this.loadFileContent());
 		}
-		catch (final SQLException e)
+		catch (final BeanShellExecutionException e)
 		{
-			throw new DeploymentScriptExecutionException("There was an error while running the SQL Script " + this.getId() + ':'
+			throw new DeploymentScriptExecutionException("There was an error running the beanshell step " + this.getId() + ": "
 					+ e.getLocalizedMessage(), e);
-		}
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("The SQL Script was executed successfully. " + rows + " rows were affected.");
 		}
 	}
 

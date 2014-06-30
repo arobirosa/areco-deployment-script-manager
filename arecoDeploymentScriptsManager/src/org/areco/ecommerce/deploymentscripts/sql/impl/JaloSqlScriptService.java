@@ -50,19 +50,19 @@ public class JaloSqlScriptService implements SqlScriptService
 	public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException
 	{
 		int affectedRows = -1;
-		Connection con = null;
+		Connection aConnection = null;
 		try
 		{
-			con = getConnection();
-			affectedRows = con.prepareStatement(aStatement).executeUpdate();
+			aConnection = getConnection();
+			affectedRows = aConnection.prepareStatement(aStatement).executeUpdate();
 		}
 		finally
 		{
-			if (con != null)
+			if (aConnection != null)
 			{
 				try
 				{
-					con.close();
+					aConnection.close();
 				}
 				catch (final SQLException e)
 				{
