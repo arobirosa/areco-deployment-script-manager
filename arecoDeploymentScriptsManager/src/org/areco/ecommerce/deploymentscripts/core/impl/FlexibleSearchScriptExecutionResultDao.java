@@ -15,14 +15,14 @@
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
+import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.servicelayer.type.TypeService;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.annotation.PostConstruct;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
@@ -53,7 +53,9 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 	@Autowired
 	FlexibleSearchService flexibleSearchService;
 
-	@PostConstruct
+	@Autowired
+	TypeService typeService;
+
 	@Override
 	public void initialize()
 	{
@@ -67,7 +69,28 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 	@Override
 	public boolean theInitialResultsWereImported()
 	{
-		return !this.resultsByCode.isEmpty();
+		if (!(existsTheHybrisType()))
+		{
+			return false;
+		}
+
+		return !this.getResultsByCode().isEmpty();
+	}
+
+	private boolean existsTheHybrisType()
+	{
+		try
+		{
+			return (this.typeService.getComposedTypeForClass(ScriptExecutionResultModel.class) != null);
+		}
+		catch (final UnknownIdentifierException uie)
+		{
+			if (LOG.isTraceEnabled())
+			{
+				LOG.trace("The composed type wasn't found.", uie);
+			}
+			return false;
+		}
 	}
 
 	/*
@@ -94,7 +117,7 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 
 	private ScriptExecutionResultModel getResult(final String aCode)
 	{
-		final ScriptExecutionResultModel aResult = this.resultsByCode.get(aCode);
+		final ScriptExecutionResultModel aResult = this.getResultsByCode().get(aCode);
 		if (aResult == null)
 		{
 			throw new IllegalArgumentException("Unable to find the script execution result with the code '" + aCode + "'.");
@@ -124,5 +147,14 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 			}
 		}
 		return instances;
+	}
+
+	private Map<String, ScriptExecutionResultModel> getResultsByCode()
+	{
+		if (this.resultsByCode == null)
+		{
+			this.initialize();
+		}
+		return resultsByCode;
 	}
 }
