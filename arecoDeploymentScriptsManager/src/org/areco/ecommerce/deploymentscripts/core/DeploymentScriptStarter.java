@@ -15,13 +15,18 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
+import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetupContext;
+import de.hybris.platform.util.JspContext;
+
+import java.io.StringWriter;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.mock.web.MockJspWriter;
 import org.springframework.stereotype.Service;
 
 
@@ -107,5 +112,22 @@ public class DeploymentScriptStarter
 			LOG.error("There was an error running the deployment scripts: " + re.getLocalizedMessage(), re);
 			throw re;
 		}
+	}
+
+	public boolean runAllPendingScripts()
+	{
+		if (LOG.isInfoEnabled())
+		{
+			LOG.info("Running all deployment scripts.");
+		}
+		final JspContext aJspContext = new JspContext(new MockJspWriter(new StringWriter()), null, null);
+		for (final String extensionName : Registry.getMasterTenant().getTenantSpecificExtensionNames())
+		{
+			final SystemSetupContext aContext = new SystemSetupContext(null, SystemSetup.Type.ESSENTIAL, SystemSetup.Process.UPDATE,
+					extensionName);
+			aContext.setJspContext(aJspContext);
+			this.runUpdateDeploymentScripts(aContext);
+		}
+		return this.isWasThereAnError();
 	}
 }
