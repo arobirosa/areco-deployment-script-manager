@@ -1,0 +1,1 @@
+It shows that the case of the files inside the deployment scripts doesn't matter.

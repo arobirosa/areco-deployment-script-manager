@@ -1,0 +1,1 @@
+Here is an example of a deployment script with an SQL query. You could also update rows.
