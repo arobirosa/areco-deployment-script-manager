@@ -31,7 +31,9 @@ public interface DeploymentScriptService
 	 * 
 	 * @param context
 	 *           Required
+	 * @param runInitScripts
+	 *           Required. Do we run the INIT or the UPDATE scripts?
 	 * @return boolean True if there was an error.
 	 */
-	boolean runUpdateDeploymentScripts(SystemSetupContext context);
+	boolean runDeploymentScripts(SystemSetupContext context, boolean runInitScripts);
 }

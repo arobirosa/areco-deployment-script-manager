@@ -74,9 +74,9 @@ public class ImpexInitialConfigurationImporter implements InitialConfigurationIm
 		ServicesUtil.validateParameterNotNullStandardMessage("context", context);
 		if (!this.extensionHelper.isFirstExtension(context))
 		{
-			if (LOG.isDebugEnabled())
+			if (LOG.isTraceEnabled())
 			{
-				LOG.debug("This is not the first extension. Quitting without checking if the initial "
+				LOG.trace("This is not the first extension. Quitting without checking if the initial "
 						+ " configuration was imported.");
 			}
 			return;
