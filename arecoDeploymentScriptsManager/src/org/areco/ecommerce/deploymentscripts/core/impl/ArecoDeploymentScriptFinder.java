@@ -56,7 +56,9 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 {
 	private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptFinder.class);
 
-	private static final String SCRIPTS_FOLDER_CONF = "deploymentscripts.update.folder";
+	private static final String UPDATE_SCRIPTS_FOLDER_CONF = "deploymentscripts.update.folder";
+
+	private static final String INIT_SCRIPTS_FOLDER_CONF = "deploymentscripts.init.folder";
 
 	private static final String RESOURCES_FOLDER = "/resources";
 
@@ -75,19 +77,19 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 	 * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder#getPendingScripts(java.lang.String)
 	 */
 	@Override
-	public List<DeploymentScript> getPendingScripts(final String extensionName, final Process process)
+	public List<DeploymentScript> getPendingScripts(final String extensionName, final Process process, final boolean runInitScripts)
 	{
 		ServicesUtil.validateParameterNotNullStandardMessage(extensionName, extensionName);
-		final List<File> pendingScriptsFolders = getScriptsToBeRun(extensionName);
+		final List<File> pendingScriptsFolders = getScriptsToBeRun(extensionName, runInitScripts);
 		return getDeploymentScripts(pendingScriptsFolders, extensionName, process);
 	}
 
-	private List<File> getScriptsToBeRun(final String extensionName)
+	private List<File> getScriptsToBeRun(final String extensionName, final boolean runInitScripts)
 	{
 		final List<String> alreadyExecutedScripts = getAlreadyExecutedScripts(extensionName);
 
 		final List<File> pendingScriptsFolders = new ArrayList<File>();
-		for (final File foundScriptFolder : getExistingScripts(extensionName))
+		for (final File foundScriptFolder : getExistingScripts(extensionName, runInitScripts))
 		{
 			if (!alreadyExecutedScripts.contains(foundScriptFolder.getName()))
 			{
@@ -131,12 +133,29 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 		return alreadyExecutedScripts;
 	}
 
-	private File[] getExistingScripts(final String extensionName)
+	private File[] getExistingScripts(final String extensionName, final boolean runInitScripts)
 	{
 		final ExtensionInfo extension = ConfigUtil.getPlatformConfig(ArecoDeploymentScriptFinder.class).getExtensionInfo(
 				extensionName);
-		final String scriptsFolderName = Config.getParameter(SCRIPTS_FOLDER_CONF);
+		String scriptsFolderName;
+		if (runInitScripts)
+		{
+			scriptsFolderName = Config.getParameter(INIT_SCRIPTS_FOLDER_CONF);
+		}
+		else
+		{
+			scriptsFolderName = Config.getParameter(UPDATE_SCRIPTS_FOLDER_CONF);
+		}
+		return getExistingScriptsInDirectory(extension, scriptsFolderName);
+	}
 
+	/**
+	 * @param extension
+	 * @param scriptsFolderName
+	 * @return
+	 */
+	private File[] getExistingScriptsInDirectory(final ExtensionInfo extension, final String scriptsFolderName)
+	{
 		final File deploymentScriptFolder = new File(extension.getExtensionDirectory() + RESOURCES_FOLDER, scriptsFolderName);
 		if (!deploymentScriptFolder.exists())
 		{

@@ -60,19 +60,20 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService
 	 * .core.initialization.SystemSetupContext)
 	 */
 	@Override
-	public boolean runUpdateDeploymentScripts(final SystemSetupContext context)
+	public boolean runDeploymentScripts(final SystemSetupContext context, final boolean runInitScripts)
 	{
 		ServicesUtil.validateParameterNotNullStandardMessage("context", context);
 		this.initialConfigurationImporter.importConfigurationIfRequired(context);
 
 		context.getJspContext().println("Looking for pending update scripts in the extension " + context.getExtensionName());
 		final List<DeploymentScript> scriptsToBeRun = this.finder.getPendingScripts(context.getExtensionName(),
-				context.getProcess());
+				context.getProcess(), runInitScripts);
 		if (scriptsToBeRun.isEmpty())
 		{
 			if (LOG.isDebugEnabled())
 			{
-				LOG.debug("There aren't any pending deployment scripts in the extension " + context.getExtensionName());
+				LOG.debug("There aren't any pending " + (runInitScripts ? "INIT" : "UPDATE")
+						+ " deployment scripts in the extension " + context.getExtensionName());
 				return false;
 			}
 		}

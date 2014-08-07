@@ -35,9 +35,11 @@ public interface DeploymentScriptFinder
 	 * @param extensionName
 	 *           Required
 	 * @param process
-	 *           Required
+	 *           Required. It is the current Hybris process: Update or Init.
+	 * @param runInitScripts
+	 *           Required. Do we run the init or the update scripts.
 	 * @return Never null
 	 */
-	List<DeploymentScript> getPendingScripts(String extensionName, Process process);
+	List<DeploymentScript> getPendingScripts(String extensionName, Process process, boolean runInitScripts);
 
 }

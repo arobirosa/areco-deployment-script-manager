@@ -15,6 +15,7 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
+import de.hybris.platform.constants.CoreConstants;
 import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetupContext;
@@ -68,10 +69,23 @@ public class DeploymentScriptStarter
 		this.wasThereAnError = wasThereAnError;
 	}
 
-	//We hook the essential data proceess. Due to this the deployment scripts could be run using
-	//"ant updatessystem".
+	/**
+	 * This method is called by every extension during the update or init process.
+	 * 
+	 * We hook the essential data proceess. Due to this the deployment scripts could be run using "ant updatessystem".
+	 * 
+	 * @param context
+	 *           Required
+	 */
+
 	@SystemSetup(type = SystemSetup.Type.ESSENTIAL, process = SystemSetup.Process.ALL)
 	public void runUpdateDeploymentScripts(final SystemSetupContext context)
+	{
+		this.runDeploymentScripts(context, false);
+	}
+
+
+	public void runDeploymentScripts(final SystemSetupContext context, final boolean runInitScripts)
 	{
 		if (this.extensionHelper.isFirstExtension(context))
 		{
@@ -91,10 +105,10 @@ public class DeploymentScriptStarter
 			}
 			return;
 		}
-		runDeploymentScriptsAndHandleErrors(context);
+		runDeploymentScriptsAndHandleErrors(context, runInitScripts);
 	}
 
-	private void runDeploymentScriptsAndHandleErrors(final SystemSetupContext context)
+	private void runDeploymentScriptsAndHandleErrors(final SystemSetupContext context, final boolean runInitScripts)
 	{
 		if (LOG.isDebugEnabled())
 		{
@@ -103,7 +117,7 @@ public class DeploymentScriptStarter
 
 		try
 		{
-			this.setWasThereAnError(this.deploymentScriptService.runUpdateDeploymentScripts(context));
+			this.setWasThereAnError(this.deploymentScriptService.runDeploymentScripts(context, runInitScripts));
 		}
 		catch (final RuntimeException re)
 		{
@@ -114,11 +128,26 @@ public class DeploymentScriptStarter
 		}
 	}
 
+	/**
+	 * Runs all the pending UPDATE deployment scripts.
+	 * 
+	 * @return boolean if there was an error.
+	 */
+
 	public boolean runAllPendingScripts()
 	{
 		if (LOG.isInfoEnabled())
 		{
-			LOG.info("Running all deployment scripts.");
+			LOG.info("Running all pending update deployment scripts.");
+		}
+		return this.runAllPendingScripts(false);
+	}
+
+	private boolean runAllPendingScripts(final boolean runInitScripts)
+	{
+		if (LOG.isInfoEnabled())
+		{
+			LOG.info("Running all deployment scripts. RunInitScripts? " + runInitScripts);
 		}
 		final JspContext aJspContext = new JspContext(new MockJspWriter(new StringWriter()), null, null);
 		for (final String extensionName : Registry.getMasterTenant().getTenantSpecificExtensionNames())
@@ -126,8 +155,25 @@ public class DeploymentScriptStarter
 			final SystemSetupContext aContext = new SystemSetupContext(null, SystemSetup.Type.ESSENTIAL, SystemSetup.Process.UPDATE,
 					extensionName);
 			aContext.setJspContext(aJspContext);
-			this.runUpdateDeploymentScripts(aContext);
+			this.runDeploymentScripts(aContext, runInitScripts);
 		}
 		return this.isWasThereAnError();
+	}
+
+	/**
+	 * This method is only called once during the initialization of the core extension. It runs all the INIT deployment
+	 * scripts sequentially.
+	 * 
+	 * @param context
+	 *           Required. Describes the current update system process.
+	 */
+	@SystemSetup(type = SystemSetup.Type.ESSENTIAL, process = SystemSetup.Process.INIT, extension = CoreConstants.EXTENSIONNAME)
+	public void runInitDeploymentScripts(final SystemSetupContext context)
+	{
+		if (LOG.isInfoEnabled())
+		{
+			LOG.info("Running all INIT deployment scripts.");
+		}
+		this.runAllPendingScripts(true);
 	}
 }
