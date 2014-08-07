@@ -72,7 +72,7 @@ public class DeploymentScriptStarter
 	/**
 	 * This method is called by every extension during the update or init process.
 	 * 
-	 * We hook the essential data proceess. Due to this the deployment scripts could be run using "ant updatessystem".
+	 * We hook the essential data process. Due to this the deployment scripts could be run using "ant updatessystem".
 	 * 
 	 * @param context
 	 *           Required
@@ -81,21 +81,16 @@ public class DeploymentScriptStarter
 	@SystemSetup(type = SystemSetup.Type.ESSENTIAL, process = SystemSetup.Process.ALL)
 	public void runUpdateDeploymentScripts(final SystemSetupContext context)
 	{
+		if (this.extensionHelper.isFirstExtension(context) && SystemSetup.Process.UPDATE.equals(context.getProcess()))
+		{
+			this.clearErrorFlag();
+		}
 		this.runDeploymentScripts(context, false);
 	}
 
 
-	public void runDeploymentScripts(final SystemSetupContext context, final boolean runInitScripts)
+	public boolean runDeploymentScripts(final SystemSetupContext context, final boolean runInitScripts)
 	{
-		if (this.extensionHelper.isFirstExtension(context))
-		{
-			this.setWasThereAnError(false);
-			if (LOG.isTraceEnabled())
-			{
-				LOG.trace("The error flag was cleared");
-			}
-		}
-
 		if (this.isWasThereAnError())
 		{
 			if (LOG.isDebugEnabled())
@@ -103,12 +98,26 @@ public class DeploymentScriptStarter
 				LOG.debug("There was an error running the deployment scripts of the previous extensions. "
 						+ "Due to this the deployment scripts of the extension " + context.getExtensionName() + " will be ignored.");
 			}
-			return;
+			return true;
 		}
-		runDeploymentScriptsAndHandleErrors(context, runInitScripts);
+		return runDeploymentScriptsAndHandleErrors(context, runInitScripts);
 	}
 
-	private void runDeploymentScriptsAndHandleErrors(final SystemSetupContext context, final boolean runInitScripts)
+	/**
+	 * It removes any previous error. It is usually call during the initialization and the update process by the core
+	 * extension.
+	 * 
+	 */
+	private void clearErrorFlag()
+	{
+		this.setWasThereAnError(false);
+		if (LOG.isDebugEnabled())
+		{
+			LOG.debug("The error flag was cleared");
+		}
+	}
+
+	private boolean runDeploymentScriptsAndHandleErrors(final SystemSetupContext context, final boolean runInitScripts)
 	{
 		if (LOG.isDebugEnabled())
 		{
@@ -117,7 +126,9 @@ public class DeploymentScriptStarter
 
 		try
 		{
-			this.setWasThereAnError(this.deploymentScriptService.runDeploymentScripts(context, runInitScripts));
+			final boolean somethingWentWrong = this.deploymentScriptService.runDeploymentScripts(context, runInitScripts);
+			this.setWasThereAnError(somethingWentWrong);
+			return somethingWentWrong;
 		}
 		catch (final RuntimeException re)
 		{
@@ -149,13 +160,18 @@ public class DeploymentScriptStarter
 		{
 			LOG.info("Running all deployment scripts. RunInitScripts? " + runInitScripts);
 		}
+		this.clearErrorFlag();
 		final JspContext aJspContext = new JspContext(new MockJspWriter(new StringWriter()), null, null);
 		for (final String extensionName : Registry.getMasterTenant().getTenantSpecificExtensionNames())
 		{
-			final SystemSetupContext aContext = new SystemSetupContext(null, SystemSetup.Type.ESSENTIAL, SystemSetup.Process.UPDATE,
-					extensionName);
+			final SystemSetupContext aContext = new SystemSetupContext(null, SystemSetup.Type.ESSENTIAL,
+					(runInitScripts ? SystemSetup.Process.INIT : SystemSetup.Process.UPDATE), extensionName);
 			aContext.setJspContext(aJspContext);
-			this.runDeploymentScripts(aContext, runInitScripts);
+			final boolean somethingWentWrong = this.runDeploymentScripts(aContext, runInitScripts);
+			if (somethingWentWrong)
+			{
+				return true;
+			}
 		}
 		return this.isWasThereAnError();
 	}
