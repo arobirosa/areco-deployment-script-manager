@@ -15,9 +15,10 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
+import de.hybris.bootstrap.annotations.IntegrationTest;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetupContext;
-import de.hybris.platform.servicelayer.ServicelayerBaseTest;
+import de.hybris.platform.servicelayer.ServicelayerTransactionalTest;
 import de.hybris.platform.util.Config;
 import de.hybris.platform.util.JspContext;
 import de.hybris.platform.util.localization.Localization;
@@ -42,7 +43,8 @@ import org.springframework.mock.web.MockJspWriter;
  * @author arobirosa
  * 
  */
-public class UpdatingSystemExtensionContextLoggingTest extends ServicelayerBaseTest
+@IntegrationTest
+public class UpdatingSystemExtensionContextLoggingTest extends ServicelayerTransactionalTest
 {
 
 	@Resource
