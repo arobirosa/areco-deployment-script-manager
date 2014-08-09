@@ -56,11 +56,11 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 {
 	private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptFinder.class);
 
-	private static final String UPDATE_SCRIPTS_FOLDER_CONF = "deploymentscripts.update.folder";
+	public static final String UPDATE_SCRIPTS_FOLDER_CONF = "deploymentscripts.update.folder";
 
-	private static final String INIT_SCRIPTS_FOLDER_CONF = "deploymentscripts.init.folder";
+	public static final String INIT_SCRIPTS_FOLDER_CONF = "deploymentscripts.init.folder";
 
-	private static final String RESOURCES_FOLDER = "/resources";
+	public static final String RESOURCES_FOLDER_CONF = "deploymentscripts.resources.folder";
 
 	@Autowired
 	private ScriptExecutionDao scriptExecutionDao;
@@ -156,7 +156,8 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 	 */
 	private File[] getExistingScriptsInDirectory(final ExtensionInfo extension, final String scriptsFolderName)
 	{
-		final File deploymentScriptFolder = new File(extension.getExtensionDirectory() + RESOURCES_FOLDER, scriptsFolderName);
+		final File deploymentScriptFolder = new File(
+				extension.getExtensionDirectory() + Config.getParameter(RESOURCES_FOLDER_CONF), scriptsFolderName);
 		if (!deploymentScriptFolder.exists())
 		{
 			return new File[0];

@@ -25,6 +25,7 @@ import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
+import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -62,7 +63,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner
 	 * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner#run(java.util.List)
 	 */
 	@Override
-	public boolean run(final List<DeploymentScript> scriptsToBeRun)
+	public boolean run(final UpdatingSystemExtensionContext context, final List<DeploymentScript> scriptsToBeRun)
 	{
 		for (final DeploymentScript aScript : scriptsToBeRun)
 		{
@@ -76,13 +77,18 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner
 			{
 				LOG.error("There was an error running " + aScript.getLongName() + ':' + e.getLocalizedMessage(), e);
 				scriptExecution.setResult(this.scriptExecutionResultDao.getErrorResult());
-				modelService.save(scriptExecution);
+				this.saveAndLogScriptExecution(context, scriptExecution);
 				return true;//We stop after the first error.
 			}
 			scriptExecution.setResult(this.scriptExecutionResultDao.getSuccessResult());
-			modelService.save(scriptExecution);
+			this.saveAndLogScriptExecution(context, scriptExecution);
 		}
 		return false; //Everything when successfully
 	}
 
+	private void saveAndLogScriptExecution(final UpdatingSystemExtensionContext context, final ScriptExecutionModel scriptExecution)
+	{
+		modelService.save(scriptExecution);
+		context.logScriptExecutionResult(scriptExecution);
+	}
 }

@@ -30,10 +30,12 @@ public interface DeploymentScriptRunner
 	/**
 	 * Runs the deployment scripts in the given order.
 	 * 
+	 * @param context
+	 *           Required
 	 * @param scriptsToBeRun
 	 *           Required
 	 * @return boolean False is everything was successful. True if there was an error.
 	 */
-	boolean run(List<DeploymentScript> scriptsToBeRun);
+	boolean run(UpdatingSystemExtensionContext context, List<DeploymentScript> scriptsToBeRun);
 
 }

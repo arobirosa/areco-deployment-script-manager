@@ -16,18 +16,13 @@
 package org.areco.ecommerce.deploymentscripts.core;
 
 import de.hybris.platform.constants.CoreConstants;
-import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetupContext;
-import de.hybris.platform.util.JspContext;
-
-import java.io.StringWriter;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.mock.web.MockJspWriter;
 import org.springframework.stereotype.Service;
 
 
@@ -79,8 +74,9 @@ public class DeploymentScriptStarter
 	 */
 
 	@SystemSetup(type = SystemSetup.Type.ESSENTIAL, process = SystemSetup.Process.ALL)
-	public void runUpdateDeploymentScripts(final SystemSetupContext context)
+	public void runUpdateDeploymentScripts(final SystemSetupContext hybrisContext)
 	{
+		final UpdatingSystemExtensionContext context = this.getUpdatingContext(hybrisContext);
 		if (this.extensionHelper.isFirstExtension(context) && SystemSetup.Process.UPDATE.equals(context.getProcess()))
 		{
 			this.clearErrorFlag();
@@ -89,7 +85,28 @@ public class DeploymentScriptStarter
 	}
 
 
-	public boolean runDeploymentScripts(final SystemSetupContext context, final boolean runInitScripts)
+	/**
+	 * It receibes a SystemSetupContext and it converts it to a UpdatingSystemExtensionContext used by
+	 * {@link DeploymentScriptService}
+	 * 
+	 * @param hybrisContext
+	 *           Required
+	 * @return SystemSetupContext Never null.
+	 */
+	private UpdatingSystemExtensionContext getUpdatingContext(final SystemSetupContext hybrisContext)
+	{
+		if (hybrisContext.getJspContext() == null)
+		{
+			return new UpdatingSystemExtensionContext(hybrisContext.getExtensionName(), hybrisContext.getProcess());
+		}
+		else
+		{
+			return new UpdatingSystemExtensionContext(hybrisContext.getExtensionName(), hybrisContext.getProcess(),
+					hybrisContext.getJspContext());
+		}
+	}
+
+	public boolean runDeploymentScripts(final UpdatingSystemExtensionContext context, final boolean runInitScripts)
 	{
 		if (this.isWasThereAnError())
 		{
@@ -117,7 +134,7 @@ public class DeploymentScriptStarter
 		}
 	}
 
-	private boolean runDeploymentScriptsAndHandleErrors(final SystemSetupContext context, final boolean runInitScripts)
+	private boolean runDeploymentScriptsAndHandleErrors(final UpdatingSystemExtensionContext context, final boolean runInitScripts)
 	{
 		if (LOG.isDebugEnabled())
 		{
@@ -161,12 +178,10 @@ public class DeploymentScriptStarter
 			LOG.info("Running all deployment scripts. RunInitScripts? " + runInitScripts);
 		}
 		this.clearErrorFlag();
-		final JspContext aJspContext = new JspContext(new MockJspWriter(new StringWriter()), null, null);
-		for (final String extensionName : Registry.getMasterTenant().getTenantSpecificExtensionNames())
+		for (final String extensionName : this.extensionHelper.getExtensionNames())
 		{
-			final SystemSetupContext aContext = new SystemSetupContext(null, SystemSetup.Type.ESSENTIAL,
-					(runInitScripts ? SystemSetup.Process.INIT : SystemSetup.Process.UPDATE), extensionName);
-			aContext.setJspContext(aJspContext);
+			final UpdatingSystemExtensionContext aContext = new UpdatingSystemExtensionContext(extensionName,
+					(runInitScripts ? SystemSetup.Process.INIT : SystemSetup.Process.UPDATE));
 			final boolean somethingWentWrong = this.runDeploymentScripts(aContext, runInitScripts);
 			if (somethingWentWrong)
 			{
