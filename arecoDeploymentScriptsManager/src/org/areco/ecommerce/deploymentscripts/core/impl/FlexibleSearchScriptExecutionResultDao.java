@@ -39,7 +39,7 @@ import org.springframework.stereotype.Repository;
  * 
  */
 @Scope("tenant")
-@Repository
+@Repository("flexibleSearchScriptExecutionResultDao")
 public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionResultDAO
 {
 	private static final Logger LOG = Logger.getLogger(FlexibleSearchScriptExecutionResultDao.class);
