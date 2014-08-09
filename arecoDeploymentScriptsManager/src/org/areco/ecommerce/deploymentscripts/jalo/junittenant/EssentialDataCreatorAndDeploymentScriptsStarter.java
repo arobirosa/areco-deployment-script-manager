@@ -16,12 +16,14 @@
 package org.areco.ecommerce.deploymentscripts.jalo.junittenant;
 
 import de.hybris.platform.core.Initialization;
-import de.hybris.platform.core.Registry;
+import de.hybris.platform.jalo.CoreBasicDataCreator;
+import de.hybris.platform.util.Config;
 import de.hybris.platform.util.JspContext;
+import de.hybris.platform.util.Utilities;
 
 import java.io.StringWriter;
+import java.util.Collections;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspWriter;
 
@@ -52,22 +54,41 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter
 		return INSTANCE;
 	}
 
-	@SuppressWarnings("deprecation")
 	public void runInJunitTenant() throws Exception
 	{
+		if (!Boolean.parseBoolean(Config.getParameter("deploymentscripts.init.junittenant.createessentialdata")))
+		{
+			if (LOG.isDebugEnabled())
+			{
+				LOG.debug("The essential data won't be created and the deployment scripts won't be run.");
+			}
+			return;
+		}
 		if (LOG.isInfoEnabled())
 		{
 			LOG.info("Creating the essential data in junit tenant.");
 		}
-		Registry.setCurrentTenantByID("junit");
-		final JspWriter out = new MockJspWriter(new StringWriter());
-		final HttpServletRequest request = new MockHttpServletRequest();
-		final HttpServletResponse response = new MockHttpServletResponse();
-		final JspContext jspc = new JspContext(out, request, response);
-		Initialization.createEssentialData(jspc);
+		Utilities.setJUnitTenant();
+
+		createEssentialDataForAllExtensions();
 		if (LOG.isInfoEnabled())
 		{
 			LOG.info("The essential data was successfully created in junit tenant.");
 		}
+	}
+
+	@SuppressWarnings("deprecation")
+	private void createEssentialDataForAllExtensions() throws Exception
+	{
+		//To import the encodings.
+		new CoreBasicDataCreator().createEssentialData(Collections.EMPTY_MAP, null);
+
+		//We need dummy objects.
+		final JspWriter out = new MockJspWriter(new StringWriter());
+		final MockHttpServletRequest request = new MockHttpServletRequest();
+		request.addParameter("initmethod", "init"); //We simulate a essential data creation during the initialization.
+		final HttpServletResponse response = new MockHttpServletResponse();
+		final JspContext jspc = new JspContext(out, request, response);
+		Initialization.createEssentialData(jspc);
 	}
 }
