@@ -15,7 +15,6 @@
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
-import de.hybris.platform.core.initialization.SystemSetupContext;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 
 import java.util.List;
@@ -26,6 +25,7 @@ import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptService;
 import org.areco.ecommerce.deploymentscripts.core.InitialConfigurationImporter;
+import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -60,12 +60,15 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService
 	 * .core.initialization.SystemSetupContext)
 	 */
 	@Override
-	public boolean runDeploymentScripts(final SystemSetupContext context, final boolean runInitScripts)
+	public boolean runDeploymentScripts(final UpdatingSystemExtensionContext context, final boolean runInitScripts)
 	{
 		ServicesUtil.validateParameterNotNullStandardMessage("context", context);
 		this.initialConfigurationImporter.importConfigurationIfRequired(context);
 
-		context.getJspContext().println("Looking for pending update scripts in the extension " + context.getExtensionName());
+		if (LOG.isDebugEnabled())
+		{
+			LOG.debug("Looking for pending update scripts in the extension " + context.getExtensionName());
+		}
 		final List<DeploymentScript> scriptsToBeRun = this.finder.getPendingScripts(context.getExtensionName(),
 				context.getProcess(), runInitScripts);
 		if (scriptsToBeRun.isEmpty())
@@ -77,9 +80,15 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService
 				return false;
 			}
 		}
-		context.getJspContext().println("Running update scripts of the extension " + context.getExtensionName());
+		if (LOG.isDebugEnabled())
+		{
+			LOG.debug("Running update scripts of the extension " + context.getExtensionName());
+		}
 		final boolean wasThereAnError = this.runner.run(scriptsToBeRun);
-		context.getJspContext().println("Finished running update scripts of the extension " + context.getExtensionName());
+		if (LOG.isDebugEnabled())
+		{
+			LOG.debug("Finished running update scripts of the extension " + context.getExtensionName());
+		}
 		return wasThereAnError;
 	}
 
