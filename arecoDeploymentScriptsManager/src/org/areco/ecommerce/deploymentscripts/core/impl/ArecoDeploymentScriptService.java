@@ -84,7 +84,7 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService
 		{
 			LOG.debug("Running update scripts of the extension " + context.getExtensionName());
 		}
-		final boolean wasThereAnError = this.runner.run(scriptsToBeRun);
+		final boolean wasThereAnError = this.runner.run(context, scriptsToBeRun);
 		if (LOG.isDebugEnabled())
 		{
 			LOG.debug("Finished running update scripts of the extension " + context.getExtensionName());

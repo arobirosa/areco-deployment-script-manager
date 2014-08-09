@@ -18,8 +18,10 @@ package org.areco.ecommerce.deploymentscripts.core;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import de.hybris.platform.util.JspContext;
+import de.hybris.platform.util.localization.Localization;
 
 import org.apache.log4j.Logger;
+import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 
 
 /**
@@ -122,6 +124,33 @@ public class UpdatingSystemExtensionContext
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * It logs the result of the execution of the deployment script.
+	 * 
+	 * @param scriptExecution
+	 *           Required
+	 */
+	public void logScriptExecutionResult(final ScriptExecutionModel scriptExecution)
+	{
+		ServicesUtil.validateParameterNotNullStandardMessage("scriptExecution", scriptExecution);
+		if (scriptExecution.getResult() == null)
+		{
+			throw new IllegalStateException("The result of the execution must have been set at this point.");
+		}
+		final String messageToLog = Localization.getLocalizedString("updatingsystemextensioncontext.loggingformat", new String[]
+		{ scriptExecution.getScriptName(), scriptExecution.getResult().getDescription() });
+
+		if (LOG.isInfoEnabled())
+		{
+			LOG.info(messageToLog);
+		}
+		if (this.getJspContext() != null)
+		{
+
+			this.getJspContext().println(messageToLog);
+		}
 	}
 
 }
