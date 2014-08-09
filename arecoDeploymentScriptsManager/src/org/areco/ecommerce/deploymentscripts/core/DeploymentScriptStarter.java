@@ -16,7 +16,6 @@
 package org.areco.ecommerce.deploymentscripts.core;
 
 import de.hybris.platform.constants.CoreConstants;
-import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetupContext;
 
@@ -179,7 +178,7 @@ public class DeploymentScriptStarter
 			LOG.info("Running all deployment scripts. RunInitScripts? " + runInitScripts);
 		}
 		this.clearErrorFlag();
-		for (final String extensionName : Registry.getMasterTenant().getTenantSpecificExtensionNames())
+		for (final String extensionName : this.extensionHelper.getExtensionNames())
 		{
 			final UpdatingSystemExtensionContext aContext = new UpdatingSystemExtensionContext(extensionName,
 					(runInitScripts ? SystemSetup.Process.INIT : SystemSetup.Process.UPDATE));

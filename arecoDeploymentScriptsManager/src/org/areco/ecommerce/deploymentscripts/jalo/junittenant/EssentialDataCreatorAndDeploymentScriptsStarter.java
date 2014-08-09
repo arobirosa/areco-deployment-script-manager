@@ -15,8 +15,13 @@
  */
 package org.areco.ecommerce.deploymentscripts.jalo.junittenant;
 
-import de.hybris.platform.core.Initialization;
+import de.hybris.platform.core.Registry;
+import de.hybris.platform.core.initialization.SystemSetup;
+import de.hybris.platform.core.initialization.SystemSetupCollector;
+import de.hybris.platform.core.initialization.SystemSetupContext;
 import de.hybris.platform.jalo.CoreBasicDataCreator;
+import de.hybris.platform.jalo.extension.Extension;
+import de.hybris.platform.jalo.extension.ExtensionManager;
 import de.hybris.platform.util.Config;
 import de.hybris.platform.util.JspContext;
 import de.hybris.platform.util.Utilities;
@@ -28,33 +33,49 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspWriter;
 
 import org.apache.log4j.Logger;
+import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockJspWriter;
+import org.springframework.stereotype.Service;
 
 
 /**
  * It creates the essential data for the tenant junit. The command "ant yunitinit" doesn't run the essential data
  * creation step. Due to this, no deployment scripts are run.
  * 
- * TODO This class uses Jalo and a work around to trigger the essential data creation. We must find a cleaner way to do
+ * TODO This class uses Jalo and a workaround to trigger the essential data creation. We must find a cleaner way to do
  * this.
  * 
  * @author arobirosa
  * 
  */
+@Service("essentialDataCreatorAndDeploymentScriptsStarter")
+@Scope("tenant")
 public class EssentialDataCreatorAndDeploymentScriptsStarter
 {
 	private static final Logger LOG = Logger.getLogger(EssentialDataCreatorAndDeploymentScriptsStarter.class);
 
-	private static final EssentialDataCreatorAndDeploymentScriptsStarter INSTANCE = new EssentialDataCreatorAndDeploymentScriptsStarter();
+	private static EssentialDataCreatorAndDeploymentScriptsStarter INSTANCE = null;
+
+	@Autowired
+	private ExtensionHelper extensionHelper;
+
+	@Autowired
+	private SystemSetupCollector systemSetupCollector;
 
 	public static EssentialDataCreatorAndDeploymentScriptsStarter getInstance()
 	{
+		if (INSTANCE == null)
+		{
+			INSTANCE = Registry.getApplicationContext().getBean(EssentialDataCreatorAndDeploymentScriptsStarter.class);
+		}
 		return INSTANCE;
 	}
 
-	public void runInJunitTenant() throws Exception
+	public void runInJunitTenant()
 	{
 		if (!Boolean.parseBoolean(Config.getParameter("deploymentscripts.init.junittenant.createessentialdata")))
 		{
@@ -70,7 +91,16 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter
 		}
 		Utilities.setJUnitTenant();
 
-		createEssentialDataForAllExtensions();
+		try
+		{
+			createEssentialDataForAllExtensions();
+		}
+		catch (final Exception e)
+		{
+			//We log here to see the stacktrace. The beanshell code of the ant task yunit logs the exception partially.
+			LOG.error("There was an error creating the essential data: " + e.getLocalizedMessage(), e);
+			return;
+		}
 		if (LOG.isInfoEnabled())
 		{
 			LOG.info("The essential data was successfully created in junit tenant.");
@@ -83,12 +113,27 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter
 		//To import the encodings.
 		new CoreBasicDataCreator().createEssentialData(Collections.EMPTY_MAP, null);
 
-		//We need dummy objects.
+		final JspContext jspc = createDummyJspContext();
+
+		for (final String extensionName : this.extensionHelper.getExtensionNames())
+		{
+			final Extension anExtension = ExtensionManager.getInstance().getExtension(extensionName);
+			//Old Jalo method
+			anExtension.createEssentialData(Collections.EMPTY_MAP, jspc);
+			//New mechanism with annotations.
+			final SystemSetupContext ctx = new SystemSetupContext(Collections.EMPTY_MAP, SystemSetup.Type.ESSENTIAL,
+					SystemSetup.Process.INIT, extensionName);
+			ctx.setJspContext(jspc);
+			this.systemSetupCollector.executeMethods(ctx);
+		}
+	}
+
+	private JspContext createDummyJspContext()
+	{
 		final JspWriter out = new MockJspWriter(new StringWriter());
 		final MockHttpServletRequest request = new MockHttpServletRequest();
-		request.addParameter("initmethod", "init"); //We simulate a essential data creation during the initialization.
 		final HttpServletResponse response = new MockHttpServletResponse();
 		final JspContext jspc = new JspContext(out, request, response);
-		Initialization.createEssentialData(jspc);
+		return jspc;
 	}
 }

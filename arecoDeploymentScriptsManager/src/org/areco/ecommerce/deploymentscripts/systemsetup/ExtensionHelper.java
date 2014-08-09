@@ -16,7 +16,10 @@
 package org.areco.ecommerce.deploymentscripts.systemsetup;
 
 import de.hybris.platform.constants.CoreConstants;
+import de.hybris.platform.core.Registry;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
+
+import java.util.List;
 
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
 import org.springframework.context.annotation.Scope;
@@ -49,5 +52,15 @@ public class ExtensionHelper
 		ServicesUtil.validateParameterNotNullStandardMessage("context", context);
 		//There must be a better way to find out which one is the first extension
 		return CoreConstants.EXTENSIONNAME.equalsIgnoreCase(context.getExtensionName());
+	}
+
+	/**
+	 * List of extension names in compilation order.
+	 * 
+	 * @return List of names. Never null
+	 */
+	public List<String> getExtensionNames()
+	{
+		return Registry.getMasterTenant().getTenantSpecificExtensionNames();
 	}
 }
