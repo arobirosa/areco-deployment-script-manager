@@ -19,7 +19,6 @@ import de.hybris.bootstrap.annotations.IntegrationTest;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetupContext;
 import de.hybris.platform.servicelayer.ServicelayerTransactionalTest;
-import de.hybris.platform.util.Config;
 import de.hybris.platform.util.JspContext;
 import de.hybris.platform.util.localization.Localization;
 
@@ -30,7 +29,7 @@ import javax.annotation.Resource;
 import junit.framework.Assert;
 
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
-import org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptFinder;
+import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentConfigurationSetter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,20 +52,19 @@ public class UpdatingSystemExtensionContextLoggingTest extends ServicelayerTrans
 	@Resource
 	private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
 
-	private String oldResourcesFolder;
+	private final DeploymentConfigurationSetter deploymentConfigurationSetter = new DeploymentConfigurationSetter();
 
 	@Before
 	public void setResourcesFolder()
 	{
-		oldResourcesFolder = Config.getParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF);
-		Config.setParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, "/resources/test");
+		deploymentConfigurationSetter.setTestFolders("/resources/test", null, null);
 	}
 
 	@After
 	public void restoreResourcesFolder()
 	{
 		//We don't want to affect other tests
-		Config.setParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, oldResourcesFolder);
+		this.deploymentConfigurationSetter.restoreOldFolders();
 	}
 
 	@Test
