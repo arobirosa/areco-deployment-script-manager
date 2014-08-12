@@ -31,11 +31,13 @@ import org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptFind
 public class DeploymentConfigurationSetter
 {
 
-	private String oldResourcesFolder;
+	private boolean oldConfigurationWasSaved = false;
 
-	private String oldUpdateScriptsFolder;
+	private String oldResourcesFolder = null;
 
-	private String oldInitScriptsFolder;
+	private String oldUpdateScriptsFolder = null;
+
+	private String oldInitScriptsFolder = null;
 
 	/**
 	 * Save the current configuration and sets the folders to the given values.
@@ -66,11 +68,19 @@ public class DeploymentConfigurationSetter
 		}
 	}
 
-	private void saveCurrentFolders()
+	/**
+	 * This method may be called at the beginning of the test. It isn't mandatory.
+	 */
+	public void saveCurrentFolders()
 	{
-		this.oldResourcesFolder = Config.getParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF);
-		this.oldUpdateScriptsFolder = Config.getParameter(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF);
-		this.oldInitScriptsFolder = Config.getParameter(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF);
+		if (!this.oldConfigurationWasSaved)
+		{
+			this.oldResourcesFolder = Config.getParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF);
+			this.oldUpdateScriptsFolder = Config.getParameter(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF);
+			this.oldInitScriptsFolder = Config.getParameter(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF);
+			this.oldConfigurationWasSaved = true;
+		}
+
 	}
 
 	/**

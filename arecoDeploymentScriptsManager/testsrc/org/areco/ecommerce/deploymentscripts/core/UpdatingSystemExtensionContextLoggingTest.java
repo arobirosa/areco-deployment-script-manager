@@ -18,7 +18,6 @@ package org.areco.ecommerce.deploymentscripts.core;
 import de.hybris.bootstrap.annotations.IntegrationTest;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetupContext;
-import de.hybris.platform.servicelayer.ServicelayerTransactionalTest;
 import de.hybris.platform.util.JspContext;
 import de.hybris.platform.util.localization.Localization;
 
@@ -29,8 +28,6 @@ import javax.annotation.Resource;
 import junit.framework.Assert;
 
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
-import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentConfigurationSetter;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockJspWriter;
@@ -43,7 +40,7 @@ import org.springframework.mock.web.MockJspWriter;
  * 
  */
 @IntegrationTest
-public class UpdatingSystemExtensionContextLoggingTest extends ServicelayerTransactionalTest
+public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfigurationRestorationTest
 {
 
 	@Resource
@@ -52,19 +49,10 @@ public class UpdatingSystemExtensionContextLoggingTest extends ServicelayerTrans
 	@Resource
 	private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
 
-	private final DeploymentConfigurationSetter deploymentConfigurationSetter = new DeploymentConfigurationSetter();
-
 	@Before
 	public void setResourcesFolder()
 	{
-		deploymentConfigurationSetter.setTestFolders("/resources/test", null, null);
-	}
-
-	@After
-	public void restoreResourcesFolder()
-	{
-		//We don't want to affect other tests
-		this.deploymentConfigurationSetter.restoreOldFolders();
+		this.getDeploymentConfigurationSetter().setTestFolders("/resources/test", null, null);
 	}
 
 	@Test
