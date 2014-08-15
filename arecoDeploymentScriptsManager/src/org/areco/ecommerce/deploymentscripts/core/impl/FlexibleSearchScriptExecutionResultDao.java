@@ -48,6 +48,12 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 
 	private static final String ERROR = "ERROR";
 
+	private static final String IGNORED_NOT_FOR_THIS_ENVIRONMENT = "IGNORED_NOT_FOR_THIS_ENVIRONMENT";
+
+	private static final String IGNORED_NOT_FOR_THIS_TENANT = "IGNORED_NOT_FOR_THIS_TENANT";
+
+	private static final int NUMBER_OF_RESULT_INSTANCES = 4;
+
 	private Map<String, ScriptExecutionResultModel> resultsByCode;
 
 	@Autowired
@@ -74,7 +80,7 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 			return false;
 		}
 
-		return !this.getResultsByCode().isEmpty();
+		return this.getResultsByCode().size() == NUMBER_OF_RESULT_INSTANCES;
 	}
 
 	private boolean existsTheHybrisType()
@@ -157,4 +163,18 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 		}
 		return resultsByCode;
 	}
+
+	@Override
+	public ScriptExecutionResultModel getIgnoredOtherEnvironmentResult()
+	{
+		return this.getResult(IGNORED_NOT_FOR_THIS_ENVIRONMENT);
+	}
+
+	@Override
+	public ScriptExecutionResultModel getIgnoredOtherTenantResult()
+	{
+		return this.getResult(IGNORED_NOT_FOR_THIS_TENANT);
+	}
+
+
 }

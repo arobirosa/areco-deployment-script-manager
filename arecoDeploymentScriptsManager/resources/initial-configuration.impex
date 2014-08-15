@@ -1,3 +1,6 @@
 INSERT ScriptExecutionResult;name[unique=true];canBeRunnedAgain[forceWrite=true];description[lang=en];description[lang=de];
 ;SUCCESS;false;Success;Erfolgreich
 ;ERROR;true;Error;Fehler
+;IGNORED_NOT_FOR_THIS_ENVIRONMENT;false;"Ignored: Other environment";"Ignoriert: Andere Umgebung"
+;IGNORED_NOT_FOR_THIS_TENANT;false;"Ignored: Other tenant";"Ignoriert: Anderer Tenant"
+

@@ -42,6 +42,22 @@ public interface ScriptExecutionResultDAO
 	ScriptExecutionResultModel getSuccessResult();
 
 	/**
+	 * Returns the instance which represents the ignored result because the deployment script can't be run in the current
+	 * environment.
+	 * 
+	 * @return ScriptExecutionResultModel Never null.
+	 */
+	ScriptExecutionResultModel getIgnoredOtherEnvironmentResult();
+
+	/**
+	 * Returns the instance which represents the ignored result because the deployment script can't be run in the current
+	 * tenant.
+	 * 
+	 * @return ScriptExecutionResultModel Never null.
+	 */
+	ScriptExecutionResultModel getIgnoredOtherTenantResult();
+
+	/**
 	 * It checks if the results are already in the database.
 	 * 
 	 * @return boolean True if they are
@@ -52,4 +68,5 @@ public interface ScriptExecutionResultDAO
 	 * It loads the internal data. This method may be called many times.
 	 */
 	void initialize();
+
 }

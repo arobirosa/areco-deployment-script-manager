@@ -46,7 +46,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao
 	private static final Logger LOG = Logger.getLogger(FlexibleSearchScriptExecutionDao.class);
 
 	@Autowired
-	FlexibleSearchService flexibleSearchService;
+	private FlexibleSearchService flexibleSearchService;
 
 	/*
 	 * (non-Javadoc)

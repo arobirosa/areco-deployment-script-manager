@@ -19,6 +19,7 @@ import javax.annotation.Resource;
 
 import junit.framework.Assert;
 
+import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
 import org.junit.Test;
 
 
@@ -38,7 +39,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
 	@Resource
 	private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
 
-	private final DeploymentScriptResultAsserter deploymentScriptResultAsserter = new DeploymentScriptResultAsserter();
+	private final DeploymentScriptResultAsserter deploymentScriptResultAsserter = DeploymentScriptResultAsserter.getInstance();
 
 	@Test
 	public void currentEnvironment()
