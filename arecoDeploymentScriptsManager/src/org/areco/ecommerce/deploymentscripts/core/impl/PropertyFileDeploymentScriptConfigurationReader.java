@@ -24,10 +24,10 @@ import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfiguration;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationException;
@@ -48,15 +48,15 @@ public class PropertyFileDeploymentScriptConfigurationReader implements Deployme
 {
 
 	/**
-	 * 
+	 * Allowed environments
 	 */
 	private static final String RUN_ONLY_ON_ENVIRONMENTS_PROPERTY = "runonlyonenvironments";
 	/**
-	 * 
+	 * Allowed tenants
 	 */
 	private static final String RUN_ONLY_ON_TENANTS_PROPERTY = "runonlyontenants";
 	/**
-	 * 
+	 * Separator of tenant and environment names.
 	 */
 	private static final String VALUES_SEPARATOR = ",";
 	/*
@@ -98,22 +98,22 @@ public class PropertyFileDeploymentScriptConfigurationReader implements Deployme
 		{
 			throw new DeploymentScriptConfigurationException(e);
 		}
-		final List<Tenant> tenants = getAllowedTenants(properties);
-		final List<String> environmentNames = getAllowedDeploymentEnvironments(properties);
+		final Set<Tenant> tenants = getAllowedTenants(properties);
+		final Set<String> environmentNames = getAllowedDeploymentEnvironments(properties);
 		return new DeploymentScriptConfiguration(tenants, environmentNames);
 	}
 
-	private List<String> getAllowedDeploymentEnvironments(final Properties properties)
+	private Set<String> getAllowedDeploymentEnvironments(final Properties properties)
 	{
 		final String environmentsList = properties.getProperty(RUN_ONLY_ON_ENVIRONMENTS_PROPERTY);
 		if (environmentsList == null)
 		{
 			return null;
 		}
-		return Arrays.asList(environmentsList.split(VALUES_SEPARATOR));
+		return new HashSet(Arrays.asList(environmentsList.split(VALUES_SEPARATOR)));
 	}
 
-	private List<Tenant> getAllowedTenants(final Properties properties)
+	private Set<Tenant> getAllowedTenants(final Properties properties)
 	{
 		final String tenantList = properties.getProperty(RUN_ONLY_ON_TENANTS_PROPERTY);
 		if (tenantList == null)
@@ -123,9 +123,9 @@ public class PropertyFileDeploymentScriptConfigurationReader implements Deployme
 		return convertTenants(tenantList);
 	}
 
-	private List<Tenant> convertTenants(final String tenantNamesList)
+	private Set<Tenant> convertTenants(final String tenantNamesList)
 	{
-		final List<Tenant> tenants = new ArrayList<Tenant>();
+		final Set<Tenant> tenants = new HashSet<Tenant>();
 		for (final String aTenantName : tenantNamesList.split(VALUES_SEPARATOR))
 		{
 			final Tenant foundTenant = Registry.getTenantByID(aTenantName);

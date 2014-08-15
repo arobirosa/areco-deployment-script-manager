@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
+import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 
 
 /**
@@ -50,12 +51,20 @@ public class DeploymentScript
 	 * 
 	 * @throws DeploymentScriptExecutionException
 	 */
-	public void run() throws DeploymentScriptExecutionException
+	public ScriptExecutionResultModel run(final DeploymentScriptExecutionContext context)
+			throws DeploymentScriptExecutionException
 	{
 		if (LOG.isDebugEnabled())
 		{
 			LOG.debug("Running " + this.getLongName() + " - Start");
 		}
+		final ScriptExecutionResultModel configurationContraintsCheckResult = this.getConfiguration()
+				.isAllowedInThisServer(context);
+		if (configurationContraintsCheckResult != null)
+		{
+			return configurationContraintsCheckResult;
+		}
+
 		if (this.getOrderedSteps() == null)
 		{
 			throw new IllegalStateException("The ordered steps of the deployment script " + this.getName() + " are null.");
@@ -68,6 +77,7 @@ public class DeploymentScript
 		{
 			LOG.debug("Running " + this.getLongName() + " - Ended successfully");
 		}
+		return context.getSuccessResult();
 	}
 
 	/**

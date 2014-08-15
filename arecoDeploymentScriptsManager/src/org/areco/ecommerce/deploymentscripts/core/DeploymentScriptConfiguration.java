@@ -16,8 +16,11 @@
 package org.areco.ecommerce.deploymentscripts.core;
 
 import de.hybris.platform.core.Tenant;
+import de.hybris.platform.servicelayer.util.ServicesUtil;
 
-import java.util.List;
+import java.util.Set;
+
+import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 
 
 /**
@@ -29,31 +32,70 @@ import java.util.List;
 public class DeploymentScriptConfiguration
 {
 	/* The existent of the tenants is validated during the creation of the configuration. */
-	private final List<Tenant> allowedTenants;
+	private final Set<Tenant> allowedTenants;
 	/*
 	 * It contains the names of the environment because we validate the existenz of it just before running the script.
 	 */
-	private final List<String> allowedDeploymentEnvironmentNames;
+	private final Set<String> allowedDeploymentEnvironmentNames;
 
 	public DeploymentScriptConfiguration()
 	{
 		this(null, null);
 	}
 
-	public DeploymentScriptConfiguration(final List<Tenant> someTenants, final List<String> someDeploymentEnvironmentNames)
+	public DeploymentScriptConfiguration(final Set<Tenant> someTenants, final Set<String> someDeploymentEnvironmentNames)
 	{
 		this.allowedDeploymentEnvironmentNames = someDeploymentEnvironmentNames;
 		this.allowedTenants = someTenants;
 	}
 
-	protected List<Tenant> getAllowedTenants()
+	protected Set<Tenant> getAllowedTenants()
 	{
 		return allowedTenants;
 	}
 
-	protected List<String> getAllowedDeploymentEnvironmentNames()
+	protected Set<String> getAllowedDeploymentEnvironmentNames()
 	{
 		return allowedDeploymentEnvironmentNames;
+	}
+
+	/**
+	 * Checks if this script is allowed to run in this server.
+	 * 
+	 * @param context
+	 *           Required.
+	 * @return null if it is allowed to run. Otherwise it returns the execution result.
+	 */
+	public ScriptExecutionResultModel isAllowedInThisServer(final DeploymentScriptExecutionContext context)
+	{
+		ServicesUtil.validateParameterNotNullStandardMessage("context", context);
+		if (!this.isAllowedInThisTenant(context))
+		{
+			return context.getIgnoredOtherTenantResult();
+		}
+		if (!this.isAllowedInThisDeploymentEnvironment(context))
+		{
+			return context.getIgnoredOtherEnvironmentResult();
+		}
+		return null; //We can run this script
+	}
+
+	private boolean isAllowedInThisDeploymentEnvironment(final DeploymentScriptExecutionContext context)
+	{
+		if (this.getAllowedDeploymentEnvironmentNames() == null || this.getAllowedDeploymentEnvironmentNames().isEmpty())
+		{
+			return true;
+		}
+		return context.isCurrentEnvironmentIn(this.getAllowedDeploymentEnvironmentNames());
+	}
+
+	private boolean isAllowedInThisTenant(final DeploymentScriptExecutionContext context)
+	{
+		if (this.getAllowedTenants() == null || this.getAllowedTenants().isEmpty())
+		{
+			return true;
+		}
+		return this.getAllowedTenants().contains(context.getCurrentTenant());
 	}
 
 

@@ -22,11 +22,13 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionContext;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
+import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -55,7 +57,10 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner
 	Converter<DeploymentScript, ScriptExecutionModel> scriptConverter;
 
 	@Autowired
-	ScriptExecutionResultDAO scriptExecutionResultDao;
+	private ScriptExecutionResultDAO scriptExecutionResultDao;
+
+	@Autowired
+	private DeploymentScriptExecutionContext scriptExecutionContext;
 
 	/*
 	 * (non-Javadoc)
@@ -63,7 +68,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner
 	 * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner#run(java.util.List)
 	 */
 	@Override
-	public boolean run(final UpdatingSystemExtensionContext context, final List<DeploymentScript> scriptsToBeRun)
+	public boolean run(final UpdatingSystemExtensionContext updatingSystemContext, final List<DeploymentScript> scriptsToBeRun)
 	{
 		for (final DeploymentScript aScript : scriptsToBeRun)
 		{
@@ -71,17 +76,17 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner
 
 			try
 			{
-				aScript.run();
+				final ScriptExecutionResultModel scriptResult = aScript.run(this.scriptExecutionContext);
+				scriptExecution.setResult(scriptResult);
 			}
 			catch (final DeploymentScriptExecutionException e)
 			{
 				LOG.error("There was an error running " + aScript.getLongName() + ':' + e.getLocalizedMessage(), e);
 				scriptExecution.setResult(this.scriptExecutionResultDao.getErrorResult());
-				this.saveAndLogScriptExecution(context, scriptExecution);
+				this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
 				return true;//We stop after the first error.
 			}
-			scriptExecution.setResult(this.scriptExecutionResultDao.getSuccessResult());
-			this.saveAndLogScriptExecution(context, scriptExecution);
+			this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
 		}
 		return false; //Everything when successfully
 	}
