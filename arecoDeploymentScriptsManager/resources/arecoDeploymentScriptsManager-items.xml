@@ -73,6 +73,25 @@
 			</attributes>
 		</itemtype>
 		
+	   <itemtype generate="true"
+           code="DeploymentEnvironment"
+           jaloclass="org.areco.ecommerce.deploymentscripts.jalo.DeploymentEnvironment"
+           autocreate="true">
+           <description>Represents each of the group of servers where the deployment scripts may be run.</description>
+           <deployment table="arenvironment" typecode="32103"/>
+            <attributes>
+                <attribute qualifier="name" type="java.lang.String">
+                    <description>Name of the environment</description>
+                    <modifiers optional="false" unique="true" initial="true" write="false"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="description" type="localized:java.lang.String">
+                    <description>Description of the environment.</description>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+		
         <itemtype code="RunPendingDeploymentScriptsWizard"
                      extends="WizardBusinessItem"
                      jaloonly="true"
