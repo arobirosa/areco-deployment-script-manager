@@ -32,6 +32,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStepFactory;
@@ -71,6 +72,9 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 	@Autowired
 	private List<DeploymentScriptStepFactory> stepFactories;
 
+	@Autowired
+	private DeploymentScriptConfigurationReader configurationReader;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -79,7 +83,8 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 	@Override
 	public List<DeploymentScript> getPendingScripts(final String extensionName, final Process process, final boolean runInitScripts)
 	{
-		ServicesUtil.validateParameterNotNullStandardMessage(extensionName, extensionName);
+		ServicesUtil.validateParameterNotNullStandardMessage("extensionName", extensionName);
+		ServicesUtil.validateParameterNotNullStandardMessage("process", process);
 		final List<File> pendingScriptsFolders = getScriptsToBeRun(extensionName, runInitScripts);
 		return getDeploymentScripts(pendingScriptsFolders, extensionName, process);
 	}
@@ -149,11 +154,6 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 		return getExistingScriptsInDirectory(extension, scriptsFolderName);
 	}
 
-	/**
-	 * @param extension
-	 * @param scriptsFolderName
-	 * @return
-	 */
 	private File[] getExistingScriptsInDirectory(final ExtensionInfo extension, final String scriptsFolderName)
 	{
 		final File deploymentScriptFolder = new File(
@@ -200,19 +200,20 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 		return newDeploymentScripts;
 	}
 
-	private DeploymentScript createDeploymentScript(final File pendingScriptsFolder, final String extensionName,
+	private DeploymentScript createDeploymentScript(final File deploymentScriptFolder, final String extensionName,
 			final Process process)
 	{
-		final List<DeploymentScriptStep> orderedSteps = createOrderedSteps(pendingScriptsFolder);
+		final List<DeploymentScriptStep> orderedSteps = createOrderedSteps(deploymentScriptFolder);
 
 		if (orderedSteps.isEmpty())
 		{
 			return null;
 		}
 		final DeploymentScript newScript = new DeploymentScript();
-		newScript.setName(pendingScriptsFolder.getName());
+		newScript.setName(deploymentScriptFolder.getName());
 		newScript.setExtensionName(extensionName);
 		newScript.setOrderedSteps(orderedSteps);
+		newScript.setConfiguration(configurationReader.loadConfiguration(deploymentScriptFolder));
 		if (LOG.isTraceEnabled())
 		{
 			LOG.trace("Current Hybris process: " + process);

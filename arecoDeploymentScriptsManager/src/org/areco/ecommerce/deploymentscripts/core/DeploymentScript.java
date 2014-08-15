@@ -43,6 +43,8 @@ public class DeploymentScript
 
 	private SystemPhase phase;
 
+	private DeploymentScriptConfiguration configuration;
+
 	/**
 	 * Does the actual job.
 	 * 
@@ -206,6 +208,8 @@ public class DeploymentScript
 		builder.append(orderedSteps);
 		builder.append(", phase=");
 		builder.append(phase);
+		builder.append(", configuration=");
+		builder.append(configuration);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -227,6 +231,14 @@ public class DeploymentScript
 		this.phase = phase;
 	}
 
+	public DeploymentScriptConfiguration getConfiguration()
+	{
+		return configuration;
+	}
 
+	public void setConfiguration(final DeploymentScriptConfiguration configuration)
+	{
+		this.configuration = configuration;
+	}
 
 }
