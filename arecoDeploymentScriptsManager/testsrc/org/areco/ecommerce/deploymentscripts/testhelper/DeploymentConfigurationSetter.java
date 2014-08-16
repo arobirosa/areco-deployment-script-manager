@@ -19,11 +19,11 @@ import de.hybris.platform.servicelayer.util.ServicesUtil;
 import de.hybris.platform.util.Config;
 
 import org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptFinder;
+import org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchDeploymentEnvironmentDAO;
 
 
 /**
  * It modifies the configuration of the properties during a test and restore them at the end of it.
- * 
  * 
  * @author arobirosa
  * 
@@ -38,6 +38,8 @@ public class DeploymentConfigurationSetter
 	private String oldUpdateScriptsFolder = null;
 
 	private String oldInitScriptsFolder = null;
+
+	private String oldEnvironmentName = null;
 
 	/**
 	 * Save the current configuration and sets the folders to the given values.
@@ -78,6 +80,7 @@ public class DeploymentConfigurationSetter
 			this.oldResourcesFolder = Config.getParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF);
 			this.oldUpdateScriptsFolder = Config.getParameter(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF);
 			this.oldInitScriptsFolder = Config.getParameter(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF);
+			this.oldEnvironmentName = Config.getParameter(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF);
 			this.oldConfigurationWasSaved = true;
 		}
 
@@ -91,6 +94,17 @@ public class DeploymentConfigurationSetter
 		Config.setParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, oldResourcesFolder);
 		Config.setParameter(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, oldUpdateScriptsFolder);
 		Config.setParameter(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, oldInitScriptsFolder);
+		Config.setParameter(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, oldEnvironmentName);
 	}
 
+	/**
+	 * Sets the name of the current environment.
+	 * 
+	 * @param currentEnvironmentName
+	 *           Can be null.
+	 */
+	public void setEnvironment(final String currentEnvironmentName)
+	{
+		Config.setParameter(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, currentEnvironmentName);
+	}
 }

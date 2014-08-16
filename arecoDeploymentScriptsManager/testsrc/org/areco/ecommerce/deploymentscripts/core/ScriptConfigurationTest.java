@@ -129,4 +129,13 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
 		deploymentScriptResultAsserter.assertResult("20140812_TICKET_ADD_QA_CRONJOBS",
 				this.flexibleSearchScriptExecutionResultDao.getSuccessResult());
 	}
+
+	@Test(expected = DeploymentScriptConfigurationException.class)
+	public void undefindCurrentEnvironment()
+	{
+		this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment", null);
+		this.getDeploymentConfigurationSetter().setEnvironment(null);
+		final boolean wereThereErrors = this.deploymentScriptStarter.runAllPendingScripts();
+		Assert.fail("An exception must have been thrown.");
+	}
 }
