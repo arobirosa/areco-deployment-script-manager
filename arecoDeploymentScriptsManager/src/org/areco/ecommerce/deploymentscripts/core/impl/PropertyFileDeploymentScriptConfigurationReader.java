@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfiguration;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
@@ -47,6 +48,7 @@ import org.springframework.stereotype.Component;
 public class PropertyFileDeploymentScriptConfigurationReader implements DeploymentScriptConfigurationReader
 {
 
+	private static final Logger LOG = Logger.getLogger(PropertyFileDeploymentScriptConfigurationReader.class);
 	/**
 	 * Allowed environments
 	 */
@@ -73,6 +75,10 @@ public class PropertyFileDeploymentScriptConfigurationReader implements Deployme
 	@Override
 	public DeploymentScriptConfiguration loadConfiguration(final File deploymentScriptFolder)
 	{
+		if (LOG.isDebugEnabled())
+		{
+			LOG.debug("Reading configuration from the directory " + deploymentScriptFolder);
+		}
 		ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptFolder", deploymentScriptFolder);
 
 		final File configurationFile = this.findConfigurationFile(deploymentScriptFolder);
@@ -148,15 +154,20 @@ public class PropertyFileDeploymentScriptConfigurationReader implements Deployme
 				return pathname.getName().toLowerCase().endsWith(PROPERTY_FILE_EXTENSION_CONF);
 			}
 		});
+		//if (LOG.isTraceEnabled())
+		//{
+		LOG.fatal("Found configuration files: " + Arrays.toString(configurationFiles));
+		//}
 		if (configurationFiles.length == 0)
 		{
 			return null;
 		}
-		else if (configurationFiles.length > 1)
+		else if (configurationFiles.length == 1)
 		{
-			new DeploymentScriptConfigurationException("The folder " + deploymentScriptFolder.getAbsolutePath()
-					+ " contains multiply configuration files. Please leave only one.");
+			return configurationFiles[0];
 		}
-		return configurationFiles[0];
+		throw new DeploymentScriptConfigurationException("The folder " + deploymentScriptFolder.getAbsolutePath()
+				+ " contains multiply configuration files. Please leave only one.");
+
 	}
 }

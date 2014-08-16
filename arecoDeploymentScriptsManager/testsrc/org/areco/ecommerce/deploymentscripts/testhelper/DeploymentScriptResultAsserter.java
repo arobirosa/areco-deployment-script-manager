@@ -58,8 +58,9 @@ public class DeploymentScriptResultAsserter
 		ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
 		ServicesUtil.validateParameterNotNullStandardMessage("expectedResult", expectedResult);
 		final ScriptExecutionModel executionOfTheScript = getDeploymentScriptExecution(deploymentScriptName);
-		Assert.assertEquals("The deployment script " + deploymentScriptName + " has the wrong result", expectedResult,
-				executionOfTheScript.getResult());
+		Assert.assertEquals(
+				"The deployment script " + deploymentScriptName + " has the wrong result. Expected: " + expectedResult.getName()
+						+ " Actual: " + executionOfTheScript.getResult().getName(), expectedResult, executionOfTheScript.getResult());
 	}
 
 	/**
@@ -91,7 +92,7 @@ public class DeploymentScriptResultAsserter
 
 		final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
 
-		return this.flexibleSearchService.searchUnique(query);
+		return this.getFlexibleSearchService().searchUnique(query);
 	}
 
 	protected FlexibleSearchService getFlexibleSearchService()

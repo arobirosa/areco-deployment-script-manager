@@ -29,6 +29,8 @@ import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.model.DeploymentEnvironmentModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 
 
 /**
@@ -37,6 +39,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author arobirosa
  * 
  */
+@Repository
+@Scope("tenant")
 public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnvironmentDAO
 {
 
@@ -68,8 +72,8 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
 		final StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append("SELECT {r.").append(DeploymentEnvironmentModel.PK).append("}").append(" FROM {")
 				.append(DeploymentEnvironmentModel._TYPECODE).append(" as r ").append("} ").append(" WHERE ").append(" {")
-				.append(DeploymentEnvironmentModel.NAME).append("} ").append(" IN ").append('?')
-				.append(DeploymentEnvironmentModel.NAME);
+				.append(DeploymentEnvironmentModel.NAME).append("} ").append(" IN ").append('(').append('?')
+				.append(DeploymentEnvironmentModel.NAME).append(')');
 
 		final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
 		query.addQueryParameter(DeploymentEnvironmentModel.NAME, environmentNames);

@@ -74,10 +74,20 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
 				this.flexibleSearchScriptExecutionResultDao.getIgnoredOtherEnvironmentResult());
 	}
 
+	public void otherEnvironmentAndTenant()
+	{
+		this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "prod-env-and-tenant-master-only", null);
+		this.getDeploymentConfigurationSetter().setEnvironment("DEV");
+		final boolean wereThereErrors = this.deploymentScriptStarter.runAllPendingScripts();
+		Assert.assertFalse("There were errors", wereThereErrors);
+		deploymentScriptResultAsserter.assertResult("20140814_TICKET_ADD_PROD_CRONJOBS",
+				this.flexibleSearchScriptExecutionResultDao.getIgnoredOtherTenantResult());
+	}
+
 	@Test
 	public void otherTenant()
 	{
-		this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "master-only", null);
+		this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "master-tenant-only", null);
 		this.getDeploymentConfigurationSetter().setEnvironment("DEV");
 		final boolean wereThereErrors = this.deploymentScriptStarter.runAllPendingScripts();
 		Assert.assertFalse("There were errors", wereThereErrors);
@@ -85,57 +95,52 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
 				this.flexibleSearchScriptExecutionResultDao.getIgnoredOtherTenantResult());
 	}
 
-	@Test
+	@Test(expected = DeploymentScriptConfigurationException.class)
 	public void twoConfigurations()
 	{
 		this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "two-configurations", null);
 		this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-		final boolean wereThereErrors = this.deploymentScriptStarter.runAllPendingScripts();
-		Assert.assertTrue("There were no errors", wereThereErrors);
-		deploymentScriptResultAsserter.assertResult("20140814_TICKET_ADD_DEV_CRONJOBS",
-				this.flexibleSearchScriptExecutionResultDao.getErrorResult());
+		this.deploymentScriptStarter.runAllPendingScripts();
+		Assert.fail("An exception must have been thrown");
 	}
 
-	@Test
+	@Test(expected = IllegalStateException.class)
 	public void unknownEnvironment()
 	{
 		this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "unknown-environment", null);
 		this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-		final boolean wereThereErrors = this.deploymentScriptStarter.runAllPendingScripts();
-		Assert.assertTrue("There were no errors", wereThereErrors);
-		deploymentScriptResultAsserter.assertResult("20140814_TICKET_ADD_DEV_CRONJOBS",
-				this.flexibleSearchScriptExecutionResultDao.getErrorResult());
+		this.deploymentScriptStarter.runAllPendingScripts();
+		Assert.fail("An exception must have been thrown");
 	}
 
 
-	@Test
+	@Test(expected = DeploymentScriptConfigurationException.class)
 	public void unknownTenant()
 	{
 		this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "unknown-tenant", null);
 		this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-		final boolean wereThereErrors = this.deploymentScriptStarter.runAllPendingScripts();
-		Assert.assertTrue("There were no errors", wereThereErrors);
-		deploymentScriptResultAsserter.assertResult("20140814_TICKET_ADD_DEV_CRONJOBS",
-				this.flexibleSearchScriptExecutionResultDao.getErrorResult());
+		this.deploymentScriptStarter.runAllPendingScripts();
+		Assert.fail("An exception must have been thrown");
 	}
 
 	@Test
 	public void justCreatedEnvironment()
 	{
 		this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment", null);
-		this.getDeploymentConfigurationSetter().setEnvironment("DEV");
+		//We simulate that we are in the just created environment
+		this.getDeploymentConfigurationSetter().setEnvironment("QA_WEBSERVICE");
 		final boolean wereThereErrors = this.deploymentScriptStarter.runAllPendingScripts();
 		Assert.assertFalse("There were errors", wereThereErrors);
-		deploymentScriptResultAsserter.assertResult("20140812_TICKET_ADD_QA_CRONJOBS",
+		deploymentScriptResultAsserter.assertResult("20140814_02_TICKET_ADD_QA_CRONJOBS",
 				this.flexibleSearchScriptExecutionResultDao.getSuccessResult());
 	}
 
-	@Test(expected = DeploymentScriptConfigurationException.class)
+	@Test(expected = IllegalStateException.class)
 	public void undefindCurrentEnvironment()
 	{
 		this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment", null);
 		this.getDeploymentConfigurationSetter().setEnvironment(null);
-		final boolean wereThereErrors = this.deploymentScriptStarter.runAllPendingScripts();
+		this.deploymentScriptStarter.runAllPendingScripts();
 		Assert.fail("An exception must have been thrown.");
 	}
 }
