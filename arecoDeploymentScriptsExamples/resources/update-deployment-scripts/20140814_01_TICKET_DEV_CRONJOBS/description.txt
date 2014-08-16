@@ -1,0 +1,1 @@
+This example shows a deployment script which only run on the environments DEV and TEST
