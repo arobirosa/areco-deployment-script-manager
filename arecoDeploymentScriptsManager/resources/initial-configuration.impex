@@ -1,6 +1,11 @@
+#Due to the initial attributes, we cannot update the execution result, we can only insert them if they doesn't exist.
+#% if: de.hybris.platform.core.Registry.getApplicationContext().getBean(de.hybris.platform.servicelayer.search.FlexibleSearchService.class).search("SELECT {r.PK} FROM {ScriptExecutionResult as r}").getCount() == 0;
 INSERT ScriptExecutionResult;name[unique=true];canBeRunnedAgain[forceWrite=true];description[lang=en];description[lang=de];
 ;SUCCESS;false;Success;Erfolgreich
 ;ERROR;true;Error;Fehler
+#% endif:
+
+INSERT ScriptExecutionResult;name[unique=true];canBeRunnedAgain[forceWrite=true];description[lang=en];description[lang=de];
 ;IGNORED_NOT_FOR_THIS_ENVIRONMENT;false;"Ignored: Other environment";"Ignoriert: Andere Umgebung"
 ;IGNORED_NOT_FOR_THIS_TENANT;false;"Ignored: Other tenant";"Ignoriert: Anderer Tenant"
 

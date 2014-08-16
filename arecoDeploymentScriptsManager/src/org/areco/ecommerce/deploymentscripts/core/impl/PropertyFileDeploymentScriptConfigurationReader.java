@@ -154,10 +154,10 @@ public class PropertyFileDeploymentScriptConfigurationReader implements Deployme
 				return pathname.getName().toLowerCase().endsWith(PROPERTY_FILE_EXTENSION_CONF);
 			}
 		});
-		//if (LOG.isTraceEnabled())
-		//{
-		LOG.fatal("Found configuration files: " + Arrays.toString(configurationFiles));
-		//}
+		if (LOG.isTraceEnabled())
+		{
+			LOG.trace("Found configuration files: " + Arrays.toString(configurationFiles));
+		}
 		if (configurationFiles.length == 0)
 		{
 			return null;
