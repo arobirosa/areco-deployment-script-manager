@@ -1,0 +1,1 @@
+Wrong deployment script because it has two configuration files. Only one is allowed.

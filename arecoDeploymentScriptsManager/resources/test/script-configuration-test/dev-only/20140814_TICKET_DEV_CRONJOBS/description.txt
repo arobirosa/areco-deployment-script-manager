@@ -1,0 +1,1 @@
+This example shows impex scripts which insert or delete objects and only works on some environments.

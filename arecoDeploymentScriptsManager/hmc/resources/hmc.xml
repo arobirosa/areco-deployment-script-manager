@@ -26,6 +26,8 @@
 				    description="typeref.scriptExecution.description" />
 				 <typeref type="RunPendingDeploymentScriptsWizard"
 				     description="typeref.runpendingdeploymentscriptswizard.description"/>
+				 <typeref type="DeploymentEnvironment"
+                    description="typeref.deploymentenvironment.description" />
 			</group>
 		</group>
 	</explorertree>
@@ -44,7 +46,7 @@
                   <attribute name="creationtime" width="130"/>
                   <attribute name="extensionName" width="250"/>
                   <attribute name="scriptName" width="300"/>
-                  <attribute name="result" width="80"/>
+                  <attribute name="result" width="200"/>
                   <attribute name="phase" width="100"/>
                </itemlayout>
             </listview>
@@ -97,7 +99,7 @@
    
     <type name="ScriptExecutionResult" mode="append">
       <organizer>
-         <search autoperform="false" mode="replace">
+         <search autoperform="true" mode="replace">
             <condition attribute="name" />
             <condition attribute="description" />
          </search>
@@ -137,6 +139,51 @@
                   </listlayout>
                </section>
             </tab>
+         </editor>
+      </organizer>
+      <defaultreference searchattribute="name" mode="replace"
+            sortattribute="name">
+         <itemlayout>
+            <attribute name="name"/>
+         </itemlayout>
+      </defaultreference>
+   </type>
+   
+    <type name="DeploymentEnvironment" mode="append">
+      <organizer>
+         <search autoperform="true" mode="replace">
+            <condition attribute="name" />
+            <condition attribute="description" />
+         </search>
+         <result defaultview="list" mode="replace">
+            <listview >
+               <itemlayout>
+                  <attribute name="name"/>
+                  <attribute name="description"/>
+               </itemlayout>
+            </listview>
+            <editview  mode="replace">
+               <itemlayout>
+                 <attribute name="name"/>
+                 <attribute name="description"/>
+               </itemlayout>
+            </editview>
+            <treeview  mode="replace">
+               <itemlayout>
+                  <attribute name="name"/>
+                  <attribute name="description"/>
+               </itemlayout>
+            </treeview>
+         </result>
+         <editor>
+            <essentials>
+               <columnlayout>
+                  <row>
+                     <attribute name="name" editable="false"/>
+                     <attribute name="description"/>
+                  </row>
+               </columnlayout>
+            </essentials>
          </editor>
       </organizer>
       <defaultreference searchattribute="name" mode="replace"
