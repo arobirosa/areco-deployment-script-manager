@@ -32,5 +32,5 @@ public interface DeploymentScriptConfigurationReader
 	 *           Required.
 	 * @return Never null
 	 */
-	DeploymentScriptConfiguration loadConfiguration(File deploymentScriptFolder);
+	PropertyFileDeploymentScriptConfiguration loadConfiguration(File deploymentScriptFolder);
 }

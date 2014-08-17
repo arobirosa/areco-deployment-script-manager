@@ -30,7 +30,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfiguration;
+import org.areco.ecommerce.deploymentscripts.core.PropertyFileDeploymentScriptConfiguration;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
 
@@ -70,7 +70,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
 	private static final String PROPERTY_FILE_EXTENSION_CONF = ".conf";
 
 	@Override
-	public DeploymentScriptConfiguration loadConfiguration(final File deploymentScriptFolder)
+	public PropertyFileDeploymentScriptConfiguration loadConfiguration(final File deploymentScriptFolder)
 	{
 		if (LOG.isDebugEnabled())
 		{
@@ -86,7 +86,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
 		return this.createConfigurationFrom(configurationFile);
 	}
 
-	private DeploymentScriptConfiguration createConfigurationFrom(final File configurationFile)
+	private PropertyFileDeploymentScriptConfiguration createConfigurationFrom(final File configurationFile)
 	{
 		final Properties properties = new Properties();
 		try
@@ -103,7 +103,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
 		}
 		final Set<Tenant> tenants = getAllowedTenants(properties);
 		final Set<String> environmentNames = getAllowedDeploymentEnvironments(properties);
-		final DeploymentScriptConfiguration newConfiguration = this.createConfiguration();
+		final PropertyFileDeploymentScriptConfiguration newConfiguration = this.createConfiguration();
 		newConfiguration.setAllowedTenants(tenants);
 		newConfiguration.setAllowedDeploymentEnvironmentNames(environmentNames);
 		return newConfiguration;
@@ -172,5 +172,5 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
 	}
 
 	//Used by Spring to create new instances.
-	protected abstract DeploymentScriptConfiguration createConfiguration();
+	protected abstract PropertyFileDeploymentScriptConfiguration createConfiguration();
 }

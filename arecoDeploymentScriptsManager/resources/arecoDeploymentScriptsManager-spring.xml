@@ -45,7 +45,7 @@
     <bean id="propertyFileDeploymentScriptConfigurationReader"
         class="org.areco.ecommerce.deploymentscripts.core.impl.PropertyFileDeploymentScriptConfigurationReader"
         scope="tenant">
-        <lookup-method name="createConfiguration" bean="deploymentScriptConfiguration" />
+        <lookup-method name="createConfiguration" bean="propertyFileDeploymentScriptConfiguration" />
     </bean>
     
     <bean id="arecoDeploymentScriptFinder"

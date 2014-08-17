@@ -34,7 +34,7 @@ import org.springframework.stereotype.Component;
 //Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
 @Component
-public class DeploymentScriptConfiguration
+public class PropertyFileDeploymentScriptConfiguration
 {
 	@Autowired
 	private DeploymentScriptExecutionContext context;
