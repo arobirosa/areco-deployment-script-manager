@@ -41,4 +41,16 @@
         scope="tenant">
         <lookup-method name="createStep" bean="beanShellScriptStep"/>
     </bean>
+    
+    <bean id="propertyFileDeploymentScriptConfigurationReader"
+        class="org.areco.ecommerce.deploymentscripts.core.impl.PropertyFileDeploymentScriptConfigurationReader"
+        scope="tenant">
+        <lookup-method name="createConfiguration" bean="deploymentScriptConfiguration" />
+    </bean>
+    
+    <bean id="arecoDeploymentScriptFinder"
+        class="org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptFinder"
+        scope="tenant">
+        <lookup-method name="newDeploymentScript" bean="deploymentScript" />
+    </bean>
 </beans>

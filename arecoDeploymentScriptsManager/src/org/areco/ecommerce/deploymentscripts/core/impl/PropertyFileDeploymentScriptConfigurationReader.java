@@ -33,8 +33,6 @@ import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfiguration;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 
 /**
@@ -43,9 +41,8 @@ import org.springframework.stereotype.Component;
  * @author arobirosa
  * 
  */
-@Component
-@Scope("tenant")
-public class PropertyFileDeploymentScriptConfigurationReader implements DeploymentScriptConfigurationReader
+//The configuration of this bean is in the spring application context.
+public abstract class PropertyFileDeploymentScriptConfigurationReader implements DeploymentScriptConfigurationReader
 {
 
 	private static final Logger LOG = Logger.getLogger(PropertyFileDeploymentScriptConfigurationReader.class);
@@ -68,7 +65,7 @@ public class PropertyFileDeploymentScriptConfigurationReader implements Deployme
 	 * org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader#loadConfiguration(java.io.File)
 	 */
 	/**
-	 * 
+	 * Extension of the configuration files
 	 */
 	private static final String PROPERTY_FILE_EXTENSION_CONF = ".conf";
 
@@ -84,7 +81,7 @@ public class PropertyFileDeploymentScriptConfigurationReader implements Deployme
 		final File configurationFile = this.findConfigurationFile(deploymentScriptFolder);
 		if (configurationFile == null)
 		{
-			return new DeploymentScriptConfiguration(); //Default configuration
+			return this.createConfiguration(); //Default configuration
 		}
 		return this.createConfigurationFrom(configurationFile);
 	}
@@ -106,7 +103,10 @@ public class PropertyFileDeploymentScriptConfigurationReader implements Deployme
 		}
 		final Set<Tenant> tenants = getAllowedTenants(properties);
 		final Set<String> environmentNames = getAllowedDeploymentEnvironments(properties);
-		return new DeploymentScriptConfiguration(tenants, environmentNames);
+		final DeploymentScriptConfiguration newConfiguration = this.createConfiguration();
+		newConfiguration.setAllowedTenants(tenants);
+		newConfiguration.setAllowedDeploymentEnvironmentNames(environmentNames);
+		return newConfiguration;
 	}
 
 	private Set<String> getAllowedDeploymentEnvironments(final Properties properties)
@@ -170,4 +170,7 @@ public class PropertyFileDeploymentScriptConfigurationReader implements Deployme
 				+ " contains multiply configuration files. Please leave only one.");
 
 	}
+
+	//Used by Spring to create new instances.
+	protected abstract DeploymentScriptConfiguration createConfiguration();
 }

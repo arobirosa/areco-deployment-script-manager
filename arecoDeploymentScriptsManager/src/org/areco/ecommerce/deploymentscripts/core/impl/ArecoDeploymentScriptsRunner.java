@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionContext;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
@@ -59,9 +58,6 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner
 	@Autowired
 	private ScriptExecutionResultDAO scriptExecutionResultDao;
 
-	@Autowired
-	private DeploymentScriptExecutionContext scriptExecutionContext;
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -76,7 +72,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner
 
 			try
 			{
-				final ScriptExecutionResultModel scriptResult = aScript.run(this.scriptExecutionContext);
+				final ScriptExecutionResultModel scriptResult = aScript.run();
 				scriptExecution.setResult(scriptResult);
 			}
 			catch (final DeploymentScriptExecutionException e)

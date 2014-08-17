@@ -21,15 +21,26 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 
 /**
+ * Represents each folder containing the deployment script.
+ * 
  * @author arobirosa
  * 
  */
+//Every time the step factory is called, it creates a new instance.
+@Scope("prototype")
+@Component
 public class DeploymentScript
 {
 	private static final Logger LOG = Logger.getLogger(DeploymentScript.class);
+
+	@Autowired
+	private ScriptExecutionResultDAO scriptExecutionResultDAO;
 
 	/**
 	 * This is the encoding used by the scripts.
@@ -51,15 +62,13 @@ public class DeploymentScript
 	 * 
 	 * @throws DeploymentScriptExecutionException
 	 */
-	public ScriptExecutionResultModel run(final DeploymentScriptExecutionContext context)
-			throws DeploymentScriptExecutionException
+	public ScriptExecutionResultModel run() throws DeploymentScriptExecutionException
 	{
 		if (LOG.isDebugEnabled())
 		{
 			LOG.debug("Running " + this.getLongName() + " - Start");
 		}
-		final ScriptExecutionResultModel configurationContraintsCheckResult = this.getConfiguration()
-				.isAllowedInThisServer(context);
+		final ScriptExecutionResultModel configurationContraintsCheckResult = this.getConfiguration().isAllowedInThisServer();
 		if (configurationContraintsCheckResult != null)
 		{
 			return configurationContraintsCheckResult;
@@ -77,7 +86,7 @@ public class DeploymentScript
 		{
 			LOG.debug("Running " + this.getLongName() + " - Ended successfully");
 		}
-		return context.getSuccessResult();
+		return this.scriptExecutionResultDAO.getSuccessResult();
 	}
 
 	/**

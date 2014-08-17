@@ -16,59 +16,63 @@
 package org.areco.ecommerce.deploymentscripts.core;
 
 import de.hybris.platform.core.Tenant;
-import de.hybris.platform.servicelayer.util.ServicesUtil;
 
 import java.util.Set;
 
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 
 /**
- * It defines special properties of the deployment scripts like where they are allowed to run. It is inmutable.
+ * It defines special properties of the deployment scripts like where they are allowed to run.
  * 
  * @author arobirosa
  * 
  */
+//Every time the step factory is called, it creates a new instance.
+@Scope("prototype")
+@Component
 public class DeploymentScriptConfiguration
 {
+	@Autowired
+	private DeploymentScriptExecutionContext context;
+
 	/* The existent of the tenants is validated during the creation of the configuration. */
-	private final Set<Tenant> allowedTenants;
+	private Set<Tenant> allowedTenants;
 	/*
 	 * It contains the names of the environment because we validate the existenz of it just before running the script.
 	 */
-	private final Set<String> allowedDeploymentEnvironmentNames;
+	private Set<String> allowedDeploymentEnvironmentNames;
 
-	public DeploymentScriptConfiguration()
-	{
-		this(null, null);
-	}
-
-	public DeploymentScriptConfiguration(final Set<Tenant> someTenants, final Set<String> someDeploymentEnvironmentNames)
-	{
-		this.allowedDeploymentEnvironmentNames = someDeploymentEnvironmentNames;
-		this.allowedTenants = someTenants;
-	}
-
-	protected Set<Tenant> getAllowedTenants()
+	public Set<Tenant> getAllowedTenants()
 	{
 		return allowedTenants;
 	}
 
-	protected Set<String> getAllowedDeploymentEnvironmentNames()
+	public void setAllowedTenants(final Set<Tenant> allowedTenants)
+	{
+		this.allowedTenants = allowedTenants;
+	}
+
+	public Set<String> getAllowedDeploymentEnvironmentNames()
 	{
 		return allowedDeploymentEnvironmentNames;
+	}
+
+	public void setAllowedDeploymentEnvironmentNames(final Set<String> allowedDeploymentEnvironmentNames)
+	{
+		this.allowedDeploymentEnvironmentNames = allowedDeploymentEnvironmentNames;
 	}
 
 	/**
 	 * Checks if this script is allowed to run in this server.
 	 * 
-	 * @param context
-	 *           Required.
 	 * @return null if it is allowed to run. Otherwise it returns the execution result.
 	 */
-	public ScriptExecutionResultModel isAllowedInThisServer(final DeploymentScriptExecutionContext context)
+	public ScriptExecutionResultModel isAllowedInThisServer()
 	{
-		ServicesUtil.validateParameterNotNullStandardMessage("context", context);
 		if (!this.isAllowedInThisTenant(context))
 		{
 			return context.getIgnoredOtherTenantResult();
@@ -97,7 +101,5 @@ public class DeploymentScriptConfiguration
 		}
 		return this.getAllowedTenants().contains(context.getCurrentTenant());
 	}
-
-
 
 }

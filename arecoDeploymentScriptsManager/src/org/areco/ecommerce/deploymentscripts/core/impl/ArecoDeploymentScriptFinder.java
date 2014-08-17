@@ -41,8 +41,6 @@ import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
 
 
 /**
@@ -51,9 +49,8 @@ import org.springframework.stereotype.Service;
  * @author arobirosa
  * 
  */
-@Service
-@Scope("tenant")
-public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
+//The configuration of this bean is in the spring application context.
+public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 {
 	private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptFinder.class);
 
@@ -209,7 +206,7 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 		{
 			return null;
 		}
-		final DeploymentScript newScript = new DeploymentScript();
+		final DeploymentScript newScript = this.newDeploymentScript();
 		newScript.setName(deploymentScriptFolder.getName());
 		newScript.setExtensionName(extensionName);
 		newScript.setOrderedSteps(orderedSteps);
@@ -258,4 +255,11 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 		}
 		return steps;
 	}
+
+	/**
+	 * Creates an empty instance of the deployment script class.
+	 * 
+	 * @return
+	 */
+	protected abstract DeploymentScript newDeploymentScript();
 }
