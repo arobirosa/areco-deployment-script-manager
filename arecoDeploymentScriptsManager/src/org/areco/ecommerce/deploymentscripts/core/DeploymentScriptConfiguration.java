@@ -15,23 +15,23 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
-import java.io.File;
+import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 
 
 /**
- * It is responsible for loading the configuration of the deployment script.
+ * It represents the definition of the properties of a deployment script
  * 
  * @author arobirosa
  * 
  */
-public interface DeploymentScriptConfigurationReader
+public interface DeploymentScriptConfiguration
 {
+
 	/**
-	 * Reads the folder and returns a configuration for the script.
+	 * Checks if this script is allowed to run in this server.
 	 * 
-	 * @param deploymentScriptFolder
-	 *           Required.
-	 * @return Never null
+	 * @return null if it is allowed to run. Otherwise it returns the execution result.
 	 */
-	DeploymentScriptConfiguration loadConfiguration(File deploymentScriptFolder);
+	ScriptExecutionResultModel isAllowedInThisServer();
+
 }

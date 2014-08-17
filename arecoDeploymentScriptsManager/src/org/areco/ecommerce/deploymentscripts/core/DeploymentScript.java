@@ -55,7 +55,7 @@ public class DeploymentScript
 
 	private SystemPhase phase;
 
-	private PropertyFileDeploymentScriptConfiguration configuration;
+	private DeploymentScriptConfiguration configuration;
 
 	/**
 	 * Does the actual job.
@@ -250,12 +250,12 @@ public class DeploymentScript
 		this.phase = phase;
 	}
 
-	public PropertyFileDeploymentScriptConfiguration getConfiguration()
+	public DeploymentScriptConfiguration getConfiguration()
 	{
 		return configuration;
 	}
 
-	public void setConfiguration(final PropertyFileDeploymentScriptConfiguration configuration)
+	public void setConfiguration(final DeploymentScriptConfiguration configuration)
 	{
 		this.configuration = configuration;
 	}

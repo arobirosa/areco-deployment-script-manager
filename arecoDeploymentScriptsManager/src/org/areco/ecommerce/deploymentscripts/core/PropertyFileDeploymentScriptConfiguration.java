@@ -15,6 +15,7 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
+import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.Tenant;
 
 import java.util.Set;
@@ -34,10 +35,13 @@ import org.springframework.stereotype.Component;
 //Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
 @Component
-public class PropertyFileDeploymentScriptConfiguration
+public class PropertyFileDeploymentScriptConfiguration implements DeploymentScriptConfiguration
 {
 	@Autowired
-	private DeploymentScriptExecutionContext context;
+	private ScriptExecutionResultDAO scriptExecutionResultDAO;
+
+	@Autowired
+	private DeploymentEnvironmentDAO deploymentEnvironmentDAO;
 
 	/* The existent of the tenants is validated during the creation of the configuration. */
 	private Set<Tenant> allowedTenants;
@@ -45,6 +49,66 @@ public class PropertyFileDeploymentScriptConfiguration
 	 * It contains the names of the environment because we validate the existenz of it just before running the script.
 	 */
 	private Set<String> allowedDeploymentEnvironmentNames;
+
+	/**
+	 * Checks if this script is allowed to run in this server.
+	 * 
+	 * @return null if it is allowed to run. Otherwise it returns the execution result.
+	 */
+	@Override
+	public ScriptExecutionResultModel isAllowedInThisServer()
+	{
+		if (!this.isAllowedInThisTenant())
+		{
+			return this.scriptExecutionResultDAO.getIgnoredOtherTenantResult();
+		}
+		if (!this.isAllowedInThisDeploymentEnvironment())
+		{
+			return this.scriptExecutionResultDAO.getIgnoredOtherEnvironmentResult();
+		}
+		return null; //We can run this script
+	}
+
+	private boolean isAllowedInThisDeploymentEnvironment()
+	{
+		if (this.getAllowedDeploymentEnvironmentNames() == null || this.getAllowedDeploymentEnvironmentNames().isEmpty())
+		{
+			return true;
+		}
+		return this.isCurrentEnvironmentIn(this.getAllowedDeploymentEnvironmentNames());
+	}
+
+	private boolean isAllowedInThisTenant()
+	{
+		if (this.getAllowedTenants() == null || this.getAllowedTenants().isEmpty())
+		{
+			return true;
+		}
+		return this.getAllowedTenants().contains(this.getCurrentTenant());
+	}
+
+	/**
+	 * Returns the current tenant
+	 * 
+	 * @return Never null
+	 */
+	private Tenant getCurrentTenant()
+	{
+		return Registry.getCurrentTenant();
+	}
+
+	/**
+	 * Determines of the current environment is in the given list of names.
+	 * 
+	 * @param allowedDeploymentEnvironmentNames
+	 *           Required
+	 * @return true if the current environment is present.
+	 */
+	private boolean isCurrentEnvironmentIn(final Set<String> allowedDeploymentEnvironmentNames)
+	{
+		return this.deploymentEnvironmentDAO.loadEnvironments(allowedDeploymentEnvironmentNames).contains(
+				this.deploymentEnvironmentDAO.getCurrent());
+	}
 
 	public Set<Tenant> getAllowedTenants()
 	{
@@ -65,41 +129,4 @@ public class PropertyFileDeploymentScriptConfiguration
 	{
 		this.allowedDeploymentEnvironmentNames = allowedDeploymentEnvironmentNames;
 	}
-
-	/**
-	 * Checks if this script is allowed to run in this server.
-	 * 
-	 * @return null if it is allowed to run. Otherwise it returns the execution result.
-	 */
-	public ScriptExecutionResultModel isAllowedInThisServer()
-	{
-		if (!this.isAllowedInThisTenant(context))
-		{
-			return context.getIgnoredOtherTenantResult();
-		}
-		if (!this.isAllowedInThisDeploymentEnvironment(context))
-		{
-			return context.getIgnoredOtherEnvironmentResult();
-		}
-		return null; //We can run this script
-	}
-
-	private boolean isAllowedInThisDeploymentEnvironment(final DeploymentScriptExecutionContext context)
-	{
-		if (this.getAllowedDeploymentEnvironmentNames() == null || this.getAllowedDeploymentEnvironmentNames().isEmpty())
-		{
-			return true;
-		}
-		return context.isCurrentEnvironmentIn(this.getAllowedDeploymentEnvironmentNames());
-	}
-
-	private boolean isAllowedInThisTenant(final DeploymentScriptExecutionContext context)
-	{
-		if (this.getAllowedTenants() == null || this.getAllowedTenants().isEmpty())
-		{
-			return true;
-		}
-		return this.getAllowedTenants().contains(context.getCurrentTenant());
-	}
-
 }
