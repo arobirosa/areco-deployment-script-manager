@@ -139,7 +139,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
 	public void undefindCurrentEnvironment()
 	{
 		this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment", null);
-		this.getDeploymentConfigurationSetter().setEnvironment(null);
+		this.getDeploymentConfigurationSetter().setEnvironment("");//We cannot set a null value.
 		this.deploymentScriptStarter.runAllPendingScripts();
 		Assert.fail("An exception must have been thrown.");
 	}
