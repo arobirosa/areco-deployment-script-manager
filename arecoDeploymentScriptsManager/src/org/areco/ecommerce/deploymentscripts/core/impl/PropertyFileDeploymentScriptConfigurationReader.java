@@ -30,7 +30,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.areco.ecommerce.deploymentscripts.core.PropertyFileDeploymentScriptConfiguration;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
 

@@ -13,13 +13,16 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.areco.ecommerce.deploymentscripts.core;
+package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.Tenant;
 
 import java.util.Set;
 
+import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfiguration;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
