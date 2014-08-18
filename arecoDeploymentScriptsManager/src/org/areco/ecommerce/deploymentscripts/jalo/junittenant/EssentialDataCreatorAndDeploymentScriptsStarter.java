@@ -66,7 +66,7 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter
 	@Autowired
 	private SystemSetupCollector systemSetupCollector;
 
-	public static EssentialDataCreatorAndDeploymentScriptsStarter getInstance()
+	public static synchronized EssentialDataCreatorAndDeploymentScriptsStarter getInstance()
 	{
 		if (INSTANCE == null)
 		{
