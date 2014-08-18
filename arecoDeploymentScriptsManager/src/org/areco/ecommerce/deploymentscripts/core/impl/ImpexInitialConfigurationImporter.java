@@ -17,7 +17,6 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.bootstrap.config.ConfigUtil;
 import de.hybris.bootstrap.config.ExtensionInfo;
-import de.hybris.platform.core.initialization.SystemSetupContext;
 import de.hybris.platform.impex.jalo.ImpExException;
 import de.hybris.platform.servicelayer.exceptions.ConfigurationException;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
@@ -28,6 +27,7 @@ import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
 import org.areco.ecommerce.deploymentscripts.core.InitialConfigurationImporter;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
+import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,14 +69,14 @@ public class ImpexInitialConfigurationImporter implements InitialConfigurationIm
 	 * .platform.core.initialization.SystemSetupContext)
 	 */
 	@Override
-	public void importConfigurationIfRequired(final SystemSetupContext context)
+	public void importConfigurationIfRequired(final UpdatingSystemExtensionContext context)
 	{
 		ServicesUtil.validateParameterNotNullStandardMessage("context", context);
 		if (!this.extensionHelper.isFirstExtension(context))
 		{
-			if (LOG.isDebugEnabled())
+			if (LOG.isTraceEnabled())
 			{
-				LOG.debug("This is not the first extension. Quitting without checking if the initial "
+				LOG.trace("This is not the first extension. Quitting without checking if the initial "
 						+ " configuration was imported.");
 			}
 			return;

@@ -32,6 +32,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStepFactory;
@@ -40,8 +41,6 @@ import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
 
 
 /**
@@ -50,15 +49,16 @@ import org.springframework.stereotype.Service;
  * @author arobirosa
  * 
  */
-@Service
-@Scope("tenant")
-public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
+//The configuration of this bean is in the spring application context.
+public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 {
 	private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptFinder.class);
 
-	private static final String SCRIPTS_FOLDER_CONF = "deploymentscripts.update.folder";
+	public static final String UPDATE_SCRIPTS_FOLDER_CONF = "deploymentscripts.update.folder";
 
-	private static final String RESOURCES_FOLDER = "/resources";
+	public static final String INIT_SCRIPTS_FOLDER_CONF = "deploymentscripts.init.folder";
+
+	public static final String RESOURCES_FOLDER_CONF = "deploymentscripts.resources.folder";
 
 	@Autowired
 	private ScriptExecutionDao scriptExecutionDao;
@@ -69,25 +69,29 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 	@Autowired
 	private List<DeploymentScriptStepFactory> stepFactories;
 
+	@Autowired
+	private DeploymentScriptConfigurationReader configurationReader;
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder#getPendingScripts(java.lang.String)
 	 */
 	@Override
-	public List<DeploymentScript> getPendingScripts(final String extensionName, final Process process)
+	public List<DeploymentScript> getPendingScripts(final String extensionName, final Process process, final boolean runInitScripts)
 	{
-		ServicesUtil.validateParameterNotNullStandardMessage(extensionName, extensionName);
-		final List<File> pendingScriptsFolders = getScriptsToBeRun(extensionName);
+		ServicesUtil.validateParameterNotNullStandardMessage("extensionName", extensionName);
+		ServicesUtil.validateParameterNotNullStandardMessage("process", process);
+		final List<File> pendingScriptsFolders = getScriptsToBeRun(extensionName, runInitScripts);
 		return getDeploymentScripts(pendingScriptsFolders, extensionName, process);
 	}
 
-	private List<File> getScriptsToBeRun(final String extensionName)
+	private List<File> getScriptsToBeRun(final String extensionName, final boolean runInitScripts)
 	{
 		final List<String> alreadyExecutedScripts = getAlreadyExecutedScripts(extensionName);
 
 		final List<File> pendingScriptsFolders = new ArrayList<File>();
-		for (final File foundScriptFolder : getExistingScripts(extensionName))
+		for (final File foundScriptFolder : getExistingScripts(extensionName, runInitScripts))
 		{
 			if (!alreadyExecutedScripts.contains(foundScriptFolder.getName()))
 			{
@@ -131,13 +135,26 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 		return alreadyExecutedScripts;
 	}
 
-	private File[] getExistingScripts(final String extensionName)
+	private File[] getExistingScripts(final String extensionName, final boolean runInitScripts)
 	{
 		final ExtensionInfo extension = ConfigUtil.getPlatformConfig(ArecoDeploymentScriptFinder.class).getExtensionInfo(
 				extensionName);
-		final String scriptsFolderName = Config.getParameter(SCRIPTS_FOLDER_CONF);
+		String scriptsFolderName;
+		if (runInitScripts)
+		{
+			scriptsFolderName = Config.getParameter(INIT_SCRIPTS_FOLDER_CONF);
+		}
+		else
+		{
+			scriptsFolderName = Config.getParameter(UPDATE_SCRIPTS_FOLDER_CONF);
+		}
+		return getExistingScriptsInDirectory(extension, scriptsFolderName);
+	}
 
-		final File deploymentScriptFolder = new File(extension.getExtensionDirectory() + RESOURCES_FOLDER, scriptsFolderName);
+	private File[] getExistingScriptsInDirectory(final ExtensionInfo extension, final String scriptsFolderName)
+	{
+		final File deploymentScriptFolder = new File(
+				extension.getExtensionDirectory() + Config.getParameter(RESOURCES_FOLDER_CONF), scriptsFolderName);
 		if (!deploymentScriptFolder.exists())
 		{
 			return new File[0];
@@ -180,19 +197,20 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 		return newDeploymentScripts;
 	}
 
-	private DeploymentScript createDeploymentScript(final File pendingScriptsFolder, final String extensionName,
+	private DeploymentScript createDeploymentScript(final File deploymentScriptFolder, final String extensionName,
 			final Process process)
 	{
-		final List<DeploymentScriptStep> orderedSteps = createOrderedSteps(pendingScriptsFolder);
+		final List<DeploymentScriptStep> orderedSteps = createOrderedSteps(deploymentScriptFolder);
 
 		if (orderedSteps.isEmpty())
 		{
 			return null;
 		}
-		final DeploymentScript newScript = new DeploymentScript();
-		newScript.setName(pendingScriptsFolder.getName());
+		final DeploymentScript newScript = this.newDeploymentScript();
+		newScript.setName(deploymentScriptFolder.getName());
 		newScript.setExtensionName(extensionName);
 		newScript.setOrderedSteps(orderedSteps);
+		newScript.setConfiguration(configurationReader.loadConfiguration(deploymentScriptFolder));
 		if (LOG.isTraceEnabled())
 		{
 			LOG.trace("Current Hybris process: " + process);
@@ -237,4 +255,11 @@ public class ArecoDeploymentScriptFinder implements DeploymentScriptFinder
 		}
 		return steps;
 	}
+
+	/**
+	 * Creates an empty instance of the deployment script class.
+	 * 
+	 * @return
+	 */
+	protected abstract DeploymentScript newDeploymentScript();
 }

@@ -15,7 +15,6 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
-import de.hybris.platform.core.initialization.SystemSetupContext;
 
 
 /**
@@ -33,5 +32,5 @@ public interface InitialConfigurationImporter
 	 * @param context
 	 *           Required
 	 */
-	void importConfigurationIfRequired(final SystemSetupContext context);
+	void importConfigurationIfRequired(final UpdatingSystemExtensionContext context);
 }

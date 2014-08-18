@@ -12,82 +12,29 @@
 
   
 -->
-<!--
- All hybris buildcallbacks.xml macrodefinitions:
- 
- Build/Documentation
- 
-	 before/after ant macro "clean"
-		 <macrodef name="arecoDeploymentScriptsManager_before_clean"/>
-		 <macrodef name="arecoDeploymentScriptsManager_after_clean"/>
-	 
-	 before/after ant macro "build"
-		 <macrodef name="arecoDeploymentScriptsManager_before_build"/>
-		 <macrodef name="arecoDeploymentScriptsManager_after_build"/>
-		 
-	 before/after ant macro "compile_core" - the core module of the extension
-		 <macrodef name="arecoDeploymentScriptsManager_before_compile_core">
-		 <macrodef name="arecoDeploymentScriptsManager_after_compile_core">
-	 
-	 before/after ant macro "compile_web" - the web module of the extension
-		 <macrodef name="arecoDeploymentScriptsManager_before_compile_web" />
-		 <macrodef name="arecoDeploymentScriptsManager_after_compile_web" />
-	 
-	 before/after ant macro "compile_hmc" - the hmc module of the extension
-		 <macrodef name="arecoDeploymentScriptsManager_before_compile_hmc" />
-		 <macrodef name="arecoDeploymentScriptsManager_after_compile_hmc" />
- 
- Preparing extension
- 
-	 will be called in the beginning of the ant call and only once (also when using multiple 
-	 ant targets e.g. ant build yunittest)	
-		 <macrodef name="arecoDeploymentScriptsManager_only_once_prepare"/>
- 
- Creating ear module/production
- 
-	 before/after ant macro "ear"
-		 <macrodef name="arecoDeploymentScriptsManager_before_ear"/>
-		 <macrodef name="arecoDeploymentScriptsManager_after_ear"/>
-
-	 before/after ant macro "production" - for hybris server only
-		 <macrodef name="arecoDeploymentScriptsManager_before_production" />
-		 <macrodef name="arecoDeploymentScriptsManager_after_production" />
- 
- JUnit Test
- 
-	 before/after ant macro "yunitinit" 
-		 <macrodef name="arecoDeploymentScriptsManager_before_yunitinit" />
-		 <macrodef name="arecoDeploymentScriptsManager_after_yunitinit" />
-	 
-	 before/after ant macro "yunit"
-		 <macrodef name="arecoDeploymentScriptsManager_before_yunit" />
-		 <macrodef name="arecoDeploymentScriptsManager_after_yunit" /> 
-		 
- Distribution package
- 
- 	 before/after ant macro "dist" - internal target; only for use when platform is available in source code
-		 <macrodef name="arecoDeploymentScriptsManager_after_dist"/>
-		 <macrodef name="arecoDeploymentScriptsManager_before_dist"/>
-	 
-	 before/after ant macro "dist_copy" - internal target; only for use when platform is available in source code
-		 <macrodef name="arecoDeploymentScriptsManager_before_dist_copy"/>
-		 <macrodef name="arecoDeploymentScriptsManager_after_dist_copy"/>
- 
--->
-
 <project name="arecoDeploymentScriptsManager_buildcallbacks" >
+	<macrodef name="arecoDeploymentScriptsManager_after_yunitinit">
+	  <sequential>
+	   <yrun>
+	   	org.areco.ecommerce.deploymentscripts.jalo.junittenant.EssentialDataCreatorAndDeploymentScriptsStarter.getInstance().runInJunitTenant();
+	    de.hybris.platform.util.RedeployUtilities.shutdown();
+	   </yrun>
+	  </sequential>
+	 </macrodef>
 	
-	<!-- 
-	    Called whenever 'ant ear' is used. this callback can be used to modify the content of the ear file
+	<macrodef name="runDeploymentScripts">
+      <sequential>
+       <record action="start" append="true" name="${HYBRIS_LOG_DIR}/deploymentScripts.log" loglevel="info" />
+       <yrun failonerror="true">
+       	int exitCode = org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter.getInstance().runPendingScripts();
+        de.hybris.platform.util.RedeployUtilities.shutdown();
+        System.exit(exitCode);
+       </yrun>
+       <record action="stop" append="false" name="${HYBRIS_LOG_DIR}/deploymentScripts.log" loglevel="info" />
+      </sequential>
+     </macrodef>
 	
-	     ${ear.path}: 			path to ear
-	 -->
-	<macrodef name="arecoDeploymentScriptsManager_before_ear">
-		<sequential>
-
-			<!-- you can do anything before the EAR file is being packed -->
-			
-		</sequential>
-	</macrodef>
-		
+	<target name="runDeploymentScripts" description="Runs all pending deployment scripts without requiring an update running system">
+		   <runDeploymentScripts/>
+	</target>
 </project>

@@ -20,9 +20,11 @@
 	<!-- Configuration for extension arecoDeploymentScriptsExamples -->
 
     <explorertree>
-        <group name="arecoDeploymentScriptsManagergroup">
-            <typeref type="ArecoHistoricalPriceExample"></typeref>
-        </group>
+        <group name="system">
+	        <group name="arecoDeploymentScriptsManagergroup">
+	            <typeref type="ArecoHistoricalPriceExample" />
+	        </group>
+	    </group>
     </explorertree>
 	
 	<type name="ArecoHistoricalPriceExample" mode="append">

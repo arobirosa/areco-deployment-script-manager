@@ -11,3 +11,6 @@
 **/resources/items.xsd
 **/web/webroot/WEB-INF/classes/
 **/resources/items.xsd
+KanbanTickets.ods
+bin/
+runAction.patch

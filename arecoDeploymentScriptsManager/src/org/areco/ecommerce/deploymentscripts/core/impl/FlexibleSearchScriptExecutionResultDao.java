@@ -15,14 +15,14 @@
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
+import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.servicelayer.type.TypeService;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.annotation.PostConstruct;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
@@ -39,7 +39,7 @@ import org.springframework.stereotype.Repository;
  * 
  */
 @Scope("tenant")
-@Repository
+@Repository("flexibleSearchScriptExecutionResultDao")
 public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionResultDAO
 {
 	private static final Logger LOG = Logger.getLogger(FlexibleSearchScriptExecutionResultDao.class);
@@ -48,12 +48,20 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 
 	private static final String ERROR = "ERROR";
 
+	private static final String IGNORED_NOT_FOR_THIS_ENVIRONMENT = "IGNORED_NOT_FOR_THIS_ENVIRONMENT";
+
+	private static final String IGNORED_NOT_FOR_THIS_TENANT = "IGNORED_NOT_FOR_THIS_TENANT";
+
+	private static final int NUMBER_OF_RESULT_INSTANCES = 4;
+
 	private Map<String, ScriptExecutionResultModel> resultsByCode;
 
 	@Autowired
 	FlexibleSearchService flexibleSearchService;
 
-	@PostConstruct
+	@Autowired
+	TypeService typeService;
+
 	@Override
 	public void initialize()
 	{
@@ -67,7 +75,28 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 	@Override
 	public boolean theInitialResultsWereImported()
 	{
-		return !this.resultsByCode.isEmpty();
+		if (!(existsTheHybrisType()))
+		{
+			return false;
+		}
+
+		return this.getResultsByCode().size() == NUMBER_OF_RESULT_INSTANCES;
+	}
+
+	private boolean existsTheHybrisType()
+	{
+		try
+		{
+			return (this.typeService.getComposedTypeForClass(ScriptExecutionResultModel.class) != null);
+		}
+		catch (final UnknownIdentifierException uie)
+		{
+			if (LOG.isTraceEnabled())
+			{
+				LOG.trace("The composed type wasn't found.", uie);
+			}
+			return false;
+		}
 	}
 
 	/*
@@ -94,7 +123,7 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 
 	private ScriptExecutionResultModel getResult(final String aCode)
 	{
-		final ScriptExecutionResultModel aResult = this.resultsByCode.get(aCode);
+		final ScriptExecutionResultModel aResult = this.getResultsByCode().get(aCode);
 		if (aResult == null)
 		{
 			throw new IllegalArgumentException("Unable to find the script execution result with the code '" + aCode + "'.");
@@ -125,4 +154,27 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 		}
 		return instances;
 	}
+
+	private Map<String, ScriptExecutionResultModel> getResultsByCode()
+	{
+		if (this.resultsByCode == null)
+		{
+			this.initialize();
+		}
+		return resultsByCode;
+	}
+
+	@Override
+	public ScriptExecutionResultModel getIgnoredOtherEnvironmentResult()
+	{
+		return this.getResult(IGNORED_NOT_FOR_THIS_ENVIRONMENT);
+	}
+
+	@Override
+	public ScriptExecutionResultModel getIgnoredOtherTenantResult()
+	{
+		return this.getResult(IGNORED_NOT_FOR_THIS_TENANT);
+	}
+
+
 }

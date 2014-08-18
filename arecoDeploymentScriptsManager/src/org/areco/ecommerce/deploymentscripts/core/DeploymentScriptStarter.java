@@ -15,6 +15,7 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
+import de.hybris.platform.constants.CoreConstants;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetupContext;
 
@@ -63,20 +64,50 @@ public class DeploymentScriptStarter
 		this.wasThereAnError = wasThereAnError;
 	}
 
-	//We hook the essential data proceess. Due to this the deployment scripts could be run using
-	//"ant updatessystem".
-	@SystemSetup(type = SystemSetup.Type.ESSENTIAL, process = SystemSetup.Process.ALL)
-	public void runUpdateDeploymentScripts(final SystemSetupContext context)
-	{
-		if (this.extensionHelper.isFirstExtension(context))
-		{
-			this.setWasThereAnError(false);
-			if (LOG.isTraceEnabled())
-			{
-				LOG.trace("The error flag was cleared");
-			}
-		}
+	/**
+	 * This method is called by every extension during the update or init process.
+	 * 
+	 * We hook the essential data process. Due to this the deployment scripts could be run using "ant updatessystem".
+	 * 
+	 * @param context
+	 *           Required
+	 */
 
+	@SystemSetup(type = SystemSetup.Type.ESSENTIAL, process = SystemSetup.Process.ALL)
+	public void runUpdateDeploymentScripts(final SystemSetupContext hybrisContext)
+	{
+		final UpdatingSystemExtensionContext context = this.getUpdatingContext(hybrisContext);
+		if (this.extensionHelper.isFirstExtension(context) && SystemSetup.Process.UPDATE.equals(context.getProcess()))
+		{
+			this.clearErrorFlag();
+		}
+		this.runDeploymentScripts(context, false);
+	}
+
+
+	/**
+	 * It receibes a SystemSetupContext and it converts it to a UpdatingSystemExtensionContext used by
+	 * {@link DeploymentScriptService}
+	 * 
+	 * @param hybrisContext
+	 *           Required
+	 * @return SystemSetupContext Never null.
+	 */
+	private UpdatingSystemExtensionContext getUpdatingContext(final SystemSetupContext hybrisContext)
+	{
+		if (hybrisContext.getJspContext() == null)
+		{
+			return new UpdatingSystemExtensionContext(hybrisContext.getExtensionName(), hybrisContext.getProcess());
+		}
+		else
+		{
+			return new UpdatingSystemExtensionContext(hybrisContext.getExtensionName(), hybrisContext.getProcess(),
+					hybrisContext.getJspContext());
+		}
+	}
+
+	public boolean runDeploymentScripts(final UpdatingSystemExtensionContext context, final boolean runInitScripts)
+	{
 		if (this.isWasThereAnError())
 		{
 			if (LOG.isDebugEnabled())
@@ -84,12 +115,26 @@ public class DeploymentScriptStarter
 				LOG.debug("There was an error running the deployment scripts of the previous extensions. "
 						+ "Due to this the deployment scripts of the extension " + context.getExtensionName() + " will be ignored.");
 			}
-			return;
+			return true;
 		}
-		runDeploymentScriptsAndHandleErrors(context);
+		return runDeploymentScriptsAndHandleErrors(context, runInitScripts);
 	}
 
-	private void runDeploymentScriptsAndHandleErrors(final SystemSetupContext context)
+	/**
+	 * It removes any previous error. It is usually call during the initialization and the update process by the core
+	 * extension.
+	 * 
+	 */
+	private void clearErrorFlag()
+	{
+		this.setWasThereAnError(false);
+		if (LOG.isDebugEnabled())
+		{
+			LOG.debug("The error flag was cleared");
+		}
+	}
+
+	private boolean runDeploymentScriptsAndHandleErrors(final UpdatingSystemExtensionContext context, final boolean runInitScripts)
 	{
 		if (LOG.isDebugEnabled())
 		{
@@ -98,7 +143,9 @@ public class DeploymentScriptStarter
 
 		try
 		{
-			this.setWasThereAnError(this.deploymentScriptService.runUpdateDeploymentScripts(context));
+			final boolean somethingWentWrong = this.deploymentScriptService.runDeploymentScripts(context, runInitScripts);
+			this.setWasThereAnError(somethingWentWrong);
+			return somethingWentWrong;
 		}
 		catch (final RuntimeException re)
 		{
@@ -107,5 +154,57 @@ public class DeploymentScriptStarter
 			LOG.error("There was an error running the deployment scripts: " + re.getLocalizedMessage(), re);
 			throw re;
 		}
+	}
+
+	/**
+	 * Runs all the pending UPDATE deployment scripts.
+	 * 
+	 * @return boolean if there was an error.
+	 */
+
+	public boolean runAllPendingScripts()
+	{
+		if (LOG.isInfoEnabled())
+		{
+			LOG.info("Running all pending update deployment scripts.");
+		}
+		return this.runAllPendingScripts(false);
+	}
+
+	private boolean runAllPendingScripts(final boolean runInitScripts)
+	{
+		if (LOG.isInfoEnabled())
+		{
+			LOG.info("Running all deployment scripts. RunInitScripts? " + runInitScripts);
+		}
+		this.clearErrorFlag();
+		for (final String extensionName : this.extensionHelper.getExtensionNames())
+		{
+			final UpdatingSystemExtensionContext aContext = new UpdatingSystemExtensionContext(extensionName,
+					(runInitScripts ? SystemSetup.Process.INIT : SystemSetup.Process.UPDATE));
+			final boolean somethingWentWrong = this.runDeploymentScripts(aContext, runInitScripts);
+			if (somethingWentWrong)
+			{
+				return true;
+			}
+		}
+		return this.isWasThereAnError();
+	}
+
+	/**
+	 * This method is only called once during the initialization of the core extension. It runs all the INIT deployment
+	 * scripts sequentially.
+	 * 
+	 * @param context
+	 *           Required. Describes the current update system process.
+	 */
+	@SystemSetup(type = SystemSetup.Type.ESSENTIAL, process = SystemSetup.Process.INIT, extension = CoreConstants.EXTENSIONNAME)
+	public void runInitDeploymentScripts(final SystemSetupContext context)
+	{
+		if (LOG.isInfoEnabled())
+		{
+			LOG.info("Running all INIT deployment scripts.");
+		}
+		this.runAllPendingScripts(true);
 	}
 }

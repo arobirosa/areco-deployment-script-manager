@@ -15,7 +15,6 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
-import de.hybris.platform.core.initialization.SystemSetupContext;
 
 
 /**
@@ -31,7 +30,9 @@ public interface DeploymentScriptService
 	 * 
 	 * @param context
 	 *           Required
+	 * @param runInitScripts
+	 *           Required. Do we run the INIT or the UPDATE scripts?
 	 * @return boolean True if there was an error.
 	 */
-	boolean runUpdateDeploymentScripts(SystemSetupContext context);
+	boolean runDeploymentScripts(UpdatingSystemExtensionContext context, boolean runInitScripts);
 }

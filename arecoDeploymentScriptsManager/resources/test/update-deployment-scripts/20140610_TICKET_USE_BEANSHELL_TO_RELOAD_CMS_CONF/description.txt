@@ -1,0 +1,1 @@
+This example shows a script with Beanshell.

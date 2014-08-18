@@ -20,15 +20,27 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
+import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 
 /**
+ * Represents each folder containing the deployment script.
+ * 
  * @author arobirosa
  * 
  */
+//Every time the step factory is called, it creates a new instance.
+@Scope("prototype")
+@Component
 public class DeploymentScript
 {
 	private static final Logger LOG = Logger.getLogger(DeploymentScript.class);
+
+	@Autowired
+	private ScriptExecutionResultDAO scriptExecutionResultDAO;
 
 	/**
 	 * This is the encoding used by the scripts.
@@ -43,17 +55,25 @@ public class DeploymentScript
 
 	private SystemPhase phase;
 
+	private DeploymentScriptConfiguration configuration;
+
 	/**
 	 * Does the actual job.
 	 * 
 	 * @throws DeploymentScriptExecutionException
 	 */
-	public void run() throws DeploymentScriptExecutionException
+	public ScriptExecutionResultModel run() throws DeploymentScriptExecutionException
 	{
 		if (LOG.isDebugEnabled())
 		{
 			LOG.debug("Running " + this.getLongName() + " - Start");
 		}
+		final ScriptExecutionResultModel configurationContraintsCheckResult = this.getConfiguration().isAllowedInThisServer();
+		if (configurationContraintsCheckResult != null)
+		{
+			return configurationContraintsCheckResult;
+		}
+
 		if (this.getOrderedSteps() == null)
 		{
 			throw new IllegalStateException("The ordered steps of the deployment script " + this.getName() + " are null.");
@@ -66,6 +86,7 @@ public class DeploymentScript
 		{
 			LOG.debug("Running " + this.getLongName() + " - Ended successfully");
 		}
+		return this.scriptExecutionResultDAO.getSuccessResult();
 	}
 
 	/**
@@ -206,6 +227,8 @@ public class DeploymentScript
 		builder.append(orderedSteps);
 		builder.append(", phase=");
 		builder.append(phase);
+		builder.append(", configuration=");
+		builder.append(configuration);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -227,6 +250,14 @@ public class DeploymentScript
 		this.phase = phase;
 	}
 
+	public DeploymentScriptConfiguration getConfiguration()
+	{
+		return configuration;
+	}
 
+	public void setConfiguration(final DeploymentScriptConfiguration configuration)
+	{
+		this.configuration = configuration;
+	}
 
 }
