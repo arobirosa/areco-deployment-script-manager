@@ -21,4 +21,17 @@
 	   </yrun>
 	  </sequential>
 	 </macrodef>
+	
+	<macrodef name="runDeploymentScripts">
+      <sequential>
+       <yrun>
+       	org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter.getInstance().runPendingScripts();
+        de.hybris.platform.util.RedeployUtilities.shutdown();
+       </yrun>
+      </sequential>
+     </macrodef>
+	
+	<target name="runDeploymentScripts" description="Runs all pending deployment scripts without requiring an update running system">
+		   <runDeploymentScripts/>
+	</target>
 </project>
