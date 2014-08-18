@@ -24,10 +24,13 @@
 	
 	<macrodef name="runDeploymentScripts">
       <sequential>
-       <yrun>
-       	org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter.getInstance().runPendingScripts();
+       <record action="start" append="true" name="${HYBRIS_LOG_DIR}/deploymentScripts.log" loglevel="info" />
+       <yrun failonerror="true">
+       	int exitCode = org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter.getInstance().runPendingScripts();
         de.hybris.platform.util.RedeployUtilities.shutdown();
+        System.exit(exitCode);
        </yrun>
+       <record action="stop" append="false" name="${HYBRIS_LOG_DIR}/deploymentScripts.log" loglevel="info" />
       </sequential>
      </macrodef>
 	

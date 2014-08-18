@@ -53,7 +53,7 @@ public class AntDeploymentScriptsStarter
 		return INSTANCE;
 	}
 
-	public void runPendingScripts()
+	public int runPendingScripts()
 	{
 		if (LOG.isInfoEnabled())
 		{
@@ -64,11 +64,12 @@ public class AntDeploymentScriptsStarter
 		if (wasThereAnError)
 		{
 			LOG.error("There was an error running the deployment scripts. Please check the console.");
-			return;
+			return 1; //Error
 		}
 		if (LOG.isInfoEnabled())
 		{
 			LOG.info("All pending scripts were run successfully.");
 		}
+		return 0;
 	}
 }
