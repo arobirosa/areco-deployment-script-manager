@@ -30,9 +30,9 @@
 				</classpath>
 		</taskdef>
 		<!-- Any violation must break the build -->
-		<pmd shortFilenames="true" failonerror="true" failOnRuleViolation="true">
+		<pmd shortFilenames="true" failonerror="true" failOnRuleViolation="true"
+			rulesetfiles="${dir_qa}/pmd_ruleset.xml" >
 			<sourceLanguage name="java" version="1.6"/>
-			<ruleset>java-basic</ruleset>
 			<formatter type="html" toFile="${dir_qa_reports}/pmd_report.html" toConsole="true">
 			</formatter>
 			<fileset refid="fileset_src"/>
