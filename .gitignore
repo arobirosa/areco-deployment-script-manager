@@ -23,3 +23,5 @@ hybris/config/local.properties
 #We don't ignore our build.xml
 !/build.xml
 
+#Reports of PMD, Checkstyle and Findbugs
+qa_reports/

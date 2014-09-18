@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>MatchAlgorithmTest xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../testapidocs/net/sourceforge/pmd/cpd/MatchAlgorithmTest.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * BSD-style license; for more info see <a href="http://pmd.sourceforge.net/license.htm" target="alexandria_uri">http://pmd.sourceforge.net/license.htm</a>l</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">package</strong> net.sourceforge.pmd.cpd;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertFalse;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertTrue;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.HashMap;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.util.Iterator;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> net.sourceforge.pmd.PMD;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../net/sourceforge/pmd/cpd/MatchAlgorithmTest.html">MatchAlgorithmTest</a> {
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LINE_1 = <span class="jxr_string">"public class Foo { "</span>;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LINE_2 = <span class="jxr_string">" public void bar() {"</span>;
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LINE_3 = <span class="jxr_string">"  System.out.println(\&quot;hello\&quot;);"</span>;
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LINE_4 = <span class="jxr_string">"  System.out.println(\&quot;hello\&quot;);"</span>;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LINE_5 = <span class="jxr_string">"  int i = 5"</span>;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LINE_6 = <span class="jxr_string">"  System.out.print(\&quot;hello\&quot;);"</span>;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LINE_7 = <span class="jxr_string">" }"</span>;
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String LINE_8 = <span class="jxr_string">"}"</span>;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String getSampleCode() {
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>          <strong class="jxr_keyword">return</strong>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>                  LINE_1 + PMD.EOL +
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>                  LINE_2 + PMD.EOL +
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>                  LINE_3 + PMD.EOL +
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>                  LINE_4 + PMD.EOL +
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>                  LINE_5 + PMD.EOL +
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>                  LINE_6 + PMD.EOL +
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>                  LINE_7 + PMD.EOL +
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>                  LINE_8;
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>      }
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      @Test
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testSimple() <strong class="jxr_keyword">throws</strong> Throwable {
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>          JavaTokenizer tokenizer = <strong class="jxr_keyword">new</strong> JavaTokenizer();
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>          SourceCode sourceCode = <strong class="jxr_keyword">new</strong> SourceCode(<strong class="jxr_keyword">new</strong> SourceCode.StringCodeLoader(getSampleCode(), <span class="jxr_string">"Foo.java"</span>));
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>          Tokens tokens = <strong class="jxr_keyword">new</strong> Tokens();
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>          TokenEntry.clearImages();
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>          tokenizer.tokenize(sourceCode, tokens);
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>          assertEquals(41, tokens.size());
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>          Map&lt;String, SourceCode&gt; codeMap = <strong class="jxr_keyword">new</strong> HashMap&lt;String, SourceCode&gt;();
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          codeMap.put(<span class="jxr_string">"Foo.java"</span>, sourceCode);
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>          MatchAlgorithm matchAlgorithm = <strong class="jxr_keyword">new</strong> MatchAlgorithm(codeMap, tokens, 5);
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>          matchAlgorithm.findMatches();
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>          Iterator matches = matchAlgorithm.matches();
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          Match match = (Match) matches.next();
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>          assertFalse(matches.hasNext());
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>          Iterator marks = match.iterator();
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>          TokenEntry mark1 = (TokenEntry) marks.next();
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          TokenEntry mark2 = (TokenEntry) marks.next();
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>          assertFalse(marks.hasNext());
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          assertEquals(3, mark1.getBeginLine());
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          assertEquals(4, mark2.getBeginLine());
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          assertTrue(<span class="jxr_string">"Foo.java"</span> == mark1.getTokenSrcID() &amp;&amp; <span class="jxr_string">"Foo.java"</span> == mark2.getTokenSrcID());
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>          assertEquals(LINE_3, match.getSourceCodeSlice());
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      }
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      @Test
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testIgnore() <strong class="jxr_keyword">throws</strong> Throwable {
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          JavaTokenizer tokenizer = <strong class="jxr_keyword">new</strong> JavaTokenizer();
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>          tokenizer.setIgnoreLiterals(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          tokenizer.setIgnoreIdentifiers(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          SourceCode sourceCode = <strong class="jxr_keyword">new</strong> SourceCode(<strong class="jxr_keyword">new</strong> SourceCode.StringCodeLoader(getSampleCode(), <span class="jxr_string">"Foo.java"</span>));
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          Tokens tokens = <strong class="jxr_keyword">new</strong> Tokens();
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          TokenEntry.clearImages();
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>          tokenizer.tokenize(sourceCode, tokens);
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>          Map&lt;String, SourceCode&gt; codeMap = <strong class="jxr_keyword">new</strong> HashMap&lt;String, SourceCode&gt;();
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>          codeMap.put(<span class="jxr_string">"Foo.java"</span>, sourceCode);
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          MatchAlgorithm matchAlgorithm = <strong class="jxr_keyword">new</strong> MatchAlgorithm(codeMap, tokens, 5);
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>          matchAlgorithm.findMatches();
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>          Iterator matches = matchAlgorithm.matches();
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>          Match match = (Match) matches.next();
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>          assertFalse(matches.hasNext());
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>  
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>          Iterator marks = match.iterator();
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>          marks.next();
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>          marks.next();
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>          marks.next();
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>          assertFalse(marks.hasNext());
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>      }
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>  
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> junit.framework.Test suite() {
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> junit.framework.JUnit4TestAdapter(MatchAlgorithmTest.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>      }
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>  }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2002&#x2013;2014 <a href="http://pmd.sourceforge.net/">InfoEther</a>. All rights reserved.</div>
+</body>
+</html>
