@@ -20,3 +20,6 @@ tmp/
 #Configuration files
 hybris/config/local.properties
 
+#We don't ignore our build.xml
+!/build.xml
+
