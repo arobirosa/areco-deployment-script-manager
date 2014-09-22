@@ -42,9 +42,7 @@ public class SqlScriptStep extends AbstractSingleFileScriptStep
 	private SqlScriptService sqlScriptService;
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep#run()
+	 * { @InheritDoc }
 	 */
 	@Override
 	public void run() throws DeploymentScriptExecutionException
@@ -60,6 +58,7 @@ public class SqlScriptStep extends AbstractSingleFileScriptStep
 			LOG.debug("Running the SQL Statement: '" + sqlStatement + "'.");
 		}
 		int rows = -1;
+
 		try
 		{
 			rows = this.sqlScriptService.runDeleteOrUpdateStatement(sqlStatement);
@@ -74,5 +73,4 @@ public class SqlScriptStep extends AbstractSingleFileScriptStep
 			LOG.debug("The SQL Script was executed successfully. " + rows + " rows were affected.");
 		}
 	}
-
 }

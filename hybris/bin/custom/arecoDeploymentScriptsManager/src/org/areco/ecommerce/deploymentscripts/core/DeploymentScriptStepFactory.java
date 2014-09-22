@@ -36,6 +36,6 @@ public interface DeploymentScriptStepFactory
 	 *           Required
 	 * @return null if the file isn't used by this factory.
 	 */
-	public abstract DeploymentScriptStep create(File aFile);
+	DeploymentScriptStep create(File aFile);
 
 }

@@ -43,6 +43,16 @@ public class UpdatingSystemExtensionContext
 	 */
 	private final JspContext jspContext;
 
+	/**
+	 * Default constructor of this class.
+	 * 
+	 * @param pExtensionName
+	 *           Required
+	 * @param pProcess
+	 *           Required
+	 * @param pJspContext
+	 *           Optional
+	 */
 	public UpdatingSystemExtensionContext(final String pExtensionName, final SystemSetup.Process pProcess,
 			final JspContext pJspContext)
 	{
@@ -53,6 +63,14 @@ public class UpdatingSystemExtensionContext
 		this.jspContext = pJspContext;
 	}
 
+	/**
+	 * Simplified constructor.
+	 * 
+	 * @param pExtensionName
+	 *           Required
+	 * @param pProcess
+	 *           Required
+	 */
 	public UpdatingSystemExtensionContext(final String pExtensionName, final SystemSetup.Process pProcess)
 	{
 		this(pExtensionName, pProcess, null);

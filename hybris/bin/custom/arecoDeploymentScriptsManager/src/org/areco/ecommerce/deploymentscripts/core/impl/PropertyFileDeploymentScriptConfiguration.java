@@ -113,21 +113,41 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
 				this.deploymentEnvironmentDAO.getCurrent());
 	}
 
+	/**
+	 * Returns the allowed tenants.
+	 * 
+	 * @return Never null.
+	 */
 	public Set<Tenant> getAllowedTenants()
 	{
 		return allowedTenants;
 	}
 
+	/**
+	 * Sets the allowed tenants.
+	 * 
+	 * @param allowedTenants
+	 *           Required
+	 */
 	public void setAllowedTenants(final Set<Tenant> allowedTenants)
 	{
 		this.allowedTenants = allowedTenants;
 	}
 
+	/**
+	 * Getter of the environments
+	 * 
+	 * @return Never null
+	 */
 	public Set<String> getAllowedDeploymentEnvironmentNames()
 	{
 		return allowedDeploymentEnvironmentNames;
 	}
 
+	/**
+	 * Setter of the environments
+	 * 
+	 */
 	public void setAllowedDeploymentEnvironmentNames(final Set<String> allowedDeploymentEnvironmentNames)
 	{
 		this.allowedDeploymentEnvironmentNames = allowedDeploymentEnvironmentNames;

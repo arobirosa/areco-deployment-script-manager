@@ -9,14 +9,18 @@ import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter;
 
 
+/**
+ * This hmc wizard runs all the deployment scripts which weren't executed yet.
+ * 
+ * @author arobirosa
+ * 
+ */
 public class RunPendingDeploymentScriptsWizard extends GeneratedRunPendingDeploymentScriptsWizard
 {
 	private final static Logger LOG = Logger.getLogger(RunPendingDeploymentScriptsWizard.class);
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.hybris.platform.hmc.jalo.WizardBusinessItem#start(de.hybris.platform.hmc.jalo.WizardEditorContext)
+	 * { @InheritDoc }
 	 */
 	@Override
 	public void start(final WizardEditorContext ctx) throws VetoException
@@ -41,9 +45,7 @@ public class RunPendingDeploymentScriptsWizard extends GeneratedRunPendingDeploy
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.hybris.platform.hmc.jalo.WizardBusinessItem#initialize(de.hybris.platform.hmc.jalo.WizardEditorContext)
+	 * { @InheritDoc }
 	 */
 	@Override
 	public void initialize(final WizardEditorContext ctx)

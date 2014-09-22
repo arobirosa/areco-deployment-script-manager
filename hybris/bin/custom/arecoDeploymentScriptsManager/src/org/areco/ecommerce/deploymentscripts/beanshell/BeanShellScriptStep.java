@@ -41,7 +41,7 @@ public class BeanShellScriptStep extends AbstractSingleFileScriptStep
 	private BeanShellService beanShellService;
 
 	/*
-	 * (non-Javadoc)
+	 * Runs the script represented by this step.
 	 * 
 	 * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep#run()
 	 */

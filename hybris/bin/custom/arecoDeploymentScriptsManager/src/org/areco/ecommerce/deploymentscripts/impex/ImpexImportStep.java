@@ -42,9 +42,7 @@ public class ImpexImportStep extends AbstractSingleFileScriptStep
 	private ImpexImportService impexImportService;
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep#run()
+	 * { @InheritDoc }
 	 */
 	@Override
 	public void run() throws DeploymentScriptExecutionException

@@ -51,10 +51,8 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
 	@Autowired
 	FlexibleSearchService flexibleSearchService;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO#loadEnvironments(java.util.Set)
+	/**
+	 * {@inheritDoc }
 	 */
 	@Override
 	public Set<DeploymentEnvironmentModel> loadEnvironments(final Set<String> environmentNames)
@@ -86,10 +84,8 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
 		return new HashSet(searchResult.getResult());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO#getCurrent()
+	/**
+	 * {@inheritDoc }
 	 */
 	@Override
 	public DeploymentEnvironmentModel getCurrent()

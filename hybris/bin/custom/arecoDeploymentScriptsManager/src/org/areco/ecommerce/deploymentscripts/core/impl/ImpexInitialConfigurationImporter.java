@@ -62,11 +62,7 @@ public class ImpexInitialConfigurationImporter implements InitialConfigurationIm
 	private ExtensionHelper extensionHelper;
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.areco.ecommerce.deploymentscripts.core.InitialConfigurationImporter#importConfigurationIfRequired(de.hybris
-	 * .platform.core.initialization.SystemSetupContext)
+	 * { @InheritDoc }
 	 */
 	@Override
 	public void importConfigurationIfRequired(final UpdatingSystemExtensionContext context)
@@ -92,9 +88,6 @@ public class ImpexInitialConfigurationImporter implements InitialConfigurationIm
 		importConfiguration();
 	}
 
-	/**
-	 * 
-	 */
 	private void importConfiguration()
 	{
 		final ExtensionInfo extension = ConfigUtil.getPlatformConfig(ArecoDeploymentScriptService.class).getExtensionInfo(

@@ -75,6 +75,8 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter
 		return INSTANCE;
 	}
 
+	@SuppressWarnings("PMD.AvoidCatchingGenericException")
+	//We catch all exceptions because this method is calld by ant.
 	public void runInJunitTenant()
 	{
 		if (!Boolean.parseBoolean(Config.getParameter("deploymentscripts.init.junittenant.createessentialdata")))
@@ -107,7 +109,11 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter
 		}
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings(value =
+	{ "deprecation", "PMD.SignatureDeclareThrowsException", "PMD.UnnecessaryLocalBeforeReturn" })
+	//The caller of this method must handle any exception, because this class is called by ant, which doesn't
+	//show the complete stack trace.
+	//We keep the local variable jspc because we only want to create a context once.
 	private void createEssentialDataForAllExtensions() throws Exception
 	{
 		//To import the encodings.

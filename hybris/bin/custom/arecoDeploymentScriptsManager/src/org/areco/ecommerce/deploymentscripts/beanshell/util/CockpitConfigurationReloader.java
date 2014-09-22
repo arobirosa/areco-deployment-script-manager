@@ -39,6 +39,12 @@ public class CockpitConfigurationReloader
 	@Autowired
 	private CockpitImportConfig importer;
 
+	/**
+	 * It imports again the cockpit configuration of the given extension.
+	 * 
+	 * @param anExtensionName
+	 *           Required.
+	 */
 	public void reloadCockpitConfiguration(final String anExtensionName)
 	{
 		if (LOG.isDebugEnabled())

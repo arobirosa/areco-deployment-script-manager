@@ -29,6 +29,8 @@ import org.junit.Test;
  * @author arobirosa
  * 
  */
+@SuppressWarnings("PMD.TestClassWithoutTestCases")
+//PMD doesn't find any test method in this class and complains.
 public class ScriptConfigurationTest extends AbstractWithConfigurationRestorationTest
 {
 	private static final String RESOURCES_FOLDER = "/resources/test/script-configuration-test";

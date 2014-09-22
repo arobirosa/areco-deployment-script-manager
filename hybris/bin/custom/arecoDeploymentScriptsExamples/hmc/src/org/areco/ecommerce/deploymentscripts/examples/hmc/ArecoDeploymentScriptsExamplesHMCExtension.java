@@ -77,6 +77,9 @@ public class ArecoDeploymentScriptsExamplesHMCExtension extends HMCExtension
 		return Collections.EMPTY_LIST;
 	}
 
+	/**
+	 * Used by hmc
+	 */
 	@Override
 	public List<EditorTabChip> getEditorTabChips(final DisplayState displayState, final AbstractEditorMenuChip parent)
 	{
@@ -93,12 +96,20 @@ public class ArecoDeploymentScriptsExamplesHMCExtension extends HMCExtension
 		return Collections.EMPTY_LIST;
 	}
 
+	/*
+	 * Returns the resource bundle.
+	 * 
+	 * @see de.hybris.platform.hmc.extension.HMCExtension#getLocalizeResourceBundle(java.util.Locale)
+	 */
 	@Override
 	public ResourceBundle getLocalizeResourceBundle(final Locale locale)
 	{
 		return null;
 	}
 
+	/**
+	 * Path to the localization resources.
+	 */
 	@Override
 	public String getResourcePath()
 	{

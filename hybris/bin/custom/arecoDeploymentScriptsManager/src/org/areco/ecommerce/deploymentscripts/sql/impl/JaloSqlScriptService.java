@@ -42,9 +42,7 @@ public class JaloSqlScriptService implements SqlScriptService
 	private static final Logger LOG = Logger.getLogger(JaloSqlScriptService.class);
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.areco.ecommerce.deploymentscripts.sql.SqlScriptService#runDeleteOrUpdateStatement(java.lang.String)
+	 * { @InheritDoc }
 	 */
 	@Override
 	public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException

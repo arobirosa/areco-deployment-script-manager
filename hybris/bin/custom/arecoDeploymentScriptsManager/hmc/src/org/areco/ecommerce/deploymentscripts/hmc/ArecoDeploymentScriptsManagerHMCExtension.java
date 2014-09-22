@@ -77,6 +77,9 @@ public class ArecoDeploymentScriptsManagerHMCExtension extends HMCExtension
 		return Collections.EMPTY_LIST;
 	}
 
+	/**
+	 * Used by hmc.
+	 */
 	@Override
 	public List<EditorTabChip> getEditorTabChips(final DisplayState displayState, final AbstractEditorMenuChip parent)
 	{
@@ -93,12 +96,18 @@ public class ArecoDeploymentScriptsManagerHMCExtension extends HMCExtension
 		return Collections.EMPTY_LIST;
 	}
 
+	/**
+	 * Returns the resource bundle.
+	 */
 	@Override
 	public ResourceBundle getLocalizeResourceBundle(final Locale locale)
 	{
 		return null;
 	}
 
+	/**
+	 * Returns the path to the resource bundle.
+	 */
 	@Override
 	public String getResourcePath()
 	{

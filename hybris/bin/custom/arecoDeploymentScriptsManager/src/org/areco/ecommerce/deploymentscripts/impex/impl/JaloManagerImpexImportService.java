@@ -54,9 +54,7 @@ public class JaloManagerImpexImportService implements ImpexImportService
 	ModelService modelService;
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.areco.ecommerce.deploymentscripts.core.ImpexImportService#inputImpexFile(java.io.File)
+	 * { @InheritDoc }
 	 */
 	@Override
 	public void importImpexFile(final File impexFile) throws ImpExException

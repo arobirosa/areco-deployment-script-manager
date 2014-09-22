@@ -38,7 +38,7 @@ public class DefaultBeanShellService implements BeanShellService
 	private static final Logger LOG = Logger.getLogger(DefaultBeanShellService.class);
 
 	/*
-	 * l (non-Javadoc)
+	 * It compiles and executes the given beanshell code.
 	 * 
 	 * @see org.areco.ecommerce.deploymentscripts.beanshell.BeanShellService#executeScript(java.lang.String)
 	 */
@@ -67,12 +67,9 @@ public class DefaultBeanShellService implements BeanShellService
 
 	private void checkSuccessfulResult(final Object anObject) throws BeanShellExecutionException
 	{
-		if (anObject != null && anObject instanceof String)
+		if (anObject instanceof String && "OK".equalsIgnoreCase((String) anObject))
 		{
-			if ("OK".equalsIgnoreCase((String) anObject))
-			{
-				return;
-			}
+			return;
 		}
 		throw new BeanShellExecutionException(
 				"The beanShell code didn't return the string 'OK' at the end. Please check if there was an error.");

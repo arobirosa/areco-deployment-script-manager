@@ -37,12 +37,18 @@ public abstract class AbstractWithConfigurationRestorationTest extends Servicela
 
 	private final DeploymentConfigurationSetter deploymentConfigurationSetter = new DeploymentConfigurationSetter();
 
+	/**
+	 * Save the settings.
+	 */
 	@Before
 	public void saveOldFolders()
 	{
 		deploymentConfigurationSetter.saveCurrentFolders();
 	}
 
+	/**
+	 * Restore the settings.
+	 */
 	@After
 	public void restoreOldFolders()
 	{

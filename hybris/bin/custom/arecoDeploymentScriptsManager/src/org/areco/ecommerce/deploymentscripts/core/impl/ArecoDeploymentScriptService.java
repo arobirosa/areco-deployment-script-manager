@@ -77,8 +77,8 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService
 			{
 				LOG.debug("There aren't any pending " + (runInitScripts ? "INIT" : "UPDATE")
 						+ " deployment scripts in the extension " + context.getExtensionName());
-				return false;
 			}
+			return false;
 		}
 		if (LOG.isDebugEnabled())
 		{

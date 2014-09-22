@@ -35,7 +35,7 @@ import org.junit.Assert;
  * @author arobirosa
  * 
  */
-public class DeploymentScriptResultAsserter
+public final class DeploymentScriptResultAsserter
 {
 	static private final DeploymentScriptResultAsserter INSTANCE = new DeploymentScriptResultAsserter();
 
@@ -95,7 +95,7 @@ public class DeploymentScriptResultAsserter
 		return this.getFlexibleSearchService().searchUnique(query);
 	}
 
-	protected FlexibleSearchService getFlexibleSearchService()
+	private FlexibleSearchService getFlexibleSearchService()
 	{
 		if (flexibleSearchService == null)
 		{

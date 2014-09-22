@@ -62,6 +62,9 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 	@Autowired
 	TypeService typeService;
 
+	/**
+	 * Prepares this DAO.
+	 */
 	@Override
 	public void initialize()
 	{
@@ -87,7 +90,7 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 	{
 		try
 		{
-			return (this.typeService.getComposedTypeForClass(ScriptExecutionResultModel.class) != null);
+			return this.typeService.getComposedTypeForClass(ScriptExecutionResultModel.class) != null;
 		}
 		catch (final UnknownIdentifierException uie)
 		{
@@ -100,9 +103,7 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO#getErrorResult()
+	 * { @InheritDoc }
 	 */
 	@Override
 	public ScriptExecutionResultModel getErrorResult()
@@ -111,9 +112,7 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO#getSuccessResult()
+	 * { @InheritDoc }
 	 */
 	@Override
 	public ScriptExecutionResultModel getSuccessResult()
@@ -164,12 +163,18 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 		return resultsByCode;
 	}
 
+	/*
+	 * { @InheritDoc }
+	 */
 	@Override
 	public ScriptExecutionResultModel getIgnoredOtherEnvironmentResult()
 	{
 		return this.getResult(IGNORED_NOT_FOR_THIS_ENVIRONMENT);
 	}
 
+	/*
+	 * { @InheritDoc }
+	 */
 	@Override
 	public ScriptExecutionResultModel getIgnoredOtherTenantResult()
 	{

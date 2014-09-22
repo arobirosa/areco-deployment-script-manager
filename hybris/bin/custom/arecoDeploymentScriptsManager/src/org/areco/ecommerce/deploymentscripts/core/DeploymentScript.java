@@ -97,6 +97,12 @@ public class DeploymentScript
 		return name;
 	}
 
+	/**
+	 * ID used to identify the deployment script
+	 * 
+	 * @return Never null
+	 */
+
 	public String getLongName()
 	{
 		return this.getExtensionName() + ':' + this.getName();
@@ -150,9 +156,7 @@ public class DeploymentScript
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
+	 * Calculates the hashcode.
 	 */
 	@Override
 	public int hashCode()
@@ -165,11 +169,10 @@ public class DeploymentScript
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
+	 * Compares two objects.
 	 */
 	@Override
+	@SuppressWarnings("PMD.CyclomaticComplexity")
 	public boolean equals(final Object obj)
 	{
 		if (this == obj)
@@ -211,7 +214,7 @@ public class DeploymentScript
 	}
 
 	/*
-	 * (non-Javadoc)
+	 * Returns a string representation of this object.
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
@@ -234,6 +237,8 @@ public class DeploymentScript
 	}
 
 	/**
+	 * Getter of the phase.
+	 * 
 	 * @return the phase
 	 */
 	public SystemPhase getPhase()
@@ -242,6 +247,8 @@ public class DeploymentScript
 	}
 
 	/**
+	 * Setter of the phase
+	 * 
 	 * @param phase
 	 *           the phase to set
 	 */
@@ -250,11 +257,22 @@ public class DeploymentScript
 		this.phase = phase;
 	}
 
+	/**
+	 * Returns the configuration of this script.
+	 * 
+	 * @return Never null
+	 */
 	public DeploymentScriptConfiguration getConfiguration()
 	{
 		return configuration;
 	}
 
+	/**
+	 * Setter of the configuration
+	 * 
+	 * @param configuration
+	 *           Required
+	 */
 	public void setConfiguration(final DeploymentScriptConfiguration configuration)
 	{
 		this.configuration = configuration;

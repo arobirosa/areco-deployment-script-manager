@@ -57,17 +57,15 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
 	 * Separator of tenant and environment names.
 	 */
 	private static final String VALUES_SEPARATOR = ",";
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader#loadConfiguration(java.io.File)
-	 */
+
 	/**
 	 * Extension of the configuration files
 	 */
 	private static final String PROPERTY_FILE_EXTENSION_CONF = ".conf";
 
+	/*
+	 * { @InheritDoc }
+	 */
 	@Override
 	public PropertyFileDeploymentScriptConfiguration loadConfiguration(final File deploymentScriptFolder)
 	{
@@ -147,6 +145,9 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
 	{
 		final File[] configurationFiles = deploymentScriptFolder.listFiles(new FileFilter()
 		{
+			/*
+			 * { @InheritDoc }
+			 */
 			@Override
 			public boolean accept(final File pathname)
 			{

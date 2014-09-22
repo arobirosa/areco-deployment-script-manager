@@ -74,6 +74,8 @@ public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfi
 	}
 
 	@Test
+	@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+	//This test is successful if no exception is thrown.
 	public void testNoErrorsWhenCalledWithoutJspContext()
 	{
 		final SystemSetupContext hybrisContext = new SystemSetupContext(null, SystemSetup.Type.ESSENTIAL,

@@ -49,10 +49,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao
 	private FlexibleSearchService flexibleSearchService;
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao#getSuccessfullyExecutedScripts(java.lang.String)
+	 * { @InheritDoc }
 	 */
 	@Override
 	public List<ScriptExecutionModel> getSuccessfullyExecutedScripts(final String extensionName)

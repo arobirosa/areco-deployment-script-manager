@@ -8,7 +8,11 @@
   <rule ref="rulesets/java/basic.xml" /> <!-- All these rules are common sense -->
   <rule ref="rulesets/java/braces.xml" /> <!-- It is consistent with the code conventions and improves readibility -->
   <rule ref="rulesets/java/clone.xml" /> <!-- Good practices with the clone method -->
-  <rule ref="rulesets/java/codesize.xml" /> <!-- Good practices to avoid imperative programming. The limits require tweaking. -->
+  <!-- Good practices to avoid imperative programming. The limits require tweaking. -->
+  <rule ref="rulesets/java/codesize.xml"> 
+	<exclude name="StdCyclomaticComplexity"/> <!-- One rule to measure the cyclomatic complexity is enough. -->
+	<exclude name="ModifiedCyclomaticComplexity"/> <!-- One rule to measure the cyclomatic complexity is enough. -->
+  </rule>
   
   <!-- Comments ruleset. The next one is the only useful rule. -->
   <rule ref="rulesets/java/comments.xml/CommentRequired" >
@@ -19,7 +23,14 @@
 		<property name="publicMethodCommentRequirement" value="Required" />
 		<property name="fieldCommentRequirement" value="Ignored" />
 		<property name="headerCommentRequirement" value="Required" />
-    </properties>
+		<!-- We ignore the rule for setters and getters -->
+		<property name="violationSuppressRegex" value="(is|get|set).*"/>
+		<!-- We ignore overidden methods -->
+<!--
+It doesn't work. We have to ignore methods with the @Before or @After annotation.
+		<property name="violationSuppressXPath" value="//MethodDeclaration[@Override='true']"/>
+-->
+	</properties>
   </rule>
 
 <!-- Controversial: Most of the rules applied to unusual cases. -->

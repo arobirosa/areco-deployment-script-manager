@@ -44,6 +44,12 @@ public class AntDeploymentScriptsStarter
 	@Autowired
 	private DeploymentScriptStarter deploymentScriptStarter;
 
+	/**
+	 * Gets the only instance of this service. This method is used by the beanshell code in the ant script.
+	 * 
+	 * @return Never null
+	 */
+
 	public static synchronized AntDeploymentScriptsStarter getInstance()
 	{
 		if (INSTANCE == null)
@@ -53,6 +59,11 @@ public class AntDeploymentScriptsStarter
 		return INSTANCE;
 	}
 
+	/**
+	 * Run any deployment script which wasn't run yet. The method is called by the ant script.
+	 * 
+	 * @return 0 if everything went ok.
+	 */
 	public int runPendingScripts()
 	{
 		if (LOG.isInfoEnabled())

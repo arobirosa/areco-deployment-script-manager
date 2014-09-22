@@ -38,7 +38,6 @@ import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStepFactory;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
-import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -64,19 +63,12 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
 	private ScriptExecutionDao scriptExecutionDao;
 
 	@Autowired
-	private ImpexImportService impexImportService;
-
-	@Autowired
 	private List<DeploymentScriptStepFactory> stepFactories;
 
 	@Autowired
 	private DeploymentScriptConfigurationReader configurationReader;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder#getPendingScripts(java.lang.String)
-	 */
+	/** {@inheritDoc} */
 	@Override
 	public List<DeploymentScript> getPendingScripts(final String extensionName, final Process process, final boolean runInitScripts)
 	{
@@ -259,7 +251,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
 	/**
 	 * Creates an empty instance of the deployment script class.
 	 * 
-	 * @return
+	 * @return Never null.
 	 */
 	protected abstract DeploymentScript newDeploymentScript();
 }

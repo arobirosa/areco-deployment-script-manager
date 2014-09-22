@@ -25,6 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
+
 
 /**
  * It triggers the execution of the deployment scripts.
@@ -106,6 +108,17 @@ public class DeploymentScriptStarter
 		}
 	}
 
+	/**
+	 * Runs the all the pending deployment scripts using the given context.
+	 * 
+	 * @param context
+	 *           Required.
+	 * @param runInitScripts
+	 *           Required.
+	 * 
+	 * @return true if there was an error.
+	 */
+
 	public boolean runDeploymentScripts(final UpdatingSystemExtensionContext context, final boolean runInitScripts)
 	{
 		if (this.isWasThereAnError())
@@ -134,6 +147,8 @@ public class DeploymentScriptStarter
 		}
 	}
 
+	@SuppressWarnings("PMD.AvoidCatchingGenericException")
+	//This method must catch any error in the execution of the deployment scripts.
 	private boolean runDeploymentScriptsAndHandleErrors(final UpdatingSystemExtensionContext context, final boolean runInitScripts)
 	{
 		if (LOG.isDebugEnabled())
