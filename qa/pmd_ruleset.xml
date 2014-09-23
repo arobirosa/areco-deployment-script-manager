@@ -26,14 +26,11 @@
 		<!-- We ignore the rule for setters and getters -->
 		<property name="violationSuppressRegex" value="(is|get|set).*"/>
 		<!-- We ignore overidden methods -->
-<!--
-It doesn't work. We have to ignore methods with the @Before or @After annotation.
-		<property name="violationSuppressXPath" value="//MethodDeclaration[@Override='true']"/>
--->
+		<property name="violationSuppressXPath" value="//ClassOrInterfaceBodyDeclaration/MethodDeclaration[@Public='true' and ../Annotation/MarkerAnnotation/Name[@Image= 'Override']]" />
 	</properties>
   </rule>
 
-<!-- Controversial: Most of the rules applied to unusual cases. -->
+  <!-- Controversial: Most of the rules applied to unusual cases. -->
   <rule ref="rulesets/java/controversial.xml/AvoidUsingVolatile" >
 	<!-- I don't really understand volatile, and you? -->
   </rule>
