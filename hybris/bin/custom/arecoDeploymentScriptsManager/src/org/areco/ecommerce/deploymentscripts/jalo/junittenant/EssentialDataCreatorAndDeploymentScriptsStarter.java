@@ -54,6 +54,8 @@ import org.springframework.stereotype.Service;
  */
 @Service("essentialDataCreatorAndDeploymentScriptsStarter")
 @Scope("tenant")
+@SuppressWarnings("PMD.UnnecessaryLocalBeforeReturn")
+//We keep the local variable jspc because we only want to create a context once. The warning suppression only works at this point.
 public class EssentialDataCreatorAndDeploymentScriptsStarter
 {
 	private static final Logger LOG = Logger.getLogger(EssentialDataCreatorAndDeploymentScriptsStarter.class);
@@ -118,10 +120,9 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter
 	}
 
 	@SuppressWarnings(value =
-	{ "deprecation", "PMD.SignatureDeclareThrowsException", "PMD.UnnecessaryLocalBeforeReturn" })
+	{ "deprecation", "PMD.SignatureDeclareThrowsException" })
 	//The caller of this method must handle any exception, because this class is called by ant, which doesn't
 	//show the complete stack trace.
-	//We keep the local variable jspc because we only want to create a context once.
 	private void createEssentialDataForAllExtensions() throws Exception
 	{
 		//To import the encodings.
