@@ -66,6 +66,11 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter
 	@Autowired
 	private SystemSetupCollector systemSetupCollector;
 
+	/**
+	 * This method is called by ant to get the only instance to this class.
+	 * 
+	 * @return Never null.
+	 */
 	public static synchronized EssentialDataCreatorAndDeploymentScriptsStarter getInstance()
 	{
 		if (INSTANCE == null)
@@ -75,8 +80,11 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter
 		return INSTANCE;
 	}
 
+	/**
+	 * Creates the essential data and runs the deployment scripts in the junit tenant.
+	 */
 	@SuppressWarnings("PMD.AvoidCatchingGenericException")
-	//We catch all exceptions because this method is calld by ant.
+	//We catch all exceptions because this method is called by ant.
 	public void runInJunitTenant()
 	{
 		if (!Boolean.parseBoolean(Config.getParameter("deploymentscripts.init.junittenant.createessentialdata")))

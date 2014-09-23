@@ -25,3 +25,5 @@ hybris/config/local.properties
 
 #Reports of PMD, Checkstyle and Findbugs
 qa_reports/
+#We ignore the standard ruleset which comes with Hybris
+.ruleset

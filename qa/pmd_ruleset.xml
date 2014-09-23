@@ -25,8 +25,8 @@
 		<property name="headerCommentRequirement" value="Required" />
 		<!-- We ignore the rule for setters and getters -->
 		<property name="violationSuppressRegex" value="(is|get|set).*"/>
-		<!-- We ignore overidden methods -->
-		<property name="violationSuppressXPath" value="//ClassOrInterfaceBodyDeclaration/MethodDeclaration[@Public='true' and ../Annotation/MarkerAnnotation/Name[@Image= 'Override']]" />
+		<!-- We ignore overidden public methods, constructors and methods with the annotations @Test, @Before or @After -->
+		<property name="violationSuppressXPath" value="//ClassOrInterfaceBodyDeclaration/MethodDeclaration[@Public='true' and ../Annotation/MarkerAnnotation/Name[@Image= 'Override' or @Image= 'Test' or @Image= 'After' or @Image= 'Before']] | //ClassOrInterfaceBodyDeclaration/ConstructorDeclaration" />
 	</properties>
   </rule>
 
