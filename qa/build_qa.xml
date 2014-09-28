@@ -22,13 +22,16 @@
 	</fileset>
 	
 	<fileset dir="${dir_hybris_bin}" id="fileset_hybris_bin">
-		<include name="custom/**/lib/"/>		
-		<include name="plataform/ext/**/bin/"/>
-		<include name="plataform/ext/**/lib/"/>
-		<include name="plataform/ext/**/web/webroot/WEB-INF/classes/"/>
-		<include name="plataform/ext/**/web/webroot/WEB-INF/bin/"/>
-		<include name="plataform/ext/**/hmc/classes/"/>
-		<include name="plataform/ext/**/hmc/bin/"/>
+		<include name="custom/**/lib/*.jar"/>		
+		<include name="platform/ext/*/bin/*.jar"/>
+		<include name="platform/ext/*/lib/*.jar"/>
+		<include name="platform/ext/*/classes/**/*.class"/>
+		<include name="platform/ext/*/web/webroot/WEB-INF/classes/**/*.class"/>
+		<include name="platform/ext/*/web/webroot/WEB-INF/bin/*.jar"/>
+		<include name="platform/ext/*/hmc/classes/**/*.class"/>
+		<include name="platform/ext/*/hmc/bin/*.jar"/>
+		<include name="platform/bootstrap/bin/*.jar"/>
+		<include name="platform/tomcat-6/lib/*.jar"/>
 	</fileset>
 	
 	<target name="qa" depends="qa_clean, pmd" description="Runs Findbugs and PMD" />
