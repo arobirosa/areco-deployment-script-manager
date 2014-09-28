@@ -20,19 +20,16 @@ import java.util.Locale;
 
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStepFactory;
 
-
 /**
  * It creates steps which run Beanshell scripts.
  * 
  * @author arobirosa
  * 
  */
-//The configuration of this bean is in the spring application context.
-public abstract class BeanShellScriptStepFactory extends AbstractSingleFileScriptStepFactory
-{
-	@Override
-	protected boolean canCreateStepWith(final File aFile)
-	{
-		return aFile.getName().toLowerCase(Locale.getDefault()).endsWith(".beanshell");
-	}
+// The configuration of this bean is in the spring application context.
+public abstract class BeanShellScriptStepFactory extends AbstractSingleFileScriptStepFactory {
+    @Override
+    protected boolean canCreateStepWith(final File aFile) {
+        return aFile.getName().toLowerCase(Locale.getDefault()).endsWith(".beanshell");
+    }
 }

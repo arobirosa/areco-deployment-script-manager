@@ -15,22 +15,19 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
-
-
 /**
- * It is responsible for the import of the objects required by the extension. We don't use the ImpexManager automated
- * import of impex scripts because it is implemented using the Jalo Layer.
+ * It is responsible for the import of the objects required by the extension. We don't use the ImpexManager automated import of impex scripts because it is
+ * implemented using the Jalo Layer.
  * 
  * @author arobirosa
  * 
  */
-public interface InitialConfigurationImporter
-{
-	/**
-	 * It imports the initial objects if the haven't been imported yet. It throws an exception is there was an error.
-	 * 
-	 * @param context
-	 *           Required
-	 */
-	void importConfigurationIfRequired(final UpdatingSystemExtensionContext context);
+public interface InitialConfigurationImporter {
+    /**
+     * It imports the initial objects if the haven't been imported yet. It throws an exception is there was an error.
+     * 
+     * @param context
+     *            Required
+     */
+    void importConfigurationIfRequired(final UpdatingSystemExtensionContext context);
 }

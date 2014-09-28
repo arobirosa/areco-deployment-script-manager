@@ -28,81 +28,70 @@ import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.junit.Assert;
 
-
 /**
  * This DAO provides services to the tests.
  * 
  * @author arobirosa
  * 
  */
-public final class DeploymentScriptResultAsserter
-{
-	static private final DeploymentScriptResultAsserter INSTANCE = new DeploymentScriptResultAsserter();
+public final class DeploymentScriptResultAsserter {
 
-	private static final Logger LOG = Logger.getLogger(DeploymentScriptResultAsserter.class);
+    private static final DeploymentScriptResultAsserter INSTANCE = new DeploymentScriptResultAsserter();
 
-	private FlexibleSearchService flexibleSearchService;
+    private static final Logger LOG = Logger.getLogger(DeploymentScriptResultAsserter.class);
 
-	private DeploymentScriptResultAsserter()
-	{
-		//This private constructor is required by the singleton pattern.
-	}
+    private FlexibleSearchService flexibleSearchService;
 
-	static public DeploymentScriptResultAsserter getInstance()
-	{
-		return INSTANCE;
-	}
+    public static DeploymentScriptResultAsserter getInstance() {
+        return INSTANCE;
+    }
 
-	public void assertResult(final String deploymentScriptName, final ScriptExecutionResultModel expectedResult)
-	{
-		ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
-		ServicesUtil.validateParameterNotNullStandardMessage("expectedResult", expectedResult);
-		final ScriptExecutionModel executionOfTheScript = getDeploymentScriptExecution(deploymentScriptName);
-		Assert.assertEquals(
-				"The deployment script " + deploymentScriptName + " has the wrong result. Expected: " + expectedResult.getName()
-						+ " Actual: " + executionOfTheScript.getResult().getName(), expectedResult, executionOfTheScript.getResult());
-	}
+    private DeploymentScriptResultAsserter() {
+        // This private constructor is required by the singleton pattern.
+    }
 
-	/**
-	 * Looks for the execution of the given script. It ignores the extension.
-	 * 
-	 * @param deploymentScriptName
-	 *           Required
-	 * @return Never null
-	 */
-	private ScriptExecutionModel getDeploymentScriptExecution(final String deploymentScriptName)
-	{
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("Getting the execution of the script " + deploymentScriptName);
-		}
-		final StringBuilder queryBuilder = new StringBuilder();
+    public void assertResult(final String deploymentScriptName, final ScriptExecutionResultModel expectedResult) {
+        ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
+        ServicesUtil.validateParameterNotNullStandardMessage("expectedResult", expectedResult);
+        final ScriptExecutionModel executionOfTheScript = getDeploymentScriptExecution(deploymentScriptName);
+        Assert.assertEquals("The deployment script " + deploymentScriptName + " has the wrong result. Expected: " + expectedResult.getName() + " Actual: "
+                + executionOfTheScript.getResult().getName(), expectedResult, executionOfTheScript.getResult());
+    }
 
-		queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {")
-				.append(ScriptExecutionModel._TYPECODE).append(" as es ").append(" } ").append("WHERE ").append(" {es.")
-				.append(ScriptExecutionModel.SCRIPTNAME).append("} = ?").append(ScriptExecutionModel.SCRIPTNAME);
+    /**
+     * Looks for the execution of the given script. It ignores the extension.
+     * 
+     * @param deploymentScriptName
+     *            Required
+     * @return Never null
+     */
+    private ScriptExecutionModel getDeploymentScriptExecution(final String deploymentScriptName) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Getting the execution of the script " + deploymentScriptName);
+        }
+        final StringBuilder queryBuilder = new StringBuilder();
 
-		final Map<String, Object> queryParams = new HashMap<String, Object>();
-		queryParams.put(ScriptExecutionModel.SCRIPTNAME, deploymentScriptName);
+        queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
+                .append(" as es ").append(" } ").append("WHERE ").append(" {es.").append(ScriptExecutionModel.SCRIPTNAME).append("} = ?")
+                .append(ScriptExecutionModel.SCRIPTNAME);
 
-		if (LOG.isTraceEnabled())
-		{
-			LOG.trace("Executing the query: '" + queryBuilder.toString() + "' with the parameters " + queryParams);
-		}
+        final Map<String, Object> queryParams = new HashMap<String, Object>();
+        queryParams.put(ScriptExecutionModel.SCRIPTNAME, deploymentScriptName);
 
-		final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
+        if (LOG.isTraceEnabled()) {
+            LOG.trace("Executing the query: '" + queryBuilder.toString() + "' with the parameters " + queryParams);
+        }
 
-		return this.getFlexibleSearchService().searchUnique(query);
-	}
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
 
-	private FlexibleSearchService getFlexibleSearchService()
-	{
-		if (flexibleSearchService == null)
-		{
-			this.flexibleSearchService = Registry.getApplicationContext().getBean(FlexibleSearchService.class);
-		}
-		return flexibleSearchService;
-	}
+        return this.getFlexibleSearchService().searchUnique(query);
+    }
 
+    private FlexibleSearchService getFlexibleSearchService() {
+        if (flexibleSearchService == null) {
+            this.flexibleSearchService = Registry.getApplicationContext().getBean(FlexibleSearchService.class);
+        }
+        return flexibleSearchService;
+    }
 
 }

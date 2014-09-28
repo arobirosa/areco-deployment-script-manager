@@ -22,48 +22,40 @@ import java.io.File;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStepFactory;
 
-
 /**
  * Its subclasses create the step which only require one single file.
  * 
  * @author arobirosa
  * 
  */
-public abstract class AbstractSingleFileScriptStepFactory implements DeploymentScriptStepFactory
-{
-	private static final Logger LOG = Logger.getLogger(AbstractSingleFileScriptStepFactory.class);
+public abstract class AbstractSingleFileScriptStepFactory implements DeploymentScriptStepFactory {
+    private static final Logger LOG = Logger.getLogger(AbstractSingleFileScriptStepFactory.class);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.areco.ecommerce.deploymentscripts.core.impl.DeploymentScriptStepFactory#create(java.io.File)
-	 */
-	@Override
-	public AbstractSingleFileScriptStep create(final File aFile)
-	{
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("Trying to create a single file script step from the file " + aFile);
-		}
-		ServicesUtil.validateParameterNotNullStandardMessage("aFile", aFile);
-		if (canCreateStepWith(aFile))
-		{
-			final AbstractSingleFileScriptStep aStep = this.createStep();
-			aStep.setScriptFile(aFile);
-			if (LOG.isDebugEnabled())
-			{
-				LOG.debug("Created step: " + aStep);
-			}
-			return aStep;
-		}
-		else
-		{
-			return null;
-		}
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.areco.ecommerce.deploymentscripts.core.impl.DeploymentScriptStepFactory#create(java.io.File)
+     */
+    @Override
+    public AbstractSingleFileScriptStep create(final File aFile) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Trying to create a single file script step from the file " + aFile);
+        }
+        ServicesUtil.validateParameterNotNullStandardMessage("aFile", aFile);
+        if (canCreateStepWith(aFile)) {
+            final AbstractSingleFileScriptStep aStep = this.createStep();
+            aStep.setScriptFile(aFile);
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Created step: " + aStep);
+            }
+            return aStep;
+        } else {
+            return null;
+        }
+    }
 
-	protected abstract boolean canCreateStepWith(final File aFile);
+    protected abstract boolean canCreateStepWith(final File aFile);
 
-	//Used by Spring to create new instances.
-	protected abstract AbstractSingleFileScriptStep createStep();
+    // Used by Spring to create new instances.
+    protected abstract AbstractSingleFileScriptStep createStep();
 }

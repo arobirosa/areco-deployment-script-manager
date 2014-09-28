@@ -23,7 +23,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 
-
 /**
  * It restores the configuration of the manager, for example, the folders after the test.
  * 
@@ -32,32 +31,28 @@ import org.junit.Ignore;
  */
 @IntegrationTest
 @Ignore
-public abstract class AbstractWithConfigurationRestorationTest extends ServicelayerTransactionalTest
-{
+public abstract class AbstractWithConfigurationRestorationTest extends ServicelayerTransactionalTest {
 
-	private final DeploymentConfigurationSetter deploymentConfigurationSetter = new DeploymentConfigurationSetter();
+    private final DeploymentConfigurationSetter deploymentConfigurationSetter = new DeploymentConfigurationSetter();
 
-	/**
-	 * Save the settings.
-	 */
-	@Before
-	public void saveOldFolders()
-	{
-		deploymentConfigurationSetter.saveCurrentFolders();
-	}
+    /**
+     * Save the settings.
+     */
+    @Before
+    public void saveOldFolders() {
+        deploymentConfigurationSetter.saveCurrentFolders();
+    }
 
-	/**
-	 * Restore the settings.
-	 */
-	@After
-	public void restoreOldFolders()
-	{
-		//We don't want to affect other tests
-		this.deploymentConfigurationSetter.restoreOldFolders();
-	}
+    /**
+     * Restore the settings.
+     */
+    @After
+    public void restoreOldFolders() {
+        // We don't want to affect other tests
+        this.deploymentConfigurationSetter.restoreOldFolders();
+    }
 
-	protected DeploymentConfigurationSetter getDeploymentConfigurationSetter()
-	{
-		return deploymentConfigurationSetter;
-	}
+    protected DeploymentConfigurationSetter getDeploymentConfigurationSetter() {
+        return deploymentConfigurationSetter;
+    }
 }

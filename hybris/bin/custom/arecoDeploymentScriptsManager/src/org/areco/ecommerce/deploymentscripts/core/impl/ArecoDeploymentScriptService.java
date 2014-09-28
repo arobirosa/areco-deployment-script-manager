@@ -30,7 +30,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-
 /**
  * Default implementation of the deployment script service.
  * 
@@ -39,59 +38,48 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Scope("tenant")
-public class ArecoDeploymentScriptService implements DeploymentScriptService
-{
-	private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptService.class);
+public class ArecoDeploymentScriptService implements DeploymentScriptService {
+    private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptService.class);
 
-	@Autowired
-	private DeploymentScriptFinder finder;
+    @Autowired
+    private DeploymentScriptFinder finder;
 
-	@Autowired
-	private DeploymentScriptRunner runner;
+    @Autowired
+    private DeploymentScriptRunner runner;
 
-	@Autowired
-	private InitialConfigurationImporter initialConfigurationImporter;
+    @Autowired
+    private InitialConfigurationImporter initialConfigurationImporter;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.areco.ecommerce.deploymentscripts.core.DeploymentScriptService#runUpdateDeploymentScripts(de.hybris.platform
-	 * .core.initialization.SystemSetupContext)
-	 */
-	@Override
-	public boolean runDeploymentScripts(final UpdatingSystemExtensionContext context, final boolean runInitScripts)
-	{
-		ServicesUtil.validateParameterNotNullStandardMessage("context", context);
-		this.initialConfigurationImporter.importConfigurationIfRequired(context);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptService#runUpdateDeploymentScripts(de.hybris.platform
+     * .core.initialization.SystemSetupContext)
+     */
+    @Override
+    public boolean runDeploymentScripts(final UpdatingSystemExtensionContext context, final boolean runInitScripts) {
+        ServicesUtil.validateParameterNotNullStandardMessage("context", context);
+        this.initialConfigurationImporter.importConfigurationIfRequired(context);
 
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("Looking for pending update scripts in the extension " + context.getExtensionName());
-		}
-		final List<DeploymentScript> scriptsToBeRun = this.finder.getPendingScripts(context.getExtensionName(),
-				context.getProcess(), runInitScripts);
-		if (scriptsToBeRun.isEmpty())
-		{
-			if (LOG.isDebugEnabled())
-			{
-				LOG.debug("There aren't any pending " + (runInitScripts ? "INIT" : "UPDATE")
-						+ " deployment scripts in the extension " + context.getExtensionName());
-			}
-			return false;
-		}
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("Running update scripts of the extension " + context.getExtensionName());
-		}
-		final boolean wasThereAnError = this.runner.run(context, scriptsToBeRun);
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("Finished running update scripts of the extension " + context.getExtensionName());
-		}
-		return wasThereAnError;
-	}
-
-
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Looking for pending update scripts in the extension " + context.getExtensionName());
+        }
+        final List<DeploymentScript> scriptsToBeRun = this.finder.getPendingScripts(context.getExtensionName(), context.getProcess(), runInitScripts);
+        if (scriptsToBeRun.isEmpty()) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("There aren't any pending " + (runInitScripts ? "INIT" : "UPDATE") + " deployment scripts in the extension "
+                        + context.getExtensionName());
+            }
+            return false;
+        }
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Running update scripts of the extension " + context.getExtensionName());
+        }
+        final boolean wasThereAnError = this.runner.run(context, scriptsToBeRun);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Finished running update scripts of the extension " + context.getExtensionName());
+        }
+        return wasThereAnError;
+    }
 
 }

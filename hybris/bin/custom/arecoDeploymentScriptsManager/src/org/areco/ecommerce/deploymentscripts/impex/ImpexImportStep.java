@@ -24,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-
 /**
  * Represents a step of the deployment script were an impex file is imported.
  * 
@@ -32,32 +31,26 @@ import org.springframework.stereotype.Component;
  * 
  */
 @Component
-//Every time the step factory is called, it creates a new instance.
+// Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
-public class ImpexImportStep extends AbstractSingleFileScriptStep
-{
-	private static final Logger LOG = Logger.getLogger(ImpexImportStep.class);
+public class ImpexImportStep extends AbstractSingleFileScriptStep {
+    private static final Logger LOG = Logger.getLogger(ImpexImportStep.class);
 
-	@Autowired
-	private ImpexImportService impexImportService;
+    @Autowired
+    private ImpexImportService impexImportService;
 
-	/*
-	 * { @InheritDoc }
-	 */
-	@Override
-	public void run() throws DeploymentScriptExecutionException
-	{
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("Running the step " + this.getId());
-		}
-		try
-		{
-			this.impexImportService.importImpexFile(this.getScriptFile());
-		}
-		catch (final ImpExException cause)
-		{
-			throw new DeploymentScriptExecutionException("There was an error importing the step " + this.getId(), cause);
-		}
-	}
+    /*
+     * { @InheritDoc }
+     */
+    @Override
+    public void run() throws DeploymentScriptExecutionException {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Running the step " + this.getId());
+        }
+        try {
+            this.impexImportService.importImpexFile(this.getScriptFile());
+        } catch (final ImpExException cause) {
+            throw new DeploymentScriptExecutionException("There was an error importing the step " + this.getId(), cause);
+        }
+    }
 }

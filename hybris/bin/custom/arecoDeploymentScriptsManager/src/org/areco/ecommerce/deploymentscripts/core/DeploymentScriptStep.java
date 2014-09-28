@@ -21,19 +21,18 @@ package org.areco.ecommerce.deploymentscripts.core;
  * @author arobirosa
  * 
  */
-public interface DeploymentScriptStep
-{
-	/**
-	 * It returns an unique code use to identify the step.
-	 * 
-	 * @return String. Never null.
-	 */
-	String getId();
+public interface DeploymentScriptStep {
+    /**
+     * It returns an unique code use to identify the step.
+     * 
+     * @return String. Never null.
+     */
+    String getId();
 
-	/**
-	 * Does the actual job.
-	 * 
-	 * @throws DeploymentScriptExecutionException
-	 */
-	void run() throws DeploymentScriptExecutionException;
+    /**
+     * Does the actual job.
+     * 
+     * @throws DeploymentScriptExecutionException
+     */
+    void run() throws DeploymentScriptExecutionException;
 }

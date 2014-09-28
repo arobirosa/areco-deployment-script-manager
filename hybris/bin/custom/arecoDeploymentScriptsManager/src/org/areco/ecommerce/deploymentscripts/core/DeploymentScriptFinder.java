@@ -19,27 +19,25 @@ import de.hybris.platform.core.initialization.SystemSetup.Process;
 
 import java.util.List;
 
-
 /**
  * It looks for the deployment scripts.
  * 
  * @author arobirosa
  * 
  */
-public interface DeploymentScriptFinder
-{
+public interface DeploymentScriptFinder {
 
-	/**
-	 * Returns the list of deployment scripts located in the extension which must be run.
-	 * 
-	 * @param extensionName
-	 *           Required
-	 * @param process
-	 *           Required. It is the current Hybris process: Update or Init.
-	 * @param runInitScripts
-	 *           Required. Do we run the init or the update scripts.
-	 * @return Never null
-	 */
-	List<DeploymentScript> getPendingScripts(String extensionName, Process process, boolean runInitScripts);
+    /**
+     * Returns the list of deployment scripts located in the extension which must be run.
+     * 
+     * @param extensionName
+     *            Required
+     * @param process
+     *            Required. It is the current Hybris process: Update or Init.
+     * @param runInitScripts
+     *            Required. Do we run the init or the update scripts.
+     * @return Never null
+     */
+    List<DeploymentScript> getPendingScripts(String extensionName, Process process, boolean runInitScripts);
 
 }

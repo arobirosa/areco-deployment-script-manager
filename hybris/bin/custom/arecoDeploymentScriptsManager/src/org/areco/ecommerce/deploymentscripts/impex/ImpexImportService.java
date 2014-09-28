@@ -19,22 +19,19 @@ import de.hybris.platform.impex.jalo.ImpExException;
 
 import java.io.File;
 
-
 /**
  * This service is responsible for importing the impex files of the deployment scripts.
  * 
  * @author arobirosa
  * 
  */
-public interface ImpexImportService
-{
-	/**
-	 * Imports the given file and returns an importResult. It throws an exception if there was an error and the caller
-	 * has to manage it.
-	 * 
-	 * @param impexFile
-	 *           Required
-	 * @throws ImpExException
-	 */
-	void importImpexFile(final File impexFile) throws ImpExException;
+public interface ImpexImportService {
+    /**
+     * Imports the given file and returns an importResult. It throws an exception if there was an error and the caller has to manage it.
+     * 
+     * @param impexFile
+     *            Required
+     * @throws ImpExException
+     */
+    void importImpexFile(final File impexFile) throws ImpExException;
 }

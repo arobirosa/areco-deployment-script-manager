@@ -20,19 +20,16 @@ import java.util.Locale;
 
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStepFactory;
 
-
 /**
  * Creates a new sql step if the given file is a sql7 script.
  * 
  * @author arobirosa
  * 
  */
-//The configuration of this bean is in the spring application context.
-public abstract class SqlScriptStepFactory extends AbstractSingleFileScriptStepFactory
-{
-	@Override
-	protected boolean canCreateStepWith(final File aFile)
-	{
-		return aFile.getName().toLowerCase(Locale.getDefault()).endsWith(".sql");
-	}
+// The configuration of this bean is in the spring application context.
+public abstract class SqlScriptStepFactory extends AbstractSingleFileScriptStepFactory {
+    @Override
+    protected boolean canCreateStepWith(final File aFile) {
+        return aFile.getName().toLowerCase(Locale.getDefault()).endsWith(".sql");
+    }
 }

@@ -21,15 +21,14 @@ package org.areco.ecommerce.deploymentscripts.beanshell;
  * @author arobirosa
  * 
  */
-public interface BeanShellService
-{
+public interface BeanShellService {
 
-	/**
-	 * It runs the given code.
-	 * 
-	 * @param loadFileContent
-	 * @throws BeanShellExecutionException
-	 */
-	void executeScript(String loadFileContent) throws BeanShellExecutionException;
+    /**
+     * It runs the given code.
+     * 
+     * @param loadFileContent
+     * @throws BeanShellExecutionException
+     */
+    void executeScript(String loadFileContent) throws BeanShellExecutionException;
 
 }

@@ -17,21 +17,19 @@ package org.areco.ecommerce.deploymentscripts.core;
 
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 
-
 /**
  * It represents the definition of the properties of a deployment script
  * 
  * @author arobirosa
  * 
  */
-public interface DeploymentScriptConfiguration
-{
+public interface DeploymentScriptConfiguration {
 
-	/**
-	 * Checks if this script is allowed to run in this server.
-	 * 
-	 * @return null if it is allowed to run. Otherwise it returns the execution result.
-	 */
-	ScriptExecutionResultModel isAllowedInThisServer();
+    /**
+     * Checks if this script is allowed to run in this server.
+     * 
+     * @return null if it is allowed to run. Otherwise it returns the execution result.
+     */
+    ScriptExecutionResultModel isAllowedInThisServer();
 
 }

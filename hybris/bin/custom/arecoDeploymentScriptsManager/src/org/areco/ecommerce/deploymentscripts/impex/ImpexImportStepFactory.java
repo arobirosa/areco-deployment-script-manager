@@ -20,20 +20,17 @@ import java.util.Locale;
 
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStepFactory;
 
-
 /**
  * Creates a new impexDeploymentScriptStep if the given file is a impex script.
  * 
  * @author arobirosa
  * 
  */
-//The configuration of this bean is in the spring application context.
-public abstract class ImpexImportStepFactory extends AbstractSingleFileScriptStepFactory
-{
-	@Override
-	protected boolean canCreateStepWith(final File aFile)
-	{
-		return aFile.getName().toLowerCase(Locale.getDefault()).endsWith(".impex");
-	}
+// The configuration of this bean is in the spring application context.
+public abstract class ImpexImportStepFactory extends AbstractSingleFileScriptStepFactory {
+    @Override
+    protected boolean canCreateStepWith(final File aFile) {
+        return aFile.getName().toLowerCase(Locale.getDefault()).endsWith(".impex");
+    }
 
 }

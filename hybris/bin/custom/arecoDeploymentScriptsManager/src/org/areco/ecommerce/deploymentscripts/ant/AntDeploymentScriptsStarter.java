@@ -23,64 +23,56 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-
 /**
  * It runs any pending UPDATE deployment scripts when the ant target "runDeploymentScripts" is called.
  * 
- * WARNING: The pending scripts must not require changes of the Hybris Type System. You would have to run them during
- * the Update Running System process if this is the case.
+ * WARNING: The pending scripts must not require changes of the Hybris Type System. You would have to run them during the Update Running System process if this
+ * is the case.
  * 
  * @author arobirosa
  * 
  */
 @Service("antDeploymentScriptsStarter")
 @Scope("tenant")
-public class AntDeploymentScriptsStarter
-{
-	private static final Logger LOG = Logger.getLogger(AntDeploymentScriptsStarter.class);
+public class AntDeploymentScriptsStarter {
+    private static final Logger LOG = Logger.getLogger(AntDeploymentScriptsStarter.class);
 
-	private static AntDeploymentScriptsStarter INSTANCE = null;
+    private static AntDeploymentScriptsStarter instance = null;
 
-	@Autowired
-	private DeploymentScriptStarter deploymentScriptStarter;
+    @Autowired
+    private DeploymentScriptStarter deploymentScriptStarter;
 
-	/**
-	 * Gets the only instance of this service. This method is used by the beanshell code in the ant script.
-	 * 
-	 * @return Never null
-	 */
+    /**
+     * Gets the only instance of this service. This method is used by the beanshell code in the ant script.
+     * 
+     * @return Never null
+     */
 
-	public static synchronized AntDeploymentScriptsStarter getInstance()
-	{
-		if (INSTANCE == null)
-		{
-			INSTANCE = Registry.getApplicationContext().getBean(AntDeploymentScriptsStarter.class);
-		}
-		return INSTANCE;
-	}
+    public static synchronized AntDeploymentScriptsStarter getInstance() {
+        if (instance == null) {
+            instance = Registry.getApplicationContext().getBean(AntDeploymentScriptsStarter.class);
+        }
+        return instance;
+    }
 
-	/**
-	 * Run any deployment script which wasn't run yet. The method is called by the ant script.
-	 * 
-	 * @return 0 if everything went ok.
-	 */
-	public int runPendingScripts()
-	{
-		if (LOG.isInfoEnabled())
-		{
-			LOG.info("Running any pending UPDATE deployment scripts.");
-		}
+    /**
+     * Run any deployment script which wasn't run yet. The method is called by the ant script.
+     * 
+     * @return 0 if everything went ok.
+     */
+    public int runPendingScripts() {
+        if (LOG.isInfoEnabled()) {
+            LOG.info("Running any pending UPDATE deployment scripts.");
+        }
 
-		final boolean wasThereAnError = this.deploymentScriptStarter.runAllPendingScripts();
-		if (wasThereAnError)
-		{
-			LOG.error("There was an error running the deployment scripts. Please check the console.");
-			return 1; //Error
-		}
-		if (LOG.isInfoEnabled())
-		{
-			LOG.info("All pending scripts were run successfully.");
-		}
-		return 0;
-	}
+        final boolean wasThereAnError = this.deploymentScriptStarter.runAllPendingScripts();
+        if (wasThereAnError) {
+            LOG.error("There was an error running the deployment scripts. Please check the console.");
+            return 1; // Error
+        }
+        if (LOG.isInfoEnabled()) {
+            LOG.info("All pending scripts were run successfully.");
+        }
+        return 0;
+    }
 }

@@ -21,30 +21,26 @@ package org.areco.ecommerce.deploymentscripts.core;
  * @author arobirosa
  * 
  */
-public class DeploymentScriptConfigurationException extends RuntimeException
-{
+public class DeploymentScriptConfigurationException extends RuntimeException {
 
-	/**
-	 * Constructor with a message and a cause.
-	 */
-	public DeploymentScriptConfigurationException(final String message, final Throwable cause)
-	{
-		super(message, cause);
-	}
+    /**
+     * Constructor with a message and a cause.
+     */
+    public DeploymentScriptConfigurationException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
 
-	/**
-	 * Constructor with a message.
-	 */
-	public DeploymentScriptConfigurationException(final String message)
-	{
-		super(message);
-	}
+    /**
+     * Constructor with a message.
+     */
+    public DeploymentScriptConfigurationException(final String message) {
+        super(message);
+    }
 
-	/**
-	 * Constructor with a cause.
-	 */
-	public DeploymentScriptConfigurationException(final Throwable cause)
-	{
-		super(cause);
-	}
+    /**
+     * Constructor with a cause.
+     */
+    public DeploymentScriptConfigurationException(final Throwable cause) {
+        super(cause);
+    }
 }

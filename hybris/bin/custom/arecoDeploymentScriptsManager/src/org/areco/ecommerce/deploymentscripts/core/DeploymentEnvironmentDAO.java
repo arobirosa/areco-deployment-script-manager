@@ -19,28 +19,26 @@ import java.util.Set;
 
 import org.areco.ecommerce.deploymentscripts.model.DeploymentEnvironmentModel;
 
-
 /**
  * It manages the instances of the deployment environments.
  * 
  * @author arobirosa
  * 
  */
-public interface DeploymentEnvironmentDAO
-{
-	/**
-	 * Return the environments with the given names.
-	 * 
-	 * @param environmentNames
-	 *           Required
-	 * @return Never null.
-	 */
-	Set<DeploymentEnvironmentModel> loadEnvironments(Set<String> environmentNames);
+public interface DeploymentEnvironmentDAO {
+    /**
+     * Return the environments with the given names.
+     * 
+     * @param environmentNames
+     *            Required
+     * @return Never null.
+     */
+    Set<DeploymentEnvironmentModel> loadEnvironments(Set<String> environmentNames);
 
-	/**
-	 * Returns the deployment environment where this server is running
-	 * 
-	 * @return Never null
-	 */
-	DeploymentEnvironmentModel getCurrent();
+    /**
+     * Returns the deployment environment where this server is running
+     * 
+     * @return Never null
+     */
+    DeploymentEnvironmentModel getCurrent();
 }

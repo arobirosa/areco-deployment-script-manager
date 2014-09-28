@@ -16,44 +16,39 @@
 package org.areco.ecommerce.deploymentscripts.core;
 
 /**
- * This is a checked exception because the caller has to manage it. It usually means setting the execution of the
- * deployment script to some error state.
+ * This is a checked exception because the caller has to manage it. It usually means setting the execution of the deployment script to some error state.
  * 
  * @author arobirosa
  * 
  */
-public class DeploymentScriptExecutionException extends Exception
-{
+public class DeploymentScriptExecutionException extends Exception {
 
-	/**
-	 * Default constructor with a message and a cause
-	 * 
-	 * @param message
-	 * @param cause
-	 */
-	public DeploymentScriptExecutionException(final String message, final Throwable cause)
-	{
-		super(message, cause);
-	}
+    /**
+     * Default constructor with a message and a cause
+     * 
+     * @param message
+     * @param cause
+     */
+    public DeploymentScriptExecutionException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
 
-	/**
-	 * Constructor with a message.
-	 * 
-	 * @param message
-	 */
-	public DeploymentScriptExecutionException(final String message)
-	{
-		super(message);
-	}
+    /**
+     * Constructor with a message.
+     * 
+     * @param message
+     */
+    public DeploymentScriptExecutionException(final String message) {
+        super(message);
+    }
 
-	/**
-	 * Constructor with a cause
-	 * 
-	 * @param cause
-	 */
-	public DeploymentScriptExecutionException(final Throwable cause)
-	{
-		super(cause);
-	}
+    /**
+     * Constructor with a cause
+     * 
+     * @param cause
+     */
+    public DeploymentScriptExecutionException(final Throwable cause) {
+        super(cause);
+    }
 
 }

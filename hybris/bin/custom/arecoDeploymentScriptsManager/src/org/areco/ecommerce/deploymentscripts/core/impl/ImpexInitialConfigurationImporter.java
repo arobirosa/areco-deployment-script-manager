@@ -34,7 +34,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-
 /**
  * This implementation uses an impex script to create the initial objects.
  * 
@@ -43,73 +42,60 @@ import org.springframework.stereotype.Service;
  */
 @Scope("tenant")
 @Service
-public class ImpexInitialConfigurationImporter implements InitialConfigurationImporter
-{
+public class ImpexInitialConfigurationImporter implements InitialConfigurationImporter {
 
-	private static final Logger LOG = Logger.getLogger(ImpexInitialConfigurationImporter.class);
+    private static final Logger LOG = Logger.getLogger(ImpexInitialConfigurationImporter.class);
 
-	private static final String RESOURCES_FOLDER = "/resources";
+    private static final String RESOURCES_FOLDER = "/resources";
 
-	private static final String INITIAL_CONFIGURATION_FILE = "initial-configuration.impex";
+    private static final String INITIAL_CONFIGURATION_FILE = "initial-configuration.impex";
 
-	@Autowired
-	private ScriptExecutionResultDAO scriptExecutionResultDAO;
+    @Autowired
+    private ScriptExecutionResultDAO scriptExecutionResultDAO;
 
-	@Autowired
-	private ImpexImportService impexImportService;
+    @Autowired
+    private ImpexImportService impexImportService;
 
-	@Autowired
-	private ExtensionHelper extensionHelper;
+    @Autowired
+    private ExtensionHelper extensionHelper;
 
-	/*
-	 * { @InheritDoc }
-	 */
-	@Override
-	public void importConfigurationIfRequired(final UpdatingSystemExtensionContext context)
-	{
-		ServicesUtil.validateParameterNotNullStandardMessage("context", context);
-		if (!this.extensionHelper.isFirstExtension(context))
-		{
-			if (LOG.isTraceEnabled())
-			{
-				LOG.trace("This is not the first extension. Quitting without checking if the initial "
-						+ " configuration was imported.");
-			}
-			return;
-		}
-		if (this.scriptExecutionResultDAO.theInitialResultsWereImported())
-		{
-			if (LOG.isDebugEnabled())
-			{
-				LOG.debug("The initial configuration was already imported.");
-			}
-			return;
-		}
-		importConfiguration();
-	}
+    /*
+     * { @InheritDoc }
+     */
+    @Override
+    public void importConfigurationIfRequired(final UpdatingSystemExtensionContext context) {
+        ServicesUtil.validateParameterNotNullStandardMessage("context", context);
+        if (!this.extensionHelper.isFirstExtension(context)) {
+            if (LOG.isTraceEnabled()) {
+                LOG.trace("This is not the first extension. Quitting without checking if the initial " + " configuration was imported.");
+            }
+            return;
+        }
+        if (this.scriptExecutionResultDAO.theInitialResultsWereImported()) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("The initial configuration was already imported.");
+            }
+            return;
+        }
+        importConfiguration();
+    }
 
-	private void importConfiguration()
-	{
-		final ExtensionInfo extension = ConfigUtil.getPlatformConfig(ArecoDeploymentScriptService.class).getExtensionInfo(
-				ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
-		final File configurationFile = new File(extension.getExtensionDirectory() + RESOURCES_FOLDER, INITIAL_CONFIGURATION_FILE);
-		try
-		{
-			this.impexImportService.importImpexFile(configurationFile);
-		}
-		catch (final ImpExException cause)
-		{
-			throw new ConfigurationException("There was an error importing the initial configuration of the extension stored in "
-					+ configurationFile, cause);
-		}
+    private void importConfiguration() {
+        final ExtensionInfo extension = ConfigUtil.getPlatformConfig(ArecoDeploymentScriptService.class).getExtensionInfo(
+                ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
+        final File configurationFile = new File(extension.getExtensionDirectory() + RESOURCES_FOLDER, INITIAL_CONFIGURATION_FILE);
+        try {
+            this.impexImportService.importImpexFile(configurationFile);
+        } catch (final ImpExException cause) {
+            throw new ConfigurationException("There was an error importing the initial configuration of the extension stored in " + configurationFile, cause);
+        }
 
-		//Reload of the results.
-		this.scriptExecutionResultDAO.initialize();
+        // Reload of the results.
+        this.scriptExecutionResultDAO.initialize();
 
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("The initial configuration was sucessfully imported.");
-		}
-	}
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("The initial configuration was sucessfully imported.");
+        }
+    }
 
 }

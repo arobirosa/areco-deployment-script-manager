@@ -15,14 +15,18 @@ This checkstyle configuration is based on the coding conventions from Sun.
 
         <property name="basedir" value="${basedir}"/>
     -->
+    <module name="SuppressionCommentFilter">
+		<property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
+		<property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
+	</module>
 
     <!-- Checks that a package-info.java file exists for each package.     -->
     <!-- See http://checkstyle.sf.net/config_javadoc.html#JavadocPackage -->
-    <module name="JavadocPackage"/>
+    <!-- <module name="JavadocPackage"/> It doesn't bring any value to have documention of the packages. -->
 
     <!-- Checks whether files end with a new line.                        -->
     <!-- See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
-    <module name="NewlineAtEndOfFile"/>
+    <!-- <module name="NewlineAtEndOfFile"/ This was a good idea with CVS. But we don't need it nowadays. -->
 
     <!-- Checks that property files contain the same keys.         -->
     <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
@@ -30,7 +34,7 @@ This checkstyle configuration is based on the coding conventions from Sun.
     
     <!-- Checks for Size Violations.                    -->
     <!-- See http://checkstyle.sf.net/config_sizes.html -->
-    <module name="FileLength"/>
+    <!-- <module name="FileLength"/ PMD already test the size of the classes and methods and it is more configurable -->
     
     <!-- Checks for whitespace                               -->
     <!-- See http://checkstyle.sf.net/config_whitespace.html -->
@@ -38,12 +42,14 @@ This checkstyle configuration is based on the coding conventions from Sun.
 
     <!-- Miscellaneous other checks.                   -->
     <!-- See http://checkstyle.sf.net/config_misc.html -->
+<!-- There isn't any added value on this test.
     <module name="RegexpSingleline">
        <property name="format" value="\s+$"/>
        <property name="minimum" value="0"/>
        <property name="maximum" value="0"/>
        <property name="message" value="Line has trailing spaces."/>
     </module>
+-->
 
     <!-- Checks for Headers                                -->
     <!-- See http://checkstyle.sf.net/config_header.html   -->
@@ -54,12 +60,18 @@ This checkstyle configuration is based on the coding conventions from Sun.
 
     <module name="TreeWalker">
 
+		<!-- This is required by the SuppressionCommentFilter -->
+		<module name="FileContentsHolder"/>
+
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
+        
+<!-- PMD already checks missing javadocs and it is more configurable.
         <module name="JavadocMethod"/>
         <module name="JavadocType"/>
         <module name="JavadocVariable"/>
         <module name="JavadocStyle"/>
+-->
 
 
         <!-- Checks for Naming Conventions.                  -->
@@ -85,9 +97,13 @@ This checkstyle configuration is based on the coding conventions from Sun.
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
-        <module name="LineLength"/>
+        <module name="LineLength">
+			<property name="max" value="160"/> <!-- This fits in any modern screen and we never print sourcecode. -->
+		</module>
+<!--    PMD already checks this
         <module name="MethodLength"/>
         <module name="ParameterNumber"/>
+-->
 
 
         <!-- Checks for whitespace                               -->
@@ -95,7 +111,7 @@ This checkstyle configuration is based on the coding conventions from Sun.
         <module name="EmptyForIteratorPad"/>
         <module name="GenericWhitespace"/>
         <module name="MethodParamPad"/>
-        <module name="NoWhitespaceAfter"/>
+        <!-- module name="NoWhitespaceAfter"/ Too many false positives -->
         <module name="NoWhitespaceBefore"/>
         <module name="OperatorWrap"/>
         <module name="ParenPad"/>
@@ -121,24 +137,35 @@ This checkstyle configuration is based on the coding conventions from Sun.
 
         <!-- Checks for common coding problems               -->
         <!-- See http://checkstyle.sf.net/config_coding.html -->
+        <!-- PMD already checks this
         <module name="AvoidInlineConditionals"/>
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
-        <module name="HiddenField"/>
-        <module name="IllegalInstantiation"/>
+        -->
+        <module name="HiddenField">
+			<!-- In setters and constructor the this keyboard is used to deambigueated -->
+			<property name="ignoreSetter" value="true"/>
+			<property name="ignoreConstructorParameter" value="true"/>
+		</module>
+		
+        <module name="IllegalInstantiation">
+			<property name="classes" value="*.model.*"/>
+	    </module>
         <module name="InnerAssignment"/>
-        <module name="MagicNumber"/>
+        <!-- module name="MagicNumber"/ Too much effort is to avoid magic numbers -->
+         <!-- PMD already checks this
         <module name="MissingSwitchDefault"/>
         <module name="RedundantThrows"/>
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>
+		-->
 
         <!-- Checks for class design                         -->
         <!-- See http://checkstyle.sf.net/config_design.html -->
-        <module name="DesignForExtension"/>
+        <!-- <module name="DesignForExtension"/ Too much effort to implement this rules. When you create a subclass, you must know how the superclass works. -->
         <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>
-        <module name="InterfaceIsType"/>
+        <!-- <module name="InterfaceIsType"/ Already detected by PMD -->
         <module name="VisibilityModifier"/>
 
 
@@ -146,7 +173,8 @@ This checkstyle configuration is based on the coding conventions from Sun.
         <!-- See http://checkstyle.sf.net/config_misc.html -->
         <module name="ArrayTypeStyle"/>
         <module name="FinalParameters"/>
-        <module name="TodoComment"/>
+        <!-- <module name="TodoComment"/ The todo comments are useful to inform the next programmer, what you should have done
+        if you had more time. It is always better to create a ticket, but in most projects this a bureacratic procedure -->
         <module name="UpperEll"/>
 
     </module>

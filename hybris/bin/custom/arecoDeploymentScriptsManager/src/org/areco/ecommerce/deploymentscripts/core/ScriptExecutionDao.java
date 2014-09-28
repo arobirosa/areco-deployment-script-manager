@@ -19,21 +19,18 @@ import java.util.List;
 
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 
-
 /**
  * @author arobirosa
  * 
  */
-public interface ScriptExecutionDao
-{
-	/**
-	 * It returns all the scripts which were executed and then don't need to be executed again.
-	 * 
-	 * @param extensionName
-	 *           Required.
-	 * @return Never null
-	 */
-	List<ScriptExecutionModel> getSuccessfullyExecutedScripts(String extensionName);
-
+public interface ScriptExecutionDao {
+    /**
+     * It returns all the scripts which were executed and then don't need to be executed again.
+     * 
+     * @param extensionName
+     *            Required.
+     * @return Never null
+     */
+    List<ScriptExecutionModel> getSuccessfullyExecutedScripts(String extensionName);
 
 }

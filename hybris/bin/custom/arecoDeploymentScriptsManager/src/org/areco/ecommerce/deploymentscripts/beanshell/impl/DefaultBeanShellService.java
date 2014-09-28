@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 import bsh.EvalError;
 import bsh.Interpreter;
 
-
 /**
  * It runs Bean Shell code and check that it was successful.
  * 
@@ -33,45 +32,35 @@ import bsh.Interpreter;
  */
 @Service
 @Scope("tenant")
-public class DefaultBeanShellService implements BeanShellService
-{
-	private static final Logger LOG = Logger.getLogger(DefaultBeanShellService.class);
+public class DefaultBeanShellService implements BeanShellService {
+    private static final Logger LOG = Logger.getLogger(DefaultBeanShellService.class);
 
-	/*
-	 * It compiles and executes the given beanshell code.
-	 * 
-	 * @see org.areco.ecommerce.deploymentscripts.beanshell.BeanShellService#executeScript(java.lang.String)
-	 */
-	@Override
-	public void executeScript(final String beanShellCode) throws BeanShellExecutionException
-	{
-		if (beanShellCode == null || beanShellCode.trim().isEmpty())
-		{
-			throw new IllegalArgumentException("The parameter beanShellCode cannot be null");
-		}
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("Running the code '" + beanShellCode + "'.");
-		}
+    /*
+     * It compiles and executes the given beanshell code.
+     * 
+     * @see org.areco.ecommerce.deploymentscripts.beanshell.BeanShellService#executeScript(java.lang.String)
+     */
+    @Override
+    public void executeScript(final String beanShellCode) throws BeanShellExecutionException {
+        if (beanShellCode == null || beanShellCode.trim().isEmpty()) {
+            throw new IllegalArgumentException("The parameter beanShellCode cannot be null");
+        }
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Running the code '" + beanShellCode + "'.");
+        }
 
-		final Interpreter beanShellInterpreter = new Interpreter();
-		try
-		{
-			checkSuccessfulResult(beanShellInterpreter.eval(beanShellCode));
-		}
-		catch (final EvalError e)
-		{
-			throw new BeanShellExecutionException("There was an error executing the bean shell code: " + e.getLocalizedMessage(), e);
-		}
-	}
+        final Interpreter beanShellInterpreter = new Interpreter();
+        try {
+            checkSuccessfulResult(beanShellInterpreter.eval(beanShellCode));
+        } catch (final EvalError e) {
+            throw new BeanShellExecutionException("There was an error executing the bean shell code: " + e.getLocalizedMessage(), e);
+        }
+    }
 
-	private void checkSuccessfulResult(final Object anObject) throws BeanShellExecutionException
-	{
-		if (anObject instanceof String && "OK".equalsIgnoreCase((String) anObject))
-		{
-			return;
-		}
-		throw new BeanShellExecutionException(
-				"The beanShell code didn't return the string 'OK' at the end. Please check if there was an error.");
-	}
+    private void checkSuccessfulResult(final Object anObject) throws BeanShellExecutionException {
+        if (anObject instanceof String && "OK".equalsIgnoreCase((String) anObject)) {
+            return;
+        }
+        throw new BeanShellExecutionException("The beanShell code didn't return the string 'OK' at the end. Please check if there was an error.");
+    }
 }

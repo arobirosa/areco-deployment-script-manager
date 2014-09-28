@@ -33,7 +33,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-
 /**
  * Default script runner.
  * 
@@ -42,54 +41,47 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Scope("tenant")
-public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner
-{
+public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
 
-	private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptsRunner.class);
+    private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptsRunner.class);
 
-	@Autowired
-	ModelService modelService;
+    @Autowired
+    private ModelService modelService;
 
-	@Autowired
-	//We inject by name because Spring can't see the generic parameters.
-	@Qualifier("deploymentScript2ExecutionConverter")
-	Converter<DeploymentScript, ScriptExecutionModel> scriptConverter;
+    @Autowired
+    // We inject by name because Spring can't see the generic parameters.
+    @Qualifier("deploymentScript2ExecutionConverter")
+    private Converter<DeploymentScript, ScriptExecutionModel> scriptConverter;
 
-	@Autowired
-	private ScriptExecutionResultDAO scriptExecutionResultDao;
+    @Autowired
+    private ScriptExecutionResultDAO scriptExecutionResultDao;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner#run(java.util.List)
-	 */
-	@Override
-	public boolean run(final UpdatingSystemExtensionContext updatingSystemContext, final List<DeploymentScript> scriptsToBeRun)
-	{
-		for (final DeploymentScript aScript : scriptsToBeRun)
-		{
-			final ScriptExecutionModel scriptExecution = this.scriptConverter.convert(aScript);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner#run(java.util.List)
+     */
+    @Override
+    public boolean run(final UpdatingSystemExtensionContext updatingSystemContext, final List<DeploymentScript> scriptsToBeRun) {
+        for (final DeploymentScript aScript : scriptsToBeRun) {
+            final ScriptExecutionModel scriptExecution = this.scriptConverter.convert(aScript);
 
-			try
-			{
-				final ScriptExecutionResultModel scriptResult = aScript.run();
-				scriptExecution.setResult(scriptResult);
-			}
-			catch (final DeploymentScriptExecutionException e)
-			{
-				LOG.error("There was an error running " + aScript.getLongName() + ':' + e.getLocalizedMessage(), e);
-				scriptExecution.setResult(this.scriptExecutionResultDao.getErrorResult());
-				this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
-				return true;//We stop after the first error.
-			}
-			this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
-		}
-		return false; //Everything when successfully
-	}
+            try {
+                final ScriptExecutionResultModel scriptResult = aScript.run();
+                scriptExecution.setResult(scriptResult);
+            } catch (final DeploymentScriptExecutionException e) {
+                LOG.error("There was an error running " + aScript.getLongName() + ':' + e.getLocalizedMessage(), e);
+                scriptExecution.setResult(this.scriptExecutionResultDao.getErrorResult());
+                this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
+                return true; // We stop after the first error.
+            }
+            this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
+        }
+        return false; // Everything when successfully
+    }
 
-	private void saveAndLogScriptExecution(final UpdatingSystemExtensionContext context, final ScriptExecutionModel scriptExecution)
-	{
-		modelService.save(scriptExecution);
-		context.logScriptExecutionResult(scriptExecution);
-	}
+    private void saveAndLogScriptExecution(final UpdatingSystemExtensionContext context, final ScriptExecutionModel scriptExecution) {
+        modelService.save(scriptExecution);
+        context.logScriptExecutionResult(scriptExecution);
+    }
 }

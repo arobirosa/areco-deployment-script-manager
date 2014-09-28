@@ -24,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-
 /**
  * Represents an SQL script.
  * 
@@ -32,45 +31,36 @@ import org.springframework.stereotype.Component;
  * 
  */
 @Component
-//Every time the step factory is called, it creates a new instance.
+// Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
-public class SqlScriptStep extends AbstractSingleFileScriptStep
-{
-	private static final Logger LOG = Logger.getLogger(SqlScriptStep.class);
+public class SqlScriptStep extends AbstractSingleFileScriptStep {
+    private static final Logger LOG = Logger.getLogger(SqlScriptStep.class);
 
-	@Autowired
-	private SqlScriptService sqlScriptService;
+    @Autowired
+    private SqlScriptService sqlScriptService;
 
-	/*
-	 * { @InheritDoc }
-	 */
-	@Override
-	public void run() throws DeploymentScriptExecutionException
-	{
-		final String sqlStatement = loadFileContent();
-		executeStatement(sqlStatement);
-	}
+    /*
+     * { @InheritDoc }
+     */
+    @Override
+    public void run() throws DeploymentScriptExecutionException {
+        final String sqlStatement = loadFileContent();
+        executeStatement(sqlStatement);
+    }
 
-	private void executeStatement(final String sqlStatement) throws DeploymentScriptExecutionException
-	{
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("Running the SQL Statement: '" + sqlStatement + "'.");
-		}
-		int rows = -1;
+    private void executeStatement(final String sqlStatement) throws DeploymentScriptExecutionException {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Running the SQL Statement: '" + sqlStatement + "'.");
+        }
+        int rows = -1;
 
-		try
-		{
-			rows = this.sqlScriptService.runDeleteOrUpdateStatement(sqlStatement);
-		}
-		catch (final SQLException e)
-		{
-			throw new DeploymentScriptExecutionException("There was an error while running the SQL Script " + this.getId() + ':'
-					+ e.getLocalizedMessage(), e);
-		}
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("The SQL Script was executed successfully. " + rows + " rows were affected.");
-		}
-	}
+        try {
+            rows = this.sqlScriptService.runDeleteOrUpdateStatement(sqlStatement);
+        } catch (final SQLException e) {
+            throw new DeploymentScriptExecutionException("There was an error while running the SQL Script " + this.getId() + ':' + e.getLocalizedMessage(), e);
+        }
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("The SQL Script was executed successfully. " + rows + " rows were affected.");
+        }
+    }
 }

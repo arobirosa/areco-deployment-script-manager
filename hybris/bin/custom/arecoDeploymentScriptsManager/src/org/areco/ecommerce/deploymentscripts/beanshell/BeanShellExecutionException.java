@@ -21,37 +21,33 @@ package org.areco.ecommerce.deploymentscripts.beanshell;
  * @author arobirosa
  * 
  */
-public class BeanShellExecutionException extends Exception
-{
+public class BeanShellExecutionException extends Exception {
 
-	/**
-	 * Default constructor with a message and a cause
-	 * 
-	 * @param message
-	 * @param cause
-	 */
-	public BeanShellExecutionException(final String message, final Throwable cause)
-	{
-		super(message, cause);
-	}
+    /**
+     * Default constructor with a message and a cause
+     * 
+     * @param message
+     * @param cause
+     */
+    public BeanShellExecutionException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
 
-	/**
-	 * Constructor with a message.
-	 * 
-	 * @param message
-	 */
-	public BeanShellExecutionException(final String message)
-	{
-		super(message);
-	}
+    /**
+     * Constructor with a message.
+     * 
+     * @param message
+     */
+    public BeanShellExecutionException(final String message) {
+        super(message);
+    }
 
-	/**
-	 * Constructor with a cause
-	 * 
-	 * @param cause
-	 */
-	public BeanShellExecutionException(final Throwable cause)
-	{
-		super(cause);
-	}
+    /**
+     * Constructor with a cause
+     * 
+     * @param cause
+     */
+    public BeanShellExecutionException(final Throwable cause) {
+        super(cause);
+    }
 }

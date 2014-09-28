@@ -21,90 +21,80 @@ import de.hybris.platform.util.Config;
 import org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchDeploymentEnvironmentDAO;
 
-
 /**
  * It modifies the configuration of the properties during a test and restore them at the end of it.
  * 
  * @author arobirosa
  * 
  */
-public class DeploymentConfigurationSetter
-{
+public class DeploymentConfigurationSetter {
 
-	private boolean oldConfigurationWasSaved = false;
+    private boolean oldConfigurationWasSaved = false;
 
-	private String oldResourcesFolder = null;
+    private String oldResourcesFolder = null;
 
-	private String oldUpdateScriptsFolder = null;
+    private String oldUpdateScriptsFolder = null;
 
-	private String oldInitScriptsFolder = null;
+    private String oldInitScriptsFolder = null;
 
-	private String oldEnvironmentName = null;
+    private String oldEnvironmentName = null;
 
-	/**
-	 * Save the current configuration and sets the folders to the given values.
-	 * 
-	 * @param testResourcesFolder
-	 *           Required
-	 * @param testUpdateScriptsFolder
-	 *           Optional
-	 * @param testInitScriptsFolder
-	 *           Optional
-	 */
+    /**
+     * Save the current configuration and sets the folders to the given values.
+     * 
+     * @param testResourcesFolder
+     *            Required
+     * @param testUpdateScriptsFolder
+     *            Optional
+     * @param testInitScriptsFolder
+     *            Optional
+     */
 
-	public void setTestFolders(final String testResourcesFolder, final String testUpdateScriptsFolder,
-			final String testInitScriptsFolder)
-	{
-		ServicesUtil.validateParameterNotNullStandardMessage("testResourcesFolder", testResourcesFolder);
-		this.saveCurrentFolders();
+    public void setTestFolders(final String testResourcesFolder, final String testUpdateScriptsFolder, final String testInitScriptsFolder) {
+        ServicesUtil.validateParameterNotNullStandardMessage("testResourcesFolder", testResourcesFolder);
+        this.saveCurrentFolders();
 
-		Config.setParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, testResourcesFolder);
+        Config.setParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, testResourcesFolder);
 
-		if (testUpdateScriptsFolder != null)
-		{
-			Config.setParameter(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, testUpdateScriptsFolder);
-		}
-		if (testInitScriptsFolder != null)
-		{
-			Config.setParameter(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, testInitScriptsFolder);
-		}
-	}
+        if (testUpdateScriptsFolder != null) {
+            Config.setParameter(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, testUpdateScriptsFolder);
+        }
+        if (testInitScriptsFolder != null) {
+            Config.setParameter(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, testInitScriptsFolder);
+        }
+    }
 
-	/**
-	 * This method may be called at the beginning of the test. It isn't mandatory.
-	 */
-	public void saveCurrentFolders()
-	{
-		if (!this.oldConfigurationWasSaved)
-		{
-			this.oldResourcesFolder = Config.getParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF);
-			this.oldUpdateScriptsFolder = Config.getParameter(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF);
-			this.oldInitScriptsFolder = Config.getParameter(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF);
-			this.oldEnvironmentName = Config.getParameter(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF);
-			this.oldConfigurationWasSaved = true;
-		}
+    /**
+     * This method may be called at the beginning of the test. It isn't mandatory.
+     */
+    public void saveCurrentFolders() {
+        if (!this.oldConfigurationWasSaved) {
+            this.oldResourcesFolder = Config.getParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF);
+            this.oldUpdateScriptsFolder = Config.getParameter(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF);
+            this.oldInitScriptsFolder = Config.getParameter(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF);
+            this.oldEnvironmentName = Config.getParameter(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF);
+            this.oldConfigurationWasSaved = true;
+        }
 
-	}
+    }
 
-	/**
-	 * Restores the original configuration.
-	 */
-	public void restoreOldFolders()
-	{
-		Config.setParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, oldResourcesFolder);
-		Config.setParameter(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, oldUpdateScriptsFolder);
-		Config.setParameter(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, oldInitScriptsFolder);
-		Config.setParameter(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, oldEnvironmentName);
-	}
+    /**
+     * Restores the original configuration.
+     */
+    public void restoreOldFolders() {
+        Config.setParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, oldResourcesFolder);
+        Config.setParameter(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, oldUpdateScriptsFolder);
+        Config.setParameter(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, oldInitScriptsFolder);
+        Config.setParameter(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, oldEnvironmentName);
+    }
 
-	/**
-	 * Sets the name of the current environment.
-	 * 
-	 * @param currentEnvironmentName
-	 *           Can be null.
-	 */
-	public void setEnvironment(final String currentEnvironmentName)
-	{
-		Config.setParameter(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, currentEnvironmentName);
-	}
+    /**
+     * Sets the name of the current environment.
+     * 
+     * @param currentEnvironmentName
+     *            Can be null.
+     */
+    public void setEnvironment(final String currentEnvironmentName) {
+        Config.setParameter(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, currentEnvironmentName);
+    }
 }

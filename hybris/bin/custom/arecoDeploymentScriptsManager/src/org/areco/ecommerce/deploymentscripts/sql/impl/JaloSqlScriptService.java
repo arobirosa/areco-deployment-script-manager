@@ -26,7 +26,6 @@ import org.areco.ecommerce.deploymentscripts.sql.SqlScriptService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-
 /**
  * This implementation uses the jalo layer.
  * 
@@ -37,51 +36,42 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Scope("tenant")
-public class JaloSqlScriptService implements SqlScriptService
-{
+public class JaloSqlScriptService implements SqlScriptService {
 
-	private static final Logger LOG = Logger.getLogger(JaloSqlScriptService.class);
+    private static final Logger LOG = Logger.getLogger(JaloSqlScriptService.class);
 
-	/*
-	 * { @InheritDoc }
-	 */
-	@Override
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING", justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
-	public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException
-	{
-		int affectedRows = -1;
-		Connection aConnection = null;
-		PreparedStatement prepareStatement = null;
-		try
-		{
-			aConnection = getConnection();
-			prepareStatement = aConnection.prepareStatement(aStatement);
-			affectedRows = prepareStatement.executeUpdate();
-		}
-		finally
-		{
-			if (prepareStatement != null)
-			{
-				prepareStatement.close();
-			}
-			if (aConnection != null)
-			{
-				try
-				{
-					aConnection.close();
-				}
-				catch (final SQLException e)
-				{
-					LOG.error("There was an error while closing the connection", e);
-				}
-			}
-		}
-		Registry.getCurrentTenant().getCache().clear();
-		return affectedRows;
-	}
+    /*
+     * { @InheritDoc }
+     */
+    // CHECKSTYLE.OFF: This annotation generates a long line.
+    @Override
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING", justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
+    // CHECKSTYLE.ON
+    public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException {
+        int affectedRows = -1;
+        Connection aConnection = null;
+        PreparedStatement prepareStatement = null;
+        try {
+            aConnection = getConnection();
+            prepareStatement = aConnection.prepareStatement(aStatement);
+            affectedRows = prepareStatement.executeUpdate();
+        } finally {
+            if (prepareStatement != null) {
+                prepareStatement.close();
+            }
+            if (aConnection != null) {
+                try {
+                    aConnection.close();
+                } catch (final SQLException e) {
+                    LOG.error("There was an error while closing the connection", e);
+                }
+            }
+        }
+        Registry.getCurrentTenant().getCache().clear();
+        return affectedRows;
+    }
 
-	private Connection getConnection() throws SQLException
-	{
-		return Registry.getCurrentTenant().getDataSource().getConnection();
-	}
+    private Connection getConnection() throws SQLException {
+        return Registry.getCurrentTenant().getDataSource().getConnection();
+    }
 }

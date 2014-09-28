@@ -15,24 +15,21 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
-
-
 /**
  * Describes the contract of the core service.
  * 
  * @author arobirosa
  * 
  */
-public interface DeploymentScriptService
-{
-	/**
-	 * It runs the deployment scripts during an update running system.
-	 * 
-	 * @param context
-	 *           Required
-	 * @param runInitScripts
-	 *           Required. Do we run the INIT or the UPDATE scripts?
-	 * @return boolean True if there was an error.
-	 */
-	boolean runDeploymentScripts(UpdatingSystemExtensionContext context, boolean runInitScripts);
+public interface DeploymentScriptService {
+    /**
+     * It runs the deployment scripts during an update running system.
+     * 
+     * @param context
+     *            Required
+     * @param runInitScripts
+     *            Required. Do we run the INIT or the UPDATE scripts?
+     * @return boolean True if there was an error.
+     */
+    boolean runDeploymentScripts(UpdatingSystemExtensionContext context, boolean runInitScripts);
 }

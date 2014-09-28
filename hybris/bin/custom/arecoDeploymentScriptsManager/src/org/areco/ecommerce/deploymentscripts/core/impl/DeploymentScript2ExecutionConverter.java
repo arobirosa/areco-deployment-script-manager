@@ -27,7 +27,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-
 /**
  * It takes a deployment script and returns an unsaved ScriptExecutionModel.
  * 
@@ -36,45 +35,40 @@ import org.springframework.stereotype.Component;
  */
 @Scope("tenant")
 @Component("deploymentScript2ExecutionConverter")
-public class DeploymentScript2ExecutionConverter implements Converter<DeploymentScript, ScriptExecutionModel>
-{
-	private static final Logger LOG = Logger.getLogger(DeploymentScript2ExecutionConverter.class);
+public class DeploymentScript2ExecutionConverter implements Converter<DeploymentScript, ScriptExecutionModel> {
+    private static final Logger LOG = Logger.getLogger(DeploymentScript2ExecutionConverter.class);
 
-	@Autowired
-	ModelService modelService;
+    @Autowired
+    private ModelService modelService;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.hybris.platform.servicelayer.dto.converter.Converter#convert(java.lang.Object)
-	 */
-	@Override
-	public ScriptExecutionModel convert(final DeploymentScript source) throws ConversionException
-	{
-		return this.convert(source, (ScriptExecutionModel) this.modelService.create(ScriptExecutionModel.class));
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.hybris.platform.servicelayer.dto.converter.Converter#convert(java.lang.Object)
+     */
+    @Override
+    public ScriptExecutionModel convert(final DeploymentScript source) throws ConversionException {
+        return this.convert(source, (ScriptExecutionModel) this.modelService.create(ScriptExecutionModel.class));
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.hybris.platform.servicelayer.dto.converter.Converter#convert(java.lang.Object, java.lang.Object)
-	 */
-	@Override
-	public ScriptExecutionModel convert(final DeploymentScript source, final ScriptExecutionModel execution)
-			throws ConversionException
-	{
-		ServicesUtil.validateParameterNotNullStandardMessage("source", source);
-		ServicesUtil.validateParameterNotNullStandardMessage("execution", execution);
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("Creating an script execution model from the deployment script " + source);
-		}
-		execution.setExtensionName(source.getExtensionName());
-		execution.setScriptName(source.getName());
-		execution.setResult(null); //The caller must set the result before saving the execution.
-		execution.setPhase(source.getPhase());
+    /*
+     * (non-Javadoc)
+     * 
+     * @see de.hybris.platform.servicelayer.dto.converter.Converter#convert(java.lang.Object, java.lang.Object)
+     */
+    @Override
+    public ScriptExecutionModel convert(final DeploymentScript source, final ScriptExecutionModel execution) throws ConversionException {
+        ServicesUtil.validateParameterNotNullStandardMessage("source", source);
+        ServicesUtil.validateParameterNotNullStandardMessage("execution", execution);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Creating an script execution model from the deployment script " + source);
+        }
+        execution.setExtensionName(source.getExtensionName());
+        execution.setScriptName(source.getName());
+        execution.setResult(null); // The caller must set the result before saving the execution.
+        execution.setPhase(source.getPhase());
 
-		return execution;
-	}
+        return execution;
+    }
 
 }

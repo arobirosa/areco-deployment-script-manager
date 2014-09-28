@@ -41,13 +41,11 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockJspWriter;
 import org.springframework.stereotype.Service;
 
-
 /**
- * It creates the essential data for the tenant junit. The command "ant yunitinit" doesn't run the essential data
- * creation step. Due to this, no deployment scripts are run.
+ * It creates the essential data for the tenant junit. The command "ant yunitinit" doesn't run the essential data creation step. Due to this, no deployment
+ * scripts are run.
  * 
- * TODO This class uses Jalo and a workaround to trigger the essential data creation. We must find a cleaner way to do
- * this.
+ * TODO This class uses Jalo and a workaround to trigger the essential data creation. We must find a cleaner way to do this.
  * 
  * @author arobirosa
  * 
@@ -55,100 +53,84 @@ import org.springframework.stereotype.Service;
 @Service("essentialDataCreatorAndDeploymentScriptsStarter")
 @Scope("tenant")
 @SuppressWarnings("PMD.UnnecessaryLocalBeforeReturn")
-//We keep the local variable jspc because we only want to create a context once. The warning suppression only works at this point.
-public class EssentialDataCreatorAndDeploymentScriptsStarter
-{
-	private static final Logger LOG = Logger.getLogger(EssentialDataCreatorAndDeploymentScriptsStarter.class);
+// We keep the local variable jspc because we only want to create a context once. The warning suppression only works at this point.
+public class EssentialDataCreatorAndDeploymentScriptsStarter {
+    private static final Logger LOG = Logger.getLogger(EssentialDataCreatorAndDeploymentScriptsStarter.class);
 
-	private static EssentialDataCreatorAndDeploymentScriptsStarter INSTANCE = null;
+    private static EssentialDataCreatorAndDeploymentScriptsStarter instance = null;
 
-	@Autowired
-	private ExtensionHelper extensionHelper;
+    @Autowired
+    private ExtensionHelper extensionHelper;
 
-	@Autowired
-	private SystemSetupCollector systemSetupCollector;
+    @Autowired
+    private SystemSetupCollector systemSetupCollector;
 
-	/**
-	 * This method is called by ant to get the only instance to this class.
-	 * 
-	 * @return Never null.
-	 */
-	public static synchronized EssentialDataCreatorAndDeploymentScriptsStarter getInstance()
-	{
-		if (INSTANCE == null)
-		{
-			INSTANCE = Registry.getApplicationContext().getBean(EssentialDataCreatorAndDeploymentScriptsStarter.class);
-		}
-		return INSTANCE;
-	}
+    /**
+     * This method is called by ant to get the only instance to this class.
+     * 
+     * @return Never null.
+     */
+    public static synchronized EssentialDataCreatorAndDeploymentScriptsStarter getInstance() {
+        if (instance == null) {
+            instance = Registry.getApplicationContext().getBean(EssentialDataCreatorAndDeploymentScriptsStarter.class);
+        }
+        return instance;
+    }
 
-	/**
-	 * Creates the essential data and runs the deployment scripts in the junit tenant.
-	 */
-	@SuppressWarnings("PMD.AvoidCatchingGenericException")
-	//We catch all exceptions because this method is called by ant.
-	public void runInJunitTenant()
-	{
-		if (!Boolean.parseBoolean(Config.getParameter("deploymentscripts.init.junittenant.createessentialdata")))
-		{
-			if (LOG.isDebugEnabled())
-			{
-				LOG.debug("The essential data won't be created and the deployment scripts won't be run.");
-			}
-			return;
-		}
-		if (LOG.isInfoEnabled())
-		{
-			LOG.info("Creating the essential data in junit tenant.");
-		}
-		Utilities.setJUnitTenant();
+    /**
+     * Creates the essential data and runs the deployment scripts in the junit tenant.
+     */
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    // We catch all exceptions because this method is called by ant.
+    public void runInJunitTenant() {
+        if (!Boolean.parseBoolean(Config.getParameter("deploymentscripts.init.junittenant.createessentialdata"))) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("The essential data won't be created and the deployment scripts won't be run.");
+            }
+            return;
+        }
+        if (LOG.isInfoEnabled()) {
+            LOG.info("Creating the essential data in junit tenant.");
+        }
+        Utilities.setJUnitTenant();
 
-		try
-		{
-			createEssentialDataForAllExtensions();
-		}
-		catch (final Exception e)
-		{
-			//We log here to see the stacktrace. The beanshell code of the ant task yunit logs the exception partially.
-			LOG.error("There was an error creating the essential data: " + e.getLocalizedMessage(), e);
-			return;
-		}
-		if (LOG.isInfoEnabled())
-		{
-			LOG.info("The essential data was successfully created in junit tenant.");
-		}
-	}
+        try {
+            createEssentialDataForAllExtensions();
+        } catch (final Exception e) {
+            // We log here to see the stacktrace. The beanshell code of the ant task yunit logs the exception partially.
+            LOG.error("There was an error creating the essential data: " + e.getLocalizedMessage(), e);
+            return;
+        }
+        if (LOG.isInfoEnabled()) {
+            LOG.info("The essential data was successfully created in junit tenant.");
+        }
+    }
 
-	@SuppressWarnings(value =
-	{ "deprecation", "PMD.SignatureDeclareThrowsException" })
-	//The caller of this method must handle any exception, because this class is called by ant, which doesn't
-	//show the complete stack trace.
-	private void createEssentialDataForAllExtensions() throws Exception
-	{
-		//To import the encodings.
-		new CoreBasicDataCreator().createEssentialData(Collections.EMPTY_MAP, null);
+    @SuppressWarnings(value = { "deprecation", "PMD.SignatureDeclareThrowsException" })
+    // The caller of this method must handle any exception, because this class is called by ant, which doesn't
+    // show the complete stack trace.
+    private void createEssentialDataForAllExtensions() throws Exception {
+        // To import the encodings.
+        new CoreBasicDataCreator().createEssentialData(Collections.EMPTY_MAP, null);
 
-		final JspContext jspc = createDummyJspContext();
+        final JspContext jspc = createDummyJspContext();
 
-		for (final String extensionName : this.extensionHelper.getExtensionNames())
-		{
-			final Extension anExtension = ExtensionManager.getInstance().getExtension(extensionName);
-			//Old Jalo method
-			anExtension.createEssentialData(Collections.EMPTY_MAP, jspc);
-			//New mechanism with annotations.
-			final SystemSetupContext ctx = new SystemSetupContext(Collections.EMPTY_MAP, SystemSetup.Type.ESSENTIAL,
-					SystemSetup.Process.INIT, extensionName);
-			ctx.setJspContext(jspc);
-			this.systemSetupCollector.executeMethods(ctx);
-		}
-	}
+        for (final String extensionName : this.extensionHelper.getExtensionNames()) {
+            final Extension anExtension = ExtensionManager.getInstance().getExtension(extensionName);
+            // Old Jalo method
+            anExtension.createEssentialData(Collections.EMPTY_MAP, jspc);
+            // New mechanism with annotations.
+            final SystemSetupContext ctx = new SystemSetupContext(Collections.EMPTY_MAP, SystemSetup.Type.ESSENTIAL, SystemSetup.Process.INIT, extensionName);
+            ctx.setJspContext(jspc);
+            this.systemSetupCollector.executeMethods(ctx);
+        }
+    }
 
-	private JspContext createDummyJspContext()
-	{
-		final JspWriter out = new MockJspWriter(new StringWriter());
-		final MockHttpServletRequest request = new MockHttpServletRequest();
-		final HttpServletResponse response = new MockHttpServletResponse();
-		final JspContext jspc = new JspContext(out, request, response);
-		return jspc;
-	}
+    private JspContext createDummyJspContext() {
+        final JspWriter out = new MockJspWriter(new StringWriter());
+        final MockHttpServletRequest request = new MockHttpServletRequest();
+        final HttpServletResponse response = new MockHttpServletResponse();
+        final JspContext jspc = new JspContext(out, request, response);
+        return jspc;
+    }
 }

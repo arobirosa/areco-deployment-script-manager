@@ -28,128 +28,112 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-
 /**
  * It defines special properties of the deployment scripts like where they are allowed to run.
  * 
  * @author arobirosa
  * 
  */
-//Every time the step factory is called, it creates a new instance.
+// Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
 @Component
-public class PropertyFileDeploymentScriptConfiguration implements DeploymentScriptConfiguration
-{
-	@Autowired
-	private ScriptExecutionResultDAO scriptExecutionResultDAO;
+public class PropertyFileDeploymentScriptConfiguration implements DeploymentScriptConfiguration {
+    @Autowired
+    private ScriptExecutionResultDAO scriptExecutionResultDAO;
 
-	@Autowired
-	private DeploymentEnvironmentDAO deploymentEnvironmentDAO;
+    @Autowired
+    private DeploymentEnvironmentDAO deploymentEnvironmentDAO;
 
-	/* The existent of the tenants is validated during the creation of the configuration. */
-	private Set<Tenant> allowedTenants;
-	/*
-	 * It contains the names of the environment because we validate the existenz of it just before running the script.
-	 */
-	private Set<String> allowedDeploymentEnvironmentNames;
+    /* The existent of the tenants is validated during the creation of the configuration. */
+    private Set<Tenant> allowedTenants;
+    /*
+     * It contains the names of the environment because we validate the existenz of it just before running the script.
+     */
+    private Set<String> allowedDeploymentEnvironmentNames;
 
-	/**
-	 * Checks if this script is allowed to run in this server.
-	 * 
-	 * @return null if it is allowed to run. Otherwise it returns the execution result.
-	 */
-	@Override
-	public ScriptExecutionResultModel isAllowedInThisServer()
-	{
-		if (!this.isAllowedInThisTenant())
-		{
-			return this.scriptExecutionResultDAO.getIgnoredOtherTenantResult();
-		}
-		if (!this.isAllowedInThisDeploymentEnvironment())
-		{
-			return this.scriptExecutionResultDAO.getIgnoredOtherEnvironmentResult();
-		}
-		return null; //We can run this script
-	}
+    /**
+     * Checks if this script is allowed to run in this server.
+     * 
+     * @return null if it is allowed to run. Otherwise it returns the execution result.
+     */
+    @Override
+    public ScriptExecutionResultModel isAllowedInThisServer() {
+        if (!this.isAllowedInThisTenant()) {
+            return this.scriptExecutionResultDAO.getIgnoredOtherTenantResult();
+        }
+        if (!this.isAllowedInThisDeploymentEnvironment()) {
+            return this.scriptExecutionResultDAO.getIgnoredOtherEnvironmentResult();
+        }
+        return null; // We can run this script
+    }
 
-	private boolean isAllowedInThisDeploymentEnvironment()
-	{
-		if (this.getAllowedDeploymentEnvironmentNames() == null || this.getAllowedDeploymentEnvironmentNames().isEmpty())
-		{
-			return true;
-		}
-		return this.isCurrentEnvironmentIn(this.getAllowedDeploymentEnvironmentNames());
-	}
+    private boolean isAllowedInThisDeploymentEnvironment() {
+        if (this.getAllowedDeploymentEnvironmentNames() == null || this.getAllowedDeploymentEnvironmentNames().isEmpty()) {
+            return true;
+        }
+        return this.isCurrentEnvironmentIn(this.getAllowedDeploymentEnvironmentNames());
+    }
 
-	private boolean isAllowedInThisTenant()
-	{
-		if (this.getAllowedTenants() == null || this.getAllowedTenants().isEmpty())
-		{
-			return true;
-		}
-		return this.getAllowedTenants().contains(this.getCurrentTenant());
-	}
+    private boolean isAllowedInThisTenant() {
+        if (this.getAllowedTenants() == null || this.getAllowedTenants().isEmpty()) {
+            return true;
+        }
+        return this.getAllowedTenants().contains(this.getCurrentTenant());
+    }
 
-	/**
-	 * Returns the current tenant
-	 * 
-	 * @return Never null
-	 */
-	private Tenant getCurrentTenant()
-	{
-		return Registry.getCurrentTenant();
-	}
+    /**
+     * Returns the current tenant
+     * 
+     * @return Never null
+     */
+    private Tenant getCurrentTenant() {
+        return Registry.getCurrentTenant();
+    }
 
-	/**
-	 * Determines of the current environment is in the given list of names.
-	 * 
-	 * @param allowedDeploymentEnvironmentNames
-	 *           Required
-	 * @return true if the current environment is present.
-	 */
-	private boolean isCurrentEnvironmentIn(final Set<String> allowedDeploymentEnvironmentNames)
-	{
-		return this.deploymentEnvironmentDAO.loadEnvironments(allowedDeploymentEnvironmentNames).contains(
-				this.deploymentEnvironmentDAO.getCurrent());
-	}
+    /**
+     * Determines of the current environment is in the given list of names.
+     * 
+     * @param deploymentEnvironmentNames
+     *            Required
+     * @return true if the current environment is present.
+     */
+    private boolean isCurrentEnvironmentIn(final Set<String> deploymentEnvironmentNames) {
+        return this.deploymentEnvironmentDAO.loadEnvironments(deploymentEnvironmentNames).contains(this.deploymentEnvironmentDAO.getCurrent());
+    }
 
-	/**
-	 * Returns the allowed tenants.
-	 * 
-	 * @return Never null.
-	 */
-	public Set<Tenant> getAllowedTenants()
-	{
-		return allowedTenants;
-	}
+    /**
+     * Returns the allowed tenants.
+     * 
+     * @return Never null.
+     */
+    public Set<Tenant> getAllowedTenants() {
+        return allowedTenants;
+    }
 
-	/**
-	 * Sets the allowed tenants.
-	 * 
-	 * @param allowedTenants
-	 *           Required
-	 */
-	public void setAllowedTenants(final Set<Tenant> allowedTenants)
-	{
-		this.allowedTenants = allowedTenants;
-	}
+    /**
+     * Sets the allowed tenants.
+     * 
+     * @param allowedTenants
+     *            Required
+     */
+    public void setAllowedTenants(final Set<Tenant> allowedTenants) {
+        this.allowedTenants = allowedTenants;
+    }
 
-	/**
-	 * Getter of the environments
-	 * 
-	 * @return Never null
-	 */
-	public Set<String> getAllowedDeploymentEnvironmentNames()
-	{
-		return allowedDeploymentEnvironmentNames;
-	}
+    /**
+     * Getter of the environments
+     * 
+     * @return Never null
+     */
+    public Set<String> getAllowedDeploymentEnvironmentNames() {
+        return allowedDeploymentEnvironmentNames;
+    }
 
-	/**
-	 * Setter of the environments
-	 * 
-	 */
-	public void setAllowedDeploymentEnvironmentNames(final Set<String> allowedDeploymentEnvironmentNames)
-	{
-		this.allowedDeploymentEnvironmentNames = allowedDeploymentEnvironmentNames;
-	}
+    /**
+     * Setter of the environments
+     * 
+     */
+    public void setAllowedDeploymentEnvironmentNames(final Set<String> allowedDeploymentEnvironmentNames) {
+        this.allowedDeploymentEnvironmentNames = allowedDeploymentEnvironmentNames;
+    }
 }

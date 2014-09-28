@@ -17,56 +17,52 @@ package org.areco.ecommerce.deploymentscripts.core;
 
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 
-
 /**
  * It manages the script execution result instances which aren't a Hybris Enumeration because their have behavior.
  * 
  * @author arobirosa
  * 
  */
-public interface ScriptExecutionResultDAO
-{
+public interface ScriptExecutionResultDAO {
 
-	/**
-	 * Returns the instance which represents an error.
-	 * 
-	 * @return ScriptExecutionResultModel Never null.
-	 */
-	ScriptExecutionResultModel getErrorResult();
+    /**
+     * Returns the instance which represents an error.
+     * 
+     * @return ScriptExecutionResultModel Never null.
+     */
+    ScriptExecutionResultModel getErrorResult();
 
-	/**
-	 * Returns the instance which represents an error.
-	 * 
-	 * @return ScriptExecutionResultModel Never null.
-	 */
-	ScriptExecutionResultModel getSuccessResult();
+    /**
+     * Returns the instance which represents an error.
+     * 
+     * @return ScriptExecutionResultModel Never null.
+     */
+    ScriptExecutionResultModel getSuccessResult();
 
-	/**
-	 * Returns the instance which represents the ignored result because the deployment script can't be run in the current
-	 * environment.
-	 * 
-	 * @return ScriptExecutionResultModel Never null.
-	 */
-	ScriptExecutionResultModel getIgnoredOtherEnvironmentResult();
+    /**
+     * Returns the instance which represents the ignored result because the deployment script can't be run in the current environment.
+     * 
+     * @return ScriptExecutionResultModel Never null.
+     */
+    ScriptExecutionResultModel getIgnoredOtherEnvironmentResult();
 
-	/**
-	 * Returns the instance which represents the ignored result because the deployment script can't be run in the current
-	 * tenant.
-	 * 
-	 * @return ScriptExecutionResultModel Never null.
-	 */
-	ScriptExecutionResultModel getIgnoredOtherTenantResult();
+    /**
+     * Returns the instance which represents the ignored result because the deployment script can't be run in the current tenant.
+     * 
+     * @return ScriptExecutionResultModel Never null.
+     */
+    ScriptExecutionResultModel getIgnoredOtherTenantResult();
 
-	/**
-	 * It checks if the results are already in the database.
-	 * 
-	 * @return boolean True if they are
-	 */
-	boolean theInitialResultsWereImported();
+    /**
+     * It checks if the results are already in the database.
+     * 
+     * @return boolean True if they are
+     */
+    boolean theInitialResultsWereImported();
 
-	/**
-	 * It loads the internal data. This method may be called many times.
-	 */
-	void initialize();
+    /**
+     * It loads the internal data. This method may be called many times.
+     */
+    void initialize();
 
 }

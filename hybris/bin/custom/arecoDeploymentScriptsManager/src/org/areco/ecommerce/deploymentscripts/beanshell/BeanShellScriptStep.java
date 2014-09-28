@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-
 /**
  * It represents a bean shell script.
  * 
@@ -30,37 +29,30 @@ import org.springframework.stereotype.Component;
  * 
  */
 @Component
-//Every time the step factory is called, it creates a new instance.
+// Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
-public class BeanShellScriptStep extends AbstractSingleFileScriptStep
-{
+public class BeanShellScriptStep extends AbstractSingleFileScriptStep {
 
-	private static final Logger LOG = Logger.getLogger(BeanShellScriptStep.class);
+    private static final Logger LOG = Logger.getLogger(BeanShellScriptStep.class);
 
-	@Autowired
-	private BeanShellService beanShellService;
+    @Autowired
+    private BeanShellService beanShellService;
 
-	/*
-	 * Runs the script represented by this step.
-	 * 
-	 * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep#run()
-	 */
-	@Override
-	public void run() throws DeploymentScriptExecutionException
-	{
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("Running the beanShell script " + this.getId());
-		}
-		try
-		{
-			this.beanShellService.executeScript(this.loadFileContent());
-		}
-		catch (final BeanShellExecutionException e)
-		{
-			throw new DeploymentScriptExecutionException("There was an error running the beanshell step " + this.getId() + ": "
-					+ e.getLocalizedMessage(), e);
-		}
-	}
+    /*
+     * Runs the script represented by this step.
+     * 
+     * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep#run()
+     */
+    @Override
+    public void run() throws DeploymentScriptExecutionException {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Running the beanShell script " + this.getId());
+        }
+        try {
+            this.beanShellService.executeScript(this.loadFileContent());
+        } catch (final BeanShellExecutionException e) {
+            throw new DeploymentScriptExecutionException("There was an error running the beanshell step " + this.getId() + ": " + e.getLocalizedMessage(), e);
+        }
+    }
 
 }

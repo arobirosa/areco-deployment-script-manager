@@ -17,25 +17,20 @@ package org.areco.ecommerce.deploymentscripts.core;
 
 import java.io.File;
 
-
-
-
 /**
  * It contains the contract definition of the step factories.
  * 
  * @author arobirosa
  * 
  */
-public interface DeploymentScriptStepFactory
-{
-	/**
-	 * It checks if the given file could be used to create a step. If not, it returns null. If yes, it returns the new
-	 * step.
-	 * 
-	 * @param aFile
-	 *           Required
-	 * @return null if the file isn't used by this factory.
-	 */
-	DeploymentScriptStep create(File aFile);
+public interface DeploymentScriptStepFactory {
+    /**
+     * It checks if the given file could be used to create a step. If not, it returns null. If yes, it returns the new step.
+     * 
+     * @param aFile
+     *            Required
+     * @return null if the file isn't used by this factory.
+     */
+    DeploymentScriptStep create(File aFile);
 
 }

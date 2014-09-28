@@ -17,7 +17,7 @@
 			<fileset refid="fileset_src"/>
 			<formatter type="xml" tofile="${dir_qa_reports}/checkstyle_report.xml" />
 		</checkstyle>
-		<style in="${dir_qa_reports}/checkstyle_report.xml"
+		<xslt in="${dir_qa_reports}/checkstyle_report.xml"
                out="${dir_qa_reports}/checkstyle_report.html"
                style="${dir_checkstyle_home}/contrib/checkstyle-noframes.xsl"
         />

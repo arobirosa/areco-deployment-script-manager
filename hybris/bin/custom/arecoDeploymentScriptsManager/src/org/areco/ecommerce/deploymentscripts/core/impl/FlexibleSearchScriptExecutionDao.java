@@ -31,7 +31,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-
 /**
  * Default implementatio of the dao.
  * 
@@ -40,46 +39,40 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Scope("tenant")
-public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao
-{
+public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
-	private static final Logger LOG = Logger.getLogger(FlexibleSearchScriptExecutionDao.class);
+    private static final Logger LOG = Logger.getLogger(FlexibleSearchScriptExecutionDao.class);
 
-	@Autowired
-	private FlexibleSearchService flexibleSearchService;
+    @Autowired
+    private FlexibleSearchService flexibleSearchService;
 
-	/*
-	 * { @InheritDoc }
-	 */
-	@Override
-	public List<ScriptExecutionModel> getSuccessfullyExecutedScripts(final String extensionName)
-	{
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("Getting the executed scripts of the extension " + extensionName);
-		}
-		final StringBuilder queryBuilder = new StringBuilder();
+    /*
+     * { @InheritDoc }
+     */
+    @Override
+    public List<ScriptExecutionModel> getSuccessfullyExecutedScripts(final String extensionName) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Getting the executed scripts of the extension " + extensionName);
+        }
+        final StringBuilder queryBuilder = new StringBuilder();
 
-		queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {")
-				.append(ScriptExecutionModel._TYPECODE).append(" as es ").append("JOIN ")
-				.append(ScriptExecutionResultModel._TYPECODE).append(" as r ").append("ON {es.").append(ScriptExecutionModel.RESULT)
-				.append("} = {r.").append(ScriptExecutionResultModel.PK).append("} AND {r.")
-				.append(ScriptExecutionResultModel.CANBERUNNEDAGAIN).append("} = ?")
-				.append(ScriptExecutionResultModel.CANBERUNNEDAGAIN).append(" } ").append("WHERE ").append(" {es.")
-				.append(ScriptExecutionModel.EXTENSIONNAME).append("} = ?").append(ScriptExecutionModel.EXTENSIONNAME);
+        queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
+                .append(" as es ").append("JOIN ").append(ScriptExecutionResultModel._TYPECODE).append(" as r ").append("ON {es.")
+                .append(ScriptExecutionModel.RESULT).append("} = {r.").append(ScriptExecutionResultModel.PK).append("} AND {r.")
+                .append(ScriptExecutionResultModel.CANBERUNNEDAGAIN).append("} = ?").append(ScriptExecutionResultModel.CANBERUNNEDAGAIN).append(" } ")
+                .append("WHERE ").append(" {es.").append(ScriptExecutionModel.EXTENSIONNAME).append("} = ?").append(ScriptExecutionModel.EXTENSIONNAME);
 
-		final Map<String, Object> queryParams = new HashMap<String, Object>();
-		queryParams.put(ScriptExecutionResultModel.CANBERUNNEDAGAIN, Boolean.FALSE);
-		queryParams.put(ScriptExecutionModel.EXTENSIONNAME, extensionName);
+        final Map<String, Object> queryParams = new HashMap<String, Object>();
+        queryParams.put(ScriptExecutionResultModel.CANBERUNNEDAGAIN, Boolean.FALSE);
+        queryParams.put(ScriptExecutionModel.EXTENSIONNAME, extensionName);
 
-		if (LOG.isTraceEnabled())
-		{
-			LOG.trace("Executing the query: '" + queryBuilder.toString() + "' with the parameters " + queryParams);
-		}
+        if (LOG.isTraceEnabled()) {
+            LOG.trace("Executing the query: '" + queryBuilder.toString() + "' with the parameters " + queryParams);
+        }
 
-		final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
 
-		final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
-		return result.getResult();
-	}
+        final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
+        return result.getResult();
+    }
 }

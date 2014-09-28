@@ -32,7 +32,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockJspWriter;
 
-
 /**
  * It checks that the result of the execution of the scripts is log in HAC.
  * 
@@ -40,47 +39,42 @@ import org.springframework.mock.web.MockJspWriter;
  * 
  */
 @IntegrationTest
-public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfigurationRestorationTest
-{
+public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfigurationRestorationTest {
 
-	@Resource
-	private DeploymentScriptStarter deploymentScriptStarter;
+    @Resource
+    private DeploymentScriptStarter deploymentScriptStarter;
 
-	@Resource
-	private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
+    @Resource
+    private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
 
-	@Before
-	public void setResourcesFolder()
-	{
-		this.getDeploymentConfigurationSetter().setTestFolders("/resources/test", null, null);
-	}
+    @Before
+    public void setResourcesFolder() {
+        this.getDeploymentConfigurationSetter().setTestFolders("/resources/test", null, null);
+    }
 
-	@Test
-	public void testHacLogging()
-	{
-		final String expectedMessage = Localization.getLocalizedString("updatingsystemextensioncontext.loggingformat", new String[]
-		{ "20140610_TICKET_USE_BEANSHELL_TO_RELOAD_CMS_CONF",
-				flexibleSearchScriptExecutionResultDao.getSuccessResult().getDescription() });
+    @Test
+    public void testHacLogging() {
+        final String expectedMessage = Localization.getLocalizedString("updatingsystemextensioncontext.loggingformat", new String[] {
+                "20140610_TICKET_USE_BEANSHELL_TO_RELOAD_CMS_CONF", flexibleSearchScriptExecutionResultDao.getSuccessResult().getDescription() });
 
-		final SystemSetupContext hybrisContext = new SystemSetupContext(null, SystemSetup.Type.ESSENTIAL,
-				SystemSetup.Process.UPDATE, ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
-		final StringWriter loggingCollector = new StringWriter();
-		hybrisContext.setJspContext(new JspContext(new MockJspWriter(loggingCollector), null, null));
-		deploymentScriptStarter.runUpdateDeploymentScripts(hybrisContext);
+        final SystemSetupContext hybrisContext = new SystemSetupContext(null, SystemSetup.Type.ESSENTIAL, SystemSetup.Process.UPDATE,
+                ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
+        final StringWriter loggingCollector = new StringWriter();
+        hybrisContext.setJspContext(new JspContext(new MockJspWriter(loggingCollector), null, null));
+        deploymentScriptStarter.runUpdateDeploymentScripts(hybrisContext);
 
-		final StringBuffer loggingBuffer = loggingCollector.getBuffer();
-		Assert.assertTrue("Something must have been logged.", loggingBuffer.length() > 0);
-		Assert.assertTrue("The log must contain the expected message", loggingBuffer.toString().contains(expectedMessage));
-	}
+        final StringBuffer loggingBuffer = loggingCollector.getBuffer();
+        Assert.assertTrue("Something must have been logged.", loggingBuffer.length() > 0);
+        Assert.assertTrue("The log must contain the expected message", loggingBuffer.toString().contains(expectedMessage));
+    }
 
-	@Test
-	@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
-	//This test is successful if no exception is thrown.
-	public void testNoErrorsWhenCalledWithoutJspContext()
-	{
-		final SystemSetupContext hybrisContext = new SystemSetupContext(null, SystemSetup.Type.ESSENTIAL,
-				SystemSetup.Process.UPDATE, ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
-		hybrisContext.setJspContext(null);//We don't have a JSP Context
-		deploymentScriptStarter.runUpdateDeploymentScripts(hybrisContext);
-	}
+    @Test
+    @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+    // This test is successful if no exception is thrown.
+    public void testNoErrorsWhenCalledWithoutJspContext() {
+        final SystemSetupContext hybrisContext = new SystemSetupContext(null, SystemSetup.Type.ESSENTIAL, SystemSetup.Process.UPDATE,
+                ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
+        hybrisContext.setJspContext(null); // We don't have a JSP Context
+        deploymentScriptStarter.runUpdateDeploymentScripts(hybrisContext);
+    }
 }

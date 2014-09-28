@@ -32,7 +32,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-
 /**
  * This implementation uses Flexible Search.
  * 
@@ -41,65 +40,55 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Scope("tenant")
-public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnvironmentDAO
-{
+public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnvironmentDAO {
 
-	public static final String CURRENT_ENVIRONMENT_CONF = "deploymentscripts.environment.current";
+    public static final String CURRENT_ENVIRONMENT_CONF = "deploymentscripts.environment.current";
 
-	private static final Logger LOG = Logger.getLogger(FlexibleSearchDeploymentEnvironmentDAO.class);
+    private static final Logger LOG = Logger.getLogger(FlexibleSearchDeploymentEnvironmentDAO.class);
 
-	@Autowired
-	FlexibleSearchService flexibleSearchService;
+    @Autowired
+    private FlexibleSearchService flexibleSearchService;
 
-	/**
-	 * {@inheritDoc }
-	 */
-	@Override
-	public Set<DeploymentEnvironmentModel> loadEnvironments(final Set<String> environmentNames)
-	{
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("Loading the environments: " + environmentNames);
-		}
-		ServicesUtil.validateParameterNotNullStandardMessage("environmentNames", environmentNames);
-		if (environmentNames.isEmpty())
-		{
-			throw new IllegalArgumentException("The parameter environmentNames cannot be empty.");
-		}
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public Set<DeploymentEnvironmentModel> loadEnvironments(final Set<String> environmentNames) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Loading the environments: " + environmentNames);
+        }
+        ServicesUtil.validateParameterNotNullStandardMessage("environmentNames", environmentNames);
+        if (environmentNames.isEmpty()) {
+            throw new IllegalArgumentException("The parameter environmentNames cannot be empty.");
+        }
 
-		final StringBuilder queryBuilder = new StringBuilder();
-		queryBuilder.append("SELECT {r.").append(DeploymentEnvironmentModel.PK).append("}").append(" FROM {")
-				.append(DeploymentEnvironmentModel._TYPECODE).append(" as r ").append("} ").append(" WHERE ").append(" {")
-				.append(DeploymentEnvironmentModel.NAME).append("} ").append(" IN ").append('(').append('?')
-				.append(DeploymentEnvironmentModel.NAME).append(')');
+        final StringBuilder queryBuilder = new StringBuilder();
+        queryBuilder.append("SELECT {r.").append(DeploymentEnvironmentModel.PK).append("}").append(" FROM {").append(DeploymentEnvironmentModel._TYPECODE)
+                .append(" as r ").append("} ").append(" WHERE ").append(" {").append(DeploymentEnvironmentModel.NAME).append("} ").append(" IN ").append('(')
+                .append('?').append(DeploymentEnvironmentModel.NAME).append(')');
 
-		final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
-		query.addQueryParameter(DeploymentEnvironmentModel.NAME, environmentNames);
-		final SearchResult<ScriptExecutionResultModel> searchResult = this.flexibleSearchService.search(query);
-		if (environmentNames.size() != searchResult.getCount())
-		{
-			throw new IllegalStateException("Some environments don't exist. Please check that these names are valid: "
-					+ environmentNames);
-		}
-		return new HashSet(searchResult.getResult());
-	}
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
+        query.addQueryParameter(DeploymentEnvironmentModel.NAME, environmentNames);
+        final SearchResult<ScriptExecutionResultModel> searchResult = this.flexibleSearchService.search(query);
+        if (environmentNames.size() != searchResult.getCount()) {
+            throw new IllegalStateException("Some environments don't exist. Please check that these names are valid: " + environmentNames);
+        }
+        return new HashSet(searchResult.getResult());
+    }
 
-	/**
-	 * {@inheritDoc }
-	 */
-	@Override
-	public DeploymentEnvironmentModel getCurrent()
-	{
-		final String currentEnvironmentName = Config.getParameter(CURRENT_ENVIRONMENT_CONF);
-		if (currentEnvironmentName == null)
-		{
-			throw new IllegalStateException(
-					"Please set in the file local.properties the name of the current deployemnt environment." + " The property "
-							+ CURRENT_ENVIRONMENT_CONF + " is empty.");
-		}
-		final Set<String> names = new HashSet<String>();
-		names.add(currentEnvironmentName);
-		//We return the first environment
-		return this.loadEnvironments(names).iterator().next();
-	}
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public DeploymentEnvironmentModel getCurrent() {
+        final String currentEnvironmentName = Config.getParameter(CURRENT_ENVIRONMENT_CONF);
+        if (currentEnvironmentName == null) {
+            throw new IllegalStateException("Please set in the file local.properties the name of the current deployemnt environment." + " The property "
+                    + CURRENT_ENVIRONMENT_CONF + " is empty.");
+        }
+        final Set<String> names = new HashSet<String>();
+        names.add(currentEnvironmentName);
+        // We return the first environment
+        return this.loadEnvironments(names).iterator().next();
+    }
 }

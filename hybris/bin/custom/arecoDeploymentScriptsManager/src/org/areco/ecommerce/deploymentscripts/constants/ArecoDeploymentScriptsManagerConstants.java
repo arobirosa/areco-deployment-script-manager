@@ -16,14 +16,12 @@ package org.areco.ecommerce.deploymentscripts.constants;
 /**
  * Global class for all ArecoDeploymentScriptsManager constants. You can add global constants for your extension into this class.
  */
-public final class ArecoDeploymentScriptsManagerConstants extends GeneratedArecoDeploymentScriptsManagerConstants
-{
-	public static final String EXTENSIONNAME = "arecoDeploymentScriptsManager";
+public final class ArecoDeploymentScriptsManagerConstants extends GeneratedArecoDeploymentScriptsManagerConstants {
+    public static final String EXTENSIONNAME = "arecoDeploymentScriptsManager";
 
-	private ArecoDeploymentScriptsManagerConstants()
-	{
-		//empty to avoid instantiating this constant class
-	}
+    private ArecoDeploymentScriptsManagerConstants() {
+        // empty to avoid instantiating this constant class
+    }
 
-	// implement here constants used by this extension
+    // implement here constants used by this extension
 }

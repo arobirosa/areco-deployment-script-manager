@@ -36,81 +36,65 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-
 /**
- * This default implementation uses the ImpexManager which is deprecated. TODO: Find a service which imports the impex
- * files.
+ * This default implementation uses the ImpexManager which is deprecated. TODO: Find a service which imports the impex files.
  * 
  * @author arobirosa
  * 
  */
 @Scope("tenant")
 @Service
-public class JaloManagerImpexImportService implements ImpexImportService
-{
+public class JaloManagerImpexImportService implements ImpexImportService {
 
-	private static final Logger LOG = Logger.getLogger(JaloManagerImpexImportService.class);
+    private static final Logger LOG = Logger.getLogger(JaloManagerImpexImportService.class);
 
-	@Autowired
-	ModelService modelService;
+    @Autowired
+    private ModelService modelService;
 
-	/*
-	 * { @InheritDoc }
-	 */
-	@Override
-	public void importImpexFile(final File impexFile) throws ImpExException
-	{
-		ServicesUtil.validateParameterNotNullStandardMessage("impexFile", impexFile);
+    /*
+     * { @InheritDoc }
+     */
+    @Override
+    public void importImpexFile(final File impexFile) throws ImpExException {
+        ServicesUtil.validateParameterNotNullStandardMessage("impexFile", impexFile);
 
-		InputStream inputStream = null;
-		try
-		{
-			inputStream = new FileInputStream(impexFile);
-			importImpexFile(inputStream);
-		}
-		catch (final FileNotFoundException e)
-		{
-			throw new ImpExException(e, "Unable to find the file " + impexFile, 0);
-		}
-		finally
-		{
-			if (inputStream != null)
-			{
-				try
-				{
-					inputStream.close();
-				}
-				catch (final IOException e)
-				{
-					LOG.warn("There was an error clossing the input stream associated to the file " + impexFile, e);
-				}
-			}
-		}
-	}
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(impexFile);
+            importImpexFile(inputStream);
+        } catch (final FileNotFoundException e) {
+            throw new ImpExException(e, "Unable to find the file " + impexFile, 0);
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (final IOException e) {
+                    LOG.warn("There was an error clossing the input stream associated to the file " + impexFile, e);
+                }
+            }
+        }
+    }
 
-	private void importImpexFile(final InputStream inputStream) throws ImpExException
-	{
-		//There must be a service for the impex scripts but I couldn't find it.
-		final ImpExImportCronJob resultCronJob = ImpExManager.getInstance().importData(inputStream,
-				DeploymentScript.DEFAULT_FILE_ENCODING, true /* We allow code execution */);
-		if (resultCronJob == null)
-		{
-			return; //Everything went ok.
-		}
-		else
-		{
-			final ImpExImportCronJobModel resultCronJobModel = this.modelService.get(resultCronJob);
-			if (CronJobResult.SUCCESS.equals(resultCronJobModel.getResult()))
-			{
-				if (LOG.isDebugEnabled())
-				{
-					LOG.debug("Ignoring the received cronjob " + resultCronJobModel + " because the import was successful.");
-				}
-				return;
-			}
-			throw new ImpExException("There was an error importing the impex file. " + "Please check the cronjob with the code '"
-					+ resultCronJobModel.getCode() + "'");
-		}
-	}
+    private void importImpexFile(final InputStream inputStream) throws ImpExException {
+        // There must be a service for the impex scripts but I couldn't find it.
+        final ImpExImportCronJob resultCronJob = ImpExManager.getInstance().importData(inputStream, DeploymentScript.DEFAULT_FILE_ENCODING, true /*
+                                                                                                                                                  * We allow
+                                                                                                                                                  * code
+                                                                                                                                                  * execution
+                                                                                                                                                  */);
+        if (resultCronJob == null) {
+            return; // Everything went ok.
+        } else {
+            final ImpExImportCronJobModel resultCronJobModel = this.modelService.get(resultCronJob);
+            if (CronJobResult.SUCCESS.equals(resultCronJobModel.getResult())) {
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Ignoring the received cronjob " + resultCronJobModel + " because the import was successful.");
+                }
+                return;
+            }
+            throw new ImpExException("There was an error importing the impex file. " + "Please check the cronjob with the code '"
+                    + resultCronJobModel.getCode() + "'");
+        }
+    }
 
 }

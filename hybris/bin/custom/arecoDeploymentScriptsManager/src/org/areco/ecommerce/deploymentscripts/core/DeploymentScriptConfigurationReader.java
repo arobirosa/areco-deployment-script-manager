@@ -17,21 +17,19 @@ package org.areco.ecommerce.deploymentscripts.core;
 
 import java.io.File;
 
-
 /**
  * It is responsible for loading the configuration of the deployment script.
  * 
  * @author arobirosa
  * 
  */
-public interface DeploymentScriptConfigurationReader
-{
-	/**
-	 * Reads the folder and returns a configuration for the script.
-	 * 
-	 * @param deploymentScriptFolder
-	 *           Required.
-	 * @return Never null
-	 */
-	DeploymentScriptConfiguration loadConfiguration(File deploymentScriptFolder);
+public interface DeploymentScriptConfigurationReader {
+    /**
+     * Reads the folder and returns a configuration for the script.
+     * 
+     * @param deploymentScriptFolder
+     *            Required.
+     * @return Never null
+     */
+    DeploymentScriptConfiguration loadConfiguration(File deploymentScriptFolder);
 }
