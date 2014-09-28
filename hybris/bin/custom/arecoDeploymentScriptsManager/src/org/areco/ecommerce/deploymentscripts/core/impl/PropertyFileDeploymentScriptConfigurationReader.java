@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.Set;
 
@@ -86,9 +87,11 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
 	private PropertyFileDeploymentScriptConfiguration createConfigurationFrom(final File configurationFile)
 	{
 		final Properties properties = new Properties();
+		FileInputStream configurationFileStream = null;
 		try
 		{
-			properties.load(new FileInputStream(configurationFile));
+			configurationFileStream = new FileInputStream(configurationFile);
+			properties.load(configurationFileStream);
 		}
 		catch (final FileNotFoundException e)
 		{
@@ -97,6 +100,20 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
 		catch (final IOException e)
 		{
 			throw new DeploymentScriptConfigurationException(e);
+		}
+		finally
+		{
+			if (configurationFileStream != null)
+			{
+				try
+				{
+					configurationFileStream.close();
+				}
+				catch (final IOException e)
+				{
+					LOG.warn("There was an error closing the input stream", e);
+				}
+			}
 		}
 		final Set<Tenant> tenants = getAllowedTenants(properties);
 		final Set<String> environmentNames = getAllowedDeploymentEnvironments(properties);
@@ -151,7 +168,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
 			@Override
 			public boolean accept(final File pathname)
 			{
-				return pathname.getName().toLowerCase().endsWith(PROPERTY_FILE_EXTENSION_CONF);
+				return pathname.getName().toLowerCase(Locale.getDefault()).endsWith(PROPERTY_FILE_EXTENSION_CONF);
 			}
 		});
 		if (LOG.isTraceEnabled())

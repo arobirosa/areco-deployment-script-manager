@@ -16,6 +16,7 @@
 package org.areco.ecommerce.deploymentscripts.sql;
 
 import java.io.File;
+import java.util.Locale;
 
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStepFactory;
 
@@ -32,6 +33,6 @@ public abstract class SqlScriptStepFactory extends AbstractSingleFileScriptStepF
 	@Override
 	protected boolean canCreateStepWith(final File aFile)
 	{
-		return aFile.getName().toLowerCase().endsWith(".sql");
+		return aFile.getName().toLowerCase(Locale.getDefault()).endsWith(".sql");
 	}
 }

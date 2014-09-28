@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
@@ -111,7 +112,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
 			@Override
 			public int compare(final File f1, final File f2)
 			{
-				return f1.getName().toLowerCase().compareTo(f2.getName().toLowerCase());
+				return f1.getName().toLowerCase(Locale.getDefault()).compareTo(f2.getName().toLowerCase(Locale.getDefault()));
 			}
 		});
 	}

@@ -16,6 +16,7 @@
 package org.areco.ecommerce.deploymentscripts.impex;
 
 import java.io.File;
+import java.util.Locale;
 
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStepFactory;
 
@@ -32,7 +33,7 @@ public abstract class ImpexImportStepFactory extends AbstractSingleFileScriptSte
 	@Override
 	protected boolean canCreateStepWith(final File aFile)
 	{
-		return aFile.getName().toLowerCase().endsWith(".impex");
+		return aFile.getName().toLowerCase(Locale.getDefault()).endsWith(".impex");
 	}
 
 }

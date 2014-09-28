@@ -16,6 +16,7 @@
 package org.areco.ecommerce.deploymentscripts.beanshell;
 
 import java.io.File;
+import java.util.Locale;
 
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStepFactory;
 
@@ -32,6 +33,6 @@ public abstract class BeanShellScriptStepFactory extends AbstractSingleFileScrip
 	@Override
 	protected boolean canCreateStepWith(final File aFile)
 	{
-		return aFile.getName().toLowerCase().endsWith(".beanshell");
+		return aFile.getName().toLowerCase(Locale.getDefault()).endsWith(".beanshell");
 	}
 }

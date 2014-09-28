@@ -34,14 +34,14 @@
 		<include name="platform/tomcat-6/lib/*.jar"/>
 	</fileset>
 	
-	<target name="qa" depends="qa_clean, pmd" description="Runs Findbugs and PMD" />
+	<target name="qa" depends="qa_clean, findbugs, pmd" description="Runs Findbugs and PMD" />
 	
 	<target name="qa_clean" description="Cleans the directory with the QA reports">
 		<delete dir="${dir_qa_reports}"/>
 		<mkdir dir="${dir_qa_reports}"/> <!-- PMD requires an existent directory -->
 	</target>
 	
-	<target name="findbugs" description="Runs Findbugs">
+	<target name="findbugs" depends="build" description="Runs Findbugs">
 		 <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask">
 				<classpath>
 					<fileset dir="${dir_findbugs_home}/lib/">
@@ -55,13 +55,17 @@
               output="html"
               outputFile="${dir_qa_reports}/findbugs_report.html"
               effort="max"
-              failOnError="true" >
+              failOnError="true"
+              excludeFilter="${dir_qa}/findbugs_excluded_classes.xml"
+              warningsProperty="findbugsFailure">
 			<sourcePath path="${basedir}/src/java" />
 			<fileset refid="fileset_bin"/>
 			<auxClasspath>
                 <fileset refid="fileset_hybris_bin" />
             </auxClasspath>
 		</findbugs>
+		<!-- Fail on any warning -->
+		<fail if="findbugsFailure" />
 	</target>
 	
 	<target name="pmd">

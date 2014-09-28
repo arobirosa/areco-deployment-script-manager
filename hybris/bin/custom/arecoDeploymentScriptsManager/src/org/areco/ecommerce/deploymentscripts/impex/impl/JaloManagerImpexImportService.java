@@ -26,6 +26,7 @@ import de.hybris.platform.servicelayer.util.ServicesUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.log4j.Logger;
@@ -61,16 +62,30 @@ public class JaloManagerImpexImportService implements ImpexImportService
 	{
 		ServicesUtil.validateParameterNotNullStandardMessage("impexFile", impexFile);
 
-		InputStream inputStream;
+		InputStream inputStream = null;
 		try
 		{
 			inputStream = new FileInputStream(impexFile);
+			importImpexFile(inputStream);
 		}
 		catch (final FileNotFoundException e)
 		{
 			throw new ImpExException(e, "Unable to find the file " + impexFile, 0);
 		}
-		importImpexFile(inputStream);
+		finally
+		{
+			if (inputStream != null)
+			{
+				try
+				{
+					inputStream.close();
+				}
+				catch (final IOException e)
+				{
+					LOG.warn("There was an error clossing the input stream associated to the file " + impexFile, e);
+				}
+			}
+		}
 	}
 
 	private void importImpexFile(final InputStream inputStream) throws ImpExException

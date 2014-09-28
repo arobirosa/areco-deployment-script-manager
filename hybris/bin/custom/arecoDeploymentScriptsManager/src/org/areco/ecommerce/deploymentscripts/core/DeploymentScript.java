@@ -74,9 +74,10 @@ public class DeploymentScript
 			return configurationContraintsCheckResult;
 		}
 
-		if (this.getOrderedSteps() == null)
+		if (this.getOrderedSteps().isEmpty())
 		{
-			throw new IllegalStateException("The ordered steps of the deployment script " + this.getName() + " are null.");
+			throw new IllegalStateException("The deployment script " + this.getName()
+					+ " doesn't have any impex, sql or beanshell files.");
 		}
 		for (final DeploymentScriptStep aStep : this.getOrderedSteps())
 		{

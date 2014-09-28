@@ -18,6 +18,7 @@ package org.areco.ecommerce.deploymentscripts.sql.impl;
 import de.hybris.platform.core.Registry;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -45,17 +46,24 @@ public class JaloSqlScriptService implements SqlScriptService
 	 * { @InheritDoc }
 	 */
 	@Override
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING", justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
 	public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException
 	{
 		int affectedRows = -1;
 		Connection aConnection = null;
+		PreparedStatement prepareStatement = null;
 		try
 		{
 			aConnection = getConnection();
-			affectedRows = aConnection.prepareStatement(aStatement).executeUpdate();
+			prepareStatement = aConnection.prepareStatement(aStatement);
+			affectedRows = prepareStatement.executeUpdate();
 		}
 		finally
 		{
+			if (prepareStatement != null)
+			{
+				prepareStatement.close();
+			}
 			if (aConnection != null)
 			{
 				try
