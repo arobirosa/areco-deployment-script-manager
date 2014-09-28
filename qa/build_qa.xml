@@ -4,7 +4,11 @@
 	<property name="dir_qa" value="${basedir}/qa"/>
 	<property name="dir_qa_reports" value="${basedir}/qa_reports"/>
 	<property name="dir_pmd_home" value="${dir_qa}/pmd-bin-5.1.3"/>
+	<!-- If you change the verion, you must change the download url -->
 	<property name="dir_findbugs_home" value="${dir_qa}/findbugs-3.0.0"/>
+	<property name="dir_findbugs_donwload_url" value="http://downloads.sourceforge.net/project/findbugs/findbugs/3.0.0/findbugs-noUpdateChecks-3.0.0.zip"/>
+	<property name="dir_findbugs_donwload_file" value="${dir_qa}/findbugs.zip"/>
+	
 	
 	<fileset dir="${dir_hybris_bin}" id="fileset_src">
 		<include name="custom/*/src/**/*.java"/>
@@ -41,7 +45,7 @@
 		<mkdir dir="${dir_qa_reports}"/> <!-- PMD requires an existent directory -->
 	</target>
 	
-	<target name="findbugs" depends="build" description="Runs Findbugs">
+	<target name="findbugs" depends="findbugs.install, build" description="Runs Findbugs">
 		 <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask">
 				<classpath>
 					<fileset dir="${dir_findbugs_home}/lib/">
@@ -66,6 +70,24 @@
 		</findbugs>
 		<!-- Fail on any warning -->
 		<fail if="findbugsFailure" />
+	</target>
+	
+	 <target name="findbugs.check.installation" >
+        <available property="findbugs.available"
+            file="${dir_findbugs_home}"
+            type="dir"/>
+    </target>
+	
+	
+	<target name="findbugs.install" description="Downloads and installs Findbugs"
+        unless="findbugs.available"
+		depends="findbugs.check.installation">
+		<get src="${dir_findbugs_donwload_url}" 
+			dest="${dir_findbugs_donwload_file}" 
+			verbose="true"
+			usetimestamp="true"/>
+		<unzip src="${dir_findbugs_donwload_file}" dest="${dir_qa}" failOnEmptyArchive="true" />
+		<delete file="${dir_findbugs_donwload_file}"/>
 	</target>
 	
 	<target name="pmd">
