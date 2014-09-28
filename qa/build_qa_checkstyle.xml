@@ -11,11 +11,18 @@
 					</fileset>
 				</classpath>
 		</taskdef>
-		<!-- Any violation must break the build -->
-		<checkstyle config="${dir_qa}/sun_checks.xml" maxWarnings="0">
+		<!-- Any violation must break the build after the html was generated -->
+		<checkstyle config="${dir_qa}/checkstyle_checks.xml"
+			failureProperty="checkstyle.failure" failOnViolation="false" >
 			<fileset refid="fileset_src"/>
 			<formatter type="xml" tofile="${dir_qa_reports}/checkstyle_report.xml" />
 		</checkstyle>
+		<style in="${dir_qa_reports}/checkstyle_report.xml"
+               out="${dir_qa_reports}/checkstyle_report.html"
+               style="${dir_checkstyle_home}/contrib/checkstyle-noframes.xsl"
+        />
+        <!-- Fail on any warning or error -->
+		<fail if="checkstyle.failure" />
 	</target>
 	
 	 <target name="checkstyle.check.installation" >
