@@ -28,4 +28,6 @@ qa_reports/
 #We ignore the standard ruleset which comes with Hybris
 .ruleset
 
-findbugs-3.0.0
+#We ignore the directories with the binaries of PMD and Findbugs.
+qa/findbugs-*
+qa/pmd-bin*
