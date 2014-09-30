@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <project name="hybris_scripts" default="all" basedir=".">
 	<property name="dir_hybris_bin" value="${basedir}/hybris/bin" />
+	<property name="dir_hybris_tmp" value="${basedir}/hybris/temp" />
 	<property name="dir_platform" value="${dir_hybris_bin}/platform" />
 	
 	<import file="${basedir}/qa/build_qa.xml"/>
@@ -38,7 +39,7 @@
 	<target name="initialize" description="Runs an initialization of the specified tenant. Syntax: ant initialize [-Dtenant].">
 		<ant 
 			dir="${dir_platform}"
-			target="clean"
+			target="initialize"
 			inheritAll="false"/>
 	</target>
 	

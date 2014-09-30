@@ -7,6 +7,7 @@
 	<import file="${dir_qa}/build_qa_findbugs.xml"/>
 	<import file="${dir_qa}/build_qa_pmd.xml"/>
 	<import file="${dir_qa}/build_qa_checkstyle.xml"/>
+	<import file="${dir_qa}/build_qa_cobertura.xml"/>
 	
 	<fileset dir="${dir_hybris_bin}" id="fileset_src">
 		<include name="custom/*/src/**/*.java"/>
