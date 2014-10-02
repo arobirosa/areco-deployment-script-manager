@@ -40,7 +40,7 @@
 		</sequential>
 	</macrodef>
 	
-	<target name="cobertura" depends="cobertura.install, build" description="Runs cobertura">
+	<target name="cobertura" depends="cobertura.install, build, qa_clean" description="Runs cobertura">
 		 <taskdef resource="tasks.properties">
 				<classpath>
 					<fileset refid="fileset_cobertura_runtimelib" />
@@ -80,14 +80,14 @@
 		</cobertura-report>
 		
 		<cobertura-check  datafile="${datafile_cobertura}" haltonfailure="false" failureproperty="coberturafailed"
-			totallinerate="70">
+			totallinerate="20">
 		</cobertura-check>
 		
 		<cobertura.clean.libs />
 		<cobertura.clean.instrumentation />
 		
 		<!-- Low line coverage must break the build after we cleaned up the mess. -->
-		<fail if="coberturafailed" />
+		<fail if="coberturafailed" message="The code coverage is less than the limit" />
 	</target>
 	
 	

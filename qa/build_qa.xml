@@ -37,7 +37,7 @@
 		<include name="platform/tomcat-6/lib/*.jar"/>
 	</fileset>
 	
-	<target name="qa" depends="qa_clean, findbugs, pmd, checkstyle" description="Runs Findbugs, PMD and Checkstyle" />
+	<target name="qa" depends="qa_clean, findbugs, pmd, checkstyle, cobertura" description="Runs Findbugs, PMD, Checkstyle and Cobertura" />
 	
 	<target name="qa_clean" description="Cleans the directory with the QA reports">
 		<delete dir="${dir_qa_reports}"/>
