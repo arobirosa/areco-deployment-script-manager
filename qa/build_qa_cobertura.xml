@@ -4,17 +4,19 @@
 	<property name="dir_cobertura_donwload_file" value="${dir_qa}/cobertura.zip"/>
 	<!-- Hybris finds the cobertura datafile in the root directory. -->
 	<property name="datafile_cobertura" value="${basedir}/cobertura.ser" />
-	
+
 	<!-- We copy the libs from cobertura to the core extension.
 		This is a workaround because we cannot change the classpath of Hybris. -->
-	<property name="dir_unit_tests_libs" value="${dir_platform}/ext/core/lib" />
-	
+	<property name="dir_hybris_core_ext_lib" value="${dir_platform}/ext/core/lib" />
+	<!-- We copy the instrumented classes from cobertura to the core extension.
+		This is a workaround because we cannot change the classpath of Hybris. -->
+	<property name="dir_hybris_core_ext_classes" value="${dir_platform}/ext/core/classes" />
 	
 	<fileset id="fileset_cobertura_runtimelib" dir="${dir_cobertura_home}/">
 		<include name="cobertura*.jar" />
 	</fileset>
 	
-	<fileset id="fileset_cobertura_runtimelib_copy" dir="${dir_unit_tests_libs}">
+	<fileset id="fileset_cobertura_runtimelib_copy" dir="${dir_hybris_core_ext_lib}">
 		<include name="cobertura*.jar" />
 	</fileset>
 	
@@ -33,12 +35,31 @@
 	
 	<macrodef name="cobertura.clean.instrumentation" description="Removes the instrumented classes">
 		<sequential>
-			<ant 
-				dir="${dir_platform}"
-				target="clean"
-				inheritAll="false" />
+			<delete dir="${dir_hybris_core_ext_classes}"/>
 		</sequential>
 	</macrodef>
+	
+	<macrodef name="cobertura.instrumentation" description="Instrumentes the classes and prepares the classpath">
+		<sequential>
+			<cobertura.clean.libs />
+			<cobertura.clean.instrumentation />
+			
+			<!-- We copy the cobertura runtime jar to the lib directory of the core extension. These jars are
+			require in the classpath when the tests run. -->
+			<copy todir="${dir_hybris_core_ext_lib}">
+				<fileset refid="fileset_cobertura_runtimelib" />
+			</copy>
+			
+			<!-- We move the instrumented classes to the classes directory of the core extension. -->
+			<cobertura-instrument datafile="${datafile_cobertura}" todir="${dir_hybris_core_ext_classes}">
+				<ignore regex="org.apache.log4j.*" />
+				<fileset refid="fileset_bin" />
+				<auxClasspath>
+					<fileset refid="fileset_hybris_bin" />
+				</auxClasspath>
+			</cobertura-instrument>
+		</sequential>
+	</macrodef>		
 	
 	<target name="cobertura" depends="cobertura.install, build, qa_clean" description="Runs cobertura">
 		 <taskdef resource="tasks.properties">
@@ -48,20 +69,8 @@
 				</classpath>
 		</taskdef>
 	
-		<cobertura.clean.libs />
-		<copy todir="${dir_unit_tests_libs}">
-			<fileset refid="fileset_cobertura_runtimelib" />
-		</copy>
+		<cobertura.instrumentation />
 		
-		<!-- We leave the instrumented classes in the original directory because we cannot add a new classpath
-		to the target that runs the yunit tests. -->
-		<cobertura-instrument datafile="${datafile_cobertura}">
-			<ignore regex="org.apache.log4j.*" />
-			<fileset refid="fileset_bin" />
-			<auxClasspath>
-                <fileset refid="fileset_hybris_bin" />
-            </auxClasspath>
-		</cobertura-instrument>
 		<!-- Run the tests -->
 		<ant 
 			dir="${dir_platform}"
@@ -73,14 +82,13 @@
 			target="yunitweb"
 			inheritAll="false">
 		</ant>
-		
 		<!-- Create report -->
 		<cobertura-report format="html" destdir="${dir_qa_reports}/cobertura"  datafile="${datafile_cobertura}" encoding="UTF-8">
 			<fileset refid="fileset_src" />
 		</cobertura-report>
 		
 		<cobertura-check  datafile="${datafile_cobertura}" haltonfailure="false" failureproperty="coberturafailed"
-			totallinerate="20">
+			totallinerate="70">
 		</cobertura-check>
 		
 		<cobertura.clean.libs />
@@ -89,8 +97,6 @@
 		<!-- Low line coverage must break the build after we cleaned up the mess. -->
 		<fail if="coberturafailed" message="The code coverage is less than the limit" />
 	</target>
-	
-	
 	
 	 <target name="cobertura.check.installation" >
         <available property="cobertura.available"
