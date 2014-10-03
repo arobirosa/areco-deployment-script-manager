@@ -15,11 +15,11 @@
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
+import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import de.hybris.platform.util.Config;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -48,6 +48,9 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
 
     @Autowired
     private FlexibleSearchService flexibleSearchService;
+
+    @Autowired
+    private ConfigurationService configurationService;
 
     /**
      * {@inheritDoc }
@@ -81,7 +84,7 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
      */
     @Override
     public DeploymentEnvironmentModel getCurrent() {
-        final String currentEnvironmentName = Config.getParameter(CURRENT_ENVIRONMENT_CONF);
+        final String currentEnvironmentName = this.configurationService.getConfiguration().getString(CURRENT_ENVIRONMENT_CONF);
         if (currentEnvironmentName == null) {
             throw new IllegalStateException("Please set in the file local.properties the name of the current deployemnt environment." + " The property "
                     + CURRENT_ENVIRONMENT_CONF + " is empty.");

@@ -19,8 +19,8 @@ import de.hybris.bootstrap.config.ConfigUtil;
 import de.hybris.bootstrap.config.ExtensionInfo;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetup.Process;
+import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import de.hybris.platform.util.Config;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -66,6 +66,9 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
 
     @Autowired
     private DeploymentScriptConfigurationReader configurationReader;
+
+    @Autowired
+    private ConfigurationService configurationService;
 
     /** {@inheritDoc} */
     @Override
@@ -119,15 +122,16 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
         final ExtensionInfo extension = ConfigUtil.getPlatformConfig(ArecoDeploymentScriptFinder.class).getExtensionInfo(extensionName);
         String scriptsFolderName;
         if (runInitScripts) {
-            scriptsFolderName = Config.getParameter(INIT_SCRIPTS_FOLDER_CONF);
+            scriptsFolderName = this.configurationService.getConfiguration().getString(INIT_SCRIPTS_FOLDER_CONF);
         } else {
-            scriptsFolderName = Config.getParameter(UPDATE_SCRIPTS_FOLDER_CONF);
+            scriptsFolderName = this.configurationService.getConfiguration().getString(UPDATE_SCRIPTS_FOLDER_CONF);
         }
         return getExistingScriptsInDirectory(extension, scriptsFolderName);
     }
 
     private File[] getExistingScriptsInDirectory(final ExtensionInfo extension, final String scriptsFolderName) {
-        final File deploymentScriptFolder = new File(extension.getExtensionDirectory() + Config.getParameter(RESOURCES_FOLDER_CONF), scriptsFolderName);
+        final File deploymentScriptFolder = new File(extension.getExtensionDirectory()
+                + this.configurationService.getConfiguration().getString(RESOURCES_FOLDER_CONF), scriptsFolderName);
         if (!deploymentScriptFolder.exists()) {
             return new File[0];
         }
