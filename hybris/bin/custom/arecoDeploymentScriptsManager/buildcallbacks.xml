@@ -12,20 +12,43 @@
 			<record action="stop" append="false" name="${HYBRIS_LOG_DIR}/deploymentScripts.log" loglevel="info" />
 		</sequential>
 	</macrodef>
+	
+	<!-- Redeclaration of the updatesystem macro to include the callbacks. The ant target
+	       cannot be overriden.
+	       Ant will generate a warning but we can ignore it. -->
+	<macrodef name="updatesystem">
+        <sequential>
+        	<foreachext>
+                <do>
+                    <callback extname="@{extname}" target="before_updatesystem" />
+                </do>
+            </foreachext>
+            <input message="Enter valid tenant id" addproperty="tenant" />
+            <yrun>
+                de.hybris.ant.taskdefs.AntPerformable p = new de.hybris.ant.taskdefs.UpdatePlatformAntPerformableImpl("${tenant}");
+                p.doPerform();
+                de.hybris.platform.util.RedeployUtilities.shutdown();
+            </yrun>
+        	<foreachext>
+                <do>
+                    <callback extname="@{extname}" target="after_updatesystem" />
+                </do>
+            </foreachext>
+        </sequential>
+    </macrodef>
+	
+	<!-- Logging during the update running system -->
+    <macrodef name="arecoDeploymentScriptsManager_before_updatesystem">
+        <sequential>
+            <deploymentScriptsLoggingStart />
+        </sequential>
+    </macrodef>
 
-
-	<!-- We cannot log during the update running system because Hybris doesn't have a callback. -->
-	<macrodef name="arecoDeploymentScriptsManager_before_updatesystem">
-		<sequential>
-			<deploymentScriptsLoggingStart />
-		</sequential>
-	</macrodef>
-
-	<macrodef name="arecoDeploymentScriptsManager_after_updatesystem">
-		<sequential>
-			<deploymentScriptsLoggingEnd />
-		</sequential>
-	</macrodef>
+    <macrodef name="arecoDeploymentScriptsManager_after_updatesystem">
+        <sequential>
+            <deploymentScriptsLoggingEnd />
+        </sequential>
+    </macrodef>
 
 	<!-- Logging during the initialization -->
 	<macrodef name="arecoDeploymentScriptsManager_before_initialize">
