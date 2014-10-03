@@ -19,6 +19,10 @@ package org.areco.ecommerce.deploymentscripts.constants;
 public final class ArecoDeploymentScriptsManagerConstants extends GeneratedArecoDeploymentScriptsManagerConstants {
     public static final String EXTENSIONNAME = "arecoDeploymentScriptsManager";
 
+    public static final String MASTER_TENANT_ID = "master";
+
+    public static final String JUNIT_TENANT_ID = "junit";
+
     private ArecoDeploymentScriptsManagerConstants() {
         // empty to avoid instantiating this constant class
     }

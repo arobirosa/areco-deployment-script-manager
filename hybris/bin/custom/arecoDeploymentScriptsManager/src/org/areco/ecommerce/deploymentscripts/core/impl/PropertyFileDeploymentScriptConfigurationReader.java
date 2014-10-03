@@ -33,6 +33,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
 
@@ -128,14 +129,14 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
         final Set<Tenant> tenants = new HashSet<Tenant>();
         for (final String aTenantName : tenantNamesList.split(VALUES_SEPARATOR)) {
             Tenant foundTenant = Registry.getTenantByID(aTenantName);
-            if (foundTenant == null && "junit".equals(aTenantName) && areWeInATestSystemWithOneSingleTenant()) {
+            if (foundTenant == null && ArecoDeploymentScriptsManagerConstants.JUNIT_TENANT_ID.equals(aTenantName) && areWeInATestSystemWithOneSingleTenant()) {
                 foundTenant = Registry.getCurrentTenant();
             }
             if (foundTenant == null) {
                 throw new DeploymentScriptConfigurationException("Unable to find the tenant with the ID '" + aTenantName + "'.");
             }
             // In systems with only one tenant, this tenant is the junit. The master tenant must be ignored.
-            if ("master".equals(aTenantName) && this.areWeInATestSystemWithOneSingleTenant()) {
+            if (ArecoDeploymentScriptsManagerConstants.MASTER_TENANT_ID.equals(aTenantName) && this.areWeInATestSystemWithOneSingleTenant()) {
                 tenants.add(new MockTenant("unexistentMaster"));
             } else {
                 tenants.add(foundTenant);
