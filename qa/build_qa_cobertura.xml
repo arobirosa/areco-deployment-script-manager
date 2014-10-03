@@ -83,8 +83,46 @@
 			inheritAll="false">
 		</ant>
 		<!-- Create report -->
-		<cobertura-report format="html" destdir="${dir_qa_reports}/cobertura"  datafile="${datafile_cobertura}" encoding="UTF-8"
-			srcdir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/src">
+		<cobertura-report format="html" destdir="${dir_qa_reports}/cobertura" 
+			datafile="${datafile_cobertura}" encoding="UTF-8" >
+			<!-- TOFIX: The report seems to look at the directory of the fileset and not at the files.
+				 Due to this, the name of the extensions must be hardcoded here. -->
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/src" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/web/src" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/hmc/src" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/testsrc" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/web/testsrc" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/hmc/testsrc" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsExamples/src" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsExamples/web/src" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsExamples/hmc/src" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsExamples/testsrc" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsExamples/web/testsrc" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsExamples/hmc/testsrc" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
 		</cobertura-report>
 		
 		<cobertura-check  datafile="${datafile_cobertura}" haltonfailure="false" failureproperty="coberturafailed"
