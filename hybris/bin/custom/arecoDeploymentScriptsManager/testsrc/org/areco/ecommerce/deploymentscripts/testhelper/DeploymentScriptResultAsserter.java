@@ -46,6 +46,14 @@ public final class DeploymentScriptResultAsserter {
     @Resource
     private FlexibleSearchService flexibleSearchService;
 
+    /**
+     * It checks is the given deployment script has the expected result.
+     * 
+     * @param deploymentScriptName
+     *            Required
+     * @param expectedResult
+     *            Required
+     */
     public void assertResult(final String deploymentScriptName, final ScriptExecutionResultModel expectedResult) {
         ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
         ServicesUtil.validateParameterNotNullStandardMessage("expectedResult", expectedResult);

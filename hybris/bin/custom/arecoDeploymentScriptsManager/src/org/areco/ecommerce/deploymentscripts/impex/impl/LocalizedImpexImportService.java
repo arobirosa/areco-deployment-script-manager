@@ -18,7 +18,6 @@ package org.areco.ecommerce.deploymentscripts.impex.impl;
 import de.hybris.platform.impex.jalo.ImpExException;
 import de.hybris.platform.impex.jalo.Importer;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
-import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import de.hybris.platform.util.CSVReader;
 
@@ -50,9 +49,6 @@ public class LocalizedImpexImportService implements ImpexImportService {
     public static final String IMPEX_LOCALE_CONF = "deploymentscripts.impex.locale";
 
     private static final Logger LOG = Logger.getLogger(LocalizedImpexImportService.class);
-
-    @Autowired
-    private ModelService modelService;
 
     @Autowired
     private ConfigurationService configurationService;

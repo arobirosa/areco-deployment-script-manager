@@ -37,6 +37,8 @@ import org.junit.Test;
  * @author arobirosa
  * 
  */
+// PMD doesn't see the assert in the private methods.
+@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class ImpexScriptWithLocaleTest extends AbstractWithConfigurationRestorationTest {
     private static final String RESOURCES_FOLDER = "/resources/test/impex-scripts-with-locale";
 
@@ -53,7 +55,7 @@ public class ImpexScriptWithLocaleTest extends AbstractWithConfigurationRestorat
     private TaxDao taxDao;
 
     @Test
-    public void germanLocale() {
+    public void testGermanLocale() {
         this.assertValueOfImportedTax("germany", "dummyGermanTax", 4.90d, Locale.GERMAN);
     }
 
@@ -69,7 +71,7 @@ public class ImpexScriptWithLocaleTest extends AbstractWithConfigurationRestorat
     }
 
     @Test
-    public void americanLocale() {
+    public void testAmericanLocale() {
         this.assertValueOfImportedTax("usa", "dummyAmericanTax", 18.342d, Locale.ENGLISH);
     }
 }
