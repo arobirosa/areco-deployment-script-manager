@@ -21,6 +21,8 @@ import de.hybris.platform.util.Config;
 import org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchDeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.impex.impl.LocalizedImpexImportService;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
  * It modifies the configuration of the properties during a test and restore them at the end of it.
@@ -28,6 +30,8 @@ import org.areco.ecommerce.deploymentscripts.impex.impl.LocalizedImpexImportServ
  * @author arobirosa
  * 
  */
+@Component
+@Scope("tenant")
 public class DeploymentConfigurationSetter {
 
     private boolean oldConfigurationWasSaved = false;
