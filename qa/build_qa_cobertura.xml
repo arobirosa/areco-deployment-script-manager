@@ -83,8 +83,8 @@
 			inheritAll="false">
 		</ant>
 		<!-- Create report -->
-		<cobertura-report format="html" destdir="${dir_qa_reports}/cobertura"  datafile="${datafile_cobertura}" encoding="UTF-8">
-			<fileset refid="fileset_src" />
+		<cobertura-report format="html" destdir="${dir_qa_reports}/cobertura"  datafile="${datafile_cobertura}" encoding="UTF-8"
+			srcdir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/src">
 		</cobertura-report>
 		
 		<cobertura-check  datafile="${datafile_cobertura}" haltonfailure="false" failureproperty="coberturafailed"
