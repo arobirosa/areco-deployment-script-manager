@@ -1,40 +1,78 @@
 <?xml version="1.0"?>
-<!--
- [y] hybris Platform
-
- Copyright (c) 2000-2012 hybris AG
- All rights reserved.
-
- This software is the confidential and proprietary information of hybris
- ("Confidential Information"). You shall not disclose such Confidential
- Information and shall use it only in accordance with the terms of the
- license agreement you entered into with hybris.
-
-  
--->
 <project name="arecoDeploymentScriptsManager_buildcallbacks" >
+
+	<macrodef name="deploymentScriptsLoggingStart">
+		<sequential>
+			<record action="start" append="true" name="${HYBRIS_LOG_DIR}/deploymentScripts.log" loglevel="info" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="deploymentScriptsLoggingEnd">
+		<sequential>
+			<record action="stop" append="false" name="${HYBRIS_LOG_DIR}/deploymentScripts.log" loglevel="info" />
+		</sequential>
+	</macrodef>
+
+
+	<!-- We cannot log during the update running system because Hybris doesn't have a callback. -->
+	<macrodef name="arecoDeploymentScriptsManager_before_updatesystem">
+		<sequential>
+			<deploymentScriptsLoggingStart />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="arecoDeploymentScriptsManager_after_updatesystem">
+		<sequential>
+			<deploymentScriptsLoggingEnd />
+		</sequential>
+	</macrodef>
+
+	<!-- Logging during the initialization -->
+	<macrodef name="arecoDeploymentScriptsManager_before_initialize">
+		<sequential>
+			<deploymentScriptsLoggingStart />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="arecoDeploymentScriptsManager_after_initialize">
+		<sequential>
+			<deploymentScriptsLoggingEnd />
+		</sequential>
+	</macrodef>
+
+	<!-- Logging during the initialization of the junit tenant. -->
+	<macrodef name="arecoDeploymentScriptsManager_before_yunitinit">
+		<sequential>
+			<deploymentScriptsLoggingStart />
+		</sequential>
+	</macrodef>
+
 	<macrodef name="arecoDeploymentScriptsManager_after_yunitinit">
-	  <sequential>
-	   <yrun>
+		<sequential>
+			<yrun failonerror="true">
 	   	org.areco.ecommerce.deploymentscripts.jalo.junittenant.EssentialDataCreatorAndDeploymentScriptsStarter.getInstance().runInJunitTenant();
 	    de.hybris.platform.util.RedeployUtilities.shutdown();
 	   </yrun>
-	  </sequential>
-	 </macrodef>
-	
+			<deploymentScriptsLoggingEnd />
+		</sequential>
+	</macrodef>
+
+	<!-- Target to run the pending deployment scripts -->
 	<macrodef name="runDeploymentScripts">
-      <sequential>
-       <record action="start" append="true" name="${HYBRIS_LOG_DIR}/deploymentScripts.log" loglevel="info" />
-       <yrun failonerror="true">
+		<sequential>
+			<yrun failonerror="true">
        	int exitCode = org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter.getInstance().runPendingScripts();
         de.hybris.platform.util.RedeployUtilities.shutdown();
         System.exit(exitCode);
        </yrun>
-       <record action="stop" append="false" name="${HYBRIS_LOG_DIR}/deploymentScripts.log" loglevel="info" />
-      </sequential>
-     </macrodef>
-	
+		</sequential>
+	</macrodef>
+
 	<target name="runDeploymentScripts" description="Runs all pending deployment scripts without requiring an update running system">
-		   <runDeploymentScripts/>
+		<sequential>
+			<deploymentScriptsLoggingStart />
+			<runDeploymentScripts/>
+			<deploymentScriptsLoggingEnd />
+		</sequential>
 	</target>
 </project>
