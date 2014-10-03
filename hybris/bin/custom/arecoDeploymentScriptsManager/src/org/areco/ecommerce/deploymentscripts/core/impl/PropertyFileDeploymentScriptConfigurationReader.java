@@ -17,7 +17,9 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.Tenant;
+import de.hybris.platform.servicelayer.tenant.MockTenant;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
+import de.hybris.platform.util.Utilities;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -125,13 +127,35 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
     private Set<Tenant> convertTenants(final String tenantNamesList) {
         final Set<Tenant> tenants = new HashSet<Tenant>();
         for (final String aTenantName : tenantNamesList.split(VALUES_SEPARATOR)) {
-            final Tenant foundTenant = Registry.getTenantByID(aTenantName);
+            Tenant foundTenant = Registry.getTenantByID(aTenantName);
+            if (foundTenant == null && "junit".equals(aTenantName) && areWeInATestSystemWithOneSingleTenant()) {
+                foundTenant = Registry.getCurrentTenant();
+            }
             if (foundTenant == null) {
                 throw new DeploymentScriptConfigurationException("Unable to find the tenant with the ID '" + aTenantName + "'.");
             }
-            tenants.add(foundTenant);
+            // In systems with only one tenant, this tenant is the junit. The master tenant must be ignored.
+            if ("master".equals(aTenantName) && this.areWeInATestSystemWithOneSingleTenant()) {
+                tenants.add(new MockTenant("unexistentMaster"));
+            } else {
+                tenants.add(foundTenant);
+            }
         }
         return tenants;
+    }
+
+    /**
+     * In systems with only one tenant where were initialize with "ant clean all yunitinit yunit", the current tenant is the junit tenant. It is unfortunately
+     * named "master".
+     * 
+     * @return true if we are in a system with only one tenant.
+     */
+    private boolean areWeInATestSystemWithOneSingleTenant() {
+        if (LOG.isTraceEnabled()) {
+            LOG.trace("Current Tenant internal ID: " + Utilities.getTenantID(Registry.getMasterTenant().getDataSource()));
+        }
+        return Utilities.isSystemInitialized(Registry.getMasterTenant().getDataSource())
+                && "TestSystem".equals(Utilities.getTenantID(Registry.getMasterTenant().getDataSource()));
     }
 
     private File findConfigurationFile(final File deploymentScriptFolder) {

@@ -57,6 +57,13 @@
 			inheritAll="false"/>
 	</target>
 	
+	<target name="yunit" description="Runs the unit and integration tests (deprecated)">
+		<ant 
+			dir="${dir_platform}"
+			target="yunit"
+			inheritAll="false"/>
+	</target>
+	
 	<target name="yunitinit" description="Initializes JUnit tenant">
 		<ant 
 			dir="${dir_platform}"
