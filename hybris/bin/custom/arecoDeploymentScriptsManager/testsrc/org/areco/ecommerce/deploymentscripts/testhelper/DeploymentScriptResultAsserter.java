@@ -27,6 +27,8 @@ import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.junit.Assert;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
  * This DAO provides services to the tests.
@@ -34,6 +36,8 @@ import org.junit.Assert;
  * @author arobirosa
  * 
  */
+@Component
+@Scope("tenant")
 public final class DeploymentScriptResultAsserter {
 
     private static final DeploymentScriptResultAsserter INSTANCE = new DeploymentScriptResultAsserter();
