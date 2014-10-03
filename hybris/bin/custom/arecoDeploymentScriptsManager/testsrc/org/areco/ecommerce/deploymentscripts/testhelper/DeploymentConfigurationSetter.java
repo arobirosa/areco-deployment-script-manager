@@ -20,6 +20,7 @@ import de.hybris.platform.util.Config;
 
 import org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchDeploymentEnvironmentDAO;
+import org.areco.ecommerce.deploymentscripts.impex.impl.LocalizedImpexImportService;
 
 /**
  * It modifies the configuration of the properties during a test and restore them at the end of it.
@@ -38,6 +39,8 @@ public class DeploymentConfigurationSetter {
     private String oldInitScriptsFolder = null;
 
     private String oldEnvironmentName = null;
+
+    private String oldImpexLocaleCode = null;
 
     /**
      * Save the current configuration and sets the folders to the given values.
@@ -73,6 +76,7 @@ public class DeploymentConfigurationSetter {
             this.oldUpdateScriptsFolder = Config.getParameter(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF);
             this.oldInitScriptsFolder = Config.getParameter(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF);
             this.oldEnvironmentName = Config.getParameter(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF);
+            this.oldImpexLocaleCode = Config.getParameter(LocalizedImpexImportService.IMPEX_LOCALE_CONF);
             this.oldConfigurationWasSaved = true;
         }
 
@@ -86,6 +90,7 @@ public class DeploymentConfigurationSetter {
         Config.setParameter(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, oldUpdateScriptsFolder);
         Config.setParameter(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, oldInitScriptsFolder);
         Config.setParameter(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, oldEnvironmentName);
+        Config.setParameter(LocalizedImpexImportService.IMPEX_LOCALE_CONF, oldImpexLocaleCode);
     }
 
     /**
@@ -96,5 +101,15 @@ public class DeploymentConfigurationSetter {
      */
     public void setEnvironment(final String currentEnvironmentName) {
         Config.setParameter(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, currentEnvironmentName);
+    }
+
+    /**
+     * Sets the code of the impex locale.
+     * 
+     * @param impexLocaleCode
+     *            Required
+     */
+    public void setImpexLocaleCode(final String impexLocaleCode) {
+        Config.setParameter(LocalizedImpexImportService.IMPEX_LOCALE_CONF, impexLocaleCode);
     }
 }

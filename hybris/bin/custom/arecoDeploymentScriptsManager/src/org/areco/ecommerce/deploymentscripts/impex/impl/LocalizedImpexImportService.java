@@ -15,20 +15,21 @@
  */
 package org.areco.ecommerce.deploymentscripts.impex.impl;
 
-import de.hybris.platform.cronjob.enums.CronJobResult;
 import de.hybris.platform.impex.jalo.ImpExException;
-import de.hybris.platform.impex.jalo.ImpExManager;
-import de.hybris.platform.impex.jalo.cronjob.ImpExImportCronJob;
-import de.hybris.platform.impex.model.cronjob.ImpExImportCronJobModel;
+import de.hybris.platform.impex.jalo.Importer;
+import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
+import de.hybris.platform.util.CSVReader;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
+import org.apache.commons.lang.LocaleUtils;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
@@ -37,19 +38,24 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 /**
- * This default implementation uses the ImpexManager which is deprecated. TODO: Find a service which imports the impex files.
+ * This default implementation uses the impex importer. It allows the configuration of the locale.
  * 
  * @author arobirosa
  * 
  */
 @Scope("tenant")
 @Service
-public class JaloManagerImpexImportService implements ImpexImportService {
+public class LocalizedImpexImportService implements ImpexImportService {
 
-    private static final Logger LOG = Logger.getLogger(JaloManagerImpexImportService.class);
+    public static final String IMPEX_LOCALE_CONF = "deploymentscripts.impex.locale";
+
+    private static final Logger LOG = Logger.getLogger(LocalizedImpexImportService.class);
 
     @Autowired
     private ModelService modelService;
+
+    @Autowired
+    private ConfigurationService configurationService;
 
     /*
      * { @InheritDoc }
@@ -64,6 +70,8 @@ public class JaloManagerImpexImportService implements ImpexImportService {
             importImpexFile(inputStream);
         } catch (final FileNotFoundException e) {
             throw new ImpExException(e, "Unable to find the file " + impexFile, 0);
+        } catch (final UnsupportedEncodingException e) {
+            throw new ImpExException(e, "The file " + impexFile + " must use the UTF-8 encoding.", 0);
         } finally {
             if (inputStream != null) {
                 try {
@@ -75,26 +83,25 @@ public class JaloManagerImpexImportService implements ImpexImportService {
         }
     }
 
-    private void importImpexFile(final InputStream inputStream) throws ImpExException {
-        // There must be a service for the impex scripts but I couldn't find it.
-        final ImpExImportCronJob resultCronJob = ImpExManager.getInstance().importData(inputStream, DeploymentScript.DEFAULT_FILE_ENCODING, true /*
-                                                                                                                                                  * We allow
-                                                                                                                                                  * code
-                                                                                                                                                  * execution
-                                                                                                                                                  */);
-        if (resultCronJob == null) {
-            return; // Everything went ok.
-        } else {
-            final ImpExImportCronJobModel resultCronJobModel = this.modelService.get(resultCronJob);
-            if (CronJobResult.SUCCESS.equals(resultCronJobModel.getResult())) {
-                if (LOG.isDebugEnabled()) {
-                    LOG.debug("Ignoring the received cronjob " + resultCronJobModel + " because the import was successful.");
-                }
+    private void importImpexFile(final InputStream inputStream) throws ImpExException, UnsupportedEncodingException {
+        final CSVReader reader = new CSVReader(inputStream, DeploymentScript.DEFAULT_FILE_ENCODING);
+        final Importer importer = new Importer(reader);
+        final String localeCode = configurationService.getConfiguration().getString(IMPEX_LOCALE_CONF);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Code of the impex locale: '" + localeCode + "'.");
+        }
+        if (localeCode != null && !localeCode.isEmpty()) {
+            importer.getReader().setLocale(LocaleUtils.toLocale(localeCode));
+        }
+        try {
+            importer.importAll();
+            if (importer.isFinished()) {
                 return;
+            } else {
+                throw new ImpExException("The import of the impex file finished with errors. ");
             }
-            throw new ImpExException("There was an error importing the impex file. " + "Please check the cronjob with the code '"
-                    + resultCronJobModel.getCode() + "'");
+        } finally {
+            importer.close();
         }
     }
-
 }

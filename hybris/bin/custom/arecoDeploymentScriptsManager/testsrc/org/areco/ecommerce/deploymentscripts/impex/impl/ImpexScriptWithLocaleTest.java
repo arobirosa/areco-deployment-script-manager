@@ -19,6 +19,7 @@ import de.hybris.platform.core.model.order.price.TaxModel;
 import de.hybris.platform.order.daos.TaxDao;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 
@@ -53,11 +54,12 @@ public class ImpexScriptWithLocaleTest extends AbstractWithConfigurationRestorat
 
     @Test
     public void germanLocale() {
-        this.assertValueOfImportedTax("germany", "dummyGermanTax", 4.90d);
+        this.assertValueOfImportedTax("germany", "dummyGermanTax", 4.90d, Locale.GERMAN);
     }
 
-    private void assertValueOfImportedTax(final String directoryCode, final String taxCode, final double expectedTaxValue) {
+    private void assertValueOfImportedTax(final String directoryCode, final String taxCode, final double expectedTaxValue, final Locale currentLocale) {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, directoryCode, null);
+        this.getDeploymentConfigurationSetter().setImpexLocaleCode(currentLocale.toString());
         final boolean wereThereErrors = this.deploymentScriptStarter.runAllPendingScripts();
         Assert.assertFalse("There were errors", wereThereErrors);
         deploymentScriptResultAsserter.assertResult("20141003_DUMMY_TAX", this.flexibleSearchScriptExecutionResultDao.getSuccessResult());
@@ -68,6 +70,6 @@ public class ImpexScriptWithLocaleTest extends AbstractWithConfigurationRestorat
 
     @Test
     public void americanLocale() {
-        this.assertValueOfImportedTax("usa", "dummyAmericanTax", 18.342d);
+        this.assertValueOfImportedTax("usa", "dummyAmericanTax", 18.342d, Locale.ENGLISH);
     }
 }

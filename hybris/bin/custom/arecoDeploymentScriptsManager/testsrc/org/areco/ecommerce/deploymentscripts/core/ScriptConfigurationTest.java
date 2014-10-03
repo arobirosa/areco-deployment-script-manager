@@ -39,7 +39,8 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
     @Resource
     private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
 
-    private final DeploymentScriptResultAsserter deploymentScriptResultAsserter = DeploymentScriptResultAsserter.getInstance();
+    @Resource
+    private DeploymentScriptResultAsserter deploymentScriptResultAsserter;
 
     @Test
     public void currentEnvironment() {
