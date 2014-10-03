@@ -22,7 +22,7 @@ import de.hybris.platform.core.initialization.SystemSetupContext;
 import de.hybris.platform.jalo.CoreBasicDataCreator;
 import de.hybris.platform.jalo.extension.Extension;
 import de.hybris.platform.jalo.extension.ExtensionManager;
-import de.hybris.platform.util.Config;
+import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.util.JspContext;
 import de.hybris.platform.util.Utilities;
 
@@ -55,6 +55,11 @@ import org.springframework.stereotype.Service;
 @SuppressWarnings("PMD.UnnecessaryLocalBeforeReturn")
 // We keep the local variable jspc because we only want to create a context once. The warning suppression only works at this point.
 public class EssentialDataCreatorAndDeploymentScriptsStarter {
+    /**
+     * 
+     */
+    private static final String JUNIT_TENANT_CREATEESSENTIALDATA_CONF = "deploymentscripts.init.junittenant.createessentialdata";
+
     private static final Logger LOG = Logger.getLogger(EssentialDataCreatorAndDeploymentScriptsStarter.class);
 
     private static EssentialDataCreatorAndDeploymentScriptsStarter instance = null;
@@ -64,6 +69,9 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter {
 
     @Autowired
     private SystemSetupCollector systemSetupCollector;
+
+    @Autowired
+    private ConfigurationService configurationService;
 
     /**
      * This method is called by ant to get the only instance to this class.
@@ -83,7 +91,7 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter {
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     // We catch all exceptions because this method is called by ant.
     public void runInJunitTenant() {
-        if (!Boolean.parseBoolean(Config.getParameter("deploymentscripts.init.junittenant.createessentialdata"))) {
+        if (!Boolean.parseBoolean(this.configurationService.getConfiguration().getString(JUNIT_TENANT_CREATEESSENTIALDATA_CONF))) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("The essential data won't be created and the deployment scripts won't be run.");
             }

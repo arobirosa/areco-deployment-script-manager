@@ -28,8 +28,6 @@ import org.junit.Test;
  * @author arobirosa
  * 
  */
-@SuppressWarnings("PMD.TestClassWithoutTestCases")
-// PMD doesn't find any test method in this class and complains.
 public class ScriptConfigurationTest extends AbstractWithConfigurationRestorationTest {
     private static final String RESOURCES_FOLDER = "/resources/test/script-configuration-test";
 
@@ -39,10 +37,11 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
     @Resource
     private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
 
-    private final DeploymentScriptResultAsserter deploymentScriptResultAsserter = DeploymentScriptResultAsserter.getInstance();
+    @Resource
+    private DeploymentScriptResultAsserter deploymentScriptResultAsserter;
 
     @Test
-    public void currentEnvironment() {
+    public void testDevEnvironment() {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "dev-only", null);
         this.getDeploymentConfigurationSetter().setEnvironment("DEV");
         final boolean wereThereErrors = this.deploymentScriptStarter.runAllPendingScripts();

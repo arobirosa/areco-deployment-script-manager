@@ -18,6 +18,8 @@ package org.areco.ecommerce.deploymentscripts.core;
 import de.hybris.bootstrap.annotations.IntegrationTest;
 import de.hybris.platform.servicelayer.ServicelayerTransactionalTest;
 
+import javax.annotation.Resource;
+
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentConfigurationSetter;
 import org.junit.After;
 import org.junit.Before;
@@ -33,7 +35,8 @@ import org.junit.Ignore;
 @Ignore
 public abstract class AbstractWithConfigurationRestorationTest extends ServicelayerTransactionalTest {
 
-    private final DeploymentConfigurationSetter deploymentConfigurationSetter = new DeploymentConfigurationSetter();
+    @Resource
+    private DeploymentConfigurationSetter deploymentConfigurationSetter;
 
     /**
      * Save the settings.

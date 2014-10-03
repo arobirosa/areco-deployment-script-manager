@@ -15,11 +15,16 @@
  */
 package org.areco.ecommerce.deploymentscripts.testhelper;
 
+import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import de.hybris.platform.util.Config;
 
+import org.apache.commons.configuration.Configuration;
 import org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchDeploymentEnvironmentDAO;
+import org.areco.ecommerce.deploymentscripts.impex.impl.LocalizedImpexImportService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
  * It modifies the configuration of the properties during a test and restore them at the end of it.
@@ -27,6 +32,8 @@ import org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchDeploymentE
  * @author arobirosa
  * 
  */
+@Component
+@Scope("tenant")
 public class DeploymentConfigurationSetter {
 
     private boolean oldConfigurationWasSaved = false;
@@ -38,6 +45,11 @@ public class DeploymentConfigurationSetter {
     private String oldInitScriptsFolder = null;
 
     private String oldEnvironmentName = null;
+
+    private String oldImpexLocaleCode = null;
+
+    @Autowired
+    private ConfigurationService configurationService;
 
     /**
      * Save the current configuration and sets the folders to the given values.
@@ -54,14 +66,18 @@ public class DeploymentConfigurationSetter {
         ServicesUtil.validateParameterNotNullStandardMessage("testResourcesFolder", testResourcesFolder);
         this.saveCurrentFolders();
 
-        Config.setParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, testResourcesFolder);
+        getConfiguration().setProperty(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, testResourcesFolder);
 
         if (testUpdateScriptsFolder != null) {
-            Config.setParameter(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, testUpdateScriptsFolder);
+            getConfiguration().setProperty(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, testUpdateScriptsFolder);
         }
         if (testInitScriptsFolder != null) {
-            Config.setParameter(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, testInitScriptsFolder);
+            getConfiguration().setProperty(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, testInitScriptsFolder);
         }
+    }
+
+    private Configuration getConfiguration() {
+        return this.configurationService.getConfiguration();
     }
 
     /**
@@ -69,10 +85,11 @@ public class DeploymentConfigurationSetter {
      */
     public void saveCurrentFolders() {
         if (!this.oldConfigurationWasSaved) {
-            this.oldResourcesFolder = Config.getParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF);
-            this.oldUpdateScriptsFolder = Config.getParameter(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF);
-            this.oldInitScriptsFolder = Config.getParameter(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF);
-            this.oldEnvironmentName = Config.getParameter(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF);
+            this.oldResourcesFolder = getConfiguration().getString(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF);
+            this.oldUpdateScriptsFolder = getConfiguration().getString(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF);
+            this.oldInitScriptsFolder = getConfiguration().getString(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF);
+            this.oldEnvironmentName = getConfiguration().getString(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF);
+            this.oldImpexLocaleCode = getConfiguration().getString(LocalizedImpexImportService.IMPEX_LOCALE_CONF);
             this.oldConfigurationWasSaved = true;
         }
 
@@ -82,10 +99,11 @@ public class DeploymentConfigurationSetter {
      * Restores the original configuration.
      */
     public void restoreOldFolders() {
-        Config.setParameter(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, oldResourcesFolder);
-        Config.setParameter(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, oldUpdateScriptsFolder);
-        Config.setParameter(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, oldInitScriptsFolder);
-        Config.setParameter(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, oldEnvironmentName);
+        getConfiguration().setProperty(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, oldResourcesFolder);
+        getConfiguration().setProperty(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, oldUpdateScriptsFolder);
+        getConfiguration().setProperty(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, oldInitScriptsFolder);
+        getConfiguration().setProperty(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, oldEnvironmentName);
+        getConfiguration().setProperty(LocalizedImpexImportService.IMPEX_LOCALE_CONF, oldImpexLocaleCode);
     }
 
     /**
@@ -95,6 +113,16 @@ public class DeploymentConfigurationSetter {
      *            Can be null.
      */
     public void setEnvironment(final String currentEnvironmentName) {
-        Config.setParameter(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, currentEnvironmentName);
+        getConfiguration().setProperty(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, currentEnvironmentName);
+    }
+
+    /**
+     * Sets the code of the impex locale.
+     * 
+     * @param impexLocaleCode
+     *            Required
+     */
+    public void setImpexLocaleCode(final String impexLocaleCode) {
+        getConfiguration().setProperty(LocalizedImpexImportService.IMPEX_LOCALE_CONF, impexLocaleCode);
     }
 }

@@ -15,7 +15,6 @@
  */
 package org.areco.ecommerce.deploymentscripts.testhelper;
 
-import de.hybris.platform.core.Registry;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
@@ -23,10 +22,14 @@ import de.hybris.platform.servicelayer.util.ServicesUtil;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.junit.Assert;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
  * This DAO provides services to the tests.
@@ -34,22 +37,23 @@ import org.junit.Assert;
  * @author arobirosa
  * 
  */
+@Component
+@Scope("tenant")
 public final class DeploymentScriptResultAsserter {
-
-    private static final DeploymentScriptResultAsserter INSTANCE = new DeploymentScriptResultAsserter();
 
     private static final Logger LOG = Logger.getLogger(DeploymentScriptResultAsserter.class);
 
+    @Resource
     private FlexibleSearchService flexibleSearchService;
 
-    public static DeploymentScriptResultAsserter getInstance() {
-        return INSTANCE;
-    }
-
-    private DeploymentScriptResultAsserter() {
-        // This private constructor is required by the singleton pattern.
-    }
-
+    /**
+     * It checks is the given deployment script has the expected result.
+     * 
+     * @param deploymentScriptName
+     *            Required
+     * @param expectedResult
+     *            Required
+     */
     public void assertResult(final String deploymentScriptName, final ScriptExecutionResultModel expectedResult) {
         ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
         ServicesUtil.validateParameterNotNullStandardMessage("expectedResult", expectedResult);
@@ -84,14 +88,7 @@ public final class DeploymentScriptResultAsserter {
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
 
-        return this.getFlexibleSearchService().searchUnique(query);
-    }
-
-    private FlexibleSearchService getFlexibleSearchService() {
-        if (flexibleSearchService == null) {
-            this.flexibleSearchService = Registry.getApplicationContext().getBean(FlexibleSearchService.class);
-        }
-        return flexibleSearchService;
+        return this.flexibleSearchService.searchUnique(query);
     }
 
 }
