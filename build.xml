@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<project name="hybris_scripts" default="all" basedir=".">
+	<property name="dir_hybris_bin" value="${basedir}/hybris/bin" />
+	<property name="dir_hybris_tmp" value="${basedir}/hybris/temp" />
+	<property name="dir_platform" value="${dir_hybris_bin}/platform" />
+	
+	<import file="${basedir}/qa/build_qa.xml"/>
+	
+	<!-- Delegated targets -->
+	<target name="all" description="executes all tests except manualtests and performancetest">
+		<ant 
+			dir="${dir_platform}"
+			target="all"
+			inheritAll="false"/>
+	</target>
+	
+	<target name="alltests" description="executes all tests except manualtests and performancetest">
+		<ant 
+			dir="${dir_platform}"
+			target="alltests"
+			inheritAll="false"/>
+	</target>
+	
+	<target name="build" description="Builds all extensions">
+		<ant 
+			dir="${dir_platform}"
+			target="build"
+			inheritAll="false"/>
+	</target>
+   
+   <target name="clean" description="Cleans platform and all extensions"
+		depends="qa_clean">
+		<ant 
+			dir="${dir_platform}"
+			target="clean"
+			inheritAll="false"/>
+	</target>
+	
+	<target name="initialize" description="Runs an initialization of the specified tenant. Syntax: ant initialize [-Dtenant].">
+		<ant 
+			dir="${dir_platform}"
+			target="initialize"
+			inheritAll="false"/>
+	</target>
+	
+	<target name="runDeploymentScripts" description="Runs all pending deployment scripts without requiring an update running system">
+		<ant 
+			dir="${dir_platform}"
+			target="runDeploymentScripts"
+			inheritAll="false"/>
+	</target>
+	
+	<target name="updatesystem" description="Performs an update system on master tenant">
+		<ant 
+			dir="${dir_platform}"
+			target="updatesystem"
+			inheritAll="false"/>
+	</target>
+	
+	<target name="yunitinit" description="Initializes JUnit tenant">
+		<ant 
+			dir="${dir_platform}"
+			target="yunitinit"
+			inheritAll="false"/>
+	</target>
+	
+	
+</project>

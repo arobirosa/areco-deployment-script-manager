@@ -1,0 +1,50 @@
+<project name="ant_qa_findbugs" default="findbugs" basedir=".">
+	<property name="dir_findbugs_home" value="${dir_qa}/findbugs-3.0.0"/>
+	<property name="dir_findbugs_donwload_url" value="http://downloads.sourceforge.net/project/findbugs/findbugs/3.0.0/findbugs-noUpdateChecks-3.0.0.zip"/>
+	<property name="dir_findbugs_donwload_file" value="${dir_qa}/findbugs.zip"/>
+	
+	<target name="findbugs" depends="findbugs.install, build" description="Runs Findbugs">
+		 <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask">
+				<classpath>
+					<fileset dir="${dir_findbugs_home}/lib/">
+						<include name="*.jar"/>
+					</fileset>
+				</classpath>
+		</taskdef>
+		<!-- Any violation must break the build -->
+		<findbugs home="${dir_findbugs_home}"
+			  reportLevel="low"
+              output="html"
+              outputFile="${dir_qa_reports}/findbugs_report.html"
+              effort="max"
+              failOnError="true"
+              excludeFilter="${dir_qa}/findbugs_excluded_classes.xml"
+              warningsProperty="findbugsFailure">
+			<sourcePath path="${basedir}/src/java" />
+			<fileset refid="fileset_bin"/>
+			<auxClasspath>
+                <fileset refid="fileset_hybris_bin" />
+            </auxClasspath>
+		</findbugs>
+		<!-- Fail on any warning -->
+		<fail if="findbugsFailure" />
+	</target>
+	
+	 <target name="findbugs.check.installation" >
+        <available property="findbugs.available"
+            file="${dir_findbugs_home}"
+            type="dir"/>
+    </target>
+	
+	
+	<target name="findbugs.install" description="Downloads and installs Findbugs"
+        unless="findbugs.available"
+		depends="findbugs.check.installation">
+		<get src="${dir_findbugs_donwload_url}" 
+			dest="${dir_findbugs_donwload_file}" 
+			verbose="true"
+			usetimestamp="true"/>
+		<unzip src="${dir_findbugs_donwload_file}" dest="${dir_qa}" failOnEmptyArchive="true" />
+		<delete file="${dir_findbugs_donwload_file}"/>
+	</target>
+</project>
