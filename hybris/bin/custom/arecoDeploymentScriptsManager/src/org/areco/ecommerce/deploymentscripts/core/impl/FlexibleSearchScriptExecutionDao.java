@@ -25,6 +25,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,9 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
     @Autowired
     private FlexibleSearchService flexibleSearchService;
+
+    @Autowired
+    private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
 
     /*
      * { @InheritDoc }
@@ -74,5 +78,43 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
         final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
         return result.getResult();
+    }
+
+    /**
+     * Check if the last executed deployment scripts was successful.
+     * 
+     * @return true if the last deployment script was successful.
+     */
+    @Override
+    public boolean wasLastScriptSuccessful() {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Checking if the last deployment script was successful");
+        }
+        final StringBuilder queryBuilder = new StringBuilder();
+
+        queryBuilder.append("SELECT {").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
+                .append("} ORDER BY {creationtime} DESC");
+
+        final Map<String, Object> queryParams = new HashMap<String, Object>();
+        if (LOG.isTraceEnabled()) {
+            LOG.trace("Executing the query: '" + queryBuilder.toString() + "'.");
+        }
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
+        query.setCount(1); // The first range must have one element.
+        query.setNeedTotal(false);
+
+        final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
+        if (result.getCount() == 0) {
+            if (LOG.isTraceEnabled()) {
+                LOG.trace("No script was run. Returning true.");
+            }
+            return true;
+        }
+        final ScriptExecutionModel lastScript = result.getResult().iterator().next();
+        final boolean hadErrors = this.flexibleSearchScriptExecutionResultDao.getErrorResult().equals(lastScript.getResult());
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Had the last script errors? " + hadErrors);
+        }
+        return !hadErrors;
     }
 }

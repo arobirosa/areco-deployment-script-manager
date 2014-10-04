@@ -189,4 +189,13 @@ public class DeploymentScriptStarter {
         }
         this.runAllPendingScripts(true);
     }
+
+    /**
+     * Check if the last executed deployment scripts was successful.
+     * 
+     * @return true if the last deployment script was successful.
+     */
+    public boolean wasLastScriptSuccessful() {
+        return this.deploymentScriptService.wasLastScriptSuccessful();
+    }
 }
