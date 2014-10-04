@@ -15,8 +15,6 @@
  */
 package org.areco.ecommerce.deploymentscripts.ant;
 
-import de.hybris.platform.core.Registry;
-
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,23 +35,8 @@ import org.springframework.stereotype.Service;
 public class AntDeploymentScriptsStarter {
     private static final Logger LOG = Logger.getLogger(AntDeploymentScriptsStarter.class);
 
-    private static AntDeploymentScriptsStarter instance = null;
-
     @Autowired
     private DeploymentScriptStarter deploymentScriptStarter;
-
-    /**
-     * Gets the only instance of this service. This method is used by the beanshell code in the ant script.
-     * 
-     * @return Never null
-     */
-
-    public static synchronized AntDeploymentScriptsStarter getInstance() {
-        if (instance == null) {
-            instance = Registry.getApplicationContext().getBean(AntDeploymentScriptsStarter.class);
-        }
-        return instance;
-    }
 
     /**
      * Run any deployment script which wasn't run yet. The method is called by the ant script.

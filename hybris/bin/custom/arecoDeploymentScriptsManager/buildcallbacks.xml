@@ -16,7 +16,11 @@
 	<macrodef name="checkIfTheDeploymentScriptsWereSuccessful">
         <sequential>
             <yrun failonerror="true">
-        boolean wasThereAnError = org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter.getInstance().wasLastScriptSuccessful();
+        import de.hybris.platform.core.Registry;
+        import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
+            	
+        AntDeploymentScriptsStarter starter = (AntDeploymentScriptsStarter) Registry.getApplicationContext().getBean(AntDeploymentScriptsStarter.class);
+        boolean wasThereAnError = starter.wasLastScriptSuccessful();
         de.hybris.platform.util.RedeployUtilities.shutdown();
         System.exit(wasThereAnError ? 1 : 0);
            </yrun>
@@ -85,8 +89,15 @@
 	<macrodef name="arecoDeploymentScriptsManager_after_yunitinit">
 		<sequential>
 			<yrun failonerror="true">
-	   	org.areco.ecommerce.deploymentscripts.jalo.junittenant.EssentialDataCreatorAndDeploymentScriptsStarter.getInstance().runInJunitTenant();
-		boolean wasThereAnError = org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter.getInstance().wasLastScriptSuccessful();
+		import de.hybris.platform.core.Registry;
+		import org.areco.ecommerce.deploymentscripts.jalo.junittenant.EssentialDataCreatorAndDeploymentScriptsStarter;
+		import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
+				                
+		AntDeploymentScriptsStarter starter = (AntDeploymentScriptsStarter) Registry.getApplicationContext().getBean(AntDeploymentScriptsStarter.class);		
+		EssentialDataCreatorAndDeploymentScriptsStarter essentialDataCreator = (EssentialDataCreatorAndDeploymentScriptsStarter) Registry.getApplicationContext().getBean(EssentialDataCreatorAndDeploymentScriptsStarter.class);      
+				
+		essentialDataCreator.runInJunitTenant();
+		boolean wasThereAnError = starter.wasLastScriptSuccessful();
 	    de.hybris.platform.util.RedeployUtilities.shutdown();
 		System.exit(wasThereAnError ? 1 : 0);
 			</yrun>
@@ -98,7 +109,11 @@
 	<macrodef name="runDeploymentScripts">
 		<sequential>
 			<yrun failonerror="true">
-       	int exitCode = org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter.getInstance().runPendingScripts();
+		import de.hybris.platform.core.Registry;
+		import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
+				                
+		AntDeploymentScriptsStarter starter = (AntDeploymentScriptsStarter) Registry.getApplicationContext().getBean(AntDeploymentScriptsStarter.class);
+       	int exitCode = starter.runPendingScripts();
         de.hybris.platform.util.RedeployUtilities.shutdown();
         System.exit(exitCode);
        </yrun>

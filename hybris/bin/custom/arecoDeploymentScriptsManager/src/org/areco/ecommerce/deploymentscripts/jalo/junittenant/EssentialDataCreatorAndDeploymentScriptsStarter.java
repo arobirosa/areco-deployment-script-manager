@@ -15,7 +15,6 @@
  */
 package org.areco.ecommerce.deploymentscripts.jalo.junittenant;
 
-import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetupCollector;
 import de.hybris.platform.core.initialization.SystemSetupContext;
@@ -55,14 +54,10 @@ import org.springframework.stereotype.Service;
 @SuppressWarnings("PMD.UnnecessaryLocalBeforeReturn")
 // We keep the local variable jspc because we only want to create a context once. The warning suppression only works at this point.
 public class EssentialDataCreatorAndDeploymentScriptsStarter {
-    /**
-     * 
-     */
+
     private static final String JUNIT_TENANT_CREATEESSENTIALDATA_CONF = "deploymentscripts.init.junittenant.createessentialdata";
 
     private static final Logger LOG = Logger.getLogger(EssentialDataCreatorAndDeploymentScriptsStarter.class);
-
-    private static EssentialDataCreatorAndDeploymentScriptsStarter instance = null;
 
     @Autowired
     private ExtensionHelper extensionHelper;
@@ -72,18 +67,6 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter {
 
     @Autowired
     private ConfigurationService configurationService;
-
-    /**
-     * This method is called by ant to get the only instance to this class.
-     * 
-     * @return Never null.
-     */
-    public static synchronized EssentialDataCreatorAndDeploymentScriptsStarter getInstance() {
-        if (instance == null) {
-            instance = Registry.getApplicationContext().getBean(EssentialDataCreatorAndDeploymentScriptsStarter.class);
-        }
-        return instance;
-    }
 
     /**
      * Creates the essential data and runs the deployment scripts in the junit tenant.

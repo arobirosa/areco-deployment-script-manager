@@ -43,6 +43,9 @@ public class AntDeploymentScriptsStarterErrorHandlingTest extends AbstractWithCo
     @Resource
     private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
 
+    @Resource
+    private AntDeploymentScriptsStarter antDeploymentScriptsStarter;
+
     @Test
     public void testNoPendingScripts() {
         this.assertReturnValue("no-scripts", true);
@@ -63,13 +66,13 @@ public class AntDeploymentScriptsStarterErrorHandlingTest extends AbstractWithCo
     private void assertReturnValue(final String scriptFolder, final boolean expectedWereScriptsSuccessful) {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, scriptFolder, null);
 
-        final int returnValueScripts = AntDeploymentScriptsStarter.getInstance().runPendingScripts();
+        final int returnValueScripts = antDeploymentScriptsStarter.runPendingScripts();
         if (expectedWereScriptsSuccessful) {
             Assert.assertEquals("There were errors", 0, returnValueScripts);
         } else {
             Assert.assertNotSame("There were no errors", Integer.valueOf(0), Integer.valueOf(returnValueScripts));
         }
-        final boolean wereScriptsSuccessful = AntDeploymentScriptsStarter.getInstance().wasLastScriptSuccessful();
+        final boolean wereScriptsSuccessful = antDeploymentScriptsStarter.wasLastScriptSuccessful();
         Assert.assertEquals("The result of the check after the scripts were run is wrong", expectedWereScriptsSuccessful, wereScriptsSuccessful);
     }
 
