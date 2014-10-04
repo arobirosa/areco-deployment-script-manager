@@ -20,10 +20,10 @@
         import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
             	
         AntDeploymentScriptsStarter starter = (AntDeploymentScriptsStarter) Registry.getApplicationContext().getBean(AntDeploymentScriptsStarter.class);
-        boolean wasThereAnError = starter.wasLastScriptSuccessful();
+        boolean wasLastScriptSuccessful = starter.wasLastScriptSuccessful();
         de.hybris.platform.util.RedeployUtilities.shutdown();
-        System.exit(wasThereAnError ? 1 : 0);
-           </yrun>
+        System.exit(wasLastScriptSuccessful ? 0 : 1);
+            </yrun>
             </sequential>
     </macrodef>
 	
@@ -97,9 +97,9 @@
 		EssentialDataCreatorAndDeploymentScriptsStarter essentialDataCreator = (EssentialDataCreatorAndDeploymentScriptsStarter) Registry.getApplicationContext().getBean(EssentialDataCreatorAndDeploymentScriptsStarter.class);      
 				
 		essentialDataCreator.runInJunitTenant();
-		boolean wasThereAnError = starter.wasLastScriptSuccessful();
+		boolean wasLastScriptSuccessful = starter.wasLastScriptSuccessful();
 	    de.hybris.platform.util.RedeployUtilities.shutdown();
-		System.exit(wasThereAnError ? 1 : 0);
+		System.exit(wasLastScriptSuccessful ? 0 : 1);
 			</yrun>
 			<deploymentScriptsLoggingEnd />
 		</sequential>

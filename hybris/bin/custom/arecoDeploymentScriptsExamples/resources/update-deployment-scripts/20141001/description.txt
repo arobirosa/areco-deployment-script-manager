@@ -1,1 +1,0 @@
-This example shows a deployment script which only run on DEV and TEST in the junit tenant

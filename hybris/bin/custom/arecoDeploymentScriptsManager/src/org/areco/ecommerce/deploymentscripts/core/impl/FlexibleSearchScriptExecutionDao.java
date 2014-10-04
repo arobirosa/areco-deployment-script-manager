@@ -111,6 +111,10 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
             return true;
         }
         final ScriptExecutionModel lastScript = result.getResult().iterator().next();
-        return this.flexibleSearchScriptExecutionResultDao.getSuccessResult().equals(lastScript.getResult());
+        final boolean hadErrors = this.flexibleSearchScriptExecutionResultDao.getErrorResult().equals(lastScript.getResult());
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Had the last script errors? " + hadErrors);
+        }
+        return !hadErrors;
     }
 }
