@@ -25,6 +25,7 @@ import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptService;
 import org.areco.ecommerce.deploymentscripts.core.InitialConfigurationImporter;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -49,6 +50,9 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
 
     @Autowired
     private InitialConfigurationImporter initialConfigurationImporter;
+
+    @Autowired
+    private ScriptExecutionDao scriptExecutionDao;
 
     /*
      * (non-Javadoc)
@@ -80,6 +84,16 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
             LOG.debug("Finished running update scripts of the extension " + context.getExtensionName());
         }
         return wasThereAnError;
+    }
+
+    /**
+     * Check if the last executed deployment scripts was successful.
+     * 
+     * @return true if the last deployment script was successful.
+     */
+    @Override
+    public boolean wasLastScriptSuccessful() {
+        return this.scriptExecutionDao.wasLastScriptSuccessful();
     }
 
 }

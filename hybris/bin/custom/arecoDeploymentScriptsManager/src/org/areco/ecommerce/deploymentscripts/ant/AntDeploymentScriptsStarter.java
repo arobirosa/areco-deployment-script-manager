@@ -75,4 +75,13 @@ public class AntDeploymentScriptsStarter {
         }
         return 0;
     }
+
+    /**
+     * Check if the last executed deployment scripts was successful.
+     * 
+     * @return true if the last deployment script was successful.
+     */
+    public boolean wasLastScriptSuccessful() {
+        return this.deploymentScriptStarter.wasLastScriptSuccessful();
+    }
 }

@@ -33,4 +33,11 @@ public interface ScriptExecutionDao {
      */
     List<ScriptExecutionModel> getSuccessfullyExecutedScripts(String extensionName);
 
+    /**
+     * Check if the last executed deployment scripts was successful.
+     * 
+     * @return true if the last deployment script was successful.
+     */
+    boolean wasLastScriptSuccessful();
+
 }

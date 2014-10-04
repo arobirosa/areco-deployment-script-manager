@@ -32,4 +32,11 @@ public interface DeploymentScriptService {
      * @return boolean True if there was an error.
      */
     boolean runDeploymentScripts(UpdatingSystemExtensionContext context, boolean runInitScripts);
+
+    /**
+     * Check if the last executed deployment scripts was successful.
+     * 
+     * @return true if the last deployment script was successful.
+     */
+    boolean wasLastScriptSuccessful();
 }
