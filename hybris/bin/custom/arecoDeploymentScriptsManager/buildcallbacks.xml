@@ -13,6 +13,16 @@
 		</sequential>
 	</macrodef>
 	
+	<macrodef name="checkIfTheDeploymentScriptsWereSuccessful">
+        <sequential>
+            <yrun failonerror="true">
+        boolean wasThereAnError = org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter.getInstance().wasLastScriptSuccessful();
+        de.hybris.platform.util.RedeployUtilities.shutdown();
+        System.exit(wasThereAnError ? 1 : 0);
+           </yrun>
+            </sequential>
+    </macrodef>
+	
 	<!-- Redeclaration of the updatesystem macro to include the callbacks. The ant target
 	       cannot be overriden.
 	       Ant will generate a warning but we can ignore it. -->
@@ -47,6 +57,7 @@
     <macrodef name="arecoDeploymentScriptsManager_after_updatesystem">
         <sequential>
             <deploymentScriptsLoggingEnd />
+        	<checkIfTheDeploymentScriptsWereSuccessful />
         </sequential>
     </macrodef>
 
@@ -60,6 +71,7 @@
 	<macrodef name="arecoDeploymentScriptsManager_after_initialize">
 		<sequential>
 			<deploymentScriptsLoggingEnd />
+			<checkIfTheDeploymentScriptsWereSuccessful />
 		</sequential>
 	</macrodef>
 
@@ -74,8 +86,10 @@
 		<sequential>
 			<yrun failonerror="true">
 	   	org.areco.ecommerce.deploymentscripts.jalo.junittenant.EssentialDataCreatorAndDeploymentScriptsStarter.getInstance().runInJunitTenant();
+		boolean wasThereAnError = org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter.getInstance().wasLastScriptSuccessful();
 	    de.hybris.platform.util.RedeployUtilities.shutdown();
-	   </yrun>
+		System.exit(wasThereAnError ? 1 : 0);
+			</yrun>
 			<deploymentScriptsLoggingEnd />
 		</sequential>
 	</macrodef>
