@@ -33,6 +33,8 @@ import org.junit.Test;
  * 
  */
 @IntegrationTest
+// PMD doesn't see the assert in the private methods.
+@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 public class AntDeploymentScriptsStarterErrorHandlingTest extends AbstractWithConfigurationRestorationTest {
 
     private static final String RESOURCES_FOLDER = "/resources/test/ant-scripts-starter-error-handling";
