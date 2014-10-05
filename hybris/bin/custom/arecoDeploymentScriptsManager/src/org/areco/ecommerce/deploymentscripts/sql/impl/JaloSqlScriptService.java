@@ -16,6 +16,8 @@
 package org.areco.ecommerce.deploymentscripts.sql.impl;
 
 import de.hybris.platform.core.Registry;
+import de.hybris.platform.regioncache.CacheController;
+import de.hybris.platform.regioncache.region.CacheRegion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,6 +25,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.sql.SqlScriptService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +42,9 @@ import org.springframework.stereotype.Service;
 public class JaloSqlScriptService implements SqlScriptService {
 
     private static final Logger LOG = Logger.getLogger(JaloSqlScriptService.class);
+
+    @Autowired
+    CacheController cacheController;
 
     /*
      * { @InheritDoc }
@@ -73,7 +79,10 @@ public class JaloSqlScriptService implements SqlScriptService {
                 }
             }
         }
-        Registry.getCurrentTenant().getCache().clear();
+        // The cache are going to be cleared when the transaction finishes.
+        for (final CacheRegion aRegion : this.cacheController.getRegions()) {
+            this.cacheController.clearCache(aRegion);
+        }
         return affectedRows;
     }
 
