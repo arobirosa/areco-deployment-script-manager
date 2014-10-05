@@ -47,6 +47,11 @@ public class EssentialDataCreationDetector {
         wasEssentialDataCreated = true;
     }
 
+    /**
+     * Was the essential data triggered.
+     * 
+     * @return true if the essential data was triggered.
+     */
     public boolean isWasEssentialDataCreated() {
         return wasEssentialDataCreated;
     }

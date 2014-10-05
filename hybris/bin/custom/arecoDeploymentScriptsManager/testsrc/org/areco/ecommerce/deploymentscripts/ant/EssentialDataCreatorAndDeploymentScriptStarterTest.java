@@ -21,7 +21,6 @@ import javax.annotation.Resource;
 
 import junit.framework.Assert;
 
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
 import org.junit.Test;
@@ -34,8 +33,6 @@ import org.junit.Test;
  */
 @IntegrationTest
 public class EssentialDataCreatorAndDeploymentScriptStarterTest extends AbstractWithConfigurationRestorationTest {
-
-    private static final Logger LOG = Logger.getLogger(EssentialDataCreatorAndDeploymentScriptStarterTest.class);
 
     private static final String RESOURCES_FOLDER = "/resources/test/essential-data-creator";
 
