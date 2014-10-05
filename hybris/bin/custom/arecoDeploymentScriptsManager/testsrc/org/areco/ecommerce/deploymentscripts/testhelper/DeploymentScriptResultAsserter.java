@@ -25,6 +25,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.junit.Assert;
@@ -45,6 +46,9 @@ public final class DeploymentScriptResultAsserter {
 
     @Resource
     private FlexibleSearchService flexibleSearchService;
+
+    @Resource
+    private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
 
     /**
      * It checks is the given deployment script has the expected result.
@@ -89,6 +93,28 @@ public final class DeploymentScriptResultAsserter {
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
 
         return this.flexibleSearchService.searchUnique(query);
+    }
+
+    /**
+     * Checks if the given script was run and it was successful.
+     * 
+     * @param deploymentScriptName
+     *            Required
+     */
+    public void assertSuccessfulResult(final String deploymentScriptName) {
+        ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
+        this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getSuccessResult());
+    }
+
+    /**
+     * Checks if the given script was run and there was an error.
+     * 
+     * @param deploymentScriptName
+     *            Required
+     */
+    public void assertErrorResult(final String deploymentScriptName) {
+        ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
+        this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
     }
 
 }

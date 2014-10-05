@@ -22,7 +22,6 @@ import javax.annotation.Resource;
 import junit.framework.Assert;
 
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
 import org.junit.Test;
 
@@ -43,9 +42,6 @@ public class AntDeploymentScriptsStarterErrorHandlingTest extends AbstractWithCo
     private DeploymentScriptResultAsserter deploymentScriptResultAsserter;
 
     @Resource
-    private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
-
-    @Resource
     private AntDeploymentScriptsStarter antDeploymentScriptsStarter;
 
     @Test
@@ -56,13 +52,13 @@ public class AntDeploymentScriptsStarterErrorHandlingTest extends AbstractWithCo
     @Test
     public void testScriptWithError() {
         this.assertReturnValue("script-with-error", false);
-        deploymentScriptResultAsserter.assertResult("20141003_PENDING_SCRIPT", this.flexibleSearchScriptExecutionResultDao.getErrorResult());
+        deploymentScriptResultAsserter.assertErrorResult("20141003_PENDING_SCRIPT");
     }
 
     @Test
     public void testScriptWithoutError() {
         this.assertReturnValue("script-without-error", true);
-        deploymentScriptResultAsserter.assertResult("20141003_PENDING_SCRIPT", this.flexibleSearchScriptExecutionResultDao.getSuccessResult());
+        deploymentScriptResultAsserter.assertSuccessfulResult("20141003_PENDING_SCRIPT");
     }
 
     private void assertReturnValue(final String scriptFolder, final boolean expectedWereScriptsSuccessful) {
