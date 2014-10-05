@@ -1,0 +1,1 @@
+delete from taxes where code = 'dummySqlScriptTax'

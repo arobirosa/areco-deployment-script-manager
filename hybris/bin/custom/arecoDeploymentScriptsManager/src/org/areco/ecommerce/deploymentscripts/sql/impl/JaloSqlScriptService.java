@@ -48,6 +48,12 @@ public class JaloSqlScriptService implements SqlScriptService {
     @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING", justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
     // CHECKSTYLE.ON
     public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException {
+        if (aStatement == null || aStatement.trim().isEmpty()) {
+            throw new IllegalArgumentException("The parameter aStatement is empty.");
+        }
+        if (!aStatement.trim().toUpperCase().startsWith("UPDATE") && !aStatement.trim().toUpperCase().startsWith("DELETE")) {
+            throw new SQLException("The sql statement must start with update or delete.");
+        }
         int affectedRows = -1;
         Connection aConnection = null;
         PreparedStatement prepareStatement = null;

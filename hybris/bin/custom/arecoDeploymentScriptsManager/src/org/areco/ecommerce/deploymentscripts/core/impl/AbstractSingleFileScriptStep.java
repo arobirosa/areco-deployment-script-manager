@@ -49,6 +49,9 @@ public abstract class AbstractSingleFileScriptStep implements DeploymentScriptSt
             throw new DeploymentScriptExecutionException("There was an error while reading the contents of the SQL Script " + this.getId() + ':'
                     + e.getLocalizedMessage(), e);
         }
+        if (sqlStatement == null || sqlStatement.trim().isEmpty()) {
+            throw new DeploymentScriptExecutionException("The file " + this.getScriptFile() + " is empty.");
+        }
         return sqlStatement;
     }
 
