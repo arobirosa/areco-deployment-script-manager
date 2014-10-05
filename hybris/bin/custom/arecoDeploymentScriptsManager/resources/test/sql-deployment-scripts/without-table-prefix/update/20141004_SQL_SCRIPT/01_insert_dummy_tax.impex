@@ -1,0 +1,3 @@
+INSERT Tax;code[unique=true];value;
+#We use an integer to avoid a failure of the test due to the locale
+;dummySqlScriptTax;21

@@ -15,11 +15,9 @@
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
-import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.Tenant;
 import de.hybris.platform.servicelayer.tenant.MockTenant;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import de.hybris.platform.util.Utilities;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -36,6 +34,8 @@ import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
+import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * It reads the configuration contained in a property file with the extension conf in the folder of the script.
@@ -64,6 +64,9 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
      * Extension of the configuration files
      */
     private static final String PROPERTY_FILE_EXTENSION_CONF = ".conf";
+
+    @Autowired
+    private TenantDetector tenantDetector;
 
     /*
      * { @InheritDoc }
@@ -128,35 +131,22 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
     private Set<Tenant> convertTenants(final String tenantNamesList) {
         final Set<Tenant> tenants = new HashSet<Tenant>();
         for (final String aTenantName : tenantNamesList.split(VALUES_SEPARATOR)) {
-            Tenant foundTenant = Registry.getTenantByID(aTenantName);
-            if (foundTenant == null && ArecoDeploymentScriptsManagerConstants.JUNIT_TENANT_ID.equals(aTenantName) && areWeInATestSystemWithOneSingleTenant()) {
-                foundTenant = Registry.getCurrentTenant();
+            Tenant foundTenant = tenantDetector.getTenantByID(aTenantName);
+            if (foundTenant == null && ArecoDeploymentScriptsManagerConstants.JUNIT_TENANT_ID.equals(aTenantName)
+                    && tenantDetector.areWeInATestSystemWithOneSingleTenant()) {
+                foundTenant = tenantDetector.getCurrentTenant();
             }
             if (foundTenant == null) {
                 throw new DeploymentScriptConfigurationException("Unable to find the tenant with the ID '" + aTenantName + "'.");
             }
             // In systems with only one tenant, this tenant is the junit. The master tenant must be ignored.
-            if (ArecoDeploymentScriptsManagerConstants.MASTER_TENANT_ID.equals(aTenantName) && this.areWeInATestSystemWithOneSingleTenant()) {
+            if (ArecoDeploymentScriptsManagerConstants.MASTER_TENANT_ID.equals(aTenantName) && this.tenantDetector.areWeInATestSystemWithOneSingleTenant()) {
                 tenants.add(new MockTenant("unexistentMaster"));
             } else {
                 tenants.add(foundTenant);
             }
         }
         return tenants;
-    }
-
-    /**
-     * In systems with only one tenant where were initialize with "ant clean all yunitinit yunit", the current tenant is the junit tenant. It is unfortunately
-     * named "master".
-     * 
-     * @return true if we are in a system with only one tenant.
-     */
-    private boolean areWeInATestSystemWithOneSingleTenant() {
-        if (LOG.isTraceEnabled()) {
-            LOG.trace("Current Tenant internal ID: " + Utilities.getTenantID(Registry.getMasterTenant().getDataSource()));
-        }
-        return Utilities.isSystemInitialized(Registry.getMasterTenant().getDataSource())
-                && "TestSystem".equals(Utilities.getTenantID(Registry.getMasterTenant().getDataSource()));
     }
 
     private File findConfigurationFile(final File deploymentScriptFolder) {

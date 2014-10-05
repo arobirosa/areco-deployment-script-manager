@@ -1,0 +1,1 @@
+select value from junit_taxes where code = 'dummySqlScriptTax'

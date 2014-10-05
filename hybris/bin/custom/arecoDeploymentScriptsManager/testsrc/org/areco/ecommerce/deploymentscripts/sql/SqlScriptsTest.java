@@ -27,6 +27,7 @@ import junit.framework.Assert;
 
 import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
+import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
 import org.junit.Test;
 
@@ -50,6 +51,9 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
     @Resource
     private TaxDao taxDao;
 
+    @Resource
+    private TenantDetector registryTenantDetector;
+
     @Test
     public void testScriptsWithUpdate() {
         assertSqlScript("update", true);
@@ -57,7 +61,14 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
     }
 
     private void assertSqlScript(final String scriptFolder, final boolean expectedSuccessfulScript) {
-        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, scriptFolder, null);
+        String resourcesLocation = RESOURCES_FOLDER;
+        // The sql contain the name of the tables and they depend on what tenant we are.
+        if (this.registryTenantDetector.areWeInATestSystemWithOneSingleTenant()) {
+            resourcesLocation = resourcesLocation + "/without-table-prefix";
+        } else {
+            resourcesLocation = resourcesLocation + "/with-junit-table-prefix";
+        }
+        this.getDeploymentConfigurationSetter().setTestFolders(resourcesLocation, scriptFolder, null);
         this.antDeploymentScriptsStarter.runPendingScripts();
         if (expectedSuccessfulScript) {
             deploymentScriptResultAsserter.assertSuccessfulResult("20141004_SQL_SCRIPT");
