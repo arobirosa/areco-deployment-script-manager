@@ -24,6 +24,16 @@
 		<include name="lib/**/*.jar" />
 	</fileset>
 	
+	<fileset dir="${dir_hybris_bin}" id="fileset_bin_instrumentation">
+		<include name="custom/*/classes/"/>
+		<include name="custom/*/web/webroot/WEB-INF/classes/"/>
+		<include name="custom/*/hmc/classes/**/"/>
+		<exclude name="**/jalo/*.class" /> <!-- Jalo layer -->
+		<exclude name="**/hmc/*.class" /> <!-- Hmc Classes -->
+		<exclude name="**/Generated*.class" /> <!-- Generated Classes (Jalo and hmc) -->
+		<exclude name="**/*Constants.class" /> <!-- Generated Classes (constants) -->
+	</fileset>
+	
 	<macrodef name="cobertura.clean.libs" description="Removes the cobertura datafile and libraries">
 		<sequential>
 			<delete file="${datafile_cobertura}"/>
@@ -53,7 +63,7 @@
 			<!-- We move the instrumented classes to the classes directory of the core extension. -->
 			<cobertura-instrument datafile="${datafile_cobertura}" todir="${dir_hybris_core_ext_classes}">
 				<ignore regex="org.apache.log4j.*" />
-				<fileset refid="fileset_bin" />
+				<fileset refid="fileset_bin_instrumentation" />		
 				<auxClasspath>
 					<fileset refid="fileset_hybris_bin" />
 				</auxClasspath>
