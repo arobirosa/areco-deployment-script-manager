@@ -28,6 +28,7 @@ import javax.annotation.Resource;
 import junit.framework.Assert;
 
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
+import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockJspWriter;
@@ -47,9 +48,12 @@ public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfi
     @Resource
     private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
 
+    @Resource
+    private DeploymentScriptResultAsserter deploymentScriptResultAsserter;
+
     @Before
     public void setResourcesFolder() {
-        this.getDeploymentConfigurationSetter().setTestFolders("/resources/test", null, null);
+        this.getDeploymentConfigurationSetter().setTestFolders("/resources/test/context-logging", "update-deployment-scripts", null);
     }
 
     @Test
@@ -62,6 +66,8 @@ public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfi
         final StringWriter loggingCollector = new StringWriter();
         hybrisContext.setJspContext(new JspContext(new MockJspWriter(loggingCollector), null, null));
         deploymentScriptStarter.runUpdateDeploymentScripts(hybrisContext);
+
+        deploymentScriptResultAsserter.assertSuccessfulResult("20140610_TICKET_USE_BEANSHELL_TO_RELOAD_CMS_CONF");
 
         final StringBuffer loggingBuffer = loggingCollector.getBuffer();
         Assert.assertTrue("Something must have been logged.", loggingBuffer.length() > 0);
