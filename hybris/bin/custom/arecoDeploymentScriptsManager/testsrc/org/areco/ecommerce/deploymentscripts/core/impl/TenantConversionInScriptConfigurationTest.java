@@ -77,7 +77,7 @@ public class TenantConversionInScriptConfigurationTest {
         Mockito.when(tenantDetector.areWeInATestSystemWithOneSingleTenant()).thenReturn(Boolean.TRUE);
         Mockito.when(tenantDetector.getCurrentTenant()).thenReturn(new MockTenant("master"));
         Mockito.when(tenantDetector.getTenantByID(Mockito.eq("master"))).thenReturn(new MockTenant("master"));
-        assertTenantConversion("master", MASTER_TENANT_SCRIPT_NAME);
+        assertTenantConversion("unexistentMaster", MASTER_TENANT_SCRIPT_NAME);
     }
 
     @Test
