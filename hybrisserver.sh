@@ -1,4 +1,4 @@
 #!/bin/sh
 cd hybris/bin/platform
-. ./setantenv.sh
+./hybrisserver.sh 
 cd ../../..
