@@ -77,6 +77,9 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
             LOG.debug("Reading configuration from the directory " + deploymentScriptFolder);
         }
         ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptFolder", deploymentScriptFolder);
+        if (!deploymentScriptFolder.exists()) {
+            throw new IllegalStateException("The folder " + deploymentScriptFolder + " doesn't exist.");
+        }
 
         final File configurationFile = this.findConfigurationFile(deploymentScriptFolder);
         if (configurationFile == null) {
@@ -162,7 +165,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
         if (LOG.isTraceEnabled()) {
             LOG.trace("Found configuration files: " + Arrays.toString(configurationFiles));
         }
-        if (configurationFiles.length == 0) {
+        if (configurationFiles == null || configurationFiles.length == 0) {
             return null;
         } else if (configurationFiles.length == 1) {
             return configurationFiles[0];
