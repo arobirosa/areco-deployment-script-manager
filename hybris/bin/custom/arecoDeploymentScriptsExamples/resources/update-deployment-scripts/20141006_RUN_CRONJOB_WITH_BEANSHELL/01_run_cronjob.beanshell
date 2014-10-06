@@ -1,0 +1,28 @@
+import de.hybris.platform.core.Registry;
+import java.io.PrintStream;
+import de.hybris.platform.cronjob.model.CronJobModel;
+import de.hybris.platform.servicelayer.cronjob.CronJobService;
+import de.hybris.platform.servicelayer.exceptions.AmbiguousIdentifierException;
+import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
+
+final String cronJobCode = "removeOrphanedFilesCronJob";
+
+    try {
+    CronJobService cronJobService = (CronJobService) Registry.getApplicationContext().getBean(CronJobService.class);
+    final CronJobModel cronJobModel = cronJobService.getCronJob(cronJobCode);
+
+    if (!cronJobService.isPerformable(cronJobModel))
+    {
+    System.err.println("The cronjob with code '" + cronJobCode + "' isn't performable. Please check that it is active and "
+    + "that the clusterID corresponds with this app server.");
+    return "Error";
+    }
+
+    cronJobService.performCronJob(cronJobModel, true);
+    return cronJobService.isSuccessful(cronJobModel) ? "OK" : "Error";
+} catch (Exception e) {
+    System.err.println("There was an error:");
+    e.printStackTrace(System.err);
+    return "Error, please see the console of the app server";
+}
+return "OK";
