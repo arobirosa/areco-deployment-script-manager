@@ -89,6 +89,7 @@ public class LocalizedImpexImportService implements ImpexImportService {
         if (localeCode != null && !localeCode.isEmpty()) {
             importer.getReader().setLocale(LocaleUtils.toLocale(localeCode));
         }
+        importer.getReader().enableCodeExecution(true);
         try {
             importer.importAll();
             if (importer.isFinished()) {
