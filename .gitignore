@@ -20,8 +20,9 @@ tmp/
 #Configuration files
 hybris/config/local.properties
 
-#We don't ignore our build.xml
+#We don't ignore our build.xmls
 !/build.xml
+!qa/anttasks/build.xml
 
 #Reports of PMD, Checkstyle and Findbugs
 qa_reports/
@@ -33,3 +34,7 @@ qa/findbugs-*
 qa/pmd-bin*
 qa/checkstyle-*
 qa/cobertura-*
+
+#We ignore the binaries of the ant tasks.
+qa/anttasks/dist
+qa/anttasks/classes

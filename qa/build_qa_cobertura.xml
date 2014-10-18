@@ -74,14 +74,24 @@
 		<!-- Run the tests -->
 		<ant 
 			dir="${dir_platform}"
-			target="yunit"
+			target="alltests"
 			inheritAll="false">
+			<property name="testclasses.packages" value="org.areco.*"/>
 		</ant>
+		<!-- We compile the ant helper class -->
 		<ant 
-			dir="${dir_platform}"
-			target="yunitweb"
+			dir="${dir_qa}/anttasks"
+			target="dist"
 			inheritAll="false">
 		</ant>
+		<!-- We flush the cobertura data -->
+		<java classname="org.areco.ant.cobertura.FlushCobertura" >
+			 <classpath>
+			   <pathelement location="${dir_qa}/anttasks/dist/lib/ArecoAntTasks.jar"/>
+			   <fileset refid="fileset_cobertura_runtimelib" />
+			 </classpath>
+       </java>
+		
 		<!-- Create report -->
 		<cobertura-report format="html" destdir="${dir_qa_reports}/cobertura" 
 			datafile="${datafile_cobertura}" encoding="UTF-8" >
@@ -129,8 +139,8 @@
 			totallinerate="70">
 		</cobertura-check>
 		
-		<cobertura.clean.libs />
 		<cobertura.clean.instrumentation />
+		<cobertura.clean.libs />
 		
 		<!-- Low line coverage must break the build after we cleaned up the mess. -->
 		<fail if="coberturafailed" message="The code coverage is less than the limit" />
