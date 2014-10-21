@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="jar://$MODULE_DIR$/../bin/ext-content/mediaconversion/bin/mediaconversionserver.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/../bin/ext-content/mediaconversion/hmc/bin/mediaconversionhmc.jar!/" />
+    <libelement value="file://$MODULE_DIR$/../bin/ext-content/mediaconversion/web/webroot/WEB-INF/classes" />
+    <libelement value="file://$MODULE_DIR$/../bin/ext-content/mediaconversion/resources" />
+    <src_description expected_position="0" />
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../bin/ext-content/mediaconversion/eclipsebin/notused" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../bin/ext-content/mediaconversion" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library name="mediaconversionserver.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../bin/ext-content/mediaconversion/bin/mediaconversionserver.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="http://dev.hybris.de/resources/external/4.0/api/platform/" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="mediaconversionhmc.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../bin/ext-content/mediaconversion/hmc/bin/mediaconversionhmc.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="http://dev.hybris.de/resources/external/4.0/api/platform/" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="classes">
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../bin/ext-content/mediaconversion/web/webroot/WEB-INF/classes" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="resources">
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../bin/ext-content/mediaconversion/resources" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="module" module-name="platform" exported="" />
+  </component>
+</module>
+

@@ -3,7 +3,7 @@
 	<property name="dir_cobertura_donwload_url" value="http://downloads.sourceforge.net/project/cobertura/cobertura/2.0.3/cobertura-2.0.3-bin.zip"/>
 	<property name="dir_cobertura_donwload_file" value="${dir_qa}/cobertura.zip"/>
 	<!-- Hybris finds the cobertura datafile in the root directory. -->
-	<property name="datafile_cobertura" value="${basedir}/cobertura.ser" />
+	<property name="datafile_cobertura" value="${dir_platform}/cobertura.ser" />
 
 	<!-- We copy the libs from cobertura to the core extension.
 		This is a workaround because we cannot change the classpath of Hybris. -->
@@ -81,17 +81,14 @@
 	
 		<cobertura.instrumentation />
 		
-		<!-- Run the tests -->
-		<ant 
-			dir="${dir_platform}"
-			target="yunit"
-			inheritAll="false">
-		</ant>
-		<ant 
-			dir="${dir_platform}"
-			target="yunitweb"
-			inheritAll="false">
-		</ant>
+		<!-- Run the tests using another process. 
+			Hybris runs the tests using the currently running JVM. Cobertura saves the data when the JVM exits
+			and there is no way to run them on another JVM in another process.-->
+		<exec dir="${dir_platform}" executable="ant" failonerror="true" failifexecutionfails="true">
+			<arg line="alltests"/>
+			<arg line="-Dtestclasses.packages=org.areco.*"/>
+		</exec>
+		
 		<!-- Create report -->
 		<cobertura-report format="html" destdir="${dir_qa_reports}/cobertura" 
 			datafile="${datafile_cobertura}" encoding="UTF-8" >
@@ -139,8 +136,8 @@
 			totallinerate="70">
 		</cobertura-check>
 		
-		<cobertura.clean.libs />
 		<cobertura.clean.instrumentation />
+		<cobertura.clean.libs />
 		
 		<!-- Low line coverage must break the build after we cleaned up the mess. -->
 		<fail if="coberturafailed" message="The code coverage is less than the limit" />

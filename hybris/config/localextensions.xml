@@ -15,8 +15,8 @@
 <hybrisconfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="resources/schemas/extensions.xsd">
 
 	<extensions>
-		<extension dir="../custom/arecoDeploymentScriptsManager" />
-		<extension dir="../custom/arecoDeploymentScriptsExamples" />
+		<extension dir="${HYBRIS_BIN_DIR}/custom/arecoDeploymentScriptsManager" />
+		<extension dir="${HYBRIS_BIN_DIR}/custom/arecoDeploymentScriptsExamples" />
 	</extensions>
 
 </hybrisconfig>

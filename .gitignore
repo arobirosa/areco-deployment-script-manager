@@ -20,7 +20,7 @@ tmp/
 #Configuration files
 hybris/config/local.properties
 
-#We don't ignore our build.xml
+#We don't ignore our build.xmls
 !/build.xml
 
 #Reports of PMD, Checkstyle and Findbugs
