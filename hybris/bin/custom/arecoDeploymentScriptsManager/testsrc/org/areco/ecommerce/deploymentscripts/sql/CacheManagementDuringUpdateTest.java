@@ -61,7 +61,7 @@ public class CacheManagementDuringUpdateTest extends ServicelayerTest {
 
         @Test
         public void testUpdatedObjectAfterSql() throws SQLException, InterruptedException {
-                int numberOfAffectedRows = jaloSqlScriptService.runDeleteOrUpdateStatement("update taxes set value = 11 where code = '" + TAX_CODE + "'");
+                int numberOfAffectedRows = jaloSqlScriptService.runDeleteOrUpdateStatement("update junit_taxes set value = 11 where code = '" + TAX_CODE + "'");
                 Assert.assertEquals("The must be one updated row.", 1, numberOfAffectedRows);
         }
 
