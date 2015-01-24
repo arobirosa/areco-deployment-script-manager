@@ -17,6 +17,7 @@ package org.areco.ecommerce.deploymentscripts.sql;
 
 import com.enterprisedt.util.debug.Logger;
 import de.hybris.platform.core.PK;
+import de.hybris.platform.core.Registry;
 import de.hybris.platform.servicelayer.i18n.CommonI18NService;
 import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.testframework.HybrisJUnit4ClassRunner;
@@ -45,7 +46,7 @@ import java.util.Set;
 @RunWith(HybrisJUnit4ClassRunner.class)
 @RunListeners(
         { LogRunListener.class, PlatformRunListener.class })
-public class CacheManagementSqlScriptTest extends AbstractResourceAutowiringTest {
+public class CacheManagementSqlScriptTest {
 
         private static final Logger LOG = Logger.getLogger(CacheManagementSqlScriptTest.class);
 
@@ -53,19 +54,22 @@ public class CacheManagementSqlScriptTest extends AbstractResourceAutowiringTest
         private static final String DUMMY_ENVIRONMENT_DESCRIPTION = "Please remove this environment. It was used for an integration test.";
         private static final String UPDATED_SUBFIX = " UPDATED";
 
-        @Resource
+        //Resource annotation don't work because this test isn't a subclass of serviclelayertest.
         private ModelService modelService;
 
-        @Resource
         private DeploymentEnvironmentDAO flexibleSearchDeploymentEnvironmentDAO;
 
-        @Resource
         private SqlScriptService jaloSqlScriptService;
 
         private Set<String> dummyEnvironmentsNames;
 
         @Before
         public void checkNoTransactionsAndRemoveOldData() {
+                modelService = Registry.getApplicationContext().getBean("modelService", ModelService.class);
+                flexibleSearchDeploymentEnvironmentDAO = Registry.getApplicationContext().getBean(DeploymentEnvironmentDAO.class);
+                jaloSqlScriptService = Registry.getApplicationContext().getBean(SqlScriptService.class);
+
+
                 Assert.assertFalse("This test must be run without transactions", Transaction.current().isRunning());
                 dummyEnvironmentsNames = new HashSet<String>();
                 dummyEnvironmentsNames.add(DUMMY_ENVIRONMENT_NAME);
