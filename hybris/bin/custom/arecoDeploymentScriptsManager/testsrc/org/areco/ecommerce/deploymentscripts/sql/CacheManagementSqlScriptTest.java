@@ -62,9 +62,6 @@ public class CacheManagementSqlScriptTest extends AbstractResourceAutowiringTest
         @Resource
         private SqlScriptService jaloSqlScriptService;
 
-        @Resource
-        private CommonI18NService commonI18NService;
-
         private Set<String> dummyEnvironmentsNames;
 
         @Before
@@ -72,13 +69,18 @@ public class CacheManagementSqlScriptTest extends AbstractResourceAutowiringTest
                 Assert.assertFalse("This test must be run without transactions", Transaction.current().isRunning());
                 dummyEnvironmentsNames = new HashSet<String>();
                 dummyEnvironmentsNames.add(DUMMY_ENVIRONMENT_NAME);
-
+                System.err.println("Removing old data");
                 this.removeDummyDeploymentEnvironment();
         }
 
         @Test
         public void emptyCacheAfterSqlScript() throws SQLException {
                 createDummyEnvironment();
+                updateDescriptionWithSQLScript();
+                assertUpdatedEnvironment();
+        }
+
+        private void updateDescriptionWithSQLScript() throws SQLException {
                 // There is only one row in junit_arenvironmentlp with the name of the environment.
                 // Due to this there isn't any need to filter the language.
                 int numberOfAffectedRows = jaloSqlScriptService.runDeleteOrUpdateStatement(
@@ -88,12 +90,12 @@ public class CacheManagementSqlScriptTest extends AbstractResourceAutowiringTest
                         + "    from junit_arenvironment e "
                         + "    where e.p_name = '" + DUMMY_ENVIRONMENT_NAME + "')");
                 Assert.assertEquals("The must be one updated row.", 1, numberOfAffectedRows);
-                assertUpdatedEnvironment();
         }
 
         private void assertUpdatedEnvironment() {
                 Set<DeploymentEnvironmentModel> dummyEnvironments = this.flexibleSearchDeploymentEnvironmentDAO.loadEnvironments(this.dummyEnvironmentsNames);
                 Assert.assertEquals("There must be only one dummy environment", 1, dummyEnvironments.size());
+                modelService.refresh(dummyEnvironments.iterator().next());
                 Assert.assertEquals("The description must have been updated", DUMMY_ENVIRONMENT_DESCRIPTION + UPDATED_SUBFIX, dummyEnvironments.iterator().next().getDescription());
         }
 
@@ -116,6 +118,11 @@ public class CacheManagementSqlScriptTest extends AbstractResourceAutowiringTest
              try {
                      for (DeploymentEnvironmentModel anEnvironment : this.flexibleSearchDeploymentEnvironmentDAO
                              .loadEnvironments(this.dummyEnvironmentsNames)) {
+                             //if (LOG.isDebugEnabled())    {
+                             System.err.println("Removing the dummy environment with name "
+                                     + anEnvironment.getName() + " and description <"
+                                     + anEnvironment.getDescription() + ">");
+                             //}
                              this.modelService.remove(anEnvironment);
                      }
              } catch (IllegalStateException e)  {

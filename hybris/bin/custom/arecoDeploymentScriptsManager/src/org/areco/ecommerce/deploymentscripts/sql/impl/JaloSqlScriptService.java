@@ -85,6 +85,7 @@ public class JaloSqlScriptService implements SqlScriptService {
         for (final CacheRegion aRegion : this.cacheController.getRegions()) {
             this.cacheController.clearCache(aRegion);
         }
+        Registry.getCurrentTenant().getCache().clear();
         return affectedRows;
     }
 
