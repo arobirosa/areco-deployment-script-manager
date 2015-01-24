@@ -1,15 +1,21 @@
 package org.areco.ecommerce.deploymentscripts.sql;
 
 import com.enterprisedt.util.debug.Logger;
+import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.model.order.price.TaxModel;
 import de.hybris.platform.order.daos.TaxDao;
 import de.hybris.platform.servicelayer.ServicelayerBaseTest;
 import de.hybris.platform.servicelayer.ServicelayerTest;
 import de.hybris.platform.servicelayer.model.ModelService;
+import de.hybris.platform.testframework.HybrisJUnit4ClassRunner;
+import de.hybris.platform.testframework.RunListeners;
+import de.hybris.platform.testframework.runlistener.LogRunListener;
+import de.hybris.platform.testframework.runlistener.PlatformRunListener;
 import de.hybris.platform.tx.Transaction;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,9 +25,10 @@ import java.util.List;
  * <p/>
  * Created by arobirosa on 23.01.15.
  */
-@org.junit.runner.RunWith(de.hybris.platform.testframework.HybrisJUnit4ClassRunner.class)
-@de.hybris.platform.testframework.RunListeners({de.hybris.platform.testframework.runlistener.LangReferenceRemoverRunListener.class, de.hybris.platform.testframework.ApplicationContextCheckRunListener.class, de.hybris.platform.testframework.runlistener.C2LSetupRunListener.class, de.hybris.platform.testframework.runlistener.LogRunListener.class, de.hybris.platform.testframework.runlistener.ClassLoaderOverviewRunListener.class, de.hybris.platform.testframework.runlistener.PlatformRunListener.class, de.hybris.platform.testframework.runlistener.VMBlockTimeRunListener.class})
-public class CacheManagementBeforeUpdateTest extends ServicelayerBaseTest {
+@RunWith(HybrisJUnit4ClassRunner.class)
+@RunListeners(
+        { LogRunListener.class, PlatformRunListener.class })
+public class CacheManagementBeforeUpdateTest extends AbstractResourceAutowiringTest {
 
         private static final Logger LOG = Logger.getLogger(CacheManagementBeforeUpdateTest.class);
 
