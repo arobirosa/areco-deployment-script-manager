@@ -24,8 +24,10 @@ import de.hybris.platform.testframework.HybrisJUnit4ClassRunner;
 import de.hybris.platform.testframework.RunListeners;
 import de.hybris.platform.testframework.runlistener.LogRunListener;
 import de.hybris.platform.testframework.runlistener.PlatformRunListener;
+import de.hybris.platform.tx.InvalidationSet;
 import de.hybris.platform.tx.Transaction;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
+import org.areco.ecommerce.deploymentscripts.jalo.DeploymentEnvironment;
 import org.areco.ecommerce.deploymentscripts.model.DeploymentEnvironmentModel;
 import org.junit.After;
 import org.junit.Assert;
@@ -65,11 +67,11 @@ public class CacheManagementSqlScriptTest {
 
         @Before
         public void checkNoTransactionsAndRemoveOldData() {
-                modelService = Registry.getApplicationContext().getBean("modelService", ModelService.class);
+                modelService = Registry.getApplicationContext().getBean("defaultModelService", ModelService.class);
+                System.err.println("Class of modelService: " + modelService);
                 flexibleSearchDeploymentEnvironmentDAO = Registry.getApplicationContext().getBean(DeploymentEnvironmentDAO.class);
                 jaloSqlScriptService = Registry.getApplicationContext().getBean(SqlScriptService.class);
-
-
+                Registry.getCurrentTenant().getCache().setEnabled(false);
                 Assert.assertFalse("This test must be run without transactions", Transaction.current().isRunning());
                 dummyEnvironmentsNames = new HashSet<String>();
                 dummyEnvironmentsNames.add(DUMMY_ENVIRONMENT_NAME);
@@ -103,7 +105,7 @@ public class CacheManagementSqlScriptTest {
                 Assert.assertEquals("The description must have been updated", DUMMY_ENVIRONMENT_DESCRIPTION + UPDATED_SUBFIX, dummyEnvironments.iterator().next().getDescription());
         }
 
-        private void createDummyEnvironment() {
+        private DeploymentEnvironmentModel createDummyEnvironment() {
                 DeploymentEnvironmentModel dummyEnvironment = modelService.create(DeploymentEnvironmentModel.class);
                 dummyEnvironment.setName(DUMMY_ENVIRONMENT_NAME);
                 dummyEnvironment.setDescription(DUMMY_ENVIRONMENT_DESCRIPTION);
@@ -111,6 +113,7 @@ public class CacheManagementSqlScriptTest {
                 if (LOG.isDebugEnabled()) {
                      LOG.debug("The deployment environment " + dummyEnvironment + " was saved.");
                 }
+                return dummyEnvironment;
         }
 
         //@After
