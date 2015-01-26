@@ -23,6 +23,7 @@ import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.annotation.Resource;
@@ -49,46 +50,46 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
 
         @Test
         public void testScriptsWithUpdate() {
-                assertSqlScript("update", true);
+                assertSqlScript("update", "20141004_SQL_SCRIPT_UPDATE", true);
                 // We don't check if the tax was updated because Hybris only clears the cache when the transaction ends. And to refresh the item didn't work.
         }
 
-        private void assertSqlScript(final String scriptFolder, final boolean expectedSuccessfulScript) {
+        private void assertSqlScript(final String scriptFolder, final String scriptName, final boolean expectedSuccessfulScript) {
                 String resourcesLocation = RESOURCES_FOLDER;
 
                 this.getDeploymentConfigurationSetter().setTestFolders(resourcesLocation, scriptFolder, null);
                 this.antDeploymentScriptsStarter.runPendingScripts();
                 if (expectedSuccessfulScript) {
-                        deploymentScriptResultAsserter.assertSuccessfulResult("20141004_SQL_SCRIPT");
+                        deploymentScriptResultAsserter.assertSuccessfulResult(scriptName);
                 } else {
-                        deploymentScriptResultAsserter.assertErrorResult("20141004_SQL_SCRIPT");
+                        deploymentScriptResultAsserter.assertErrorResult(scriptName);
                 }
 
         }
 
         @Test
         public void testScriptsWithSelect() {
-                assertSqlScript("select", false);
+                assertSqlScript("select", "20141004_SQL_SCRIPT_SELECT", false);
         }
 
         @Test
         public void testScriptsWithDelete() {
-                assertSqlScript("delete", true);
+                assertSqlScript("delete", "20141004_SQL_SCRIPT_DELETE", true);
                 final List<TaxModel> foundTaxes = this.taxDao.findTaxesByCode("dummySqlScriptTax");
                 Assert.assertTrue("The tax wasn't deleted.", foundTaxes.isEmpty());
         }
 
         /**
-         * Inserts aren't allow because we cannot generate the PK using SQL code. Hybris uses a propietary format.
+         * Inserts aren't allow because we cannot generate the PK using SQL code. Hybris uses a proprietary format.
          */
         @Test
         public void testScriptsWithInsert() {
-                assertSqlScript("insert", false);
+                assertSqlScript("insert", "20141004_SQL_SCRIPT_INSERT", false);
         }
 
         @Test
         public void testScriptWithWrongQuery() {
-                assertSqlScript("wrong-query", false);
+                assertSqlScript("wrong-query", "20141004_SQL_SCRIPT_WRONG_QUERY", false);
         }
 
 }
