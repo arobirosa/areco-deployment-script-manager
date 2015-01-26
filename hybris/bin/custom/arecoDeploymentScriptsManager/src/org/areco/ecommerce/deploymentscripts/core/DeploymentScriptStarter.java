@@ -67,7 +67,7 @@ public class DeploymentScriptStarter {
      * 
      * We hook the essential data process. Due to this the deployment scripts could be run using "ant updatessystem".
      * 
-     * @param context
+     * @param hybrisContext
      *            Required
      */
 
@@ -121,7 +121,7 @@ public class DeploymentScriptStarter {
      * It removes any previous error. It is usually call during the initialization and the update process by the core extension.
      * 
      */
-    private void clearErrorFlag() {
+    public void clearErrorFlag() {
         this.setWasThereAnError(false);
         if (LOG.isDebugEnabled()) {
             LOG.debug("The error flag was cleared");
