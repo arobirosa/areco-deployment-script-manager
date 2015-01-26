@@ -22,6 +22,7 @@ import de.hybris.platform.regioncache.region.CacheRegion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
@@ -45,7 +46,7 @@ public class JaloSqlScriptService implements SqlScriptService {
     private static final Logger LOG = Logger.getLogger(JaloSqlScriptService.class);
 
     @Autowired
-    CacheController cacheController;
+    private CacheController cacheController;
 
     /*
      * { @InheritDoc }
@@ -58,7 +59,7 @@ public class JaloSqlScriptService implements SqlScriptService {
         if (aStatement == null || aStatement.trim().isEmpty()) {
             throw new IllegalArgumentException("The parameter aStatement is empty.");
         }
-        if (!aStatement.trim().toUpperCase().startsWith("UPDATE") && !aStatement.trim().toUpperCase().startsWith("DELETE")) {
+        if (!aStatement.trim().toUpperCase(Locale.getDefault()).startsWith("UPDATE") && !aStatement.trim().toUpperCase(Locale.getDefault()).startsWith("DELETE")) {
             throw new SQLException("The sql statement must start with update or delete.");
         }
         final String translatedStatement = translateTablePrefix(aStatement);

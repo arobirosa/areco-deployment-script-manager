@@ -21,9 +21,7 @@ import de.hybris.platform.order.daos.TaxDao;
 import junit.framework.Assert;
 import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
-import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.annotation.Resource;
