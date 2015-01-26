@@ -1,1 +1,0 @@
-select value from taxes where code = 'dummySqlScriptTax'

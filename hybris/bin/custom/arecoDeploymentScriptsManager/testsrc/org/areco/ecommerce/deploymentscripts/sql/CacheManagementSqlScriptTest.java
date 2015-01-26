@@ -88,10 +88,10 @@ public class CacheManagementSqlScriptTest {
                 // There is only one row in junit_arenvironmentlp with the name of the environment.
                 // Due to this there isn't any need to filter the language.
                 int numberOfAffectedRows = jaloSqlScriptService.runDeleteOrUpdateStatement(
-                        "update junit_arenvironmentlp"
+                        "update {table_prefix}arenvironmentlp"
                                 + " set p_description = '" + DUMMY_ENVIRONMENT_DESCRIPTION + UPDATED_SUBFIX + "'"
                                 + " where itempk = (select e.pk "
-                                + "    from junit_arenvironment e "
+                                + "    from {table_prefix}arenvironment e "
                                 + "    where e.p_name = '" + DUMMY_ENVIRONMENT_NAME + "')");
                 Assert.assertEquals("The must be one updated row.", 1, numberOfAffectedRows);
         }

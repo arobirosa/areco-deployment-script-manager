@@ -22,6 +22,7 @@ import de.hybris.platform.regioncache.region.CacheRegion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.sql.SqlScriptService;
@@ -60,13 +61,15 @@ public class JaloSqlScriptService implements SqlScriptService {
         if (!aStatement.trim().toUpperCase().startsWith("UPDATE") && !aStatement.trim().toUpperCase().startsWith("DELETE")) {
             throw new SQLException("The sql statement must start with update or delete.");
         }
+        final String translatedStatement = translateTablePrefix(aStatement);
+
         int affectedRows = -1;
         Connection aConnection = null;
         PreparedStatement prepareStatement = null;
         try {
             aConnection = getConnection();
             aConnection.setAutoCommit(true);
-            prepareStatement = aConnection.prepareStatement(aStatement);
+            prepareStatement = aConnection.prepareStatement(translatedStatement);
             affectedRows = prepareStatement.executeUpdate();
             aConnection.commit();
         } finally {
@@ -89,7 +92,20 @@ public class JaloSqlScriptService implements SqlScriptService {
         return affectedRows;
     }
 
-    private Connection getConnection() throws SQLException {
+        private String translateTablePrefix(final String aStatement) {
+           if (LOG.isDebugEnabled()) {
+                   LOG.debug("SQL Statement before the translation: <" + aStatement + ">");
+           }
+           Pattern tablePrefixPattern = Pattern.compile("\\{table_prefix\\}", Pattern.CASE_INSENSITIVE);
+           final String returnedStatement = tablePrefixPattern.matcher(aStatement).replaceAll(
+                   Registry.getCurrentTenant().getDataSource().getTablePrefix());
+                if (LOG.isDebugEnabled()) {
+                        LOG.debug("SQL Statement after the translation: <" + returnedStatement + ">");
+                }
+           return returnedStatement;
+        }
+
+        private Connection getConnection() throws SQLException {
         return Registry.getCurrentTenant().getDataSource().getConnection();
     }
 }

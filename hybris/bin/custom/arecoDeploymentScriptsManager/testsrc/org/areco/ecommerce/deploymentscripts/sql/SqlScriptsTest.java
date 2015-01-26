@@ -47,9 +47,6 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
         @Resource
         private TaxDao taxDao;
 
-        @Resource
-        private TenantDetector registryTenantDetector;
-
         @Test
         public void testScriptsWithUpdate() {
                 assertSqlScript("update", true);
@@ -58,12 +55,7 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
 
         private void assertSqlScript(final String scriptFolder, final boolean expectedSuccessfulScript) {
                 String resourcesLocation = RESOURCES_FOLDER;
-                // The sql contain the name of the tables and they depend on what tenant we are.
-                if (this.registryTenantDetector.areWeInATestSystemWithOneSingleTenant()) {
-                        resourcesLocation = resourcesLocation + "/without-table-prefix";
-                } else {
-                        resourcesLocation = resourcesLocation + "/with-junit-table-prefix";
-                }
+
                 this.getDeploymentConfigurationSetter().setTestFolders(resourcesLocation, scriptFolder, null);
                 this.antDeploymentScriptsStarter.runPendingScripts();
                 if (expectedSuccessfulScript) {
