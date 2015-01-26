@@ -41,14 +41,14 @@ public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfi
          */
         private static final Logger LOG = Logger.getLogger(UpdatingSystemExtensionContextLoggingTest.class);
 
-        private static final String DEPLOYMENT_SCRIPT_NAME = "20141121_TICKET_USE_BEANSHELL_TO_RELOAD_CMS_CONF";
+        private static final String DEPLOYMENT_SCRIPT_NAME = "20150126_TICKET_USE_BEANSHELL_TO_RELOAD_CMS_CONF";
 
         @Before
         public void setResourcesFolder() {
                 if (LOG.isInfoEnabled()) {
-                        LOG.info("Setting the resource folder to context-logging-test.");
+                        LOG.info("Setting the resource folder to context-logging.");
                 }
-                this.getDeploymentConfigurationSetter().setTestFolders("/resources/test/context-logging-test", null, null);
+                this.getDeploymentConfigurationSetter().setTestFolders("/resources/test/context-logging", null, null);
         }
 
         @Test
@@ -72,10 +72,11 @@ public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfi
         }
 
         @Test
+        @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
         public void testNoErrorsWhenCalledWithoutJspContext() {
                 final SystemSetupContext hybrisContext = new SystemSetupContext(null, SystemSetup.Type.ESSENTIAL,
                         SystemSetup.Process.UPDATE, ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
-                hybrisContext.setJspContext(null);// We don't have a JSP Context
+                hybrisContext.setJspContext(null); // We don't have a JSP Context
                 this.getDeploymentScriptStarter().runUpdateDeploymentScripts(hybrisContext);
         }
 }

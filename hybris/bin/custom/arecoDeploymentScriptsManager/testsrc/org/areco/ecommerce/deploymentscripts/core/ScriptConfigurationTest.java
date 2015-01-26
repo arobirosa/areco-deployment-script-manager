@@ -15,6 +15,7 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
+import de.hybris.bootstrap.annotations.IntegrationTest;
 import junit.framework.Assert;
 import org.junit.Test;
 
@@ -23,11 +24,12 @@ import org.junit.Test;
  *
  * @author arobirosa
  */
+@IntegrationTest
 public class ScriptConfigurationTest extends AbstractWithConfigurationRestorationTest {
         private static final String RESOURCES_FOLDER = "/resources/test/script-configuration-test";
 
         @Test
-        public void currentEnvironment() {
+        public void testCurrentEnvironment() {
                 this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "dev-only", null);
                 this.getDeploymentConfigurationSetter().setEnvironment("DEV");
                 final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
@@ -110,10 +112,10 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
                         this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
         }
 
-        @Test(expected = IllegalStagitteException.class)
+        @Test(expected = IllegalStateException.class)
         public void undefindCurrentEnvironment() {
                 this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment", null);
-                this.getDeploymentConfigurationSetter().setEnvironment("");// We cannot set a null value.
+                this.getDeploymentConfigurationSetter().setEnvironment(""); // We cannot set a null value.
                 this.getDeploymentScriptStarter().runAllPendingScripts();
                 Assert.fail("An exception must have been thrown.");
         }

@@ -132,6 +132,9 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
     private File[] getExistingScriptsInDirectory(final ExtensionInfo extension, final String scriptsFolderName) {
         final File deploymentScriptFolder = new File(extension.getExtensionDirectory()
                 + this.configurationService.getConfiguration().getString(RESOURCES_FOLDER_CONF), scriptsFolderName);
+        if (LOG.isTraceEnabled()) {
+                LOG.trace("Looking for scripts in " + deploymentScriptFolder.getAbsolutePath());
+        }
         if (!deploymentScriptFolder.exists()) {
             return new File[0];
         }
