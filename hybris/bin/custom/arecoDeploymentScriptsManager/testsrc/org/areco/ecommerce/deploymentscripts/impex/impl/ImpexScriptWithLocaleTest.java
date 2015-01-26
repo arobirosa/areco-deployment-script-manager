@@ -27,7 +27,6 @@ import junit.framework.Assert;
 
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
 import org.junit.Test;
 
@@ -46,9 +45,6 @@ public class ImpexScriptWithLocaleTest extends AbstractWithConfigurationRestorat
     private DeploymentScriptStarter deploymentScriptStarter;
 
     @Resource
-    private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
-
-    @Resource
     private DeploymentScriptResultAsserter deploymentScriptResultAsserter;
 
     @Resource
@@ -64,7 +60,7 @@ public class ImpexScriptWithLocaleTest extends AbstractWithConfigurationRestorat
         this.getDeploymentConfigurationSetter().setImpexLocaleCode(currentLocale.toString());
         final boolean wereThereErrors = this.deploymentScriptStarter.runAllPendingScripts();
         Assert.assertFalse("There were errors", wereThereErrors);
-        deploymentScriptResultAsserter.assertResult("20141003_DUMMY_TAX", this.flexibleSearchScriptExecutionResultDao.getSuccessResult());
+        deploymentScriptResultAsserter.assertSuccessfulResult("20141003_DUMMY_TAX");
         final List<TaxModel> foundTaxes = this.taxDao.findTaxesByCode(taxCode);
         Assert.assertEquals("There must be one tax", 1, foundTaxes.size());
         Assert.assertEquals("The imported value of the tax is wrong", expectedTaxValue, foundTaxes.iterator().next().getValue().doubleValue(), 0.001d);

@@ -22,6 +22,9 @@ hybris/config/local.properties
 
 #We don't ignore our build.xmls
 !/build.xml
+#Intellij IDEA
+hybris/bin/custom/.idea/workspace.xml
+hybris/bin/custom/.idea/tasks.xml
 
 #Reports of PMD, Checkstyle and Findbugs
 qa_reports/

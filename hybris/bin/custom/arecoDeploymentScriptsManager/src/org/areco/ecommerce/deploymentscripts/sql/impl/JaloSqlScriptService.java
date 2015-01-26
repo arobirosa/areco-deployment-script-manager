@@ -16,13 +16,18 @@
 package org.areco.ecommerce.deploymentscripts.sql.impl;
 
 import de.hybris.platform.core.Registry;
+import de.hybris.platform.regioncache.CacheController;
+import de.hybris.platform.regioncache.region.CacheRegion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Locale;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.sql.SqlScriptService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +45,9 @@ public class JaloSqlScriptService implements SqlScriptService {
 
     private static final Logger LOG = Logger.getLogger(JaloSqlScriptService.class);
 
+    @Autowired
+    private CacheController cacheController;
+
     /*
      * { @InheritDoc }
      */
@@ -48,13 +56,23 @@ public class JaloSqlScriptService implements SqlScriptService {
     @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING", justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
     // CHECKSTYLE.ON
     public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException {
+        if (aStatement == null || aStatement.trim().isEmpty()) {
+            throw new IllegalArgumentException("The parameter aStatement is empty.");
+        }
+        if (!aStatement.trim().toUpperCase(Locale.getDefault()).startsWith("UPDATE") && !aStatement.trim().toUpperCase(Locale.getDefault()).startsWith("DELETE")) {
+            throw new SQLException("The sql statement must start with update or delete.");
+        }
+        final String translatedStatement = translateTablePrefix(aStatement);
+
         int affectedRows = -1;
         Connection aConnection = null;
         PreparedStatement prepareStatement = null;
         try {
             aConnection = getConnection();
-            prepareStatement = aConnection.prepareStatement(aStatement);
+            aConnection.setAutoCommit(true);
+            prepareStatement = aConnection.prepareStatement(translatedStatement);
             affectedRows = prepareStatement.executeUpdate();
+            aConnection.commit();
         } finally {
             if (prepareStatement != null) {
                 prepareStatement.close();
@@ -67,11 +85,28 @@ public class JaloSqlScriptService implements SqlScriptService {
                 }
             }
         }
+        // The cache are going to be cleared when the transaction finishes.
+        for (final CacheRegion aRegion : this.cacheController.getRegions()) {
+            this.cacheController.clearCache(aRegion);
+        }
         Registry.getCurrentTenant().getCache().clear();
         return affectedRows;
     }
 
-    private Connection getConnection() throws SQLException {
+        private String translateTablePrefix(final String aStatement) {
+           if (LOG.isDebugEnabled()) {
+                   LOG.debug("SQL Statement before the translation: <" + aStatement + ">");
+           }
+           Pattern tablePrefixPattern = Pattern.compile("\\{table_prefix\\}", Pattern.CASE_INSENSITIVE);
+           final String returnedStatement = tablePrefixPattern.matcher(aStatement).replaceAll(
+                   Registry.getCurrentTenant().getDataSource().getTablePrefix());
+                if (LOG.isDebugEnabled()) {
+                        LOG.debug("SQL Statement after the translation: <" + returnedStatement + ">");
+                }
+           return returnedStatement;
+        }
+
+        private Connection getConnection() throws SQLException {
         return Registry.getCurrentTenant().getDataSource().getConnection();
     }
 }

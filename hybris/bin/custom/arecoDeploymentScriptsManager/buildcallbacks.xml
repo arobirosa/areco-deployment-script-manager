@@ -90,7 +90,7 @@
 		<sequential>
 			<yrun failonerror="true">
 		import de.hybris.platform.core.Registry;
-		import org.areco.ecommerce.deploymentscripts.jalo.junittenant.EssentialDataCreatorAndDeploymentScriptsStarter;
+		import org.areco.ecommerce.deploymentscripts.ant.EssentialDataCreatorAndDeploymentScriptsStarter;
 		import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
 				                
 		AntDeploymentScriptsStarter starter = (AntDeploymentScriptsStarter) Registry.getApplicationContext().getBean(AntDeploymentScriptsStarter.class);		
