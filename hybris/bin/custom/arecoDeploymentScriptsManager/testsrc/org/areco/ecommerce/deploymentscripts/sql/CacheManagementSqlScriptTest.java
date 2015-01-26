@@ -16,18 +16,14 @@
 package org.areco.ecommerce.deploymentscripts.sql;
 
 import com.enterprisedt.util.debug.Logger;
-import de.hybris.platform.core.PK;
 import de.hybris.platform.core.Registry;
-import de.hybris.platform.servicelayer.i18n.CommonI18NService;
 import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.testframework.HybrisJUnit4ClassRunner;
 import de.hybris.platform.testframework.RunListeners;
 import de.hybris.platform.testframework.runlistener.LogRunListener;
 import de.hybris.platform.testframework.runlistener.PlatformRunListener;
-import de.hybris.platform.tx.InvalidationSet;
 import de.hybris.platform.tx.Transaction;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
-import org.areco.ecommerce.deploymentscripts.jalo.DeploymentEnvironment;
 import org.areco.ecommerce.deploymentscripts.model.DeploymentEnvironmentModel;
 import org.junit.After;
 import org.junit.Assert;
@@ -35,14 +31,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * It checks that the Hybrs cache is emptied when an sql script is run.
- *
+ * <p/>
+ * WARNING: With an active cache this test doesn't work.
+ * <p/>
  * Created by arobirosa on 24.01.15.
  */
 @RunWith(HybrisJUnit4ClassRunner.class)
@@ -67,15 +64,16 @@ public class CacheManagementSqlScriptTest {
 
         @Before
         public void checkNoTransactionsAndRemoveOldData() {
-                modelService = Registry.getApplicationContext().getBean("defaultModelService", ModelService.class);
-                System.err.println("Class of modelService: " + modelService);
+                modelService = Registry.getApplicationContext().getBean("modelService", ModelService.class);
                 flexibleSearchDeploymentEnvironmentDAO = Registry.getApplicationContext().getBean(DeploymentEnvironmentDAO.class);
                 jaloSqlScriptService = Registry.getApplicationContext().getBean(SqlScriptService.class);
+
                 Registry.getCurrentTenant().getCache().setEnabled(false);
+
                 Assert.assertFalse("This test must be run without transactions", Transaction.current().isRunning());
                 dummyEnvironmentsNames = new HashSet<String>();
                 dummyEnvironmentsNames.add(DUMMY_ENVIRONMENT_NAME);
-                System.err.println("Removing old data");
+
                 this.removeDummyDeploymentEnvironment();
         }
 
@@ -91,10 +89,10 @@ public class CacheManagementSqlScriptTest {
                 // Due to this there isn't any need to filter the language.
                 int numberOfAffectedRows = jaloSqlScriptService.runDeleteOrUpdateStatement(
                         "update junit_arenvironmentlp"
-                        + " set p_description = '" + DUMMY_ENVIRONMENT_DESCRIPTION + UPDATED_SUBFIX + "'"
-                        + " where itempk = (select e.pk "
-                        + "    from junit_arenvironment e "
-                        + "    where e.p_name = '" + DUMMY_ENVIRONMENT_NAME + "')");
+                                + " set p_description = '" + DUMMY_ENVIRONMENT_DESCRIPTION + UPDATED_SUBFIX + "'"
+                                + " where itempk = (select e.pk "
+                                + "    from junit_arenvironment e "
+                                + "    where e.p_name = '" + DUMMY_ENVIRONMENT_NAME + "')");
                 Assert.assertEquals("The must be one updated row.", 1, numberOfAffectedRows);
         }
 
@@ -102,7 +100,8 @@ public class CacheManagementSqlScriptTest {
                 Set<DeploymentEnvironmentModel> dummyEnvironments = this.flexibleSearchDeploymentEnvironmentDAO.loadEnvironments(this.dummyEnvironmentsNames);
                 Assert.assertEquals("There must be only one dummy environment", 1, dummyEnvironments.size());
                 modelService.refresh(dummyEnvironments.iterator().next());
-                Assert.assertEquals("The description must have been updated", DUMMY_ENVIRONMENT_DESCRIPTION + UPDATED_SUBFIX, dummyEnvironments.iterator().next().getDescription());
+                Assert.assertEquals("The description must have been updated", DUMMY_ENVIRONMENT_DESCRIPTION + UPDATED_SUBFIX,
+                        dummyEnvironments.iterator().next().getDescription());
         }
 
         private DeploymentEnvironmentModel createDummyEnvironment() {
@@ -111,32 +110,33 @@ public class CacheManagementSqlScriptTest {
                 dummyEnvironment.setDescription(DUMMY_ENVIRONMENT_DESCRIPTION);
                 modelService.save(dummyEnvironment);
                 if (LOG.isDebugEnabled()) {
-                     LOG.debug("The deployment environment " + dummyEnvironment + " was saved.");
+                        LOG.debug("The deployment environment " + dummyEnvironment + " was saved.");
                 }
                 return dummyEnvironment;
         }
 
-        //@After
+        @After
         public void removeTestData() {
                 this.removeDummyDeploymentEnvironment();
+                Registry.getCurrentTenant().getCache().setEnabled(true);
         }
 
         private void removeDummyDeploymentEnvironment() {
-             try {
-                     for (DeploymentEnvironmentModel anEnvironment : this.flexibleSearchDeploymentEnvironmentDAO
-                             .loadEnvironments(this.dummyEnvironmentsNames)) {
-                             //if (LOG.isDebugEnabled())    {
-                             System.err.println("Removing the dummy environment with name "
-                                     + anEnvironment.getName() + " and description <"
-                                     + anEnvironment.getDescription() + ">");
-                             //}
-                             this.modelService.remove(anEnvironment);
-                     }
-             } catch (IllegalStateException e)  {
-                             if (LOG.isDebugEnabled())    {
-                                     LOG.debug("The dummy environment wasn't found.", e);
-                             }
-                     }
+                try {
+                        for (DeploymentEnvironmentModel anEnvironment : this.flexibleSearchDeploymentEnvironmentDAO
+                                .loadEnvironments(this.dummyEnvironmentsNames)) {
+                                if (LOG.isDebugEnabled()) {
+                                        LOG.debug("Removing the dummy environment with name "
+                                                + anEnvironment.getName() + " and description <"
+                                                + anEnvironment.getDescription() + ">");
+                                }
+                                this.modelService.remove(anEnvironment);
+                        }
+                } catch (IllegalStateException e) {
+                        if (LOG.isDebugEnabled()) {
+                                LOG.debug("The dummy environment wasn't found.", e);
+                        }
+                }
         }
 
 }
