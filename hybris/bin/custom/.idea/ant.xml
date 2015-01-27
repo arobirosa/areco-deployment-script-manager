@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AntConfiguration">
+    <buildFile url="file://$PROJECT_DIR$/../platform/build.xml">
+      <additionalClassPath>
+        <entry dir="file://$PROJECT_DIR$/../platform/resources/ant/lib" />
+        <entry dir="file://$PROJECT_DIR$/../platform/bootstrap/bin" />
+        <entry dir="file://$PROJECT_DIR$/../platform/lib" />
+        <entry dir="file://$PROJECT_DIR$/../platform/ext/core/lib" />
+      </additionalClassPath>
+      <antReference name="Hybris Ant version 1.8.2" />
+      <executeOn event="beforeCompilation" target="build" />
+    </buildFile>
+  </component>
+</project>
+

@@ -1,0 +1,45 @@
+<project name="ant_qa_checkstyle" default="checkstyle" basedir=".">
+	<property name="dir_checkstyle_home" value="${dir_qa}/checkstyle-5.7"/>
+	<property name="dir_checkstyle_donwload_url" value="http://downloads.sourceforge.net/project/checkstyle/checkstyle/5.7/checkstyle-5.7-bin.zip"/>
+	<property name="dir_checkstyle_donwload_file" value="${dir_qa}/checkstyle.zip"/>
+	
+	<target name="checkstyle" depends="checkstyle.install" description="Runs checkstyle">
+		 <taskdef resource="checkstyletask.properties">
+				<classpath>
+					<fileset dir="${dir_checkstyle_home}/">
+						<include name="*.jar"/>
+					</fileset>
+				</classpath>
+		</taskdef>
+		<!-- Any violation must break the build after the html was generated -->
+		<checkstyle config="${dir_qa}/checkstyle_checks.xml"
+			failureProperty="checkstyle.failure" failOnViolation="false" >
+			<fileset refid="fileset_src"/>
+			<formatter type="xml" tofile="${dir_qa_reports}/checkstyle_report.xml" />
+			<formatter type="plain" />
+		</checkstyle>
+		<xslt in="${dir_qa_reports}/checkstyle_report.xml"
+               out="${dir_qa_reports}/checkstyle_report.html"
+               style="${dir_checkstyle_home}/contrib/checkstyle-noframes.xsl"
+        />
+        <!-- Fail on any warning or error -->
+		<fail if="checkstyle.failure" />
+	</target>
+	
+	 <target name="checkstyle.check.installation" >
+        <available property="checkstyle.available"
+            file="${dir_checkstyle_home}"
+            type="dir"/>
+    </target>
+	
+	<target name="checkstyle.install" description="Downloads and installs checkstyle"
+        unless="checkstyle.available"
+		depends="checkstyle.check.installation">
+		<get src="${dir_checkstyle_donwload_url}" 
+			dest="${dir_checkstyle_donwload_file}" 
+			verbose="true"
+			usetimestamp="true"/>
+		<unzip src="${dir_checkstyle_donwload_file}" dest="${dir_qa}" failOnEmptyArchive="true" />
+		<delete file="${dir_checkstyle_donwload_file}"/>
+	</target>
+</project>

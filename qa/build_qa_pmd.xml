@@ -1,0 +1,44 @@
+<project name="ant_qa_pmd" default="pmd" basedir=".">
+	<property name="dir_pmd_home" value="${dir_qa}/pmd-bin-5.1.3"/>
+	<property name="dir_pmd_donwload_url" value="http://downloads.sourceforge.net/project/pmd/pmd/5.1.3/pmd-bin-5.1.3.zip"/>
+	<property name="dir_pmd_donwload_file" value="${dir_qa}/pmd.zip"/>
+	
+	
+	<target name="pmd" depends="pmd.install" description="Runs PMD">
+		 <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
+				<classpath>
+					<fileset dir="${dir_pmd_home}/lib/">
+						<include name="*.jar"/>
+					</fileset>
+				</classpath>
+		</taskdef>
+		<!-- Any violation must break the build -->
+		<pmd shortFilenames="true" failonerror="true" failOnRuleViolation="true"
+			rulesetfiles="${dir_qa}/pmd_ruleset.xml" >
+			<sourceLanguage name="java" version="1.6"/>
+			<formatter type="html" toFile="${dir_qa_reports}/pmd_report.html" toConsole="true">
+			</formatter>
+			<formatter type="text" showSuppressed="false" toConsole="true">
+			</formatter>
+			<fileset refid="fileset_src"/>
+		</pmd>
+	</target>
+	
+	 <target name="pmd.check.installation" >
+        <available property="pmd.available"
+            file="${dir_pmd_home}"
+            type="dir"/>
+    </target>
+	
+	
+	<target name="pmd.install" description="Downloads and installs PMD"
+        unless="pmd.available"
+		depends="pmd.check.installation">
+		<get src="${dir_pmd_donwload_url}" 
+			dest="${dir_pmd_donwload_file}" 
+			verbose="true"
+			usetimestamp="true"/>
+		<unzip src="${dir_pmd_donwload_file}" dest="${dir_qa}" failOnEmptyArchive="true" />
+		<delete file="${dir_pmd_donwload_file}"/>
+	</target>
+</project>

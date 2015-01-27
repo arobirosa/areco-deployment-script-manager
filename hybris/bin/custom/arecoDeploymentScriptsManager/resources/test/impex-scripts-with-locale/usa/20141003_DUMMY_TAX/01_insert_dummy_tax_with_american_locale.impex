@@ -1,0 +1,2 @@
+INSERT Tax;code[unique=true];value;
+;dummyAmericanTax;18.342

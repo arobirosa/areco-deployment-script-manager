@@ -1,0 +1,162 @@
+<project name="ant_qa_cobertura" default="cobertura" basedir=".">
+	<property name="dir_cobertura_home" value="${dir_qa}/cobertura-2.0.3"/>
+	<property name="dir_cobertura_donwload_url" value="http://downloads.sourceforge.net/project/cobertura/cobertura/2.0.3/cobertura-2.0.3-bin.zip"/>
+	<property name="dir_cobertura_donwload_file" value="${dir_qa}/cobertura.zip"/>
+	<!-- Hybris finds the cobertura datafile in the root directory. -->
+	<property name="datafile_cobertura" value="${dir_platform}/cobertura.ser" />
+
+	<!-- We copy the libs from cobertura to the core extension.
+		This is a workaround because we cannot change the classpath of Hybris. -->
+	<property name="dir_hybris_core_ext_lib" value="${dir_platform}/ext/core/lib" />
+	<!-- We copy the instrumented classes from cobertura to the core extension.
+		This is a workaround because we cannot change the classpath of Hybris. -->
+	<property name="dir_hybris_core_ext_classes" value="${dir_platform}/ext/core/classes" />
+	
+	<fileset id="fileset_cobertura_runtimelib" dir="${dir_cobertura_home}/">
+		<include name="cobertura*.jar" />
+	</fileset>
+	
+	<fileset id="fileset_cobertura_runtimelib_copy" dir="${dir_hybris_core_ext_lib}">
+		<include name="cobertura*.jar" />
+	</fileset>
+	
+	<fileset id="fileset_cobertura_otherlibs" dir="${dir_cobertura_home}/">
+		<include name="lib/**/*.jar" />
+	</fileset>
+	
+	<fileset dir="${dir_hybris_bin}" id="fileset_bin_instrumentation">
+		<include name="custom/*/classes/"/>
+		<include name="custom/*/web/webroot/WEB-INF/classes/"/>
+		<include name="custom/*/hmc/classes/**/"/>
+		<exclude name="**/jalo/*.class" /> <!-- Jalo layer -->
+		<exclude name="**/hmc/*.class" /> <!-- Hmc Classes -->
+		<exclude name="**/Generated*.class" /> <!-- Generated Classes (Jalo and hmc) -->
+		<exclude name="**/*Constants.class" /> <!-- Generated Classes (constants) -->
+	</fileset>
+	
+	<macrodef name="cobertura.clean.libs" description="Removes the cobertura datafile and libraries">
+		<sequential>
+			<delete file="${datafile_cobertura}"/>
+			<delete>
+				<fileset refid="fileset_cobertura_runtimelib_copy" />
+			</delete>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="cobertura.clean.instrumentation" description="Removes the instrumented classes">
+		<sequential>
+			<delete dir="${dir_hybris_core_ext_classes}"/>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="cobertura.instrumentation" description="Instrumentes the classes and prepares the classpath">
+		<sequential>
+			<cobertura.clean.libs />
+			<cobertura.clean.instrumentation />
+			
+			<!-- We copy the cobertura runtime jar to the lib directory of the core extension. These jars are
+			require in the classpath when the tests run. -->
+			<copy todir="${dir_hybris_core_ext_lib}">
+				<fileset refid="fileset_cobertura_runtimelib" />
+			</copy>
+			
+			<!-- We move the instrumented classes to the classes directory of the core extension. -->
+			<cobertura-instrument datafile="${datafile_cobertura}" todir="${dir_hybris_core_ext_classes}">
+				<ignore regex="org.apache.log4j.*" />
+				<fileset refid="fileset_bin_instrumentation" />		
+				<auxClasspath>
+					<fileset refid="fileset_hybris_bin" />
+				</auxClasspath>
+			</cobertura-instrument>
+		</sequential>
+	</macrodef>		
+	
+	<target name="cobertura" depends="cobertura.install, build, qa_clean" description="Runs cobertura">
+		 <taskdef resource="tasks.properties">
+				<classpath>
+					<fileset refid="fileset_cobertura_runtimelib" />
+					<fileset refid="fileset_cobertura_otherlibs" />
+				</classpath>
+		</taskdef>
+	
+		<cobertura.instrumentation />
+		
+		<!-- Run the tests using another process. 
+			Hybris runs the tests using the currently running JVM. Cobertura saves the data when the JVM exits
+			and there is no way to run them on another JVM in another process.-->
+		<exec dir="${dir_platform}" executable="ant" failonerror="true" failifexecutionfails="true">
+			<arg line="alltests"/>
+			<arg line="-Dtestclasses.packages=org.areco.*"/>
+		</exec>
+		
+		<!-- Create report -->
+		<cobertura-report format="html" destdir="${dir_qa_reports}/cobertura" 
+			datafile="${datafile_cobertura}" encoding="UTF-8" >
+			<!-- TOFIX: The report seems to look at the directory of the fileset and not at the files.
+				 Due to this, the name of the extensions must be hardcoded here. -->
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/src" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/web/src" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/hmc/src" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/testsrc" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/web/testsrc" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/hmc/testsrc" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsExamples/src" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsExamples/web/src" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsExamples/hmc/src" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsExamples/testsrc" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsExamples/web/testsrc" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsExamples/hmc/testsrc" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+		</cobertura-report>
+		
+		<cobertura-check  datafile="${datafile_cobertura}" haltonfailure="false" failureproperty="coberturafailed"
+			totallinerate="70">
+		</cobertura-check>
+		
+		<cobertura.clean.instrumentation />
+		<cobertura.clean.libs />
+		
+		<!-- Low line coverage must break the build after we cleaned up the mess. -->
+		<fail if="coberturafailed" message="The code coverage is less than the limit" />
+	</target>
+	
+	 <target name="cobertura.check.installation" >
+        <available property="cobertura.available"
+            file="${dir_cobertura_home}"
+            type="dir"/>
+    </target>
+	
+	<target name="cobertura.install" description="Downloads and installs cobertura"
+        unless="cobertura.available"
+		depends="cobertura.check.installation">
+		<get src="${dir_cobertura_donwload_url}" 
+			dest="${dir_cobertura_donwload_file}" 
+			verbose="true"
+			usetimestamp="true"/>
+		<unzip src="${dir_cobertura_donwload_file}" dest="${dir_qa}" failOnEmptyArchive="true" />
+		<delete file="${dir_cobertura_donwload_file}"/>
+	</target>
+</project>

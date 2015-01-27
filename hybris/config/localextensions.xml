@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+   extensions.xml - hybris Platform
+
+   Note: If a file localextensions.xml is available, it is used instead of this file.
+
+   this file configures which hybris Platform extensions are installed,
+   each <extension dir=".."> points to an extension directory. The path can be
+   absolute or relative.
+
+   After adding an extension, call 'ant' to build the system.
+-->
+
+<hybrisconfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="resources/schemas/extensions.xsd">
+
+	<extensions>
+		<extension dir="${HYBRIS_BIN_DIR}/custom/arecoDeploymentScriptsManager" />
+		<extension dir="${HYBRIS_BIN_DIR}/custom/arecoDeploymentScriptsExamples" />
+	</extensions>
+
+</hybrisconfig>
