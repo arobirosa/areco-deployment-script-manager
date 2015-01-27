@@ -14,9 +14,10 @@ import org.junit.Test;
 public class BeanShellReturnedCodeValidationTest {
 
         //We don't have any mocks to inject.
-        private BeanShellService defaultBeanShellService = new DefaultBeanShellService();
+        private final BeanShellService defaultBeanShellService = new DefaultBeanShellService();
 
         @Test
+        @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert") //This test doesn't required to assert anything.
         public void testCorrectReturnedValue() throws BeanShellExecutionException {
                 defaultBeanShellService.executeScript("return \"OK\";");
         }
@@ -28,7 +29,7 @@ public class BeanShellReturnedCodeValidationTest {
                 } catch (BeanShellExecutionException e) {
                         Assert.assertTrue("The message of the exception must contain the returned value: "
                                 + e.getMessage(), e.getMessage().contains("Error99"));
-                        return;git
+                        return;
                 }
                 Assert.fail("An exception must have been thrown.");
         }

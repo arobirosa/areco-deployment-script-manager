@@ -61,6 +61,7 @@ public class DefaultBeanShellService implements BeanShellService {
         if (anObject instanceof String && "OK".equalsIgnoreCase((String) anObject)) {
             return;
         }
-        throw new BeanShellExecutionException("The beanShell code didn't return the string 'OK' but '"+ anObject +"'. Please check if there was an error.");
+        throw new BeanShellExecutionException("The beanShell code didn't return the string 'OK' but '"
+                + anObject + "'. Please check if there was an error.");
     }
 }
