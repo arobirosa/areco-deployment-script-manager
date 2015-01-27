@@ -16,6 +16,7 @@
 			  reportLevel="low"
               output="html"
               outputFile="${dir_qa_reports}/findbugs_report.html"
+              stylesheet="plain.xsl"
               effort="max"
               failOnError="true"
               excludeFilter="${dir_qa}/findbugs_excluded_classes.xml"

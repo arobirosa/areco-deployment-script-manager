@@ -16,6 +16,7 @@
 			failureProperty="checkstyle.failure" failOnViolation="false" >
 			<fileset refid="fileset_src"/>
 			<formatter type="xml" tofile="${dir_qa_reports}/checkstyle_report.xml" />
+			<formatter type="plain" />
 		</checkstyle>
 		<xslt in="${dir_qa_reports}/checkstyle_report.xml"
                out="${dir_qa_reports}/checkstyle_report.html"

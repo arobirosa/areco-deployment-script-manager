@@ -18,6 +18,8 @@
 			<sourceLanguage name="java" version="1.6"/>
 			<formatter type="html" toFile="${dir_qa_reports}/pmd_report.html" toConsole="true">
 			</formatter>
+			<formatter type="text" showSuppressed="false" toConsole="true">
+			</formatter>
 			<fileset refid="fileset_src"/>
 		</pmd>
 	</target>
