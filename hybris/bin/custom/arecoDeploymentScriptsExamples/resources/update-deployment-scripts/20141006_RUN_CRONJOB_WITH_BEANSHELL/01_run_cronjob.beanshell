@@ -5,7 +5,7 @@ import de.hybris.platform.servicelayer.cronjob.CronJobService;
 import de.hybris.platform.servicelayer.exceptions.AmbiguousIdentifierException;
 import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
 
-final String cronJobCode = "removeOrphanedFilesCronJob";
+final String cronJobCode = "testArecoDeploymenScriptRunningCronJob";
 
     try {
     CronJobService cronJobService = (CronJobService) Registry.getApplicationContext().getBean(CronJobService.class);
