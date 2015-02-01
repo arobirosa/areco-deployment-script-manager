@@ -8,5 +8,5 @@ UPDATE ScriptExecutionResult;name[unique=true];description[lang=de];
 UPDATE DeploymentEnvironment;name[unique=true];description[lang=de];
 ;DEV;Entwicklungsservers und die Rechner der Entwickler
 ;TEST;Von Business Analysts und Kunden benutzten Servers, um das System zu testen
-;INTIntegration und QA Umgebung mit der gleichen Konfiguration wie Produktion.
+;INT;Integration und QA Umgebung mit der gleichen Konfiguration wie Produktion.
 ;PRODUCTION;Produktion
