@@ -21,9 +21,13 @@ import de.hybris.platform.servicelayer.util.ServicesUtil;
 import de.hybris.platform.util.Utilities;
 
 import org.apache.log4j.Logger;
+import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
 import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
+import org.fest.util.Collections;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import java.util.Collection;
 
 /**
  * It uses the Hybris registry to find out how many tenants are in this environment.
@@ -46,10 +50,10 @@ public class RegistryTenantDetector implements TenantDetector {
     @Override
     public boolean areWeInATestSystemWithOneSingleTenant() {
         if (LOG.isTraceEnabled()) {
-            LOG.trace("Current Tenant internal ID: " + Utilities.getTenantID(Registry.getMasterTenant().getDataSource()));
+            LOG.trace("IDs of the slave tenants: " + Collections.format(Registry.getMasterTenant().getSlaveTenantIDs()));
         }
-        return Utilities.isSystemInitialized(Registry.getMasterTenant().getDataSource())
-                && "TestSystem".equals(Utilities.getTenantID(Registry.getMasterTenant().getDataSource()));
+        return !(Registry.getMasterTenant().getSlaveTenantIDs().contains(
+                ArecoDeploymentScriptsManagerConstants.JUNIT_TENANT_ID));
     }
 
     @Override
