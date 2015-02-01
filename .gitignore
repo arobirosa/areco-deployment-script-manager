@@ -52,3 +52,5 @@ qa/findbugs-*
 qa/pmd-bin*
 qa/checkstyle-*
 qa/cobertura-*
+
+velocity.log
