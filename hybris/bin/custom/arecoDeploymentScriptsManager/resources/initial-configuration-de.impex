@@ -1,0 +1,12 @@
+UPDATE ScriptExecutionResult;name[unique=true];description[lang=de];
+;SUCCESS;Erfolgreich
+;ERROR;Fehler
+;IGNORED_NOT_FOR_THIS_ENVIRONMENT;"Ignoriert: Andere Umgebung"
+;IGNORED_NOT_FOR_THIS_TENANT;"Ignoriert: Anderer Tenant"
+
+# These are the out-of-box environments. They may be changed using a deployment script.
+UPDATE DeploymentEnvironment;name[unique=true];description[lang=de];
+;DEV;Entwicklungsservers und die Rechner der Entwickler
+;TEST;Von Business Analysts und Kunden benutzten Servers, um das System zu testen
+;INTIntegration und QA Umgebung mit der gleichen Konfiguration wie Produktion.
+;PRODUCTION;Produktion
