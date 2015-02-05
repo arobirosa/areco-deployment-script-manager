@@ -17,9 +17,9 @@ import org.springframework.stereotype.Component;
 @Scope("tenant")
 @Component
 public class DummyJob implements JobPerformable<CronJobModel> {
-        Logger LOG = Logger.getLogger(DummyJob.class);
+        private static final Logger LOG = Logger.getLogger(DummyJob.class);
 
-        @Override public PerformResult perform(CronJobModel cronJobModel) {
+        @Override public PerformResult perform(final CronJobModel cronJobModel) {
                 LOG.warn("His is a dummy job used by the example which runs cron jobs.");
                 return new PerformResult(CronJobResult.SUCCESS, CronJobStatus.FINISHED);
         }

@@ -18,7 +18,6 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.Tenant;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import de.hybris.platform.util.Utilities;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
@@ -26,8 +25,6 @@ import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
 import org.fest.util.Collections;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
-import java.util.Collection;
 
 /**
  * It uses the Hybris registry to find out how many tenants are in this environment.

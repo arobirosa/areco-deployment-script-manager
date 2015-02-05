@@ -106,7 +106,7 @@ public class ImpexInitialConfigurationImporter implements InitialConfigurationIm
                 }
         }
 
-        private void importConfiguration(String initialConfigurationFileGerman) {
+        private void importConfiguration(final String initialConfigurationFileGerman) {
                 final ExtensionInfo extension = ConfigUtil.getPlatformConfig(ArecoDeploymentScriptService.class).getExtensionInfo(
                         ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
                 final File configurationFile = new File(extension.getExtensionDirectory() + RESOURCES_FOLDER, initialConfigurationFileGerman);
