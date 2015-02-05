@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hybrisconfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="resources/schemas/extensions.xsd">
+	<extensions>
+		<!-- 
+				All extensions located in ${HYBRIS_BIN_DIR}/platform/ext are automatically loaded. 
+				More information about how to configure available extensions can be found here : https://wiki.hybris.com/x/nZVzC
+		-->
+				
+		<path dir="${HYBRIS_BIN_DIR}" />
+		
+
+										
+		<!-- ext-platform -->
+		<extension name="cockpit" />
+		<extension name="hmc" />
+		
+		<extension name="arecoDeploymentScriptsManager" />
+		<extension name="arecoDeploymentScriptsExamples" />
+
+	</extensions>
+</hybrisconfig>

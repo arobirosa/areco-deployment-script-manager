@@ -33,15 +33,6 @@
     </orderEntry>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="module" module-name="platform" exported="" />
-    <orderEntry type="module-library">
-      <library name="classes">
-        <CLASSES>
-          <root url="file:///platform/ext/hac/web/webroot/WEB-INF/classes" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
   </component>
 </module>
 

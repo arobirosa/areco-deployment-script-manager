@@ -1,17 +1,17 @@
 #Due to the initial attributes, we cannot update the execution result, we can only insert them if they doesn't exist.
 #% if: de.hybris.platform.core.Registry.getApplicationContext().getBean(de.hybris.platform.servicelayer.search.FlexibleSearchService.class).search("SELECT {r.PK} FROM {ScriptExecutionResult as r}").getCount() == 0;
-INSERT ScriptExecutionResult;name[unique=true];canBeRunnedAgain[forceWrite=true];description[lang=en];description[lang=de];
-;SUCCESS;false;Success;Erfolgreich
-;ERROR;true;Error;Fehler
+INSERT ScriptExecutionResult;name[unique=true];canBeRunnedAgain[forceWrite=true];description[lang=en];
+;SUCCESS;false;Success;
+;ERROR;true;Error;
 #% endif:
 
-INSERT ScriptExecutionResult;name[unique=true];canBeRunnedAgain[forceWrite=true];description[lang=en];description[lang=de];
-;IGNORED_NOT_FOR_THIS_ENVIRONMENT;false;"Ignored: Other environment";"Ignoriert: Andere Umgebung"
-;IGNORED_NOT_FOR_THIS_TENANT;false;"Ignored: Other tenant";"Ignoriert: Anderer Tenant"
+INSERT ScriptExecutionResult;name[unique=true];canBeRunnedAgain[forceWrite=true];description[lang=en];
+;IGNORED_NOT_FOR_THIS_ENVIRONMENT;false;"Ignored: Other environment";
+;IGNORED_NOT_FOR_THIS_TENANT;false;"Ignored: Other tenant";
 
 # These are the out-of-box environments. They may be changed using a deployment script.
-INSERT DeploymentEnvironment;name[unique=true];description[lang=en];description[lang=de];
-;DEV;Development servers and the computers of the programmers;Entwicklungsservers und die Rechner der Entwickler
-;TEST;Servers used by the business analysts and customers for testing;Von Business Analysts und Kunden benutzten Servers, um das System zu testen
-;INT;Integration and QA environment with the same configuration as in production;Integration und QA Umgebung mit der gleichen Konfiguration wie Produktion.
-;PRODUCTION;Production;Produktion
+INSERT DeploymentEnvironment;name[unique=true];description[lang=en];
+;DEV;Development servers and the computers of the programmers;
+;TEST;Servers used by the business analysts and customers for testing;
+;INT;Integration and QA environment with the same configuration as in production;
+;PRODUCTION;Production;

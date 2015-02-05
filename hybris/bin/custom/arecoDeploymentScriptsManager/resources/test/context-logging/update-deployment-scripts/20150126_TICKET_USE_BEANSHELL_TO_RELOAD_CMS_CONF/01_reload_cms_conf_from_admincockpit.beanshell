@@ -1,7 +1,7 @@
 import de.hybris.platform.core.Registry;
 import java.io.PrintStream;
 import org.areco.ecommerce.deploymentscripts.beanshell.util.CockpitConfigurationReloader;
-final String extensionName = "admincockpit";
+final String extensionName = "arecoDeploymentScriptsManager";
  
 try {
   CockpitConfigurationReloader reloader = (CockpitConfigurationReloader) Registry.getApplicationContext().getBean("cockpitConfigurationReloader");
