@@ -16,18 +16,14 @@
 package org.areco.ecommerce.deploymentscripts.sql;
 
 import de.hybris.bootstrap.annotations.IntegrationTest;
-import de.hybris.platform.core.model.order.price.TaxModel;
 import de.hybris.platform.jalo.numberseries.NumberSeries;
 import de.hybris.platform.jalo.numberseries.NumberSeriesManager;
-import de.hybris.platform.order.daos.TaxDao;
 import junit.framework.Assert;
 import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
 import org.junit.Test;
-
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Checks that the deployment scripts with sql code are working correctly.
@@ -44,9 +40,6 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
 
         @Resource
         private AntDeploymentScriptsStarter antDeploymentScriptsStarter;
-
-        @Resource
-        private TaxDao taxDao;
 
         @Test
         public void testScriptsWithUpdate() {
