@@ -59,8 +59,10 @@ public class JaloSqlScriptService implements SqlScriptService {
         if (aStatement == null || aStatement.trim().isEmpty()) {
             throw new IllegalArgumentException("The parameter aStatement is empty.");
         }
-        if (!aStatement.trim().toUpperCase(Locale.getDefault()).startsWith("UPDATE") && !aStatement.trim().toUpperCase(Locale.getDefault()).startsWith("DELETE")) {
-            throw new SQLException("The sql statement must start with update or delete.");
+        if (!aStatement.trim().toUpperCase(Locale.getDefault()).startsWith("UPDATE")
+                && !aStatement.trim().toUpperCase(Locale.getDefault()).startsWith("INSERT")
+                && !aStatement.trim().toUpperCase(Locale.getDefault()).startsWith("DELETE")) {
+            throw new SQLException("The sql statement must start with update, insert or delete.");
         }
         final String translatedStatement = translateTablePrefix(aStatement);
 

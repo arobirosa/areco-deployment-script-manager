@@ -17,6 +17,8 @@ package org.areco.ecommerce.deploymentscripts.sql;
 
 import de.hybris.bootstrap.annotations.IntegrationTest;
 import de.hybris.platform.core.model.order.price.TaxModel;
+import de.hybris.platform.jalo.numberseries.NumberSeries;
+import de.hybris.platform.jalo.numberseries.NumberSeriesManager;
 import de.hybris.platform.order.daos.TaxDao;
 import junit.framework.Assert;
 import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
@@ -73,16 +75,17 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
         @Test
         public void testScriptsWithDelete() {
                 assertSqlScript("delete", "20141004_SQL_SCRIPT_DELETE", true);
-                final List<TaxModel> foundTaxes = this.taxDao.findTaxesByCode("dummySqlScriptTax");
-                Assert.assertTrue("The tax wasn't deleted.", foundTaxes.isEmpty());
+                //Due to the cache, we cannot test if the tax was removed from the database.
         }
 
         /**
-         * Inserts aren't allow because we cannot generate the PK using SQL code. Hybris uses a proprietary format.
+         * Inserts are allowed for objects without a PK like number series.
          */
         @Test
         public void testScriptsWithInsert() {
-                assertSqlScript("insert", "20141004_SQL_SCRIPT_INSERT", false);
+                assertSqlScript("insert", "20141004_SQL_SCRIPT_INSERT", true);
+                NumberSeries numberSeries = NumberSeriesManager.getInstance().getNumberSeries("CATEGORY");
+                Assert.assertEquals("The current value of the series is wrong.", 1000, numberSeries.getCurrentNumber());
         }
 
         @Test
