@@ -1,0 +1,4 @@
+log4j.logger.org.areco.ecommerce.deploymentscripts=ALL
+hac.webroot=/hac
+deploymentscripts.environment.current=DEV
+

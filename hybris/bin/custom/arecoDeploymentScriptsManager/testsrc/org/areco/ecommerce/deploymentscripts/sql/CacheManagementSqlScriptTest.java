@@ -15,7 +15,6 @@
  */
 package org.areco.ecommerce.deploymentscripts.sql;
 
-import com.enterprisedt.util.debug.Logger;
 import de.hybris.platform.core.Registry;
 import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.testframework.HybrisJUnit4ClassRunner;
@@ -23,6 +22,7 @@ import de.hybris.platform.testframework.RunListeners;
 import de.hybris.platform.testframework.runlistener.LogRunListener;
 import de.hybris.platform.testframework.runlistener.PlatformRunListener;
 import de.hybris.platform.tx.Transaction;
+import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.model.DeploymentEnvironmentModel;
 import org.junit.After;

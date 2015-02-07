@@ -20,6 +20,10 @@
                managername="ArecoDeploymentScriptsManagerManager"
                managersuperclass="de.hybris.platform.jalo.extension.Extension"
                >
+               
+      <!-- These dependencies are required by Hybris 5.x -->
+	  <requires-extension name="hmc"/>
+	  <requires-extension name="cockpit"/>
 
       <coremodule	packageroot="org.areco.ecommerce.deploymentscripts"
 					manager="org.areco.ecommerce.deploymentscripts.jalo.ArecoDeploymentScriptsManagerManager"
