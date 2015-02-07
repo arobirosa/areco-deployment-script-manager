@@ -33,6 +33,9 @@ log/
 temp/
 tmp/
 
+# Hybris 5
+hybris/bin/custom/arecoDeploymentScriptsManager/web/webroot/cockpit
+
 #Configuration files
 hybris/config
 
