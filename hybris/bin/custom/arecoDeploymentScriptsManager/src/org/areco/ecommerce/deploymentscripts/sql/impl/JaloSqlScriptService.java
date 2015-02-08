@@ -16,11 +16,8 @@
 package org.areco.ecommerce.deploymentscripts.sql.impl;
 
 import de.hybris.platform.core.Registry;
-import de.hybris.platform.regioncache.CacheController;
-import de.hybris.platform.regioncache.region.CacheRegion;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.sql.SqlScriptService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -43,9 +40,6 @@ public class JaloSqlScriptService implements SqlScriptService {
 
         private static final Logger LOG = Logger.getLogger(JaloSqlScriptService.class);
 
-        @Autowired
-        private CacheController cacheController;
-
         @Override
         public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException {
                 if (aStatement == null || aStatement.trim().isEmpty()) {
@@ -60,10 +54,8 @@ public class JaloSqlScriptService implements SqlScriptService {
 
                 int affectedRows = runStatementOnDatabase(translatedStatement);
 
-                // The cache are going to be cleared when the transaction finishes.
-                for (final CacheRegion aRegion : this.cacheController.getRegions()) {
-                        this.cacheController.clearCache(aRegion);
-                }
+                /* Because clearing the cache doesn't remove the old values of the attributes saved in the model instances, a refresh of the models
+                  is required to get the new values stored in the database. */
                 Registry.getCurrentTenant().getCache().clear();
                 return affectedRows;
         }
@@ -78,7 +70,6 @@ public class JaloSqlScriptService implements SqlScriptService {
                 PreparedStatement prepareStatement = null;
                 try {
                         aConnection = getConnection();
-                        aConnection.setAutoCommit(true);
                         prepareStatement = aConnection.prepareStatement(translatedStatement);
                         affectedRows = prepareStatement.executeUpdate();
                         aConnection.commit();
