@@ -37,6 +37,9 @@ dummyEnvironmentsNames.add(DUMMY_ENVIRONMENT_NAME);
 
 Set dummyEnvironments = this.flexibleSearchDeploymentEnvironmentDAO.loadEnvironments(this.dummyEnvironmentsNames);
 Assert.assertEquals("There must be only one dummy environment", 1, dummyEnvironments.size());
+/* Because clearing the cache doesn't remove the old values of the attributes saved in the model instances, a refresh of the models
+   is required to get the new values stored in the database.
+*/
 modelService.refresh(dummyEnvironments.iterator().next());
 Assert.assertEquals("The description must have been updated", DUMMY_ENVIRONMENT_DESCRIPTION + UPDATED_SUBFIX, dummyEnvironments.iterator().next().getDescription());
 return "OK";

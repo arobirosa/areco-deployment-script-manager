@@ -59,8 +59,8 @@ public class JaloSqlScriptService implements SqlScriptService {
 
                 int affectedRows = runStatementOnDatabase(translatedStatement);
 
-                //To clear the cache doesn't remove the old affected instances. A refresh of models calling the model service is required to get
-                //the new information stored in the database.
+                /* Because clearing the cache doesn't remove the old values of the attributes saved in the model instances, a refresh of the models
+                  is required to get the new values stored in the database. */
                 Registry.getCurrentTenant().getCache().clear();
                 return affectedRows;
         }
