@@ -17,7 +17,6 @@ package org.areco.ecommerce.deploymentscripts.sql.impl;
 
 import de.hybris.platform.core.Registry;
 import de.hybris.platform.regioncache.CacheController;
-import de.hybris.platform.regioncache.region.CacheRegion;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.sql.SqlScriptService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,10 +59,8 @@ public class JaloSqlScriptService implements SqlScriptService {
 
                 int affectedRows = runStatementOnDatabase(translatedStatement);
 
-                // The cache are going to be cleared when the transaction finishes.
-                for (final CacheRegion aRegion : this.cacheController.getRegions()) {
-                        this.cacheController.clearCache(aRegion);
-                }
+                //To clear the cache doesn't remove the old affected instances. A refresh of models calling the model service is required to get
+                //the new information stored in the database.
                 Registry.getCurrentTenant().getCache().clear();
                 return affectedRows;
         }
@@ -78,7 +75,6 @@ public class JaloSqlScriptService implements SqlScriptService {
                 PreparedStatement prepareStatement = null;
                 try {
                         aConnection = getConnection();
-                        aConnection.setAutoCommit(true);
                         prepareStatement = aConnection.prepareStatement(translatedStatement);
                         affectedRows = prepareStatement.executeUpdate();
                         aConnection.commit();

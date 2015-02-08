@@ -68,8 +68,6 @@ public class CacheManagementSqlScriptTest {
                 flexibleSearchDeploymentEnvironmentDAO = Registry.getApplicationContext().getBean(DeploymentEnvironmentDAO.class);
                 jaloSqlScriptService = Registry.getApplicationContext().getBean(SqlScriptService.class);
 
-                Registry.getCurrentTenant().getCache().setEnabled(false);
-
                 Assert.assertFalse("This test must be run without transactions", Transaction.current().isRunning());
                 dummyEnvironmentsNames = new HashSet<String>();
                 dummyEnvironmentsNames.add(DUMMY_ENVIRONMENT_NAME);
@@ -99,7 +97,6 @@ public class CacheManagementSqlScriptTest {
         private void assertUpdatedEnvironment() {
                 Set<DeploymentEnvironmentModel> dummyEnvironments = this.flexibleSearchDeploymentEnvironmentDAO.loadEnvironments(this.dummyEnvironmentsNames);
                 Assert.assertEquals("There must be only one dummy environment", 1, dummyEnvironments.size());
-                modelService.refresh(dummyEnvironments.iterator().next());
                 Assert.assertEquals("The description must have been updated", DUMMY_ENVIRONMENT_DESCRIPTION + UPDATED_SUBFIX,
                         dummyEnvironments.iterator().next().getDescription());
         }
@@ -118,7 +115,6 @@ public class CacheManagementSqlScriptTest {
         @After
         public void removeTestData() {
                 this.removeDummyDeploymentEnvironment();
-                Registry.getCurrentTenant().getCache().setEnabled(true);
         }
 
         private void removeDummyDeploymentEnvironment() {
