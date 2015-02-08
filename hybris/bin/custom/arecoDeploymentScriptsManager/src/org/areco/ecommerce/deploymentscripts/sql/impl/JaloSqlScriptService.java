@@ -16,10 +16,8 @@
 package org.areco.ecommerce.deploymentscripts.sql.impl;
 
 import de.hybris.platform.core.Registry;
-import de.hybris.platform.regioncache.CacheController;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.sql.SqlScriptService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -41,9 +39,6 @@ import java.util.regex.Pattern;
 public class JaloSqlScriptService implements SqlScriptService {
 
         private static final Logger LOG = Logger.getLogger(JaloSqlScriptService.class);
-
-        @Autowired
-        private CacheController cacheController;
 
         @Override
         public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException {

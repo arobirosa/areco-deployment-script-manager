@@ -46,7 +46,7 @@ import java.util.Set;
  */
 @RunWith(HybrisJUnit4ClassRunner.class)
 @RunListeners(
-        {LogRunListener.class, PlatformRunListener.class})
+        {LogRunListener.class, PlatformRunListener.class })
 public class CacheManagementSqlScriptTest {
 
     private static final Logger LOG = Logger.getLogger(CacheManagementSqlScriptTest.class);

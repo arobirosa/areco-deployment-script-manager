@@ -20,7 +20,6 @@ import de.hybris.platform.core.model.order.price.TaxModel;
 import de.hybris.platform.jalo.numberseries.NumberSeries;
 import de.hybris.platform.jalo.numberseries.NumberSeriesManager;
 import de.hybris.platform.order.daos.TaxDao;
-import de.hybris.platform.servicelayer.model.ModelService;
 import junit.framework.Assert;
 import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
@@ -59,9 +58,6 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
 
     @Resource
     private TaxDao taxDao;
-
-    @Resource
-    private ModelService modelService;
 
     @Test
     public void testScriptsWithUpdate() {
@@ -105,7 +101,7 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
         removeDummyNumberSeries();
         try {
             assertSqlScript("insert", "20141004_SQL_SCRIPT_INSERT", true);
-            NumberSeries numberSeries = NumberSeriesManager.getInstance().getNumberSeries("CATEGORY");
+            NumberSeries numberSeries = NumberSeriesManager.getInstance().getNumberSeries(DUMMY_NUMBER_SERIES);
             Assert.assertEquals("The current value of the series is wrong.", 1000, numberSeries.getCurrentNumber());
         } finally {
             //The number series aren't removed when the test finishs.
