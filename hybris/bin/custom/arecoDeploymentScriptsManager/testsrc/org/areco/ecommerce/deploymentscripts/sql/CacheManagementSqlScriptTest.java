@@ -39,7 +39,7 @@ import java.util.Set;
 /**
  * It checks that the Hybrs cache is emptied when an sql script is run.
  * <p/>
- * WARNING: Models cached the values of their attributes and the method modelService.refresh(model) doesn't worked as expedted inside an integration test.
+ * WARNING: Models cache the values of their attributes and the method modelService.refresh(model) doesn't work inside an integration test.
  * Because of this jalo items are used in this test.
  * <p/>
  * Created by arobirosa on 24.01.15.
