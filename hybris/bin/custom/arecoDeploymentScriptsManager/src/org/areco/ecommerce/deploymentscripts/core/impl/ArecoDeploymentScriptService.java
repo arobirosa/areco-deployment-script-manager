@@ -27,6 +27,7 @@ import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptService;
 import org.areco.ecommerce.deploymentscripts.core.InitialConfigurationImporter;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
+import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,9 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
     @Autowired
     private ScriptExecutionDao scriptExecutionDao;
 
+    @Autowired
+    private ExtensionHelper extensionHelper;
+
     /*
      * (non-Javadoc)
      * 
@@ -63,6 +67,9 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
     @Override
     public boolean runDeploymentScripts(final UpdatingSystemExtensionContext context, final boolean runInitScripts) {
         ServicesUtil.validateParameterNotNullStandardMessage("context", context);
+        if (!extensionHelper.isDeploymentManagerExtensionTurnedOn()) {
+            return false;
+        }
         this.initialConfigurationImporter.importConfigurationIfRequired(context);
 
         if (LOG.isDebugEnabled()) {

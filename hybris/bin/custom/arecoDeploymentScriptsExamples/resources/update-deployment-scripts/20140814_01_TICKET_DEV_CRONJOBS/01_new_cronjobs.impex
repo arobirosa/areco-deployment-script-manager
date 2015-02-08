@@ -3,4 +3,4 @@ INSERT ServicelayerJob;code[unique=true];springId
 ;devArecoDeploymenScriptMissingJob;devArecoDeploymenScriptMissingJob
 
 INSERT CronJob; code[unique=true];job(code)[forceWrite=true];singleExecutable;sessionLanguage(isocode);active
-;devArecoDeploymenScriptCronJob;devArecoDeploymenScriptMissingJob;false;de;false
+;devArecoDeploymenScriptCronJob;devArecoDeploymenScriptMissingJob;false;en;false

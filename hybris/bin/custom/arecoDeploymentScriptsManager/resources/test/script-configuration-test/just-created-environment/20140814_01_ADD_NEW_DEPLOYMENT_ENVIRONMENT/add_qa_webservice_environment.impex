@@ -1,2 +1,2 @@
-INSERT DeploymentEnvironment;name[unique=true];description[lang=en];description[lang=de];
-;QA_WEBSERVICE;QA for the new webservice;QA des neuen Web Services
+INSERT DeploymentEnvironment;name[unique=true];description[lang=en];
+;QA_WEBSERVICE;QA for the new webservice;

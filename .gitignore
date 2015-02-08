@@ -11,14 +11,33 @@ hybris/bin/custom/**/hmc/bin/
 
 #We ignore the Hybris extensions
 hybris/bin/ext-content
+hybris/bin/ext-accelerator/
+hybris/bin/ext-addon/
+hybris/bin/ext-atdd/
+hybris/bin/ext-atddtests/
+hybris/bin/ext-backoffice/
+hybris/bin/ext-channel/
+hybris/bin/ext-cockpit/
+hybris/bin/ext-commerce/
+hybris/bin/ext-data/
+hybris/bin/ext-deprecated/
+hybris/bin/ext-integration/
+hybris/bin/ext-platform-optional/
+hybris/bin/ext-print/
+hybris/bin/ext-supportability/
+hybris/bin/ext-template/
+hybris/sampleconfigurations
 platform/
 data/
 log/
 temp/
 tmp/
 
+# Hybris 5
+hybris/bin/custom/arecoDeploymentScriptsManager/web/webroot/cockpit
+
 #Configuration files
-hybris/config/local.properties
+hybris/config
 
 #We don't ignore our build.xmls
 !/build.xml
@@ -36,3 +55,5 @@ qa/findbugs-*
 qa/pmd-bin*
 qa/checkstyle-*
 qa/cobertura-*
+
+velocity.log

@@ -1,0 +1,21 @@
+import de.hybris.bootstrap.annotations.IntegrationTest;
+import de.hybris.platform.core.model.order.price.TaxModel;
+import de.hybris.platform.order.daos.TaxDao;
+import de.hybris.platform.servicelayer.model.ModelService;
+import de.hybris.platform.jalo.order.price.Tax;
+import junit.framework.Assert;
+import de.hybris.platform.core.Registry;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+final String DUMMY_TAX_CODE = "dummySqlScriptTax";
+
+final TaxDao taxDao = Registry.getApplicationContext().getBean(TaxDao.class);
+final ModelService modelService = Registry.getApplicationContext().getBean("modelService", ModelService.class);
+
+List foundTaxes = taxDao.findTaxesByCode(DUMMY_TAX_CODE);
+Assert.assertEquals("There must be one dummy tax.", 1, foundTaxes.size());
+modelService.refresh(foundTaxes.get(0));
+Assert.assertEquals("The changes to the tax percent cannot be seen inside an integration test", 5.0d, foundTaxes.get(0).getValue());
+return "OK";

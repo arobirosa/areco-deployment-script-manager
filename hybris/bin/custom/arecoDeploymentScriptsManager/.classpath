@@ -8,6 +8,5 @@
 	<classpathentry exported="true" kind="lib" path="resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/platform"/>
-	<classpathentry kind="lib" path="/platform/ext/hac/web/webroot/WEB-INF/classes"/>
 	<classpathentry kind="output" path="eclipsebin/notused"/>
 </classpath>
