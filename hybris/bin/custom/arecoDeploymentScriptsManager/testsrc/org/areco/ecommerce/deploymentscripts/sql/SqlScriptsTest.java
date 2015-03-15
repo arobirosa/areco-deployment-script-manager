@@ -41,82 +41,85 @@ import java.util.List;
 @IntegrationTest
 public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
 
-    private static final String RESOURCES_FOLDER = "/resources/test/sql-deployment-scripts";
+        private static final String RESOURCES_FOLDER = "/resources/test/sql-deployment-scripts";
 
-    private static final String DUMMY_TAX_CODE = "dummySqlScriptTax";
+        private static final String DUMMY_TAX_CODE = "dummySqlScriptTax";
 
-    private static final String DUMMY_NUMBER_SERIES = "TEST_SQL_SCRIPT_INSERT";
+        private static final String DUMMY_NUMBER_SERIES = "TEST_SQL_SCRIPT_INSERT";
 
-    @Resource
-    private DeploymentScriptResultAsserter deploymentScriptResultAsserter;
+        @Resource
+        private DeploymentScriptResultAsserter deploymentScriptResultAsserter;
 
-    @Resource
-    private AntDeploymentScriptsStarter antDeploymentScriptsStarter;
+        @Resource
+        private AntDeploymentScriptsStarter antDeploymentScriptsStarter;
 
-    @Resource
-    private SqlScriptService jaloSqlScriptService;
+        @Resource
+        private SqlScriptService jaloSqlScriptService;
 
-    @Resource
-    private TaxDao taxDao;
+        @Resource
+        private TaxDao taxDao;
 
-    @Test
-    public void testScriptsWithUpdate() {
-        assertSqlScript("update", "20141004_SQL_SCRIPT_UPDATE", true);
-        //A beanshell script inside the script already checks if the tax was not updated.
-        //Inside an Integration test, the changes of the  script cannot be seen.
-    }
-
-
-    private void assertSqlScript(final String scriptFolder, final String scriptName, final boolean expectedSuccessfulScript) {
-        String resourcesLocation = RESOURCES_FOLDER;
-
-        this.getDeploymentConfigurationSetter().setTestFolders(resourcesLocation, scriptFolder, null);
-        this.antDeploymentScriptsStarter.runPendingScripts();
-        if (expectedSuccessfulScript) {
-            deploymentScriptResultAsserter.assertSuccessfulResult(scriptName);
-        } else {
-            deploymentScriptResultAsserter.assertErrorResult(scriptName);
+        @Test
+        public void testScriptsWithUpdate() {
+                assertSqlScript("update", "20141004_SQL_SCRIPT_UPDATE", true);
+                //A beanshell script inside the script already checks if the tax was not updated.
+                //Inside an Integration test, the changes of the  script cannot be seen.
         }
 
-    }
+        private void assertSqlScript(final String scriptFolder, final String scriptName, final boolean expectedSuccessfulScript) {
+                String resourcesLocation = RESOURCES_FOLDER;
 
-    @Test
-    public void testScriptsWithSelect() {
-        assertSqlScript("select", "20141004_SQL_SCRIPT_SELECT", false);
-    }
+                this.getDeploymentConfigurationSetter().setTestFolders(resourcesLocation, scriptFolder, null);
+                this.antDeploymentScriptsStarter.runPendingScripts();
+                if (expectedSuccessfulScript) {
+                        deploymentScriptResultAsserter.assertSuccessfulResult(scriptName);
+                } else {
+                        deploymentScriptResultAsserter.assertErrorResult(scriptName);
+                }
 
-    @Test
-    public void testScriptsWithDelete() {
-        assertSqlScript("delete", "20141004_SQL_SCRIPT_DELETE", true);
-        List<TaxModel> foundTaxes = taxDao.findTaxesByCode(DUMMY_TAX_CODE);
-        Assert.assertEquals("The dummy tax wasn't removed", 0, foundTaxes.size());
-    }
-
-    /**
-     * Inserts are allowed for objects without a PK like number series.
-     */
-
-    @Test
-    public void testScriptsWithInsert() throws SQLException {
-        removeDummyNumberSeries();
-        try {
-            assertSqlScript("insert", "20141004_SQL_SCRIPT_INSERT", true);
-            NumberSeries numberSeries = NumberSeriesManager.getInstance().getNumberSeries(DUMMY_NUMBER_SERIES);
-            Assert.assertEquals("The current value of the series is wrong.", 1000, numberSeries.getCurrentNumber());
-        } finally {
-            //The number series aren't removed when the test finishs.
-            removeDummyNumberSeries();
         }
-    }
 
-    private void removeDummyNumberSeries() throws SQLException {
-        this.jaloSqlScriptService.runDeleteOrUpdateStatement(
-                "DELETE FROM {table_prefix}numberseries where serieskey = '" + DUMMY_NUMBER_SERIES + "'");
-    }
+        @Test
+        public void testScriptsWithSelect() {
+                assertSqlScript("select", "20141004_SQL_SCRIPT_SELECT", false);
+        }
 
-    @Test
-    public void testScriptWithWrongQuery() {
-        assertSqlScript("wrong-query", "20141004_SQL_SCRIPT_WRONG_QUERY", false);
-    }
+        @Test
+        public void testScriptsWithDelete() {
+                assertSqlScript("delete", "20141004_SQL_SCRIPT_DELETE", true);
+                List<TaxModel> foundTaxes = taxDao.findTaxesByCode(DUMMY_TAX_CODE);
+                Assert.assertEquals("The dummy tax wasn't removed", 0, foundTaxes.size());
+        }
 
+        /**
+         * Inserts are allowed for objects without a PK like number series.
+         */
+
+        @Test
+        public void testScriptsWithInsert() throws SQLException {
+                removeDummyNumberSeries();
+                try {
+                        assertSqlScript("insert", "20141004_SQL_SCRIPT_INSERT", true);
+                        NumberSeries numberSeries = NumberSeriesManager.getInstance().getNumberSeries(DUMMY_NUMBER_SERIES);
+                        Assert.assertEquals("The current value of the series is wrong.", 1000, numberSeries.getCurrentNumber());
+                } finally {
+                        //The number series aren't removed when the test finishs.
+                        removeDummyNumberSeries();
+                }
+        }
+
+        private void removeDummyNumberSeries() throws SQLException {
+                this.jaloSqlScriptService.runDeleteOrUpdateStatement(
+                        "DELETE FROM {table_prefix}numberseries where serieskey = '" + DUMMY_NUMBER_SERIES + "'");
+        }
+
+        @Test
+        public void testScriptWithWrongQuery() {
+                assertSqlScript("wrong-query", "20141004_SQL_SCRIPT_WRONG_QUERY", false);
+        }
+
+        @Test
+        public void testScriptsWithCreateIndex() throws SQLException {
+                assertSqlScript("ddl", "20141004_SQL_SCRIPT_CREATE_INDEX", true);
+        }
 }
