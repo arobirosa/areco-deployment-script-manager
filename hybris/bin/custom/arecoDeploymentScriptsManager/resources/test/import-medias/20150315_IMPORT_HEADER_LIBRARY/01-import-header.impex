@@ -3,4 +3,4 @@ $defaultCatalogVersion=Online
 $catalogVersion=catalogVersion(catalog(id[default='$defaultCatalog']),version[default='$defaultCatalogVersion'])[unique=true,default='$defaultCatalog:$defaultCatalogVersion']
 
 INSERT_UPDATE HeaderLibrary;code[unique=true];$catalogVersion;realfilename;encoding(code);mime;fieldSeparator;commentCharacter;linesToSkip;removeOnSuccess;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true]
-;user_export;;user-export.csv;UTF-8;text/csv;";";#;0;false; jar:org.areco.ecommerce.deploymentscripts.jalo.ArecoDeploymentScriptsManagerManager&/test/import-medias/20150315_IMPORT_HEADER_LIBRARY/01-import-header.impex
+;test_user_export;;user-export.csv;UTF-8;text/csv;";";#;0;false; jar:org.areco.ecommerce.deploymentscripts.jalo.ArecoDeploymentScriptsManagerManager&/test/import-medias/20150315_IMPORT_HEADER_LIBRARY/user-export.csv
