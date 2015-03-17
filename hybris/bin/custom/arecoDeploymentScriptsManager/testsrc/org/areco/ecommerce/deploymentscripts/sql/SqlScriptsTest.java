@@ -19,7 +19,6 @@ import de.hybris.bootstrap.annotations.IntegrationTest;
 import de.hybris.platform.core.model.order.price.TaxModel;
 import de.hybris.platform.order.daos.TaxDao;
 import junit.framework.Assert;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
@@ -40,8 +39,6 @@ import java.util.List;
 @IntegrationTest
 public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
 
-        private static final Logger LOG = Logger.getLogger(SqlScriptsTest.class);
-
         private static final String RESOURCES_FOLDER = "/resources/test/sql-deployment-scripts";
 
         private static final String DUMMY_TAX_CODE = "dummySqlScriptTax";
@@ -51,9 +48,6 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
 
         @Resource
         private AntDeploymentScriptsStarter antDeploymentScriptsStarter;
-
-        @Resource
-        private SqlScriptService jaloSqlScriptService;
 
         @Resource
         private TaxDao taxDao;
