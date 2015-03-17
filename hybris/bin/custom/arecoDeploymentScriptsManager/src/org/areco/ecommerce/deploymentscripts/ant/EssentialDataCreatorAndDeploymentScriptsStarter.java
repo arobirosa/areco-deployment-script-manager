@@ -74,7 +74,9 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter {
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     // We catch all exceptions because this method is called by ant.
     public void runInJunitTenant() {
-        if (!Boolean.parseBoolean(this.configurationService.getConfiguration().getString(JUNIT_TENANT_CREATEESSENTIALDATA_CONF))) {
+        Utilities.setJUnitTenant();
+        if (!extensionHelper.isDeploymentManagerExtensionTurnedOn()
+                || !Boolean.parseBoolean(this.configurationService.getConfiguration().getString(JUNIT_TENANT_CREATEESSENTIALDATA_CONF))) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("The essential data won't be created and the deployment scripts won't be run.");
             }
@@ -83,7 +85,6 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter {
         if (LOG.isInfoEnabled()) {
             LOG.info("Creating the essential data in junit tenant.");
         }
-        Utilities.setJUnitTenant();
 
         try {
             createEssentialDataForAllExtensions();

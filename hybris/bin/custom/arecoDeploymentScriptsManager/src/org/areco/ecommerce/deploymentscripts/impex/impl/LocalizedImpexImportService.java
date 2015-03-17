@@ -17,17 +17,11 @@ package org.areco.ecommerce.deploymentscripts.impex.impl;
 
 import de.hybris.platform.impex.jalo.ImpExException;
 import de.hybris.platform.impex.jalo.Importer;
+import de.hybris.platform.impex.jalo.media.DefaultMediaDataHandler;
+import de.hybris.platform.impex.jalo.media.MediaDataTranslator;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import de.hybris.platform.util.CSVReader;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-
 import org.apache.commons.lang.LocaleUtils;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
@@ -35,6 +29,13 @@ import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
 /**
  * This default implementation uses the impex importer. It allows the configuration of the locale.
@@ -80,6 +81,9 @@ public class LocalizedImpexImportService implements ImpexImportService {
     }
 
     private void importImpexFile(final InputStream inputStream) throws ImpExException, UnsupportedEncodingException {
+        //Why we have to set this manually?
+        MediaDataTranslator.setMediaDataHandler(new DefaultMediaDataHandler());
+
         final CSVReader reader = new CSVReader(inputStream, DeploymentScript.DEFAULT_FILE_ENCODING);
         final Importer importer = new Importer(reader);
         final String localeCode = configurationService.getConfiguration().getString(IMPEX_LOCALE_CONF);

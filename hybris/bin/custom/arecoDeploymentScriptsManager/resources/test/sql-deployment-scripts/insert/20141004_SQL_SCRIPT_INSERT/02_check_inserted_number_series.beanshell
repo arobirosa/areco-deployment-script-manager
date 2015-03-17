@@ -1,0 +1,13 @@
+import de.hybris.platform.jalo.numberseries.NumberSeriesManager;
+import de.hybris.platform.jalo.numberseries.NumberSeries;
+import junit.framework.Assert;
+
+final String DUMMY_NUMBER_SERIES = "TEST_SQL_SCRIPT_INSERT";
+
+try {
+        NumberSeries numberSeries = NumberSeriesManager.getInstance().getNumberSeries(DUMMY_NUMBER_SERIES);
+}  catch ( de.hybris.platform.jalo.JaloInvalidParameterException e) {
+        //Inside an integration test we can't see the changes on the database done by the sql script.
+        return "OK"; //We don't see the number series.
+}
+Assert.fail("An exception must have been thrown");

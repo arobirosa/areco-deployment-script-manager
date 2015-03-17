@@ -1,0 +1,1 @@
+DELETE FROM {table_prefix}numberseries where serieskey = 'TEST_SQL_SCRIPT_INSERT'
