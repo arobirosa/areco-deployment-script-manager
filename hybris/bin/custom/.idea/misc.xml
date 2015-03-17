@@ -21,14 +21,8 @@
   </component>
   <component name="EclipseCodeFormatter">
     <option name="defaultSettings" value="true" />
-    <option name="enableJSFormatting" value="true" />
-    <option name="id" value="1405581998668" />
-    <option name="importOrder" value="de.hybris;java;javax;org;com;" />
+    <option name="id" value="1412706751992" />
     <option name="name" value="default" />
-    <option name="pathToConfigFileJS" value="$PROJECT_DIR$/../../../../../baywa/baywa-shop/config/riso_js_formater.xml" />
-    <option name="pathToConfigFileJava" value="$PROJECT_DIR$/../../../../../baywa/baywa-shop/config/riso_formater.xml" />
-    <option name="selectedJavaProfile" value="RiSo Formater" />
-    <option name="selectedJavaScriptProfile" value="riso-js" />
   </component>
   <component name="EntryPointsManager">
     <entry_points version="2.0" />

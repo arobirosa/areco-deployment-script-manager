@@ -20,6 +20,8 @@
                managername="ArecoDeploymentScriptsExamplesManager"
                managersuperclass="de.hybris.platform.jalo.extension.Extension"
       >
+      <requires-extension name="arecoDeploymentScriptsManager" />
+
       <coremodule	packageroot="org.areco.ecommerce.deploymentscripts.examples"
 					manager="org.areco.ecommerce.deploymentscripts.examples.jalo.ArecoDeploymentScriptsExamplesManager"
 					generated="true" 
@@ -27,5 +29,6 @@
       
       <hmcmodule    extensionclassname="org.areco.ecommerce.deploymentscripts.examples.hmc.ArecoDeploymentScriptsExamplesHMCExtension"
                     />
+
    </extension>
 </extensioninfo>

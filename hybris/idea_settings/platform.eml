@@ -760,9 +760,6 @@
 	<lib name="ext/virtualjdbc/resources" scope="COMPILE">
 		<relative-module-cls project-related="file://$PROJECT_DIR$/../platform/ext/virtualjdbc/resources"/>
 	</lib>
-	<lib name="vjdbc_server.jar" scope="COMPILE">
-		<relative-module-cls project-related="jar://$PROJECT_DIR$/../platform/ext/virtualjdbc/lib/vjdbc_server.jar!/"/>
-	</lib>
 	<lib name="vjdbc.jar" scope="COMPILE">
 		<relative-module-cls project-related="jar://$PROJECT_DIR$/../platform/ext/virtualjdbc/vjdbc/lib/vjdbc.jar!/"/>
 	</lib>
