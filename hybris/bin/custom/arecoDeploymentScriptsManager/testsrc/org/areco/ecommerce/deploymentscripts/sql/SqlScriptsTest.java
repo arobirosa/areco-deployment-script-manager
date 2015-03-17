@@ -17,10 +17,9 @@ package org.areco.ecommerce.deploymentscripts.sql;
 
 import de.hybris.bootstrap.annotations.IntegrationTest;
 import de.hybris.platform.core.model.order.price.TaxModel;
-import de.hybris.platform.jalo.numberseries.NumberSeries;
-import de.hybris.platform.jalo.numberseries.NumberSeriesManager;
 import de.hybris.platform.order.daos.TaxDao;
 import junit.framework.Assert;
+import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
@@ -41,11 +40,11 @@ import java.util.List;
 @IntegrationTest
 public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
 
+        private static final Logger LOG = Logger.getLogger(SqlScriptsTest.class);
+
         private static final String RESOURCES_FOLDER = "/resources/test/sql-deployment-scripts";
 
         private static final String DUMMY_TAX_CODE = "dummySqlScriptTax";
-
-        private static final String DUMMY_NUMBER_SERIES = "TEST_SQL_SCRIPT_INSERT";
 
         @Resource
         private DeploymentScriptResultAsserter deploymentScriptResultAsserter;
@@ -62,8 +61,7 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
         @Test
         public void testScriptsWithUpdate() {
                 assertSqlScript("update", "20141004_SQL_SCRIPT_UPDATE", true);
-                //A beanshell script inside the script already checks if the tax was not updated.
-                //Inside an Integration test, the changes of the  script cannot be seen.
+                //Because the changes of an sql script cannot be seen inside an integration test, we can't check if the database was affected.
         }
 
         private void assertSqlScript(final String scriptFolder, final String scriptName, final boolean expectedSuccessfulScript) {
@@ -97,20 +95,8 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
 
         @Test
         public void testScriptsWithInsert() throws SQLException {
-                removeDummyNumberSeries();
-                try {
-                        assertSqlScript("insert", "20141004_SQL_SCRIPT_INSERT", true);
-                        NumberSeries numberSeries = NumberSeriesManager.getInstance().getNumberSeries(DUMMY_NUMBER_SERIES);
-                        Assert.assertEquals("The current value of the series is wrong.", 1000, numberSeries.getCurrentNumber());
-                } finally {
-                        //The number series aren't removed when the test finishs.
-                        removeDummyNumberSeries();
-                }
-        }
-
-        private void removeDummyNumberSeries() throws SQLException {
-                this.jaloSqlScriptService.runDeleteOrUpdateStatement(
-                        "DELETE FROM {table_prefix}numberseries where serieskey = '" + DUMMY_NUMBER_SERIES + "'");
+                assertSqlScript("insert", "20141004_SQL_SCRIPT_INSERT", true);
+                //Because the changes of an sql script cannot be seen inside an integration test, we can't check if the database was affected.
         }
 
         @Test

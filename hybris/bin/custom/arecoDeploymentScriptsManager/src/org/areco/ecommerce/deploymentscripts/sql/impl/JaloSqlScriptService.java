@@ -70,7 +70,6 @@ public class JaloSqlScriptService implements SqlScriptService {
                         aConnection = getConnection();
                         prepareStatement = aConnection.prepareStatement(translatedStatement);
                         affectedRows = prepareStatement.executeUpdate();
-                        aConnection.commit();
                 } finally {
                         if (prepareStatement != null) {
                                 prepareStatement.close();
