@@ -42,6 +42,10 @@ hybris/config
 
 #We don't ignore our build.xmls
 !/build.xml
+
+#We ignore the zip packages
+hybris/bin/custom/deploymentScriptsManager_*.zip
+
 #Intellij IDEA
 hybris/bin/custom/.idea/workspace.xml
 hybris/bin/custom/.idea/tasks.xml
