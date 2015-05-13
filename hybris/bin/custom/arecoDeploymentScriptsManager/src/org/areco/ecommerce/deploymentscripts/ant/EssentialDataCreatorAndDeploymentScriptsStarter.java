@@ -23,14 +23,6 @@ import de.hybris.platform.jalo.extension.Extension;
 import de.hybris.platform.jalo.extension.ExtensionManager;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.util.JspContext;
-import de.hybris.platform.util.Utilities;
-
-import java.io.StringWriter;
-import java.util.Collections;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspWriter;
-
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +31,11 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockJspWriter;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspWriter;
+import java.io.StringWriter;
+import java.util.Collections;
 
 /**
  * It creates the essential data for the tenant junit. The command "ant yunitinit" doesn't run the essential data creation step. Due to this, no deployment
@@ -74,7 +71,6 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter {
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     // We catch all exceptions because this method is called by ant.
     public void runInJunitTenant() {
-        Utilities.setJUnitTenant();
         if (!extensionHelper.isDeploymentManagerExtensionTurnedOn()
                 || !Boolean.parseBoolean(this.configurationService.getConfiguration().getString(JUNIT_TENANT_CREATEESSENTIALDATA_CONF))) {
             if (LOG.isDebugEnabled()) {

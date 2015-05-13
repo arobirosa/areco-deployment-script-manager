@@ -92,7 +92,10 @@
 		import de.hybris.platform.core.Registry;
 		import org.areco.ecommerce.deploymentscripts.ant.EssentialDataCreatorAndDeploymentScriptsStarter;
 		import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
-				                
+
+		import de.hybris.platform.util.Utilities;
+
+		Utilities.setJUnitTenant();
 		AntDeploymentScriptsStarter starter = (AntDeploymentScriptsStarter) Registry.getApplicationContext().getBean(AntDeploymentScriptsStarter.class);		
 		EssentialDataCreatorAndDeploymentScriptsStarter essentialDataCreator = (EssentialDataCreatorAndDeploymentScriptsStarter) Registry.getApplicationContext().getBean(EssentialDataCreatorAndDeploymentScriptsStarter.class);      
 				
