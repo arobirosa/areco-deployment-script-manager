@@ -1,0 +1,2 @@
+INSERT Tax;code[unique=true];value;
+;dummyGermanTax2;4,90
