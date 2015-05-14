@@ -1,1 +1,0 @@
-CREATE INDEX arenvironment_name ON {TABLE_PREFIX}arenvironment (p_name)
