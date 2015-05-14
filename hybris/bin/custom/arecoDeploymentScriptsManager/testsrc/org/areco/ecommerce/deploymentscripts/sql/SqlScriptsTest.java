@@ -99,7 +99,7 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
         }
 
         @Test
-        public void testScriptsWithCreateIndex() throws SQLException {
-                assertSqlScript("ddl", "20141004_SQL_SCRIPT_CREATE_INDEX", true);
+        public void testScriptsWithCreateTable() throws SQLException {
+                assertSqlScript("ddl", "20141004_SQL_SCRIPT_CREATE_TABLE", true);
         }
 }
