@@ -21,26 +21,15 @@ import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetup.Process;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-
-import java.io.File;
-import java.io.FileFilter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
-
 import org.apache.log4j.Logger;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStepFactory;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
+import org.areco.ecommerce.deploymentscripts.core.*;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.util.*;
 
 /**
  * Default implementation of the deployment script finder.
@@ -132,8 +121,8 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
     private File[] getExistingScriptsInDirectory(final ExtensionInfo extension, final String scriptsFolderName) {
         final File deploymentScriptFolder = new File(extension.getExtensionDirectory()
                 + this.configurationService.getConfiguration().getString(RESOURCES_FOLDER_CONF), scriptsFolderName);
-        if (LOG.isTraceEnabled()) {
-                LOG.trace("Looking for scripts in " + deploymentScriptFolder.getAbsolutePath());
+        if (LOG.isDebugEnabled()) {
+                LOG.debug("Looking for scripts in '" + deploymentScriptFolder.getAbsolutePath() + '\'');
         }
         if (!deploymentScriptFolder.exists()) {
             return new File[0];
