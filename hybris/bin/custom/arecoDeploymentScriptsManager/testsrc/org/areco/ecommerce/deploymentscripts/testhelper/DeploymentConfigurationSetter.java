@@ -36,6 +36,8 @@ import org.springframework.stereotype.Component;
 @Scope("tenant")
 public class DeploymentConfigurationSetter {
 
+    private static String NO_INIT_SCRIPTS_FOLDER = "no-init-scripts";
+
     private boolean oldConfigurationWasSaved = false;
 
     private String oldResourcesFolder = null;
@@ -55,25 +57,34 @@ public class DeploymentConfigurationSetter {
      * Save the current configuration and sets the folders to the given values.
      * 
      * @param testResourcesFolder
-     *            Required
+     *            Mandatory
      * @param testUpdateScriptsFolder
-     *            Optional
+     *            Mandatory
      * @param testInitScriptsFolder
-     *            Optional
+     *            Mandatory
      */
 
     public void setTestFolders(final String testResourcesFolder, final String testUpdateScriptsFolder, final String testInitScriptsFolder) {
         ServicesUtil.validateParameterNotNullStandardMessage("testResourcesFolder", testResourcesFolder);
+        ServicesUtil.validateParameterNotNullStandardMessage("testUpdateScriptsFolder", testUpdateScriptsFolder);
+        ServicesUtil.validateParameterNotNullStandardMessage("testInitScriptsFolder", testResourcesFolder);
         this.saveCurrentFolders();
 
         getConfiguration().setProperty(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, testResourcesFolder);
+        getConfiguration().setProperty(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, testUpdateScriptsFolder);
+        getConfiguration().setProperty(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, testInitScriptsFolder);
+    }
 
-        if (testUpdateScriptsFolder != null) {
-            getConfiguration().setProperty(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, testUpdateScriptsFolder);
-        }
-        if (testInitScriptsFolder != null) {
-            getConfiguration().setProperty(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, testInitScriptsFolder);
-        }
+    /**
+     * Save the current configuration and sets the folders to the given values.
+     *
+     * @param testResourcesFolder
+     *            Mandatory
+     * @param testUpdateScriptsFolder
+     *            Mandatory
+     */
+    public void setTestFolders(final String testResourcesFolder, final String testUpdateScriptsFolder) {
+        setTestFolders(testResourcesFolder, testUpdateScriptsFolder, NO_INIT_SCRIPTS_FOLDER);
     }
 
     private Configuration getConfiguration() {

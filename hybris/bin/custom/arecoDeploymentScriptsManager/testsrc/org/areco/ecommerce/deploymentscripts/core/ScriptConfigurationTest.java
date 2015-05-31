@@ -30,7 +30,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
 
         @Test
         public void testCurrentEnvironment() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "dev-only", null);
+                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "dev-only");
                 this.getDeploymentConfigurationSetter().setEnvironment("DEV");
                 final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
                 Assert.assertFalse("There were errors", wereThereErrors);
@@ -40,7 +40,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
 
         @Test
         public void currentTenant() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "junit-only", null);
+                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "junit-only");
                 this.getDeploymentConfigurationSetter().setEnvironment("DEV");
                 final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
                 Assert.assertFalse("There were errors", wereThereErrors);
@@ -50,7 +50,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
 
         @Test
         public void otherEnvironment() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "prod-only", null);
+                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "prod-only");
                 this.getDeploymentConfigurationSetter().setEnvironment("DEV");
                 final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
                 Assert.assertFalse("There were errors", wereThereErrors);
@@ -59,7 +59,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         }
 
         public void otherEnvironmentAndTenant() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "prod-env-and-tenant-master-only", null);
+                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "prod-env-and-tenant-master-only");
                 this.getDeploymentConfigurationSetter().setEnvironment("DEV");
                 final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
                 Assert.assertFalse("There were errors", wereThereErrors);
@@ -69,7 +69,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
 
         @Test
         public void otherTenant() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "master-tenant-only", null);
+                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "master-tenant-only");
                 this.getDeploymentConfigurationSetter().setEnvironment("DEV");
                 final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
                 Assert.assertFalse("There were errors", wereThereErrors);
@@ -79,7 +79,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
 
         @Test(expected = DeploymentScriptConfigurationException.class)
         public void twoConfigurations() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "two-configurations", null);
+                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "two-configurations");
                 this.getDeploymentConfigurationSetter().setEnvironment("DEV");
                 this.getDeploymentScriptStarter().runAllPendingScripts();
                 Assert.fail("An exception must have been thrown");
@@ -87,7 +87,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
 
         @Test(expected = IllegalStateException.class)
         public void unknownEnvironment() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "unknown-environment", null);
+                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "unknown-environment");
                 this.getDeploymentConfigurationSetter().setEnvironment("DEV");
                 this.getDeploymentScriptStarter().runAllPendingScripts();
                 Assert.fail("An exception must have been thrown");
@@ -95,7 +95,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
 
         @Test(expected = DeploymentScriptConfigurationException.class)
         public void unknownTenant() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "unknown-tenant", null);
+                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "unknown-tenant");
                 this.getDeploymentConfigurationSetter().setEnvironment("DEV");
                 this.getDeploymentScriptStarter().runAllPendingScripts();
                 Assert.fail("An exception must have been thrown");
@@ -103,7 +103,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
 
         @Test
         public void justCreatedEnvironment() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment", null);
+                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment");
                 // We simulate that we are in the just created environment
                 this.getDeploymentConfigurationSetter().setEnvironment("QA_WEBSERVICE");
                 final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
@@ -114,7 +114,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
 
         @Test(expected = IllegalStateException.class)
         public void undefindCurrentEnvironment() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment", null);
+                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment");
                 this.getDeploymentConfigurationSetter().setEnvironment(""); // We cannot set a null value.
                 this.getDeploymentScriptStarter().runAllPendingScripts();
                 Assert.fail("An exception must have been thrown.");
