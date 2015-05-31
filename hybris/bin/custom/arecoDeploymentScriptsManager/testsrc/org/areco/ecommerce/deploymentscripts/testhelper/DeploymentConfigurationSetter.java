@@ -15,8 +15,6 @@
  */
 package org.areco.ecommerce.deploymentscripts.testhelper;
 
-import de.hybris.platform.servicelayer.config.ConfigurationService;
-import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.configuration.Configuration;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptFinder;
@@ -25,6 +23,9 @@ import org.areco.ecommerce.deploymentscripts.impex.impl.LocalizedImpexImportServ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import de.hybris.platform.servicelayer.config.ConfigurationService;
+import de.hybris.platform.servicelayer.util.ServicesUtil;
 
 /**
  * It modifies the configuration of the properties during a test and restore them at the end of it.
@@ -36,11 +37,11 @@ import org.springframework.stereotype.Component;
 @Scope("tenant")
 public class DeploymentConfigurationSetter {
     /*
-         * Logger of this class.
-         */
+     * Logger of this class.
+     */
     private static final Logger LOG = Logger.getLogger(DeploymentConfigurationSetter.class);
 
-    private static String NO_INIT_SCRIPTS_FOLDER = "no-init-scripts";
+    private static final String NO_INIT_SCRIPTS_FOLDER = "no-init-scripts";
 
     private boolean oldConfigurationWasSaved = false;
 
