@@ -17,8 +17,8 @@ package org.areco.ecommerce.deploymentscripts.testhelper;
 
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-
 import org.apache.commons.configuration.Configuration;
+import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchDeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.impex.impl.LocalizedImpexImportService;
@@ -35,6 +35,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("tenant")
 public class DeploymentConfigurationSetter {
+    /*
+         * Logger of this class.
+         */
+    private static final Logger LOG = Logger.getLogger(DeploymentConfigurationSetter.class);
 
     private static String NO_INIT_SCRIPTS_FOLDER = "no-init-scripts";
 
@@ -70,9 +74,9 @@ public class DeploymentConfigurationSetter {
         ServicesUtil.validateParameterNotNullStandardMessage("testInitScriptsFolder", testResourcesFolder);
         this.saveCurrentFolders();
 
-        getConfiguration().setProperty(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, testResourcesFolder);
-        getConfiguration().setProperty(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, testUpdateScriptsFolder);
-        getConfiguration().setProperty(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, testInitScriptsFolder);
+        setConfigurationAndLog(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, testResourcesFolder);
+        setConfigurationAndLog(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, testUpdateScriptsFolder);
+        setConfigurationAndLog(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, testInitScriptsFolder);
     }
 
     /**
@@ -110,11 +114,11 @@ public class DeploymentConfigurationSetter {
      * Restores the original configuration.
      */
     public void restoreOldFolders() {
-        getConfiguration().setProperty(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, oldResourcesFolder);
-        getConfiguration().setProperty(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, oldUpdateScriptsFolder);
-        getConfiguration().setProperty(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, oldInitScriptsFolder);
-        getConfiguration().setProperty(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, oldEnvironmentName);
-        getConfiguration().setProperty(LocalizedImpexImportService.IMPEX_LOCALE_CONF, oldImpexLocaleCode);
+        setConfigurationAndLog(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, oldResourcesFolder);
+        setConfigurationAndLog(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, oldUpdateScriptsFolder);
+        setConfigurationAndLog(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, oldInitScriptsFolder);
+        setConfigurationAndLog(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, oldEnvironmentName);
+        setConfigurationAndLog(LocalizedImpexImportService.IMPEX_LOCALE_CONF, oldImpexLocaleCode);
     }
 
     /**
@@ -124,7 +128,7 @@ public class DeploymentConfigurationSetter {
      *            Can be null.
      */
     public void setEnvironment(final String currentEnvironmentName) {
-        getConfiguration().setProperty(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, currentEnvironmentName);
+        setConfigurationAndLog(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, currentEnvironmentName);
     }
 
     /**
@@ -134,6 +138,11 @@ public class DeploymentConfigurationSetter {
      *            Required
      */
     public void setImpexLocaleCode(final String impexLocaleCode) {
-        getConfiguration().setProperty(LocalizedImpexImportService.IMPEX_LOCALE_CONF, impexLocaleCode);
+        setConfigurationAndLog(LocalizedImpexImportService.IMPEX_LOCALE_CONF, impexLocaleCode);
+    }
+
+    private void setConfigurationAndLog(final String key, final String value) {
+        LOG.debug("Setting the configuration key '" + key + "' with the value '" + value + "'");
+        this.getConfiguration().setProperty(key, value);
     }
 }
