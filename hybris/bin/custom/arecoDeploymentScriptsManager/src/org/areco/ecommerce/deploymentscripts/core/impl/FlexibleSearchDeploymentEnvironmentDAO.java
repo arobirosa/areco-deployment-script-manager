@@ -29,6 +29,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -63,14 +64,16 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
         if (environmentNames.isEmpty()) {
             throw new IllegalArgumentException("The parameter environmentNames cannot be empty.");
         }
-        Set<String> normalizedEnvironmentNames = new HashSet<>();
+        Set<String> normalizedEnvironmentNames = new HashSet<String>();
         for (String givenEnvironmentName : environmentNames) {
-            normalizedEnvironmentNames.add(givenEnvironmentName.trim().toUpperCase());
+            normalizedEnvironmentNames.add(givenEnvironmentName.trim().toUpperCase(Locale.getDefault()));
         }
 
         final StringBuilder queryBuilder = new StringBuilder();
-        queryBuilder.append("SELECT {r.").append(DeploymentEnvironmentModel.PK).append("}").append(" FROM {").append(DeploymentEnvironmentModel._TYPECODE)
-                .append(" as r ").append("} ").append(" WHERE ").append(" UPPER({").append(DeploymentEnvironmentModel.NAME).append("}) ").append(" IN ").append('(')
+        queryBuilder.append("SELECT {r.").append(DeploymentEnvironmentModel.PK).append("}")
+                .append(" FROM {").append(DeploymentEnvironmentModel._TYPECODE)
+                .append(" as r ").append("} ")
+                .append(" WHERE ").append(" UPPER({").append(DeploymentEnvironmentModel.NAME).append("}) ").append(" IN ").append('(')
                 .append('?').append(DeploymentEnvironmentModel.NAME).append(')');
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
