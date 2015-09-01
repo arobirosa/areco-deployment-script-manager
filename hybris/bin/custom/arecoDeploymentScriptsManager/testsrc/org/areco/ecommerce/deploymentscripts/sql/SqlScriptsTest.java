@@ -61,7 +61,7 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
         private void assertSqlScript(final String scriptFolder, final String scriptName, final boolean expectedSuccessfulScript) {
                 String resourcesLocation = RESOURCES_FOLDER;
 
-                this.getDeploymentConfigurationSetter().setTestFolders(resourcesLocation, scriptFolder, null);
+                this.getDeploymentConfigurationSetter().setTestFolders(resourcesLocation, scriptFolder);
                 this.antDeploymentScriptsStarter.runPendingScripts();
                 if (expectedSuccessfulScript) {
                         deploymentScriptResultAsserter.assertSuccessfulResult(scriptName);

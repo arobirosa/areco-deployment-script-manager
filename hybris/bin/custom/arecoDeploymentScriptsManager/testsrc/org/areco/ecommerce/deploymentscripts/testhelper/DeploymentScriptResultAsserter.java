@@ -15,15 +15,10 @@
  */
 package org.areco.ecommerce.deploymentscripts.testhelper;
 
+import de.hybris.platform.servicelayer.exceptions.ModelNotFoundException;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
@@ -31,6 +26,10 @@ import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This DAO provides services to the tests.
@@ -92,7 +91,12 @@ public final class DeploymentScriptResultAsserter {
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
 
-        return this.flexibleSearchService.searchUnique(query);
+        try {
+            return this.flexibleSearchService.searchUnique(query);
+        } catch (ModelNotFoundException uie) {
+            Assert.fail("The script '" + deploymentScriptName + "' wasn't executed.");
+            return null; //To make the compiler happy
+        }
     }
 
     /**

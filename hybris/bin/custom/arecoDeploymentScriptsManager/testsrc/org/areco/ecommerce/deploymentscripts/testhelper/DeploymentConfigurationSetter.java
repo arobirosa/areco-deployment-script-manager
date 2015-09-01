@@ -15,16 +15,17 @@
  */
 package org.areco.ecommerce.deploymentscripts.testhelper;
 
-import de.hybris.platform.servicelayer.config.ConfigurationService;
-import de.hybris.platform.servicelayer.util.ServicesUtil;
-
 import org.apache.commons.configuration.Configuration;
+import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchDeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.impex.impl.LocalizedImpexImportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import de.hybris.platform.servicelayer.config.ConfigurationService;
+import de.hybris.platform.servicelayer.util.ServicesUtil;
 
 /**
  * It modifies the configuration of the properties during a test and restore them at the end of it.
@@ -35,6 +36,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("tenant")
 public class DeploymentConfigurationSetter {
+    /*
+     * Logger of this class.
+     */
+    private static final Logger LOG = Logger.getLogger(DeploymentConfigurationSetter.class);
+
+    private static final String NO_INIT_SCRIPTS_FOLDER = "no-init-scripts";
 
     private boolean oldConfigurationWasSaved = false;
 
@@ -55,25 +62,34 @@ public class DeploymentConfigurationSetter {
      * Save the current configuration and sets the folders to the given values.
      * 
      * @param testResourcesFolder
-     *            Required
+     *            Mandatory
      * @param testUpdateScriptsFolder
-     *            Optional
+     *            Mandatory
      * @param testInitScriptsFolder
-     *            Optional
+     *            Mandatory
      */
 
     public void setTestFolders(final String testResourcesFolder, final String testUpdateScriptsFolder, final String testInitScriptsFolder) {
         ServicesUtil.validateParameterNotNullStandardMessage("testResourcesFolder", testResourcesFolder);
+        ServicesUtil.validateParameterNotNullStandardMessage("testUpdateScriptsFolder", testUpdateScriptsFolder);
+        ServicesUtil.validateParameterNotNullStandardMessage("testInitScriptsFolder", testResourcesFolder);
         this.saveCurrentFolders();
 
-        getConfiguration().setProperty(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, testResourcesFolder);
+        setConfigurationAndLog(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, testResourcesFolder);
+        setConfigurationAndLog(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, testUpdateScriptsFolder);
+        setConfigurationAndLog(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, testInitScriptsFolder);
+    }
 
-        if (testUpdateScriptsFolder != null) {
-            getConfiguration().setProperty(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, testUpdateScriptsFolder);
-        }
-        if (testInitScriptsFolder != null) {
-            getConfiguration().setProperty(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, testInitScriptsFolder);
-        }
+    /**
+     * Save the current configuration and sets the folders to the given values.
+     *
+     * @param testResourcesFolder
+     *            Mandatory
+     * @param testUpdateScriptsFolder
+     *            Mandatory
+     */
+    public void setTestFolders(final String testResourcesFolder, final String testUpdateScriptsFolder) {
+        setTestFolders(testResourcesFolder, testUpdateScriptsFolder, NO_INIT_SCRIPTS_FOLDER);
     }
 
     private Configuration getConfiguration() {
@@ -99,11 +115,11 @@ public class DeploymentConfigurationSetter {
      * Restores the original configuration.
      */
     public void restoreOldFolders() {
-        getConfiguration().setProperty(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, oldResourcesFolder);
-        getConfiguration().setProperty(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, oldUpdateScriptsFolder);
-        getConfiguration().setProperty(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, oldInitScriptsFolder);
-        getConfiguration().setProperty(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, oldEnvironmentName);
-        getConfiguration().setProperty(LocalizedImpexImportService.IMPEX_LOCALE_CONF, oldImpexLocaleCode);
+        setConfigurationAndLog(ArecoDeploymentScriptFinder.RESOURCES_FOLDER_CONF, oldResourcesFolder);
+        setConfigurationAndLog(ArecoDeploymentScriptFinder.UPDATE_SCRIPTS_FOLDER_CONF, oldUpdateScriptsFolder);
+        setConfigurationAndLog(ArecoDeploymentScriptFinder.INIT_SCRIPTS_FOLDER_CONF, oldInitScriptsFolder);
+        setConfigurationAndLog(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, oldEnvironmentName);
+        setConfigurationAndLog(LocalizedImpexImportService.IMPEX_LOCALE_CONF, oldImpexLocaleCode);
     }
 
     /**
@@ -113,7 +129,7 @@ public class DeploymentConfigurationSetter {
      *            Can be null.
      */
     public void setEnvironment(final String currentEnvironmentName) {
-        getConfiguration().setProperty(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, currentEnvironmentName);
+        setConfigurationAndLog(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, currentEnvironmentName);
     }
 
     /**
@@ -123,6 +139,11 @@ public class DeploymentConfigurationSetter {
      *            Required
      */
     public void setImpexLocaleCode(final String impexLocaleCode) {
-        getConfiguration().setProperty(LocalizedImpexImportService.IMPEX_LOCALE_CONF, impexLocaleCode);
+        setConfigurationAndLog(LocalizedImpexImportService.IMPEX_LOCALE_CONF, impexLocaleCode);
+    }
+
+    private void setConfigurationAndLog(final String key, final String value) {
+        LOG.debug("Setting the configuration key '" + key + "' with the value '" + value + "'");
+        this.getConfiguration().setProperty(key, value);
     }
 }

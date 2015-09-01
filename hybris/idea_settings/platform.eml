@@ -232,9 +232,6 @@
 	<lib name="commons-email-1.2.jar" scope="COMPILE">
 		<relative-module-cls project-related="jar://$PROJECT_DIR$/../platform/ext/core/lib/commons-email-1.2.jar!/"/>
 	</lib>
-	<lib name="commons-fileupload-1.2.2.jar" scope="COMPILE">
-		<relative-module-cls project-related="jar://$PROJECT_DIR$/../platform/ext/core/lib/commons-fileupload-1.2.2.jar!/"/>
-	</lib>
 	<lib name="commons-httpclient-3.1.jar" scope="COMPILE">
 		<relative-module-cls project-related="jar://$PROJECT_DIR$/../platform/ext/core/lib/commons-httpclient-3.1.jar!/"/>
 	</lib>

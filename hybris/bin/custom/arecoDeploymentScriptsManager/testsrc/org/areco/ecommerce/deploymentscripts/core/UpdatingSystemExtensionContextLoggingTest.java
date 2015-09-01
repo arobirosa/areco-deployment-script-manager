@@ -48,7 +48,7 @@ public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfi
                 if (LOG.isInfoEnabled()) {
                         LOG.info("Setting the resource folder to context-logging.");
                 }
-                this.getDeploymentConfigurationSetter().setTestFolders("/resources/test/context-logging", null, null);
+                this.getDeploymentConfigurationSetter().setTestFolders("/resources/test/context-logging", "update-deployment-scripts");
         }
 
         @Test

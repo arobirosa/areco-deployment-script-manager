@@ -17,18 +17,15 @@ package org.areco.ecommerce.deploymentscripts.impex.impl;
 
 import de.hybris.platform.core.model.order.price.TaxModel;
 import de.hybris.platform.order.daos.TaxDao;
-
-import java.util.List;
-import java.util.Locale;
-
-import javax.annotation.Resource;
-
 import junit.framework.Assert;
-
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
 import org.junit.Test;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * It checks if impex scripts with different locales are correctly imported.
@@ -56,7 +53,7 @@ public class ImpexScriptWithLocaleTest extends AbstractWithConfigurationRestorat
     }
 
     private void assertValueOfImportedTax(final String directoryCode, final String taxCode, final double expectedTaxValue, final Locale currentLocale) {
-        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, directoryCode, null);
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, directoryCode);
         this.getDeploymentConfigurationSetter().setImpexLocaleCode(currentLocale.toString());
         final boolean wereThereErrors = this.deploymentScriptStarter.runAllPendingScripts();
         Assert.assertFalse("There were errors", wereThereErrors);
