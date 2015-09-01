@@ -20,10 +20,6 @@ import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.model.DeploymentEnvironmentModel;
@@ -31,6 +27,9 @@ import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This implementation uses Flexible Search.
@@ -64,14 +63,18 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
         if (environmentNames.isEmpty()) {
             throw new IllegalArgumentException("The parameter environmentNames cannot be empty.");
         }
+        Set<String> normalizedEnvironmentNames = new HashSet<>();
+        for (String givenEnvironmentName : environmentNames) {
+            normalizedEnvironmentNames.add(givenEnvironmentName.trim().toUpperCase());
+        }
 
         final StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append("SELECT {r.").append(DeploymentEnvironmentModel.PK).append("}").append(" FROM {").append(DeploymentEnvironmentModel._TYPECODE)
-                .append(" as r ").append("} ").append(" WHERE ").append(" {").append(DeploymentEnvironmentModel.NAME).append("} ").append(" IN ").append('(')
+                .append(" as r ").append("} ").append(" WHERE ").append(" UPPER({").append(DeploymentEnvironmentModel.NAME).append("}) ").append(" IN ").append('(')
                 .append('?').append(DeploymentEnvironmentModel.NAME).append(')');
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
-        query.addQueryParameter(DeploymentEnvironmentModel.NAME, environmentNames);
+        query.addQueryParameter(DeploymentEnvironmentModel.NAME, normalizedEnvironmentNames);
         final SearchResult<ScriptExecutionResultModel> searchResult = this.flexibleSearchService.search(query);
         if (environmentNames.size() != searchResult.getCount()) {
             throw new IllegalStateException("Some environments don't exist. Please check that these names are valid: " + environmentNames);
