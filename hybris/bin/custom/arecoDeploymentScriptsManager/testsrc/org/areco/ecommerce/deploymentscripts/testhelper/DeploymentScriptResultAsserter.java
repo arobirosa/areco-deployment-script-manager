@@ -18,6 +18,7 @@ package org.areco.ecommerce.deploymentscripts.testhelper;
 import de.hybris.platform.servicelayer.exceptions.ModelNotFoundException;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
+import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
@@ -76,6 +77,7 @@ public final class DeploymentScriptResultAsserter {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Getting the execution of the script " + deploymentScriptName);
         }
+        printExecutedScriptsInTheDatabase();
         final StringBuilder queryBuilder = new StringBuilder();
 
         queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
@@ -94,9 +96,27 @@ public final class DeploymentScriptResultAsserter {
         try {
             return this.flexibleSearchService.searchUnique(query);
         } catch (ModelNotFoundException uie) {
+            LOG.fatal("There was an error: ", uie);
             Assert.fail("The script '" + deploymentScriptName + "' wasn't executed.");
             return null; //To make the compiler happy
         }
+    }
+
+    private void printExecutedScriptsInTheDatabase() {
+      final StringBuilder queryBuilder = new StringBuilder();
+
+      queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
+        .append(" as es ").append(" } ");
+
+        LOG.fatal("Executing the query: '" + queryBuilder.toString());
+
+      final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
+
+      SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
+       LOG.fatal("Number of executions: " +  result.getCount());
+       for (ScriptExecutionModel anExecution : result.getResult()) {
+         LOG.fatal("Executed '" + anExecution.getScriptName() + "'");
+       }
     }
 
     /**

@@ -13,22 +13,22 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.areco.ecommerce.deploymentscripts.beanshell;
+package org.areco.ecommerce.deploymentscripts.scriptinglanguages;
 
 /**
- * It runs BeanShell code.
+ * Each implementation runs a scripting language.
  * 
  * @author arobirosa
  * 
  */
-public interface BeanShellService {
+public interface ScriptingLanguageService {
 
     /**
      * It runs the given code.
-     * 
-     * @param loadFileContent
-     * @throws BeanShellExecutionException
+     *
+     * @param code
+     * @throws ScriptingLanguageExecutionException
      */
-    void executeScript(String loadFileContent) throws BeanShellExecutionException;
+    void executeScript(String code) throws ScriptingLanguageExecutionException;
 
 }

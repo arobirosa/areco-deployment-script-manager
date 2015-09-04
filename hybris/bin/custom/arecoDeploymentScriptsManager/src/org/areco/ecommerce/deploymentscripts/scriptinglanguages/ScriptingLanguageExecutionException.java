@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.areco.ecommerce.deploymentscripts.beanshell;
+package org.areco.ecommerce.deploymentscripts.scriptinglanguages;
 
 /**
  * There was an error while running BeanShell code. The caller has to manage this exception.
@@ -21,33 +21,33 @@ package org.areco.ecommerce.deploymentscripts.beanshell;
  * @author arobirosa
  * 
  */
-public class BeanShellExecutionException extends Exception {
+public class ScriptingLanguageExecutionException extends Exception {
 
     /**
      * Default constructor with a message and a cause
-     * 
+     *
      * @param message
      * @param cause
      */
-    public BeanShellExecutionException(final String message, final Throwable cause) {
+    public ScriptingLanguageExecutionException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
     /**
      * Constructor with a message.
-     * 
+     *
      * @param message
      */
-    public BeanShellExecutionException(final String message) {
+    public ScriptingLanguageExecutionException(final String message) {
         super(message);
     }
 
     /**
      * Constructor with a cause
-     * 
+     *
      * @param cause
      */
-    public BeanShellExecutionException(final Throwable cause) {
+    public ScriptingLanguageExecutionException(final Throwable cause) {
         super(cause);
     }
 }
