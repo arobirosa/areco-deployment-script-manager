@@ -44,13 +44,13 @@
     </bean>
     
     <bean id="beanShellScriptStepFactory"
-        class="org.areco.ecommerce.deploymentscripts.beanshell.BeanShellScriptStepFactory"
+        class="org.areco.ecommerce.deploymentscripts.scriptinglanguages.beanshell.BeanShellScriptStepFactory"
         scope="tenant">
         <lookup-method name="createStep" bean="beanShellScriptStep"/>
     </bean>
 
     <bean id="groovyScriptStepFactory"
-          class="org.areco.ecommerce.deploymentscripts.groovy.GroovyScriptStepFactory"
+          class="org.areco.ecommerce.deploymentscripts.scriptinglanguages.groovy.GroovyScriptStepFactory"
           scope="tenant">
         <lookup-method name="createStep" bean="groovyScriptStep"/>
     </bean>

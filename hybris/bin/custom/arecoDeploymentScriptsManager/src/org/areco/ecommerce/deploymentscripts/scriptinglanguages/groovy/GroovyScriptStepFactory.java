@@ -13,22 +13,23 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.areco.ecommerce.deploymentscripts.beanshell;
+package org.areco.ecommerce.deploymentscripts.scriptinglanguages.groovy;
+
+import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStepFactory;
+
+import java.io.File;
+import java.util.Locale;
 
 /**
- * It runs BeanShell code.
+ * It creates steps which run groovy scripts.
  * 
  * @author arobirosa
  * 
  */
-public interface BeanShellService {
-
-    /**
-     * It runs the given code.
-     * 
-     * @param loadFileContent
-     * @throws BeanShellExecutionException
-     */
-    void executeScript(String loadFileContent) throws BeanShellExecutionException;
-
+// The configuration of this bean is in the spring application context.
+public abstract class GroovyScriptStepFactory extends AbstractSingleFileScriptStepFactory {
+    @Override
+    protected boolean canCreateStepWith(final File aFile) {
+        return aFile.getName().toLowerCase(Locale.getDefault()).endsWith(".groovy");
+    }
 }

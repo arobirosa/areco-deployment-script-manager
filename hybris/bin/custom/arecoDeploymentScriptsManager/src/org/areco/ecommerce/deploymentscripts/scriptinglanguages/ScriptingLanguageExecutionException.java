@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.areco.ecommerce.deploymentscripts.groovy;
+package org.areco.ecommerce.deploymentscripts.scriptinglanguages;
 
 /**
  * There was an error while running BeanShell code. The caller has to manage this exception.
@@ -21,7 +21,7 @@ package org.areco.ecommerce.deploymentscripts.groovy;
  * @author arobirosa
  * 
  */
-public class GroovyExecutionException extends Exception {
+public class ScriptingLanguageExecutionException extends Exception {
 
     /**
      * Default constructor with a message and a cause
@@ -29,7 +29,7 @@ public class GroovyExecutionException extends Exception {
      * @param message
      * @param cause
      */
-    public GroovyExecutionException(final String message, final Throwable cause) {
+    public ScriptingLanguageExecutionException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
@@ -38,7 +38,7 @@ public class GroovyExecutionException extends Exception {
      *
      * @param message
      */
-    public GroovyExecutionException(final String message) {
+    public ScriptingLanguageExecutionException(final String message) {
         super(message);
     }
 
@@ -47,7 +47,7 @@ public class GroovyExecutionException extends Exception {
      *
      * @param cause
      */
-    public GroovyExecutionException(final Throwable cause) {
+    public ScriptingLanguageExecutionException(final Throwable cause) {
         super(cause);
     }
 }

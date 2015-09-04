@@ -13,12 +13,15 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.areco.ecommerce.deploymentscripts.groovy;
+package org.areco.ecommerce.deploymentscripts.scriptinglanguages.groovy;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStep;
+import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageExecutionException;
+import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +39,8 @@ public class GroovyScriptStep extends AbstractSingleFileScriptStep {
     private static final Logger LOG = Logger.getLogger(GroovyScriptStep.class);
 
     @Autowired
-    private GroovyService groovyService;
+    @Qualifier("defaultGroovyService")
+    private ScriptingLanguageService groovyService;
 
     /*
      * Runs the script represented by this step.
@@ -50,7 +54,7 @@ public class GroovyScriptStep extends AbstractSingleFileScriptStep {
         }
         try {
             this.groovyService.executeScript(this.loadFileContent());
-        } catch (final GroovyExecutionException e) {
+        } catch (final ScriptingLanguageExecutionException e) {
             throw new DeploymentScriptExecutionException("There was an error running the groovy step " + this.getId() + ": " + e.getLocalizedMessage(), e);
         }
     }

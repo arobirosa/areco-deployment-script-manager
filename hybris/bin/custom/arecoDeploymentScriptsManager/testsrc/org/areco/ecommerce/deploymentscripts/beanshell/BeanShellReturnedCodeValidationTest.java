@@ -1,7 +1,9 @@
 package org.areco.ecommerce.deploymentscripts.beanshell;
 
 import de.hybris.bootstrap.annotations.UnitTest;
-import org.areco.ecommerce.deploymentscripts.beanshell.impl.DefaultBeanShellService;
+import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageExecutionException;
+import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageService;
+import org.areco.ecommerce.deploymentscripts.scriptinglanguages.beanshell.DefaultBeanShellService;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,11 +16,11 @@ import org.junit.Test;
 public class BeanShellReturnedCodeValidationTest {
 
         //We don't have any mocks to inject.
-        private final BeanShellService defaultBeanShellService = new DefaultBeanShellService();
+        private final ScriptingLanguageService defaultBeanShellService = new DefaultBeanShellService();
 
         @Test
         @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert") //This test doesn't required to assert anything.
-        public void testCorrectReturnedValue() throws BeanShellExecutionException {
+        public void testCorrectReturnedValue() throws ScriptingLanguageExecutionException {
                 defaultBeanShellService.executeScript("return \"OK\";");
         }
 
@@ -26,7 +28,7 @@ public class BeanShellReturnedCodeValidationTest {
         public void testIncorrectReturnedValue() {
                 try {
                         defaultBeanShellService.executeScript("return \"Error99\";");
-                } catch (BeanShellExecutionException e) {
+                } catch (ScriptingLanguageExecutionException e) {
                         Assert.assertTrue("The message of the exception must contain the returned value: "
                                 + e.getMessage(), e.getMessage().contains("Error99"));
                         return;

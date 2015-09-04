@@ -13,14 +13,14 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.areco.ecommerce.deploymentscripts.groovy.impl;
+package org.areco.ecommerce.deploymentscripts.scriptinglanguages.groovy;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyRuntimeException;
 import groovy.lang.GroovyShell;
 import org.apache.log4j.Logger;
-import org.areco.ecommerce.deploymentscripts.groovy.GroovyExecutionException;
-import org.areco.ecommerce.deploymentscripts.groovy.GroovyService;
+import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageExecutionException;
+import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -35,16 +35,17 @@ import java.util.Map;
  */
 @Service
 @Scope("tenant")
-public class DefaultGroovyService implements GroovyService {
+public class DefaultGroovyService implements ScriptingLanguageService {
     private static final Logger LOG = Logger.getLogger(DefaultGroovyService.class);
 
-    /*
-     * It compiles and executes the given Groovy code.
-     * 
-     * @see org.areco.ecommerce.deploymentscripts.groovy.GroovyShellService#executeScript(java.lang.String)
-     */
+  /**
+   * Executes the groovy script which must return "OK".
+   *
+   * @param code Required.
+   * @throws ScriptingLanguageExecutionException If there was an error or the script didn't return "OK"
+   */
     @Override
-    public void executeScript(final String code) throws GroovyExecutionException {
+    public void executeScript(final String code) throws ScriptingLanguageExecutionException {
         if (code == null || code.trim().isEmpty()) {
             throw new IllegalArgumentException("The parameter code cannot be null");
         }
@@ -59,14 +60,14 @@ public class DefaultGroovyService implements GroovyService {
         try {
             checkSuccessfulResult(groovyShell.evaluate(code));
         } catch (final GroovyRuntimeException e) {
-            throw new GroovyExecutionException("There was an error executing the groovy code: " + e.getLocalizedMessage(), e);
+            throw new ScriptingLanguageExecutionException("There was an error executing the code: " + e.getLocalizedMessage(), e);
         }
     }
 
-    private void checkSuccessfulResult(final Object anObject) throws GroovyExecutionException {
+    private void checkSuccessfulResult(final Object anObject) throws ScriptingLanguageExecutionException {
         if (anObject instanceof String && "OK".equalsIgnoreCase((String) anObject)) {
             return;
         }
-        throw new GroovyExecutionException("The groovy code didn't return the string 'OK' but '" + anObject + "'. Please check if there was an error.");
+        throw new ScriptingLanguageExecutionException("The groovy code didn't return the string 'OK' but '" + anObject + "'. Please check if there was an error.");
     }
 }
