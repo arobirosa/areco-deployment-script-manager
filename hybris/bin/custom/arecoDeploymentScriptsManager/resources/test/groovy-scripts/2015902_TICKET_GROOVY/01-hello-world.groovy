@@ -3,5 +3,6 @@ class HelloWorld {
   def greet() { "Hello ${name}" }
 }
 def helloWorld = new HelloWorld()
-helloWorld.name = "OKa"
-println helloWorld.greet()
+helloWorld.name = "World"
+helloWorld.greet()
+"OK"

@@ -48,6 +48,12 @@
         scope="tenant">
         <lookup-method name="createStep" bean="beanShellScriptStep"/>
     </bean>
+
+    <bean id="groovyScriptStepFactory"
+          class="org.areco.ecommerce.deploymentscripts.groovy.GroovyScriptStepFactory"
+          scope="tenant">
+        <lookup-method name="createStep" bean="groovyScriptStep"/>
+    </bean>
     
     <bean id="propertyFileDeploymentScriptConfigurationReader"
         class="org.areco.ecommerce.deploymentscripts.core.impl.PropertyFileDeploymentScriptConfigurationReader"
