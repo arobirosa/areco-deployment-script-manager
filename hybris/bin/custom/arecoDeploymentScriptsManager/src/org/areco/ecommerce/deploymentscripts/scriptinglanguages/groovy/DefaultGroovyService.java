@@ -18,9 +18,8 @@ package org.areco.ecommerce.deploymentscripts.scriptinglanguages.groovy;
 import groovy.lang.Binding;
 import groovy.lang.GroovyRuntimeException;
 import groovy.lang.GroovyShell;
-import org.apache.log4j.Logger;
+import org.areco.ecommerce.deploymentscripts.scriptinglanguages.AbstractScriptingLanguageService;
 import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageExecutionException;
-import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -35,39 +34,19 @@ import java.util.Map;
  */
 @Service
 @Scope("tenant")
-public class DefaultGroovyService implements ScriptingLanguageService {
-    private static final Logger LOG = Logger.getLogger(DefaultGroovyService.class);
+public class DefaultGroovyService extends AbstractScriptingLanguageService {
 
-  /**
-   * Executes the groovy script which must return "OK".
-   *
-   * @param code Required.
-   * @throws ScriptingLanguageExecutionException If there was an error or the script didn't return "OK"
-   */
-    @Override
-    public void executeScript(final String code) throws ScriptingLanguageExecutionException {
-        if (code == null || code.trim().isEmpty()) {
-            throw new IllegalArgumentException("The parameter code cannot be null");
-        }
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Running the code '" + code + "'.");
-        }
-        //We don't bind any bean.
-        final Map<String, Object> emptyContext = new HashMap<String, Object>();
+  @Override protected Object compileAndExecute(final String code) throws ScriptingLanguageExecutionException {
+    //We don't bind any bean.
+    final Map<String, Object> emptyContext = new HashMap<String, Object>();
 
-        final Binding binding = new Binding(emptyContext);
-        final GroovyShell groovyShell = new GroovyShell(binding);
-        try {
-            checkSuccessfulResult(groovyShell.evaluate(code));
-        } catch (final GroovyRuntimeException e) {
-            throw new ScriptingLanguageExecutionException("There was an error executing the code: " + e.getLocalizedMessage(), e);
-        }
+    final Binding binding = new Binding(emptyContext);
+    final GroovyShell groovyShell = new GroovyShell(binding);
+
+    try {
+      return groovyShell.evaluate(code);
+    } catch (final GroovyRuntimeException e) {
+      throw new ScriptingLanguageExecutionException("There was an error executing the code: " + e.getLocalizedMessage(), e);
     }
-
-    private void checkSuccessfulResult(final Object anObject) throws ScriptingLanguageExecutionException {
-        if (anObject instanceof String && "OK".equalsIgnoreCase((String) anObject)) {
-            return;
-        }
-        throw new ScriptingLanguageExecutionException("The groovy code didn't return the string 'OK' but '" + anObject + "'. Please check if there was an error.");
-    }
+  }
 }
