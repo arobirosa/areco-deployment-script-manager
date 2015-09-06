@@ -20,6 +20,7 @@ import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.model.DeploymentEnvironmentModel;
@@ -43,6 +44,9 @@ import java.util.Set;
 public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnvironmentDAO {
 
     public static final String CURRENT_ENVIRONMENT_CONF = "deploymentscripts.environment.current";
+    public static final String UNCONFIGURATED_CURRENT_ENVIRONMENT_ERROR_MESSAGE =
+    "Please set in the file local.properties the name of the current deployemnt environment." + " The property "
+      + CURRENT_ENVIRONMENT_CONF + " is empty.";
 
     private static final Logger LOG = Logger.getLogger(FlexibleSearchDeploymentEnvironmentDAO.class);
 
@@ -91,9 +95,8 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
     @Override
     public DeploymentEnvironmentModel getCurrent() {
         final String currentEnvironmentName = this.configurationService.getConfiguration().getString(CURRENT_ENVIRONMENT_CONF);
-        if (currentEnvironmentName == null) {
-            throw new IllegalStateException("Please set in the file local.properties the name of the current deployemnt environment." + " The property "
-                    + CURRENT_ENVIRONMENT_CONF + " is empty.");
+        if (StringUtils.isBlank(currentEnvironmentName)) {
+            throw new IllegalStateException(UNCONFIGURATED_CURRENT_ENVIRONMENT_ERROR_MESSAGE);
         }
         final Set<String> names = new HashSet<String>();
         names.add(currentEnvironmentName);

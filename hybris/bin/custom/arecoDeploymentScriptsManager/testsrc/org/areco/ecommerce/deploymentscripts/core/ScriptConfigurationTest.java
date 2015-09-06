@@ -15,9 +15,12 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
-import de.hybris.bootstrap.annotations.IntegrationTest;
 import junit.framework.Assert;
+
+import org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchDeploymentEnvironmentDAO;
 import org.junit.Test;
+
+import de.hybris.bootstrap.annotations.IntegrationTest;
 
 /**
  * It checks that the script configuration including the contraints are working correctly.
@@ -25,98 +28,118 @@ import org.junit.Test;
  * @author arobirosa
  */
 @IntegrationTest
+@SuppressWarnings("PMD.TooManyMethods") //It a test with many cases
 public class ScriptConfigurationTest extends AbstractWithConfigurationRestorationTest {
-        private static final String RESOURCES_FOLDER = "/resources/test/script-configuration-test";
+    private static final String RESOURCES_FOLDER = "/resources/test/script-configuration-test";
 
-        @Test
-        public void testCurrentEnvironment() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "dev-only");
-                this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-                final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
-                Assert.assertFalse("There were errors", wereThereErrors);
-                getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_DEV_CRONJOBS",
-                        this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
-        }
+    @Test
+    public void testCurrentEnvironment() {
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "dev-only");
+        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
+        final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
+        Assert.assertFalse("There were errors", wereThereErrors);
+        getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_DEV_CRONJOBS", this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+    }
 
-        @Test
-        public void currentTenant() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "junit-only");
-                this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-                final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
-                Assert.assertFalse("There were errors", wereThereErrors);
-                getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_TEST_CRONJOBS",
-                        this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
-        }
+    @Test
+    public void currentTenant() {
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "junit-only");
+        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
+        final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
+        Assert.assertFalse("There were errors", wereThereErrors);
+        getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_TEST_CRONJOBS",
+                this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+    }
 
-        @Test
-        public void otherEnvironment() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "prod-only");
-                this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-                final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
-                Assert.assertFalse("There were errors", wereThereErrors);
-                getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_PROD_CRONJOBS",
-                        this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherEnvironmentResult());
-        }
+    @Test
+    public void otherEnvironment() {
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "prod-only");
+        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
+        final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
+        Assert.assertFalse("There were errors", wereThereErrors);
+        getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_PROD_CRONJOBS",
+                this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherEnvironmentResult());
+    }
 
-        public void otherEnvironmentAndTenant() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "prod-env-and-tenant-master-only");
-                this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-                final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
-                Assert.assertFalse("There were errors", wereThereErrors);
-                getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_PROD_CRONJOBS",
-                        this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherTenantResult());
-        }
+    public void otherEnvironmentAndTenant() {
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "prod-env-and-tenant-master-only");
+        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
+        final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
+        Assert.assertFalse("There were errors", wereThereErrors);
+        getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_PROD_CRONJOBS",
+                this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherTenantResult());
+    }
 
-        @Test
-        public void otherTenant() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "master-tenant-only");
-                this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-                final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
-                Assert.assertFalse("There were errors", wereThereErrors);
-                getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_TEST_CRONJOBS",
-                        this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherTenantResult());
-        }
+    @Test
+    public void otherTenant() {
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "master-tenant-only");
+        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
+        final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
+        Assert.assertFalse("There were errors", wereThereErrors);
+        getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_TEST_CRONJOBS",
+                this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherTenantResult());
+    }
 
-        @Test(expected = DeploymentScriptConfigurationException.class)
-        public void twoConfigurations() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "two-configurations");
-                this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-                this.getDeploymentScriptStarter().runAllPendingScripts();
-                Assert.fail("An exception must have been thrown");
-        }
+    @Test(expected = DeploymentScriptConfigurationException.class)
+    public void twoConfigurations() {
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "two-configurations");
+        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
+        this.getDeploymentScriptStarter().runAllPendingScripts();
+        Assert.fail("An exception must have been thrown");
+    }
 
-        @Test(expected = IllegalStateException.class)
-        public void unknownEnvironment() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "unknown-environment");
-                this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-                this.getDeploymentScriptStarter().runAllPendingScripts();
-                Assert.fail("An exception must have been thrown");
-        }
+    @Test(expected = IllegalStateException.class)
+    public void unknownEnvironment() {
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "unknown-environment");
+        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
+        this.getDeploymentScriptStarter().runAllPendingScripts();
+        Assert.fail("An exception must have been thrown");
+    }
 
-        @Test(expected = DeploymentScriptConfigurationException.class)
-        public void unknownTenant() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "unknown-tenant");
-                this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-                this.getDeploymentScriptStarter().runAllPendingScripts();
-                Assert.fail("An exception must have been thrown");
-        }
+    @Test(expected = DeploymentScriptConfigurationException.class)
+    public void unknownTenant() {
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "unknown-tenant");
+        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
+        this.getDeploymentScriptStarter().runAllPendingScripts();
+        Assert.fail("An exception must have been thrown");
+    }
 
-        @Test
-        public void justCreatedEnvironment() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment");
-                // We simulate that we are in the just created environment
-                this.getDeploymentConfigurationSetter().setEnvironment("QA_WEBSERVICE");
-                final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
-                Assert.assertFalse("There were errors", wereThereErrors);
-                getDeploymentScriptResultAsserter().assertResult("20140814_02_TICKET_ADD_QA_CRONJOBS",
-                        this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
-        }
+    @Test
+    public void justCreatedEnvironment() {
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment");
+        // We simulate that we are in the just created environment
+        this.getDeploymentConfigurationSetter().setEnvironment("QA_WEBSERVICE");
+        final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
+        Assert.assertFalse("There were errors", wereThereErrors);
+        getDeploymentScriptResultAsserter().assertResult("20140814_02_TICKET_ADD_QA_CRONJOBS",
+                this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+    }
 
-        @Test(expected = IllegalStateException.class)
-        public void undefindCurrentEnvironment() {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment");
-                this.getDeploymentConfigurationSetter().setEnvironment(""); // We cannot set a null value.
-                this.getDeploymentScriptStarter().runAllPendingScripts();
-                Assert.fail("An exception must have been thrown.");
+    @Test
+    public void undefindCurrentEnvironment() {
+        try {
+            this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment");
+            this.getDeploymentConfigurationSetter().setEnvironment(""); // We cannot set a null value.
+            this.getDeploymentScriptStarter().runAllPendingScripts();
+        } catch (IllegalStateException e) {
+            Assert.assertEquals("The exception has the wrong error message",
+                    FlexibleSearchDeploymentEnvironmentDAO.UNCONFIGURATED_CURRENT_ENVIRONMENT_ERROR_MESSAGE, e.getMessage());
+            return;
         }
+        Assert.fail("An exception must have been thrown.");
+    }
+
+    @Test
+    public void blankCurrentEnvironment() {
+        try {
+            this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment");
+            this.getDeploymentConfigurationSetter().setEnvironment("                "); // We cannot set a null value.
+            this.getDeploymentScriptStarter().runAllPendingScripts();
+        } catch (IllegalStateException e) {
+            Assert.assertEquals("The exception has the wrong error message",
+                    FlexibleSearchDeploymentEnvironmentDAO.UNCONFIGURATED_CURRENT_ENVIRONMENT_ERROR_MESSAGE, e.getMessage());
+            return;
+        }
+        Assert.fail("An exception must have been thrown.");
+    }
 }

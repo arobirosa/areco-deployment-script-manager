@@ -77,7 +77,7 @@ public final class DeploymentScriptResultAsserter {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Getting the execution of the script " + deploymentScriptName);
         }
-        printExecutedScriptsInTheDatabase();
+        logExecutedScriptsInTheDatabase();
         final StringBuilder queryBuilder = new StringBuilder();
 
         queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
@@ -102,21 +102,21 @@ public final class DeploymentScriptResultAsserter {
         }
     }
 
-    private void printExecutedScriptsInTheDatabase() {
+    private void logExecutedScriptsInTheDatabase() {
       final StringBuilder queryBuilder = new StringBuilder();
 
       queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
         .append(" as es ").append(" } ");
 
-        LOG.fatal("Executing the query: '" + queryBuilder.toString());
+      LOG.trace("Executing the query: '" + queryBuilder.toString());
 
       final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
 
       SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
-       LOG.fatal("Number of executions: " +  result.getCount());
-       for (ScriptExecutionModel anExecution : result.getResult()) {
-         LOG.fatal("Executed '" + anExecution.getScriptName() + "'");
-       }
+      LOG.trace("Number of executions: " +  result.getCount());
+      for (ScriptExecutionModel anExecution : result.getResult()) {
+        LOG.trace("Executed '" + anExecution.getScriptName() + "'");
+      }
     }
 
     /**
