@@ -44,6 +44,9 @@ import java.util.Set;
 public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnvironmentDAO {
 
     public static final String CURRENT_ENVIRONMENT_CONF = "deploymentscripts.environment.current";
+    public static final String UNCONFIGURATED_CURRENT_ENVIRONMENT_ERROR_MESSAGE =
+    "Please set in the file local.properties the name of the current deployemnt environment." + " The property "
+      + CURRENT_ENVIRONMENT_CONF + " is empty.";
 
     private static final Logger LOG = Logger.getLogger(FlexibleSearchDeploymentEnvironmentDAO.class);
 
@@ -93,8 +96,7 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
     public DeploymentEnvironmentModel getCurrent() {
         final String currentEnvironmentName = this.configurationService.getConfiguration().getString(CURRENT_ENVIRONMENT_CONF);
         if (StringUtils.isBlank(currentEnvironmentName)) {
-            throw new IllegalStateException("Please set in the file local.properties the name of the current deployemnt environment." + " The property "
-                    + CURRENT_ENVIRONMENT_CONF + " is empty.");
+            throw new IllegalStateException(UNCONFIGURATED_CURRENT_ENVIRONMENT_ERROR_MESSAGE);
         }
         final Set<String> names = new HashSet<String>();
         names.add(currentEnvironmentName);
