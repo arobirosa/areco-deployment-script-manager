@@ -28,6 +28,7 @@ import de.hybris.bootstrap.annotations.IntegrationTest;
  * @author arobirosa
  */
 @IntegrationTest
+@SuppressWarnings("PMD.TooManyMethods") //It a test with many cases
 public class ScriptConfigurationTest extends AbstractWithConfigurationRestorationTest {
     private static final String RESOURCES_FOLDER = "/resources/test/script-configuration-test";
 
