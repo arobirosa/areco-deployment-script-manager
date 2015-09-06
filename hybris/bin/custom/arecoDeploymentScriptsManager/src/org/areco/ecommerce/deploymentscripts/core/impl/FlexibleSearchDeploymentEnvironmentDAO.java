@@ -20,6 +20,7 @@ import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.model.DeploymentEnvironmentModel;
@@ -91,7 +92,7 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
     @Override
     public DeploymentEnvironmentModel getCurrent() {
         final String currentEnvironmentName = this.configurationService.getConfiguration().getString(CURRENT_ENVIRONMENT_CONF);
-        if (currentEnvironmentName == null) {
+        if (StringUtils.isBlank(currentEnvironmentName)) {
             throw new IllegalStateException("Please set in the file local.properties the name of the current deployemnt environment." + " The property "
                     + CURRENT_ENVIRONMENT_CONF + " is empty.");
         }
