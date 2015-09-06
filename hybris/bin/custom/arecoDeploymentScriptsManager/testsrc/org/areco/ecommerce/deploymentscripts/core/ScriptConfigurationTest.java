@@ -119,4 +119,12 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
                 this.getDeploymentScriptStarter().runAllPendingScripts();
                 Assert.fail("An exception must have been thrown.");
         }
+
+        @Test(expected = IllegalStateException.class)
+        public void blankCurrentEnvironment() {
+          this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment");
+          this.getDeploymentConfigurationSetter().setEnvironment("                "); // We cannot set a null value.
+          this.getDeploymentScriptStarter().runAllPendingScripts();
+          Assert.fail("An exception must have been thrown.");
+        }
 }
