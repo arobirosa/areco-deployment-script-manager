@@ -58,12 +58,13 @@ public final class DeploymentScriptResultAsserter {
      * @param expectedResult
      *            Required
      */
-    public void assertResult(final String deploymentScriptName, final ScriptExecutionResultModel expectedResult) {
+    public ScriptExecutionModel assertResult(final String deploymentScriptName, final ScriptExecutionResultModel expectedResult) {
         ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
         ServicesUtil.validateParameterNotNullStandardMessage("expectedResult", expectedResult);
         final ScriptExecutionModel executionOfTheScript = getDeploymentScriptExecution(deploymentScriptName);
         Assert.assertEquals("The deployment script " + deploymentScriptName + " has the wrong result. Expected: " + expectedResult.getName() + " Actual: "
                 + executionOfTheScript.getResult().getName(), expectedResult, executionOfTheScript.getResult());
+        return executionOfTheScript;
     }
 
     /**
@@ -113,7 +114,7 @@ public final class DeploymentScriptResultAsserter {
       final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
 
       SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
-      LOG.trace("Number of executions: " +  result.getCount());
+      LOG.trace("Number of executions: " + result.getCount());
       for (ScriptExecutionModel anExecution : result.getResult()) {
         LOG.trace("Executed '" + anExecution.getScriptName() + "'");
       }
@@ -141,4 +142,19 @@ public final class DeploymentScriptResultAsserter {
         this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
     }
 
+  /**
+   * Checks if the given script was run and there was an error. The stacktrace must be the expected one.
+   *
+   * @param deploymentScriptName
+   *            Required
+   * @param expectedStacktrace
+   *            Required
+   */
+
+  public void assertErrorResult(String deploymentScriptName, String expectedStacktrace) {
+    ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
+    ServicesUtil.validateParameterNotNullStandardMessage("expectedStacktrace", expectedStacktrace);
+    ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
+    Assert.assertEquals("The stacktraces are different", expectedStacktrace, executionOfTheScript.getStacktrace());
+  }
 }
