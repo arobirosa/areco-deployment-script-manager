@@ -73,8 +73,10 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
             } catch (final DeploymentScriptExecutionException e) {
                 LOG.error("There was an error running " + aScript.getLongName() + ':' + e.getLocalizedMessage(), e);
                 scriptExecution.setResult(this.scriptExecutionResultDao.getErrorResult());
-                scriptExecution.setStacktrace(getStacktraceAsString(e));
                 this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
+                //Now the save the clog with the stacktrace.
+                scriptExecution.setStacktrace(getStacktraceAsString(e));
+                modelService.save(scriptExecution);
                 return true; // We stop after the first error.
             }
             this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
@@ -82,7 +84,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
         return false; // Everything when successfully
     }
 
-  private String getStacktraceAsString(DeploymentScriptExecutionException e) {
+  private String getStacktraceAsString(final DeploymentScriptExecutionException e) {
      StringWriter stringWriter = new StringWriter();
     e.printStackTrace(new PrintWriter(stringWriter));
     return stringWriter.toString();
