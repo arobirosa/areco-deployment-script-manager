@@ -83,6 +83,7 @@
                   <listlayout>
                     <attribute name="result" editable="false"/>
                     <attribute name="phase" editable="false"/>
+                    <attribute name="stacktrace" editable="false"/>
                   </listlayout>
                </section>
             </tab>
