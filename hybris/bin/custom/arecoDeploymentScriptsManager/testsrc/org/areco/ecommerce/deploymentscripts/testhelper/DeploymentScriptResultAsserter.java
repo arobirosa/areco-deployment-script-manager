@@ -24,7 +24,6 @@ import javax.annotation.Resource;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
-import org.areco.ecommerce.deploymentscripts.core.SaveStacktraceAfterErrorTest;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
