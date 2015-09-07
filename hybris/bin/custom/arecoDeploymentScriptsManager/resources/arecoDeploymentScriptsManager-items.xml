@@ -71,7 +71,7 @@
                     <persistence type="property"/>
                 </attribute>
                 <attribute qualifier="stacktrace" type="java.lang.String">
-                    <description>Stacktrace if the script was unsuccessful. It is beetwen 4 and 8 KB long.</description>
+                    <description>Stacktrace if the script was unsuccessful. It is between 4 and 8 KB long.</description>
                     <persistence type="property">
                         <columntype database="oracle">
                             <value>clog</value>
