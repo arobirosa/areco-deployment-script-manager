@@ -83,7 +83,9 @@
                   <listlayout>
                     <attribute name="result" editable="false"/>
                     <attribute name="phase" editable="false"/>
-                    <attribute name="stacktrace" editable="false"/>
+                    <attribute name="stacktrace" editable="false" width="595">
+                        <textareaeditor expanded="true" wrap="false" rows="25" />
+                    </attribute>
                   </listlayout>
                </section>
             </tab>
