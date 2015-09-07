@@ -17,7 +17,11 @@ package org.areco.ecommerce.deploymentscripts.core;
 
 import de.hybris.bootstrap.annotations.IntegrationTest;
 import junit.framework.Assert;
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * It checks that the script configuration including the contraints are working correctly.
@@ -30,14 +34,14 @@ public class SaveStacktraceAfterErrorTest extends AbstractWithConfigurationResto
     private static final String RESOURCES_FOLDER = "/resources/test/save-stacktrace";
 
     @Test
-    public void testCurrentEnvironment() {
+    public void testCurrentEnvironment() throws IOException {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "update-deployment-scripts");
         this.getDeploymentConfigurationSetter().setEnvironment("DEV");
         final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
         Assert.assertTrue("There weren't any errors", wereThereErrors);
-        StringBuilder stacktraceBuilder = new StringBuilder();
-        stacktraceBuilder.append("Exception");
-        getDeploymentScriptResultAsserter().assertErrorResult("20150906_PENDING_SCRIPT_WRONG", stacktraceBuilder.toString());
+        InputStream expectedStacktraceStream = SaveStacktraceAfterErrorTest.class.getResourceAsStream("/test/save-stacktrace/expected-stackstrace.txt");
+        Assert.assertNotNull("The file with the expected stacktrace wasn't found", expectedStacktraceStream);
+        getDeploymentScriptResultAsserter().assertErrorResult("20150906_PENDING_SCRIPT_WRONG", IOUtils.toString(expectedStacktraceStream));
     }
 
 }

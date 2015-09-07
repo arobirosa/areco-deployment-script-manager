@@ -151,7 +151,7 @@ public final class DeploymentScriptResultAsserter {
    *            Required
    */
 
-  public void assertErrorResult(String deploymentScriptName, String expectedStacktrace) {
+  public void assertErrorResult(final String deploymentScriptName, final String expectedStacktrace) {
     ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
     ServicesUtil.validateParameterNotNullStandardMessage("expectedStacktrace", expectedStacktrace);
     ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
