@@ -71,22 +71,13 @@
                     <persistence type="property"/>
                 </attribute>
                 <attribute qualifier="stacktrace" type="java.lang.String">
-                    <description>Stacktrace if the script was unsuccessful. It is between 4 and 8 KB long.</description>
+                    <description>Stacktrace if the script was unsuccessful. It is 4KB long.</description>
                     <persistence type="property">
                         <columntype database="oracle">
-                            <value>clog</value>
-                        </columntype>
-                        <columntype database="mysql">
                             <value>text</value>
                         </columntype>
-                        <columntype database="sqlserver">
-                            <value>nvarchar(max)</value>
-                        </columntype>
-                        <columntype database="hsqldb">
-                            <value>CLOB</value>
-                        </columntype>
                         <columntype>
-                            <value>varchar</value>
+                            <value>varchar(4096)</value>
                         </columntype>
                     </persistence>
                 </attribute>
