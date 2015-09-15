@@ -86,7 +86,11 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
   private String getStacktraceAsString(final DeploymentScriptExecutionException e) {
      StringWriter stringWriter = new StringWriter();
     e.printStackTrace(new PrintWriter(stringWriter));
-    return stringWriter.toString();
+    String output = stringWriter.toString();
+    if (output.length() > 4096) {
+      output = output.substring(0, 4095);
+    }
+    return output;
   }
 
   private void saveAndLogScriptExecution(final UpdatingSystemExtensionContext context, final ScriptExecutionModel scriptExecution) {
