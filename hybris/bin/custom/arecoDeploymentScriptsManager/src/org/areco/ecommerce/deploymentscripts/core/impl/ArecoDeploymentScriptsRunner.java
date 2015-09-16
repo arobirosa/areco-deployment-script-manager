@@ -17,9 +17,6 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.model.ModelService;
-
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
@@ -32,6 +29,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Default script runner.
@@ -71,7 +70,9 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
                 scriptExecution.setResult(scriptResult);
             } catch (final DeploymentScriptExecutionException e) {
                 LOG.error("There was an error running " + aScript.getLongName() + ':' + e.getLocalizedMessage(), e);
+
                 scriptExecution.setResult(this.scriptExecutionResultDao.getErrorResult());
+                scriptExecution.setStacktrace(e.getCauseShortStackTrace());
                 this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
                 return true; // We stop after the first error.
             }

@@ -70,6 +70,17 @@
                     <modifiers optional="false" initial="true"/>
                     <persistence type="property"/>
                 </attribute>
+                <attribute qualifier="stacktrace" type="java.lang.String">
+                    <description>Stacktrace if the script was unsuccessful. It is 4KB long.</description>
+                    <persistence type="property">
+                        <columntype database="oracle">
+                            <value>text</value>
+                        </columntype>
+                        <columntype>
+                            <value>varchar(4096)</value>
+                        </columntype>
+                    </persistence>
+                </attribute>
 			</attributes>
 		</itemtype>
 		
