@@ -15,6 +15,9 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 /**
  * This is a checked exception because the caller has to manage it. It usually means setting the execution of the deployment script to some error state.
  * 
@@ -22,6 +25,8 @@ package org.areco.ecommerce.deploymentscripts.core;
  * 
  */
 public class DeploymentScriptExecutionException extends Exception {
+
+    private static final int MAXIMUM_CAUSE_STACK_TRACE = 4096;
 
     /**
      * Default constructor with a message and a cause
@@ -51,4 +56,22 @@ public class DeploymentScriptExecutionException extends Exception {
         super(cause);
     }
 
+    public String getCauseShortStackTrace() {
+        String output = this.getCauseFullStackTrace();
+        if (output.length() > MAXIMUM_CAUSE_STACK_TRACE) {
+          output = output.substring(0, MAXIMUM_CAUSE_STACK_TRACE - 1);
+        }
+        return output;
+    }
+
+    private String getCauseFullStackTrace() {
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+        if (this.getCause() == null) {
+            this.printStackTrace(printWriter);
+        } else {
+            this.getCause().printStackTrace(printWriter);
+        }
+        return stringWriter.toString();
+    }
 }

@@ -30,8 +30,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.List;
 
 /**
@@ -74,7 +72,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
                 LOG.error("There was an error running " + aScript.getLongName() + ':' + e.getLocalizedMessage(), e);
 
                 scriptExecution.setResult(this.scriptExecutionResultDao.getErrorResult());
-                scriptExecution.setStacktrace(getStacktraceAsString(e));
+                scriptExecution.setStacktrace(e.getCauseShortStackTrace());
                 this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
                 return true; // We stop after the first error.
             }
@@ -83,17 +81,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
         return false; // Everything when successfully
     }
 
-  private String getStacktraceAsString(final DeploymentScriptExecutionException e) {
-     StringWriter stringWriter = new StringWriter();
-    e.printStackTrace(new PrintWriter(stringWriter));
-    String output = stringWriter.toString();
-    if (output.length() > 4096) {
-      output = output.substring(0, 4095);
-    }
-    return output;
-  }
-
-  private void saveAndLogScriptExecution(final UpdatingSystemExtensionContext context, final ScriptExecutionModel scriptExecution) {
+    private void saveAndLogScriptExecution(final UpdatingSystemExtensionContext context, final ScriptExecutionModel scriptExecution) {
         modelService.save(scriptExecution);
         context.logScriptExecutionResult(scriptExecution);
     }

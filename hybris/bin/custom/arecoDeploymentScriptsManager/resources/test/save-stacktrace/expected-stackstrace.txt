@@ -1,7 +1,11 @@
-org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException: There was an error importing the step 01_insert_dummy_tax_with_german_locale.impex
-	at org.areco.ecommerce.deploymentscripts.impex.ImpexImportStep.run(ImpexImportStep.java:53)
+de.hybris.platform.impex.jalo.ImpExException: line 1 at main script: no current header for value line: IN_WRONG_SERT Tax;code[unique=true];value;[HY-0]
+	at de.hybris.platform.impex.jalo.Importer.importNextInternal(Importer.java:763)
+	at de.hybris.platform.impex.jalo.Importer.importAll(Importer.java:708)
+	at org.areco.ecommerce.deploymentscripts.impex.impl.LocalizedImpexImportService.importImpexFile(LocalizedImpexImportService.java:98)
+	at org.areco.ecommerce.deploymentscripts.impex.impl.LocalizedImpexImportService.importImpexFile(LocalizedImpexImportService.java:67)
+	at org.areco.ecommerce.deploymentscripts.impex.ImpexImportStep.run(ImpexImportStep.java:51)
 	at org.areco.ecommerce.deploymentscripts.core.DeploymentScript.run(DeploymentScript.java:76)
-	at org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptsRunner.run(ArecoDeploymentScriptsRunner.java:71)
+	at org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptsRunner.run(ArecoDeploymentScriptsRunner.java:69)
 	at org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptService.runDeploymentScripts(ArecoDeploymentScriptService.java:87)
 	at org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter.runDeploymentScriptsAndHandleErrors(DeploymentScriptStarter.java:139)
 	at org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter.runDeploymentScripts(DeploymentScriptStarter.java:117)
@@ -31,14 +35,7 @@ org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException: T
 	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
 	at de.hybris.ant.taskdefs.yunit.JUnitTestRunner.run(JUnitTestRunner.java:547)
 	at de.hybris.ant.taskdefs.yunit.JUnitTestRunner.launch(JUnitTestRunner.java:1204)
-	at de.hybris.ant.taskdefs.yunit.JUnitTestRunner.main(JUnitTestRunner.java:1025)
-Caused by: de.hybris.platform.impex.jalo.ImpExException: line 1 at main script: no current header for value line: IN_WRONG_SERT Tax;code[unique=true];value;[HY-0]
-	at de.hybris.platform.impex.jalo.Importer.importNextInternal(Importer.java:763)
-	at de.hybris.platform.impex.jalo.Importer.importAll(Importer.java:708)
-	at org.areco.ecommerce.deploymentscripts.impex.impl.LocalizedImpexImportService.importImpexFile(LocalizedImpexImportService.java:98)
-	at org.areco.ecommerce.deploymentscripts.impex.impl.LocalizedImpexImportService.importImpexFile(LocalizedImpexImportService.java:67)
-	at org.areco.ecommerce.deploymentscripts.impex.ImpexImportStep.run(ImpexImportStep.java:51)
-	... 32 more
+	at de.hybris.ant.taskdefs.yunit.JUnitTestRunner.main(JUnitTestRunner.java:994)
 Caused by: de.hybris.platform.impex.jalo.header.HeaderValidationException: no current header for value line: IN_WRONG_SERT Tax;code[unique=true];value;[HY-0]
 	at de.hybris.platform.impex.jalo.ImpExReader.readLine(ImpExReader.java:1967)
 	at de.hybris.platform.impex.jalo.imp.ImpExImportReader.readLine(ImpExImportReader.java:473)
