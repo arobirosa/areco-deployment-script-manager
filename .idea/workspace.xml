@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4135a24b-44bd-4c47-8628-5624813c8a67" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/resources/arecoDeploymentScriptsExamples/arecoDeploymentScriptsExamples-testclasses.xml" afterPath="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/resources/arecoDeploymentScriptsExamples/arecoDeploymentScriptsExamples-testclasses.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/resources/arecoDeploymentScriptsManager/arecoDeploymentScriptsManager-testclasses.xml" afterPath="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/resources/arecoDeploymentScriptsManager/arecoDeploymentScriptsManager-testclasses.xml" />
+    </list>
+    <ignored path="arecodeploymentscriptsmanager-code.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsExamples/web/webroot/WEB-INF/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/web/webroot/WEB-INF/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/catalog/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/comments/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/commons/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/config/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/core/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/europe1/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/hac/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/ext-platform-optional/hmc/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/impex/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/bootstrap/modelclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/tomcat/work/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/processing/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/scripting/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/testweb/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/validation/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/.externalToolBuilders/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/.settings/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/acceleratoraddon/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/acceleratoraddon/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/acceleratoraddon/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/acceleratoraddon/web/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/backoffice/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/commonweb/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/commonweb/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/commonweb/testclasses/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/eclipsebin/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/hmc/classes/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/web/addonsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/web/commonwebsrc/" />
+    <ignored path="$PROJECT_DIR$/hybris/bin/platform/ext/workflow/web/testclasses/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="arecodeploymentscriptsmanager-code" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-2" />
+    <option name="y" value="-3" />
+    <option name="width" value="1924" />
+    <option name="height" value="1052" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Areco Deployment Manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Areco Deployment Manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Hybris" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Areco Deployment Manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Custom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="ToolWindowManager">
+    <frame x="-2" y="-3" width="1924" height="1052" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973376" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="FindBugs-IDEA" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>Custom</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Common libs</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
