@@ -74,6 +74,9 @@
                     <description>Stacktrace if the script was unsuccessful. It is 4KB long.</description>
                     <persistence type="property">
                         <columntype database="oracle">
+                            <value>clob</value>
+                        </columntype>
+                        <columntype database="mysql">
                             <value>text</value>
                         </columntype>
                         <columntype>
