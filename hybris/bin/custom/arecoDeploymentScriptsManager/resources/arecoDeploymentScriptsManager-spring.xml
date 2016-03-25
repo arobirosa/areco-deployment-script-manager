@@ -23,13 +23,11 @@
            http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
     <!-- Hybris 4 -->
-    <context:component-scan base-package="org.areco.ecommerce.deploymentscripts" />
+    <!--context:component-scan base-package="org.areco.ecommerce.deploymentscripts" /-->
 
     <!-- Hybris 5 -->
-    <!--
-       <context:component-scan base-package="org.areco.ecommerce.deploymentscripts"
-             scope-resolver="de.hybris.platform.spring.IgnoreTenantScopeMetadataResolver" />
-    -->
+    <context:component-scan base-package="org.areco.ecommerce.deploymentscripts"
+         scope-resolver="de.hybris.platform.spring.IgnoreTenantScopeMetadataResolver" />
 			
     <bean id="impexImportStepFactory"
         class="org.areco.ecommerce.deploymentscripts.impex.ImpexImportStepFactory"
