@@ -56,7 +56,7 @@
         <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/hmc/bin" recursive="true" />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="arecodeploymentscriptsmanager" exported="" />
+    <orderEntry type="module" module-name="arecoDeploymentScriptsManager" exported="" />
     <orderEntry type="module" module-name="platform" exported="" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">

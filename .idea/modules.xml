@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/advancedsavedquery.iml" filepath="$PROJECT_DIR$/idea-module-files/advancedsavedquery.iml" group="Hybris" />
-      <module fileurl="file://$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsexamples.iml" filepath="$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsexamples.iml" group="Custom" />
-      <module fileurl="file://$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsmanager.iml" filepath="$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsmanager.iml" group="Custom" />
+      <module fileurl="file://$PROJECT_DIR$/idea-module-files/arecoDeploymentScriptsExamples.iml" filepath="$PROJECT_DIR$/idea-module-files/arecoDeploymentScriptsExamples.iml" group="Custom" />
+      <module fileurl="file://$PROJECT_DIR$/idea-module-files/arecoDeploymentScriptsManager.iml" filepath="$PROJECT_DIR$/idea-module-files/arecoDeploymentScriptsManager.iml" group="Custom" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/catalog.iml" filepath="$PROJECT_DIR$/idea-module-files/catalog.iml" group="Hybris" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/cockpit.iml" filepath="$PROJECT_DIR$/idea-module-files/cockpit.iml" group="Hybris" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/comments.iml" filepath="$PROJECT_DIR$/idea-module-files/comments.iml" group="Hybris" />
