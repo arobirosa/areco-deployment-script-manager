@@ -1,6 +1,6 @@
 <project name="ant_qa_findbugs" default="findbugs" basedir=".">
-	<property name="dir_findbugs_home" value="${dir_qa}/findbugs-3.0.0"/>
-	<property name="dir_findbugs_donwload_url" value="http://downloads.sourceforge.net/project/findbugs/findbugs/3.0.0/findbugs-noUpdateChecks-3.0.0.zip"/>
+	<property name="dir_findbugs_home" value="${dir_qa}/findbugs-3.0.1"/>
+	<property name="dir_findbugs_donwload_url" value="http://downloads.sourceforge.net/project/findbugs/findbugs/3.0.1/findbugs-noUpdateChecks-3.0.1.zip"/>
 	<property name="dir_findbugs_donwload_file" value="${dir_qa}/findbugs.zip"/>
 	
 	<target name="findbugs" depends="findbugs.install, build" description="Runs Findbugs">
