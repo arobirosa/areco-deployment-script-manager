@@ -40,6 +40,10 @@ public class JaloSqlScriptService implements SqlScriptService {
 
         private static final Logger LOG = Logger.getLogger(JaloSqlScriptService.class);
 
+        // CHECKSTYLE.OFF: This annotation generates a long line.
+        @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING",
+                justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
+        // CHECKSTYLE.ON
         @Override
         public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException {
                 if (aStatement == null || aStatement.trim().isEmpty()) {
