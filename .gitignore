@@ -36,8 +36,10 @@ tmp/
 # Hybris 5
 hybris/bin/custom/arecoDeploymentScriptsManager/web/webroot/cockpit
 hybris/bin/custom/arecoDeploymentScriptsExamples/web/webroot/cockpit
+hybris/bin/custom/arecoDeploymentScriptsExamples/resources/arecoDeploymentScriptsExamples/arecoDeploymentScriptsExamples-testclasses.xml
+hybris/bin/custom/arecoDeploymentScriptsManager/resources/arecoDeploymentScriptsManager/arecoDeploymentScriptsManager-testclasses.xml
 
-#Configuration files
+#Configuration file
 hybris/config
 
 #We don't ignore our build.xmls
