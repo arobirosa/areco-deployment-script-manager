@@ -47,8 +47,8 @@ hybris/config
 hybris/bin/custom/deploymentScriptsManager_*.zip
 
 #Intellij IDEA
-hybris/bin/custom/.idea/workspace.xml
-hybris/bin/custom/.idea/tasks.xml
+.idea/workspace.xml
+.idea/tasks.xml
 
 #Reports of PMD, Checkstyle and Findbugs
 qa_reports/
