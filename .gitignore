@@ -36,8 +36,10 @@ tmp/
 # Hybris 5
 hybris/bin/custom/arecoDeploymentScriptsManager/web/webroot/cockpit
 hybris/bin/custom/arecoDeploymentScriptsExamples/web/webroot/cockpit
+hybris/bin/custom/arecoDeploymentScriptsExamples/resources/arecoDeploymentScriptsExamples/arecoDeploymentScriptsExamples-testclasses.xml
+hybris/bin/custom/arecoDeploymentScriptsManager/resources/arecoDeploymentScriptsManager/arecoDeploymentScriptsManager-testclasses.xml
 
-#Configuration files
+#Configuration file
 hybris/config
 
 #We don't ignore our build.xmls
@@ -47,8 +49,8 @@ hybris/config
 hybris/bin/custom/deploymentScriptsManager_*.zip
 
 #Intellij IDEA
-hybris/bin/custom/.idea/workspace.xml
-hybris/bin/custom/.idea/tasks.xml
+.idea/workspace.xml
+.idea/tasks.xml
 
 #Reports of PMD, Checkstyle and Findbugs
 qa_reports/
@@ -59,6 +61,8 @@ qa_reports/
 qa/findbugs-*
 qa/pmd-bin*
 qa/checkstyle-*
+!qa/checkstyle-simple.xsl
+
 qa/cobertura-*
 
 velocity.log

@@ -1,6 +1,6 @@
 <project name="ant_qa_cobertura" default="cobertura" basedir=".">
-	<property name="dir_cobertura_home" value="${dir_qa}/cobertura-2.0.3"/>
-	<property name="dir_cobertura_donwload_url" value="http://downloads.sourceforge.net/project/cobertura/cobertura/2.0.3/cobertura-2.0.3-bin.zip"/>
+	<property name="dir_cobertura_home" value="${dir_qa}/cobertura-2.1.1"/>
+	<property name="dir_cobertura_donwload_url" value="http://downloads.sourceforge.net/project/cobertura/cobertura/2.1.1/cobertura-2.1.1-bin.zip"/>
 	<property name="dir_cobertura_donwload_file" value="${dir_qa}/cobertura.zip"/>
 	<!-- Hybris finds the cobertura datafile in the root directory. -->
 	<property name="datafile_cobertura" value="${dir_platform}/cobertura.ser" />

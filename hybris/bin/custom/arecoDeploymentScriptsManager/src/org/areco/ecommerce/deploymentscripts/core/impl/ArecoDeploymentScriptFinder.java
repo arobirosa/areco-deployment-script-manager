@@ -194,12 +194,15 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
 
     private List<DeploymentScriptStep> createOrderedSteps(final File scriptFolder) {
         final List<DeploymentScriptStep> steps = new ArrayList<DeploymentScriptStep>();
-        final List<File> sortedFiles = Arrays.asList(scriptFolder.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(final File pathname) {
+        File[] foundFiles = scriptFolder.listFiles(new FileFilter() {
+            @Override public boolean accept(final File pathname) {
                 return pathname.isFile();
             }
-        }));
+        });
+        if (foundFiles == null) {
+            foundFiles = new File[] {};
+        }
+        final List<File> sortedFiles = Arrays.asList(foundFiles);
 
         sortFilesCaseInsensitive(sortedFiles);
         for (final File impexFile : sortedFiles) {
