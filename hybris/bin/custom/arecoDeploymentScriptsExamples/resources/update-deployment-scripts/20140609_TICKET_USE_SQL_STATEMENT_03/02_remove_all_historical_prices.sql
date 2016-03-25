@@ -1,1 +1,1 @@
-delete from arpriceexample 
+delete from {table_prefix}arpriceexample
