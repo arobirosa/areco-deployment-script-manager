@@ -40,5 +40,14 @@ public class RunGroovyScriptTest extends AbstractWithConfigurationRestorationTes
         getDeploymentScriptResultAsserter().assertResult("2015902_TICKET_GROOVY", this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
     }
 
+    @Test
+    public void testScriptWithException() {
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "groovy-scrips-with-exceptions");
+        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
+        final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
+        Assert.assertTrue("There were no errors", wereThereErrors);
+        getDeploymentScriptResultAsserter().assertErrorResult("20160325_GROOVY_EXCEPTION");
+    }
+
 
 }
