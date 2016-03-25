@@ -16,15 +16,13 @@
 package org.areco.ecommerce.deploymentscripts.ant;
 
 import de.hybris.bootstrap.annotations.IntegrationTest;
-
-import javax.annotation.Resource;
-
 import junit.framework.Assert;
-
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
 import org.junit.Test;
+
+import javax.annotation.Resource;
 
 /**
  * It checks if the essentialDataCreator triggers the essential data creation and runs the scripts. Hybris cannot change the tenant when we are inside a
@@ -58,7 +56,7 @@ public class EssentialDataCreatorAndDeploymentScriptStarterTest extends Abstract
         // Hybris cannot change the tenant when we are inside a transaction, because we need transactions -import the essential data-, this test only works in
         // single tenant environments.
         if (registryTenantDetector.areWeInATestSystemWithOneSingleTenant()) {
-            this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "scripts", null);
+            this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "scripts");
             this.essentialDataCreatorAndDeploymentScriptsStarter.runInJunitTenant();
             Assert.assertTrue("There were errors running the deployment scripts", antDeploymentScriptsStarter.wasLastScriptSuccessful());
             deploymentScriptResultAsserter.assertSuccessfulResult("20141004_RELOAD_CMS_CONF");

@@ -53,7 +53,7 @@ public class ImportMediaTest extends AbstractWithConfigurationRestorationTest {
 
         @Test
         public void testLibraryHeaderImport() throws IOException {
-                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "import-medias", null);
+                this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "import-medias");
                 final boolean wereThereErrors = this.deploymentScriptStarter.runAllPendingScripts();
                 Assert.assertFalse("There were errors", wereThereErrors);
                 deploymentScriptResultAsserter.assertSuccessfulResult("20150315_IMPORT_HEADER_LIBRARY");

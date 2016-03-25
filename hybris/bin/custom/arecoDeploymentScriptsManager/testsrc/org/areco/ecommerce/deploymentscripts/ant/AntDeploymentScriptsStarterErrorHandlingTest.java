@@ -16,14 +16,12 @@
 package org.areco.ecommerce.deploymentscripts.ant;
 
 import de.hybris.bootstrap.annotations.IntegrationTest;
-
-import javax.annotation.Resource;
-
 import junit.framework.Assert;
-
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
 import org.junit.Test;
+
+import javax.annotation.Resource;
 
 /**
  * It checks if the antDeploymentScriptStarter stops the build if there is an error running a deployment script.
@@ -62,7 +60,7 @@ public class AntDeploymentScriptsStarterErrorHandlingTest extends AbstractWithCo
     }
 
     private void assertReturnValue(final String scriptFolder, final boolean expectedWereScriptsSuccessful) {
-        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, scriptFolder, null);
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, scriptFolder);
 
         final int returnValueScripts = antDeploymentScriptsStarter.runPendingScripts();
         if (expectedWereScriptsSuccessful) {

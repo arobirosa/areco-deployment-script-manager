@@ -1,10 +1,10 @@
 <project name="ant_qa_checkstyle" default="checkstyle" basedir=".">
-	<property name="dir_checkstyle_home" value="${dir_qa}/checkstyle-5.7"/>
-	<property name="dir_checkstyle_donwload_url" value="http://downloads.sourceforge.net/project/checkstyle/checkstyle/5.7/checkstyle-5.7-bin.zip"/>
+	<property name="dir_checkstyle_home" value="${dir_qa}/checkstyle-6.17"/>
+	<property name="dir_checkstyle_donwload_url" value="http://downloads.sourceforge.net/project/checkstyle/checkstyle/6.17/checkstyle-6.17-bin.zip"/>
 	<property name="dir_checkstyle_donwload_file" value="${dir_qa}/checkstyle.zip"/>
 	
 	<target name="checkstyle" depends="checkstyle.install" description="Runs checkstyle">
-		 <taskdef resource="checkstyletask.properties">
+    <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties">
 				<classpath>
 					<fileset dir="${dir_checkstyle_home}/">
 						<include name="*.jar"/>
@@ -20,7 +20,7 @@
 		</checkstyle>
 		<xslt in="${dir_qa_reports}/checkstyle_report.xml"
                out="${dir_qa_reports}/checkstyle_report.html"
-               style="${dir_checkstyle_home}/contrib/checkstyle-noframes.xsl"
+               style="${dir_qa}/checkstyle-simple.xsl"
         />
         <!-- Fail on any warning or error -->
 		<fail if="checkstyle.failure" />

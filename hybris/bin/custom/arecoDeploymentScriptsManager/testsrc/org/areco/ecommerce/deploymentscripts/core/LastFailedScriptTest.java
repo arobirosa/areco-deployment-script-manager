@@ -29,7 +29,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
 
     @Before
     public void setUpFolder() {
-        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, null, null);
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "update-deployment-scripts");
         Assert.assertTrue("The database has failed scripts from other test", arecoDeploymentScriptService.wasLastScriptSuccessful());
     }
 
