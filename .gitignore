@@ -61,6 +61,8 @@ qa_reports/
 qa/findbugs-*
 qa/pmd-bin*
 qa/checkstyle-*
+!qa/checkstyle-simple.xsl
+
 qa/cobertura-*
 
 velocity.log
