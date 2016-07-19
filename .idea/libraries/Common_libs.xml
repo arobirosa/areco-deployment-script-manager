@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="Common libs">
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/hybris/bin/ext-backoffice/backoffice/lib" />
       <root url="file://$PROJECT_DIR$/hybris/bin/platform/ext/catalog/lib" />
       <root url="file://$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/lib" />
       <root url="file://$PROJECT_DIR$/hybris/bin/platform/ext/comments/lib" />
@@ -9,6 +10,7 @@
       <root url="file://$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/lib" />
       <root url="file://$PROJECT_DIR$/hybris/bin/platform/ext/europe1/lib" />
       <root url="file://$PROJECT_DIR$/hybris/bin/platform/ext/hac/lib" />
+      <root url="file://$PROJECT_DIR$/hybris/bin/ext-backoffice/hmcconfigmigrator/lib" />
       <root url="file://$PROJECT_DIR$/hybris/bin/platform/ext/impex/lib" />
       <root url="file://$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/lib" />
       <root url="file://$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/lib" />
@@ -23,6 +25,8 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/ext-backoffice/backoffice/lib" recursive="true" />
+    <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/ext-backoffice/hmcconfigmigrator/lib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/ext-cockpit/cockpit/lib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/ext/catalog/lib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/ext/comments/lib" recursive="true" />

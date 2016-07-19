@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="backofficespring" name="backofficespring" removed="false">
+          <dependency>platformspring==platform</dependency>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/resources/backoffice-spring.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/backoffice-spring-eventing.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/backoffice-spring-filter.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/backoffice-spring-security.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/resources/test/backoffice-test-spring.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/backoffice-web-spring.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/eclipsebin" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/eclipsebin" />
+    <exclude-output />
+    <javadoc-paths>
+      <root url="https://download.hybris.com/api/5.7.0/commercesuite" />
+    </javadoc-paths>
+    <content url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice">
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/.externalToolBuilders" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/.settings" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/acceleratoraddon/hmc/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/acceleratoraddon/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/acceleratoraddon/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/acceleratoraddon/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/commonweb/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/commonweb/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/commonweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/hmc/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/testclasses" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Common libs" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/classes" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/resources" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/bin" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/bin" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/lib" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="platform" exported="" />
+  </component>
+</module>
