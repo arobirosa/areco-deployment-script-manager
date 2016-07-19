@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns="http://www.hybris.com/cockpit/config">
+    <context component="explorer-tree">
+        <explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree" xmlns="http://www.hybris.com/cockpitng/config/explorertree">
+            <navigation-node id="hmc.system">
+                <navigation-node id="hmc.arecoDeploymentScriptsManagergroup">
+                    <type-node code="ScriptExecution" id="ScriptExecution"/>
+                    <type-node code="RunPendingDeploymentScriptsWizard" id="RunPendingDeploymentScriptsWizard"/>
+                    <type-node code="DeploymentEnvironment" id="DeploymentEnvironment"/>
+                </navigation-node>
+            </navigation-node>
+        </explorer-tree:explorer-tree>
+    </context>
+    <context merge-by="type" type="DeploymentEnvironment" component="listview">
+        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+            <column qualifier="name"/>
+            <column qualifier="description"/>
+        </list-view:list-view>
+    </context>
+    <context merge-by="type" type="ScriptExecution" component="listview">
+        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+            <column qualifier="creationtime"/>
+            <column qualifier="extensionName"/>
+            <column qualifier="scriptName"/>
+            <column qualifier="result"/>
+            <column qualifier="phase"/>
+        </list-view:list-view>
+    </context>
+    <context merge-by="type" type="ScriptExecutionResult" component="listview">
+        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+            <column qualifier="name"/>
+            <column qualifier="description"/>
+        </list-view:list-view>
+    </context>
+    <context merge-by="type" type="ScriptExecution" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+            <essentials>
+                <essentialSection name="hmc.essential">
+                    <attribute qualifier="extensionName"/>
+                    <attribute qualifier="scriptName"/>
+                </essentialSection>
+            </essentials>
+            <tab name="hmc.common">
+                <section name="hmc.section.common">
+                    <attribute qualifier="result"/>
+                    <attribute qualifier="phase"/>
+                    <attribute qualifier="stacktrace"/>
+                </section>
+            </tab>
+        </editorArea:editorArea>
+    </context>
+    <context merge-by="type" type="ScriptExecutionResult" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+            <essentials>
+                <essentialSection name="hmc.essential">
+                    <attribute qualifier="name"/>
+                    <attribute qualifier="description"/>
+                </essentialSection>
+            </essentials>
+            <tab name="hmc.common">
+                <section name="hmc.section.common">
+                    <attribute qualifier="canBeRunnedAgain"/>
+                </section>
+            </tab>
+        </editorArea:editorArea>
+    </context>
+    <context merge-by="type" type="RunPendingDeploymentScriptsWizard" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+            <tab name="hmc.tab.runpendingdeploymentscriptswizard.start">
+                <section name="hmc.section.runpendingdeploymentscriptswizard.welcome"/>
+            </tab>
+        </editorArea:editorArea>
+    </context>
+    <context merge-by="type" type="DeploymentEnvironment" component="advanced-search">
+        <advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+            <field-list>
+                <field name="description" selected="true"/>
+                <field name="name" selected="true"/>
+                <field name="assignedCockpitItemTemplates" selected="false"/>
+                <field name="comments" selected="false"/>
+                <field name="creationtime" selected="false"/>
+                <field name="itemtype" selected="false"/>
+                <field name="modifiedtime" selected="false"/>
+                <field name="owner" selected="false"/>
+                <field editor="java.lang.Long" name="pk" selected="false"/>
+            </field-list>
+        </advanced-search:advanced-search>
+    </context>
+    <context merge-by="type" type="ScriptExecution" component="advanced-search">
+        <advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+            <field-list>
+                <field name="extensionName" selected="true"/>
+                <field name="phase" selected="true"/>
+                <field name="result" selected="true"/>
+                <field name="scriptName" selected="true"/>
+                <field name="stacktrace" selected="false"/>
+                <field name="assignedCockpitItemTemplates" selected="false"/>
+                <field name="comments" selected="false"/>
+                <field name="creationtime" selected="false"/>
+                <field name="itemtype" selected="false"/>
+                <field name="modifiedtime" selected="false"/>
+                <field name="owner" selected="false"/>
+                <field editor="java.lang.Long" name="pk" selected="false"/>
+            </field-list>
+        </advanced-search:advanced-search>
+    </context>
+    <context merge-by="type" type="ScriptExecutionResult" component="advanced-search">
+        <advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+            <field-list>
+                <field name="canBeRunnedAgain" selected="false"/>
+                <field name="description" selected="true"/>
+                <field name="name" selected="true"/>
+                <field name="assignedCockpitItemTemplates" selected="false"/>
+                <field name="comments" selected="false"/>
+                <field name="creationtime" selected="false"/>
+                <field name="itemtype" selected="false"/>
+                <field name="modifiedtime" selected="false"/>
+                <field name="owner" selected="false"/>
+                <field editor="java.lang.Long" name="pk" selected="false"/>
+            </field-list>
+        </advanced-search:advanced-search>
+    </context>
+    <context merge-by="type" type="DeploymentEnvironment" component="simple-search">
+        <simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch" xmlns="http://www.hybris.com/cockpitng/config/simplesearch">
+            <field name="name"/>
+            <sort-field asc="false" name="name"/>
+        </simple-search:simple-search>
+    </context>
+    <context merge-by="type" type="ScriptExecutionResult" component="simple-search">
+        <simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch" xmlns="http://www.hybris.com/cockpitng/config/simplesearch">
+            <field name="name"/>
+            <sort-field asc="false" name="name"/>
+        </simple-search:simple-search>
+    </context>
+    <context type="DeploymentEnvironment" component="base" merge-by="type">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>name</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+    <context type="ScriptExecution" component="base" merge-by="type">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>extensionName+ ' ' +scriptName</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+    <context type="ScriptExecutionResult" component="base" merge-by="type">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>name</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+</config> 
