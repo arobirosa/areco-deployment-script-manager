@@ -26,6 +26,9 @@ hybris/bin/ext-platform-optional/
 hybris/bin/ext-print/
 hybris/bin/ext-supportability/
 hybris/bin/ext-template/
+hybris/bin/ext-eventtracking/
+hybris/bin/ext-incubator/
+hybris/bin/ext-platform-backoffice/
 hybris/sampleconfigurations
 platform/
 data/
