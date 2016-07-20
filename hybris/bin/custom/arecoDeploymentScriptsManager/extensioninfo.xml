@@ -25,6 +25,11 @@
 	  <requires-extension name="hmc"/>
 	  <requires-extension name="cockpit"/>
 
+	   <!-- The default backoffice configuration of the extension backoffice uses Hybris type from this extension -->
+	   <requires-extension name="lucenesearch" />
+	   <!-- The default backoffice spring configuration of the extension backoffice uses the platformEnumValueResolver bean type from this extension -->
+	   <requires-extension name="platformbackoffice" />
+
       <coremodule	packageroot="org.areco.ecommerce.deploymentscripts"
 					manager="org.areco.ecommerce.deploymentscripts.jalo.ArecoDeploymentScriptsManagerManager"
 					generated="true" 
