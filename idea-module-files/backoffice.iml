@@ -22,6 +22,7 @@
         <webroots>
           <root url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot" relative="/" />
         </webroots>
+        <sourceRoots />
       </configuration>
     </facet>
   </component>
@@ -33,6 +34,7 @@
       <root url="https://download.hybris.com/api/5.7.0/commercesuite" />
     </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/testsrc/com/hybris/backoffice" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/.settings" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/acceleratoraddon/hmc/classes" />

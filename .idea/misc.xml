@@ -11,12 +11,8 @@
     <option name="selectedJavaProfile" value="RiSo Formater" />
     <option name="selectedJavaScriptProfile" value="riso-js" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="Bundled (Maven 3)" />
-      </MavenGeneralSettings>
-    </option>
+  <component name="EntryPointsManager">
+    <entry_points version="2.0" />
   </component>
   <component name="PDMPlugin">
     <option name="skipTestSources" value="false" />
@@ -30,6 +26,11 @@
     <OptionsSetting value="true" id="Edit" />
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectResources">
+    <resource url="http://www.hybris.com/cockpitng/component/editorArea" location="$PROJECT_DIR$/hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/lib/cockpit-data-integration-2.3.0.3.jar!/schemas/config/cockpitng/item-editor.xsd" />
+    <resource url="http://www.hybris.com/cockpitng/component/listView" location="$PROJECT_DIR$/hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/lib/cockpit-data-integration-2.3.0.3.jar!/schemas/config/cockpitng/listview.xsd" />
+    <resource url="http://www.hybris.com/cockpitng/config/explorertree" location="$PROJECT_DIR$/hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/lib/backoffice-widgets-2.3.0.3.jar!/schemas/config/cockpitng/explorer-tree.xsd" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
