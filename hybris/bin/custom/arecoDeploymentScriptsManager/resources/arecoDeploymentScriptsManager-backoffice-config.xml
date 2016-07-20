@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <config xmlns="http://www.hybris.com/cockpit/config">
-    <context component="explorer-tree">
+    <context component="explorer-tree" merge-by="module" parent="auto" >
         <explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree" xmlns="http://www.hybris.com/cockpitng/config/explorertree">
-            <navigation-node id="hmc.system">
-                <navigation-node id="hmc.arecoDeploymentScriptsManagergroup">
+            <navigation-node id="hmc_treenode_system">
+                <navigation-node id="arecoDeploymentScriptsManagergroup">
                     <type-node code="ScriptExecution" id="ScriptExecution"/>
                     <type-node code="RunPendingDeploymentScriptsWizard" id="RunPendingDeploymentScriptsWizard"/>
                     <type-node code="DeploymentEnvironment" id="DeploymentEnvironment"/>
