@@ -3,7 +3,7 @@
     <context component="explorer-tree" merge-by="module" parent="auto" >
         <explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree" xmlns="http://www.hybris.com/cockpitng/config/explorertree">
             <navigation-node id="hmc_treenode_system">
-                <navigation-node id="arecoDeploymentScriptsManagergroup">
+                <navigation-node id="hmc.arecoDeploymentScriptsManagergroup">
                     <type-node code="ScriptExecution" id="ScriptExecution"/>
                     <type-node code="RunPendingDeploymentScriptsWizard" id="RunPendingDeploymentScriptsWizard"/>
                     <type-node code="DeploymentEnvironment" id="DeploymentEnvironment"/>
@@ -36,15 +36,15 @@
         <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
             <essentials>
                 <essentialSection name="hmc.essential">
-                    <attribute qualifier="extensionName"/>
-                    <attribute qualifier="scriptName"/>
+                    <attribute qualifier="extensionName" readonly="true" />
+                    <attribute qualifier="scriptName" readonly="true"/>
                 </essentialSection>
             </essentials>
             <tab name="hmc.common">
                 <section name="hmc.section.common">
-                    <attribute qualifier="result"/>
-                    <attribute qualifier="phase"/>
-                    <attribute qualifier="stacktrace"/>
+                    <attribute qualifier="result" readonly="true"/>
+                    <attribute qualifier="phase" readonly="true"/>
+                    <attribute qualifier="stacktrace" readonly="true" /> <!-- TODO Text area editor -->
                 </section>
             </tab>
         </editorArea:editorArea>
@@ -74,15 +74,7 @@
     <context merge-by="type" type="DeploymentEnvironment" component="advanced-search">
         <advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
             <field-list>
-                <field name="description" selected="true"/>
                 <field name="name" selected="true"/>
-                <field name="assignedCockpitItemTemplates" selected="false"/>
-                <field name="comments" selected="false"/>
-                <field name="creationtime" selected="false"/>
-                <field name="itemtype" selected="false"/>
-                <field name="modifiedtime" selected="false"/>
-                <field name="owner" selected="false"/>
-                <field editor="java.lang.Long" name="pk" selected="false"/>
             </field-list>
         </advanced-search:advanced-search>
     </context>
@@ -90,33 +82,17 @@
         <advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
             <field-list>
                 <field name="extensionName" selected="true"/>
-                <field name="phase" selected="true"/>
-                <field name="result" selected="true"/>
                 <field name="scriptName" selected="true"/>
-                <field name="stacktrace" selected="false"/>
-                <field name="assignedCockpitItemTemplates" selected="false"/>
-                <field name="comments" selected="false"/>
-                <field name="creationtime" selected="false"/>
-                <field name="itemtype" selected="false"/>
-                <field name="modifiedtime" selected="false"/>
-                <field name="owner" selected="false"/>
-                <field editor="java.lang.Long" name="pk" selected="false"/>
+                <field name="result" selected="true"/>
+                <field name="phase" selected="true"/>
             </field-list>
         </advanced-search:advanced-search>
     </context>
     <context merge-by="type" type="ScriptExecutionResult" component="advanced-search">
         <advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
             <field-list>
-                <field name="canBeRunnedAgain" selected="false"/>
                 <field name="description" selected="true"/>
                 <field name="name" selected="true"/>
-                <field name="assignedCockpitItemTemplates" selected="false"/>
-                <field name="comments" selected="false"/>
-                <field name="creationtime" selected="false"/>
-                <field name="itemtype" selected="false"/>
-                <field name="modifiedtime" selected="false"/>
-                <field name="owner" selected="false"/>
-                <field editor="java.lang.Long" name="pk" selected="false"/>
             </field-list>
         </advanced-search:advanced-search>
     </context>
