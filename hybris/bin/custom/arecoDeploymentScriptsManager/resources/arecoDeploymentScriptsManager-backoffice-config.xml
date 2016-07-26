@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<config xmlns="http://www.hybris.com/cockpit/config">
+<config xmlns="http://www.hybris.com/cockpit/config"
+            xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+            xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config"
+            xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+            xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+            xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree"
+            xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
+            xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch"
+    >
     <context component="explorer-tree" merge-by="module" parent="auto" >
-        <explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree" xmlns="http://www.hybris.com/cockpitng/config/explorertree">
+        <explorer-tree:explorer-tree>
             <navigation-node id="hmc_treenode_system">
                 <navigation-node id="hmc.arecoDeploymentScriptsManagergroup">
                     <type-node code="ScriptExecution" id="ScriptExecution"/>
@@ -12,78 +20,78 @@
         </explorer-tree:explorer-tree>
     </context>
     <context merge-by="type" type="DeploymentEnvironment" component="listview">
-        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
-            <column qualifier="name"/>
-            <column qualifier="description"/>
+        <list-view:list-view>
+            <list-view:column qualifier="name"/>
+            <list-view:column qualifier="description"/>
         </list-view:list-view>
     </context>
     <context merge-by="type" type="ScriptExecution" component="listview">
-        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
-            <column qualifier="creationtime"/>
-            <column qualifier="extensionName"/>
-            <column qualifier="scriptName"/>
-            <column qualifier="result"/>
-            <column qualifier="phase"/>
+        <list-view:list-view>
+            <list-view:column qualifier="creationtime"/>
+            <list-view:column qualifier="extensionName"/>
+            <list-view:column qualifier="scriptName"/>
+            <list-view:column qualifier="result"/>
+            <list-view:column qualifier="phase"/>
         </list-view:list-view>
     </context>
     <context merge-by="type" type="ScriptExecutionResult" component="listview">
-        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
-            <column qualifier="name"/>
-            <column qualifier="description"/>
+        <list-view:list-view>
+            <list-view:column qualifier="name"/>
+            <list-view:column qualifier="description"/>
         </list-view:list-view>
     </context>
     <context merge-by="type" type="ScriptExecution" component="editor-area">
-        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
-            <essentials>
-                <essentialSection name="hmc.essential">
-                    <attribute qualifier="extensionName" readonly="true" />
-                    <attribute qualifier="scriptName" readonly="true"/>
-                </essentialSection>
-            </essentials>
-            <tab name="hmc.common">
-                <section name="hmc.section.common">
-                    <attribute qualifier="result" readonly="true"/>
-                    <attribute qualifier="phase" readonly="true"/>
-                    <attribute qualifier="stacktrace" readonly="true" editor="com.hybris.cockpitng.editor.defaulttext" >
+        <editorArea:editorArea name="">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="extensionName" readonly="true" />
+                    <editorArea:attribute qualifier="scriptName" readonly="true"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+            <editorArea:tab name="hmc.common">
+                <editorArea:section name="hmc.section.common">
+                    <editorArea:attribute qualifier="result" readonly="true"/>
+                    <editorArea:attribute qualifier="phase" readonly="true"/>
+                    <editorArea:attribute qualifier="stacktrace" readonly="true" editor="com.hybris.cockpitng.editor.defaulttext" >
                         <editorArea:editor-parameter>
                             <editorArea:name>multilineEditorRows</editorArea:name>
                             <editorArea:value>10</editorArea:value>
                         </editorArea:editor-parameter>
-                    </attribute>
-                </section>
-            </tab>
+                    </editorArea:attribute>
+                </editorArea:section>
+            </editorArea:tab>
         </editorArea:editorArea>
     </context>
     <context merge-by="type" type="DeploymentEnvironment" component="editor-area">
-        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
-            <tab name="hmc.common">
-                <section name="hmc.section.common">
-                    <attribute qualifier="name" readonly="true" />
-                    <attribute qualifier="description" />
-                </section>
-            </tab>
+        <editorArea:editorArea name="">
+            <editorArea:tab name="hmc.common">
+                <editorArea:section name="hmc.section.common">
+                    <editorArea:attribute qualifier="name" readonly="true" />
+                    <editorArea:attribute qualifier="description" />
+                </editorArea:section>
+            </editorArea:tab>
         </editorArea:editorArea>
     </context>
     <context merge-by="type" type="ScriptExecutionResult" component="editor-area">
-        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
-            <essentials>
-                <essentialSection name="hmc.essential">
-                    <attribute qualifier="name" readonly="true"/>
-                    <attribute qualifier="description"/>
-                </essentialSection>
-            </essentials>
-            <tab name="hmc.common">
-                <section name="hmc.section.common">
-                    <attribute qualifier="canBeRunnedAgain" readonly="true"/>
-                </section>
-            </tab>
+        <editorArea:editorArea name="">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="name" readonly="true"/>
+                    <editorArea:attribute qualifier="description"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+            <editorArea:tab name="hmc.common">
+                <editorArea:section name="hmc.section.common">
+                    <editorArea:attribute qualifier="canBeRunnedAgain" readonly="true"/>
+                </editorArea:section>
+            </editorArea:tab>
         </editorArea:editorArea>
     </context>
     <context merge-by="type" type="RunPendingDeploymentScriptsWizard" component="editor-area">
-        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
-            <tab name="hmc.tab.runpendingdeploymentscriptswizard.start">
-                <section name="hmc.section.runpendingdeploymentscriptswizard.welcome"/>
-            </tab>
+        <editorArea:editorArea name="">
+            <editorArea:tab name="hmc.tab.runpendingdeploymentscriptswizard.start">
+                <editorArea:section name="hmc.section.runpendingdeploymentscriptswizard.welcome"/>
+            </editorArea:tab>
         </editorArea:editorArea>
     </context>
     <context merge-by="type" type="DeploymentEnvironment" component="advanced-search">
