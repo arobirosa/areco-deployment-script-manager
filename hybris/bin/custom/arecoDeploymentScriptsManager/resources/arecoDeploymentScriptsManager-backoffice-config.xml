@@ -44,7 +44,22 @@
                 <section name="hmc.section.common">
                     <attribute qualifier="result" readonly="true"/>
                     <attribute qualifier="phase" readonly="true"/>
-                    <attribute qualifier="stacktrace" readonly="true" /> <!-- TODO Text area editor -->
+                    <attribute qualifier="stacktrace" readonly="true" editor="com.hybris.cockpitng.editor.defaulttext" >
+                        <editorArea:editor-parameter>
+                            <editorArea:name>multilineEditorRows</editorArea:name>
+                            <editorArea:value>10</editorArea:value>
+                        </editorArea:editor-parameter>
+                    </attribute>
+                </section>
+            </tab>
+        </editorArea:editorArea>
+    </context>
+    <context merge-by="type" type="DeploymentEnvironment" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+            <tab name="hmc.common">
+                <section name="hmc.section.common">
+                    <attribute qualifier="name" readonly="true" />
+                    <attribute qualifier="description" />
                 </section>
             </tab>
         </editorArea:editorArea>
@@ -53,13 +68,13 @@
         <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
             <essentials>
                 <essentialSection name="hmc.essential">
-                    <attribute qualifier="name"/>
+                    <attribute qualifier="name" readonly="true"/>
                     <attribute qualifier="description"/>
                 </essentialSection>
             </essentials>
             <tab name="hmc.common">
                 <section name="hmc.section.common">
-                    <attribute qualifier="canBeRunnedAgain"/>
+                    <attribute qualifier="canBeRunnedAgain" readonly="true"/>
                 </section>
             </tab>
         </editorArea:editorArea>
@@ -75,6 +90,7 @@
         <advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
             <field-list>
                 <field name="name" selected="true"/>
+                <field name="description" selected="true"/>
             </field-list>
         </advanced-search:advanced-search>
     </context>
