@@ -4,9 +4,9 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="hmcconfigmigratorspring" name="hmcconfigmigratorspring" removed="false">
-          <dependency>backofficespring==backoffice</dependency>
           <dependency>platformspring==platform</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/resources/hmcconfigmigrator-spring.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/resources/hmcconfigmigrator-backoffice-spring.xml</file>
         </fileset>
       </configuration>
     </facet>

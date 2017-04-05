@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="jar://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/bin/platformbackofficeserver.jar!/" />
+    <libelement value="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/resources" />
+    <src_description expected_position="5">
+      <src_folder value="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/testsrc" expected_position="6" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/eclipsebin/notused" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/testsrc" isTestSource="true" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="module" module-name="platform" />
+    <orderEntry type="module" module-name="backoffice" exported="" />
+    <orderEntry type="module-library" exported="">
+      <library name="platformbackofficeserver.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/bin/platformbackofficeserver.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="https://download.hybris.com/api/5.7.0" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="resources">
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/resources" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

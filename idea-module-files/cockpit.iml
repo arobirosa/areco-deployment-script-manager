@@ -4,15 +4,20 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="cockpitspring" name="cockpitspring" removed="false">
-          <dependency>commentsspring==comments</dependency>
-          <dependency>validationspring==validation</dependency>
-          <dependency>processingspring==processing</dependency>
-          <dependency>impexspring==impex</dependency>
-          <dependency>platformspring==platform</dependency>
           <dependency>workflowspring==workflow</dependency>
-          <dependency>catalogspring==catalog</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/cockpit-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/global-cockpit-spring.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/cockpit/cockpit-acegi-security.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/cockpit/cockpit-junit-spring.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/cockpit/cockpit-spring-editors.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/cockpit/cockpit-spring-security.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/cockpit/cockpit-spring-services-test.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/cockpit/cockpit-spring-services.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/cockpit/cockpit-spring-uitest.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/cockpit/cockpit-spring-wizards.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/cockpit/cockpit-spring-wrappers.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/cockpit/cockpit-test.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/cockpit/cockpit-web-spring.xml</file>
         </fileset>
       </configuration>
     </facet>

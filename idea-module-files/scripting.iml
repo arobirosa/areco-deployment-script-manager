@@ -5,6 +5,8 @@
       <configuration>
         <fileset id="scriptingspring" name="scriptingspring" removed="false">
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/resources/scripting-spring.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/resources/test/test-scripting-cache-spring.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/resources/test/test-scripting-spring.xml</file>
         </fileset>
       </configuration>
     </facet>

@@ -4,14 +4,13 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="processingspring" name="processingspring" removed="false">
-          <dependency>commonsspring==commons</dependency>
           <dependency>scriptingspring==scripting</dependency>
-          <dependency>platformspring==platform</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/processing/resources/processing-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/processing/resources/cronjob-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/processing/resources/processengine-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/processing/resources/processing-jmx-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/processing/resources/task-spring.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/processing/testsrc/de/hybris/platform/task/taskmanager-test-spring.xml</file>
         </fileset>
       </configuration>
     </facet>
