@@ -4,12 +4,12 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="platformservicesspring" name="platformservicesspring" removed="false">
-          <dependency>paymentstandardspring==paymentstandard</dependency>
-          <dependency>europe1spring==europe1</dependency>
-          <dependency>processingspring==processing</dependency>
-          <dependency>platformspring==platform</dependency>
           <dependency>deliveryzonespring==deliveryzone</dependency>
+          <dependency>processingspring==processing</dependency>
           <dependency>impexspring==impex</dependency>
+          <dependency>platformspring==platform</dependency>
+          <dependency>europe1spring==europe1</dependency>
+          <dependency>paymentstandardspring==paymentstandard</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/resources/order-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/resources/catalog-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/resources/product-spring.xml</file>

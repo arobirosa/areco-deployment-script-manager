@@ -5,8 +5,8 @@
       <configuration>
         <fileset id="workflowspring" name="workflowspring" removed="false">
           <dependency>commonsspring==commons</dependency>
-          <dependency>platformspring==platform</dependency>
           <dependency>platformservicesspring==platformservices</dependency>
+          <dependency>platformspring==platform</dependency>
           <dependency>processingspring==processing</dependency>
           <dependency>catalogspring==catalog</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/workflow/resources/workflow-spring.xml</file>

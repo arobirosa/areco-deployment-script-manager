@@ -4,11 +4,11 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="commentsspring" name="commentsspring" removed="false">
-          <dependency>impexspring==impex</dependency>
-          <dependency>catalogspring==catalog</dependency>
-          <dependency>platformspring==platform</dependency>
           <dependency>processingspring==processing</dependency>
           <dependency>workflowspring==workflow</dependency>
+          <dependency>platformspring==platform</dependency>
+          <dependency>impexspring==impex</dependency>
+          <dependency>catalogspring==catalog</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/comments/resources/comments-spring.xml</file>
         </fileset>
       </configuration>
