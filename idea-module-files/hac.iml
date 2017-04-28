@@ -4,10 +4,10 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="hacspring" name="hacspring" removed="false">
-          <dependency>processingspring==processing</dependency>
-          <dependency>platformservicesspring==platformservices</dependency>
-          <dependency>platformspring==platform</dependency>
           <dependency>impexspring==impex</dependency>
+          <dependency>platformspring==platform</dependency>
+          <dependency>platformservicesspring==platformservices</dependency>
+          <dependency>processingspring==processing</dependency>
           <dependency>catalogspring==catalog</dependency>
         </fileset>
       </configuration>

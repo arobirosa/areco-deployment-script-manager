@@ -6,6 +6,7 @@
         <fileset id="platformspring" name="platformspring" removed="false">
           <dependency>deliveryzonespring==deliveryzone</dependency>
           <dependency>configspring==config</dependency>
+          <dependency>workflowspring==workflow</dependency>
           <dependency>commentsspring==comments</dependency>
           <dependency>maintenancewebspring==maintenanceweb</dependency>
           <dependency>platformservicesspring==platformservices</dependency>
@@ -14,13 +15,12 @@
           <dependency>mediawebspring==mediaweb</dependency>
           <dependency>catalogspring==catalog</dependency>
           <dependency>scriptingspring==scripting</dependency>
-          <dependency>validationspring==validation</dependency>
-          <dependency>impexspring==impex</dependency>
           <dependency>advancedsavedqueryspring==advancedsavedquery</dependency>
-          <dependency>commonsspring==commons</dependency>
-          <dependency>workflowspring==workflow</dependency>
-          <dependency>processingspring==processing</dependency>
+          <dependency>impexspring==impex</dependency>
           <dependency>paymentstandardspring==paymentstandard</dependency>
+          <dependency>commonsspring==commons</dependency>
+          <dependency>validationspring==validation</dependency>
+          <dependency>processingspring==processing</dependency>
           <dependency>corespring==core</dependency>
           <dependency>europe1spring==europe1</dependency>
         </fileset>
