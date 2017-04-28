@@ -13,23 +13,10 @@
             <explorer-tree:navigation-node id="hmc_treenode_system">
                 <explorer-tree:navigation-node id="hmc.arecoDeploymentScriptsManagergroup">
                     <explorer-tree:type-node code="ScriptExecution" id="ScriptExecution"/>
-                    <explorer-tree:type-node id="run_pending_deployment_scripts_wizard"/>
                     <explorer-tree:type-node code="DeploymentEnvironment" id="DeploymentEnvironment"/>
                 </explorer-tree:navigation-node>
             </explorer-tree:navigation-node>
         </explorer-tree:explorer-tree>
-    </context>
-    <context type="run_pending_deployment_scripts_wizard" component="create-wizard">
-        <wz:flow id="RunPendingDeploymentScriptsWizard" title="deploymentscripts.run.wizard.title">
-            <wz:step id="step1" label="hmc.section.runpendingdeploymentscriptswizard.welcome">
-                <wz:info id="introduction" label="hmc.text.runpendingdeploymentscriptswizard.instructions"/>
-                <wz:content>
-                </wz:content>
-                <wz:navigation id="step1.navigation">
-                    <wz:done />
-                </wz:navigation>
-            </wz:step>
-        </wz:flow>
     </context>
     <context merge-by="type" type="DeploymentEnvironment" component="listview">
         <list-view:list-view>
