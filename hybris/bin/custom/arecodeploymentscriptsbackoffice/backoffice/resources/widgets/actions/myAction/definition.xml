@@ -1,0 +1,19 @@
+<action-definition id="org.areco.ecommerce.deploymentscripts.backoffice.actions.MyAction" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/action-definition.xsd">
+
+    <name>MyAction</name>
+    <description>MyAction</description>
+    <author>Me</author>
+    <version>0.1</version>
+
+    <actionClassName>org.areco.ecommerce.deploymentscripts.backoffice.actions.MyAction</actionClassName>
+
+    <inputType>java.lang.String</inputType>
+    <outputType>java.lang.String</outputType>
+
+    <!-- folder icons with the icons must be created in the following directory: myextension/backoffice/resources/widgets/actions/myaction -->
+    <iconUri>icons/hwicon.png</iconUri>
+    <iconHoverUri>icons/hwicon_hover.png</iconHoverUri>
+    <iconDisabledUri>icons/hwicon_disabled.png</iconDisabledUri>
+
+</action-definition>
