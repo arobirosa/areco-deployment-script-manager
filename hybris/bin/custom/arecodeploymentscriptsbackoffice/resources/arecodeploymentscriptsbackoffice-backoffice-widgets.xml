@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ [y] hybris Platform
+  ~
+  ~ Copyright (c) 2000-2015 hybris AG
+  ~ All rights reserved.
+  ~
+  ~ This software is the confidential and proprietary information of hybris
+  ~ ("Confidential Information"). You shall not disclose such Confidential
+  ~ Information and shall use it only in accordance with the terms of the
+  ~ license agreement you entered into with hybris.
+  -->
+
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/widgets.xsd">
+
+    <widget-extension widgetId="backofficeMainSlot">
+        <widget id="arecodeploymentscriptsbackoffice-perspective" widgetDefinitionId="org.areco.ecommerce.deploymentscripts.backoffice.widgets.arecodeploymentscriptsbackofficewidget"
+            template="false" slotId="perspectives" title="Hello arecodeploymentscriptsbackoffice">
+            <setting key="perspectiveImageUrl" value="/cng/images/perspective.png"
+                type="String" />
+        </widget>
+    </widget-extension>
+
+    <widget-connection sourceWidgetId="arecodeploymentscriptsbackoffice-explorer-tree" outputId="nodeSelected" targetWidgetId="arecodeploymentscriptsbackoffice-tree-node-adapter" inputId="input"/>
+    <widget-connection sourceWidgetId="arecodeploymentscriptsbackoffice-tree-node-adapter" outputId="true" targetWidgetId="arecodeploymentscriptsbackoffice-typecode-extractor" inputId="genericInput"/>
+    <widget-connection sourceWidgetId="arecodeploymentscriptsbackoffice-tree-node-adapter" outputId="true" targetWidgetId="arecodeploymentscriptsbackoffice-search-enabler" inputId="genericInput"/>
+    <widget-connection sourceWidgetId="arecodeploymentscriptsbackoffice-tree-node-adapter" outputId="false" targetWidgetId="arecodeploymentscriptsbackoffice-search-disabler" inputId="genericInput"/>
+    <widget-connection sourceWidgetId="arecodeploymentscriptsbackoffice-typecode-extractor" outputId="genericOutput" targetWidgetId="arecodeploymentscriptsbackoffice-search-logic" inputId="type"/>
+    <widget-connection sourceWidgetId="arecodeploymentscriptsbackoffice-search-enabler" outputId="genericOutput" targetWidgetId="arecodeploymentscriptsbackoffice-text-search" inputId="enabled"/>
+    <widget-connection sourceWidgetId="arecodeploymentscriptsbackoffice-search-disabler" outputId="genericOutput" targetWidgetId="arecodeploymentscriptsbackoffice-text-search" inputId="enabled"/>
+    <widget-connection sourceWidgetId="arecodeploymentscriptsbackoffice-text-search" outputId="query" targetWidgetId="arecodeploymentscriptsbackoffice-search-logic" inputId="searchtext"/>
+    <widget-connection sourceWidgetId="arecodeploymentscriptsbackoffice-search-logic" outputId="pageable" targetWidgetId="arecodeploymentscriptsbackoffice-simple-list" inputId="pageable"/>
+
+</widgets>
