@@ -13,9 +13,6 @@
 
 	<extension abstractclassprefix="Generated" classprefix="Arecodeploymentscriptsbackoffice" managername="ArecodeploymentscriptsbackofficeManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="arecodeploymentscriptsbackoffice" usemaven="false">
 
-		<!-- you should add all required extensions to this list, except platform extensions which are automatically required -->
-		<!-- <requires-extension name="cms"/> -->
-
 		<requires-extension name="backoffice"/>
 
 		<coremodule generated="true" manager="org.areco.ecommerce.deploymentscripts.backoffice.jalo.ArecodeploymentscriptsbackofficeManager" packageroot="org.areco.ecommerce.deploymentscripts.backoffice"/>
