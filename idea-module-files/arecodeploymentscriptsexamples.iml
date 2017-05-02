@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
+<module descriptorType="CUSTOM" importedAsReadOnly="false" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="arecodeploymentscriptsexamplesspring" name="arecodeploymentscriptsexamplesspring" removed="false">
-          <dependency>platformspring==platform</dependency>
-          <file>file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/resources/arecoDeploymentScriptsExamples-spring.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/web/webroot/WEB-INF/arecoDeploymentScriptsExamples-web-spring.xml</file>
+          <dependency>hmcspring==hmc</dependency>
+          <dependency>arecodeploymentscriptsmanagerspring==arecodeploymentscriptsmanager</dependency>
+          <file>file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/project.properties</file>
         </fileset>
       </configuration>
     </facet>
@@ -30,20 +30,18 @@
           <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/commonweb/gensrc" />
           <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/web/src" />
           <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/web/gensrc" />
-          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/hmc/src" />
-          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/hmc/resources" />
           <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/backoffice/src" />
           <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/backoffice/resources" />
         </sourceRoots>
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/eclipsebin" />
-    <output-test url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/eclipsebin" />
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/classes" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/classes" />
     <exclude-output />
     <javadoc-paths>
-      <root url="https://download.hybris.com/api/5.7.0/commercesuite" />
+      <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
     </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples">
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/src" isTestSource="false" />
@@ -61,14 +59,11 @@
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/web/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/web/testsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/hmc/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/hmc/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/backoffice/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/backoffice/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/backoffice/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/.settings" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/acceleratoraddon/web/testclasses" />
@@ -86,8 +81,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Common libs" level="project" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/hmc/bin" />
@@ -97,7 +91,16 @@
         <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsExamples/hmc/bin" recursive="true" />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/web/webroot/WEB-INF/classes" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="module" module-name="arecodeploymentscriptsmanager" exported="" />
-    <orderEntry type="module" module-name="platform" exported="" />
+    <orderEntry type="module" module-name="hmc" exported="" />
   </component>
 </module>

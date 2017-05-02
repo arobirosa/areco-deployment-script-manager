@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
+<module descriptorType="EXT" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="testwebspring" name="testwebspring" removed="false">
           <dependency>corespring==core</dependency>
-          <dependency>platformspring==platform</dependency>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/project.properties</file>
         </fileset>
       </configuration>
     </facet>
@@ -17,20 +17,48 @@
         <webroots>
           <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/web/webroot" relative="/" />
         </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/gensrc" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/resources" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/web/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/web/gensrc" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/commonweb/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/commonweb/gensrc" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/acceleratoraddon/web/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/acceleratoraddon/web/gensrc" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/backoffice/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/backoffice/resources" />
+        </sourceRoots>
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/eclipsebin" />
-    <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/eclipsebin" />
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/web/webroot/WEB-INF/eclipsebin" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/web/webroot/WEB-INF/eclipsebin" />
     <exclude-output />
     <javadoc-paths>
-      <root url="https://download.hybris.com/api/5.7.0/commercesuite" />
+      <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
     </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/backoffice/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/backoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/backoffice/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/.settings" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/acceleratoraddon/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/acceleratoraddon/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/acceleratoraddon/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/acceleratoraddon/web/testclasses" />
@@ -40,15 +68,13 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/commonweb/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/eclipsebin" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/web/testclasses" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Common libs" level="project" />
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
           <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/web/webroot/WEB-INF/classes" />
@@ -66,6 +92,16 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/ext/testweb/lib" recursive="true" />
+      </library>
+    </orderEntry>
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -77,6 +113,5 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="core" exported="" />
-    <orderEntry type="module" module-name="platform" exported="" />
   </component>
 </module>

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
+<module descriptorType="CUSTOM" importedAsReadOnly="false" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="arecodeploymentscriptsmanagerspring" name="arecodeploymentscriptsmanagerspring" removed="false">
-          <dependency>platformspring==platform</dependency>
-          <file>file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/resources/arecoDeploymentScriptsManager-spring.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/web/webroot/WEB-INF/arecoDeploymentScriptsManager-web-spring.xml</file>
+          <dependency>hmcspring==hmc</dependency>
+          <dependency>backofficespring==backoffice</dependency>
+          <dependency>lucenesearchspring==lucenesearch</dependency>
+          <dependency>platformbackofficespring==platformbackoffice</dependency>
+          <dependency>cockpitspring==cockpit</dependency>
+          <file>file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/project.properties</file>
         </fileset>
       </configuration>
     </facet>
@@ -30,20 +33,18 @@
           <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/commonweb/gensrc" />
           <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/web/src" />
           <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/web/gensrc" />
-          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/hmc/src" />
-          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/hmc/resources" />
           <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/backoffice/src" />
           <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/backoffice/resources" />
         </sourceRoots>
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/eclipsebin" />
-    <output-test url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/eclipsebin" />
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/backoffice/classes" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/backoffice/classes" />
     <exclude-output />
     <javadoc-paths>
-      <root url="https://download.hybris.com/api/5.7.0/commercesuite" />
+      <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
     </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager">
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/src" isTestSource="false" />
@@ -61,14 +62,11 @@
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/web/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/web/testsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/hmc/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/hmc/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/backoffice/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/backoffice/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/backoffice/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/.settings" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/acceleratoraddon/web/testclasses" />
@@ -86,8 +84,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Common libs" level="project" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/hmc/bin" />
@@ -97,7 +94,37 @@
         <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/hmc/bin" recursive="true" />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="platform" exported="" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/web/webroot/WEB-INF/classes" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/lib" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/classes" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="backoffice" exported="" />
+    <orderEntry type="module" module-name="lucenesearch" exported="" />
+    <orderEntry type="module" module-name="platformbackoffice" exported="" />
     <orderEntry type="module" module-name="hmc" exported="" />
     <orderEntry type="module" module-name="cockpit" exported="" />
   </component>

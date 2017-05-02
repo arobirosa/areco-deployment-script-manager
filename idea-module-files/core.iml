@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
+<module descriptorType="EXT" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
@@ -16,66 +16,45 @@
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/global-statistics-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/core-filter-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/core-media-spring.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/config/local.properties</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/i18n-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/interceptor-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/security-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/user-spring.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/resources/advanced.properties</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/project.properties</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/event-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/persistence-spring.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/app-annot-test-spring.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/app-one-test-spring.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/app-two-test-spring.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/application-placeholder-fail-test-spring.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/application-placeholder-test-spring.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/CacheBlockingOnEvictionTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/CacheControllerLifecycleCallbackTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/CacheControllerMultipleRegionsTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/CacheControllerQueryCacheDisabledTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/CacheControllerQueryOnlyRegionTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/CacheControllerTwoRegionsSameTypesTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/CacheControllerTwoRegionsTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/DefaultCacheRegionPerformanceTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/dummy-test-spring.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/EHCacheRegionExclusiveComputationTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/EHCacheRegionPerformanceTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/generational-test-core-cache.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/global-placeholder-test-spring.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/global-test-spring.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/HealthCheckTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/lazy-init-test-spring.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/ManualCacheRegionTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/MediaCacheRegion-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/MediaStorageStrategy-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/MultiThreadedDataValidityTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/OneRegionTestDefaultCacheRegion-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/OneRegionTestDefaultLRUCacheRegion-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/OneRegionTestEHCacheRegion-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/servicelayer/test/properties-spring-test.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/servicelayer/test/servicelayer-mock-base-test.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/servicelayer/test/servicelayer-mock-i18n-test.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/SilverBulletScenarioTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/sql-error-codes.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/servicelayer/test/statistisdatatest-spring.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/core/systemsetup/systemsetup-test-applicationcontext.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/test-core-spring.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/ThreeRegionFlexibleSearchAndEntityAndDefaultTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/TwoRegionFlexibleSearchAndDefaultTest-context.xml</file>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources/test/TwoRegionFlexibleSearchAndDefaultWithTypeTest-context.xml</file>
         </fileset>
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/eclipsebin" />
     <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/eclipsebin" />
     <exclude-output />
     <javadoc-paths>
-      <root url="https://download.hybris.com/api/5.7.0/commercesuite" />
+      <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
     </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/backoffice/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/backoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/backoffice/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/.settings" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/acceleratoraddon/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/acceleratoraddon/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/acceleratoraddon/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/acceleratoraddon/web/testclasses" />
@@ -85,14 +64,12 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/commonweb/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/eclipsebin" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/web/testclasses" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Common libs" level="project" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -112,5 +89,16 @@
         <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/bin" recursive="true" />
       </library>
     </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/lib" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" exported="" name="Platform Bootstrap" level="project" />
   </component>
 </module>

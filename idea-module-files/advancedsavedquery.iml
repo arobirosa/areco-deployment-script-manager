@@ -1,28 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
+<module descriptorType="EXT" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="advancedsavedqueryspring" name="advancedsavedqueryspring" removed="false">
-          <dependency>impexspring==impex</dependency>
-          <dependency>platformspring==platform</dependency>
           <dependency>processingspring==processing</dependency>
+          <dependency>impexspring==impex</dependency>
           <dependency>catalogspring==catalog</dependency>
         </fileset>
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/eclipsebin" />
     <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/eclipsebin" />
     <exclude-output />
     <javadoc-paths>
-      <root url="https://download.hybris.com/api/5.7.0/commercesuite" />
+      <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
     </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/backoffice/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/backoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/backoffice/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/.settings" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/testclasses" />
@@ -32,14 +46,12 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/commonweb/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/eclipsebin" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/web/testclasses" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Common libs" level="project" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -59,9 +71,18 @@
         <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/bin" recursive="true" />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="processing" exported="" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/lib" recursive="true" />
+      </library>
+    </orderEntry>
     <orderEntry type="module" module-name="impex" exported="" />
+    <orderEntry type="module" module-name="processing" exported="" />
     <orderEntry type="module" module-name="catalog" exported="" />
-    <orderEntry type="module" module-name="platform" exported="" />
   </component>
 </module>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module descriptorType="OOTB" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="lucenesearchspring" name="lucenesearchspring" removed="false">
+          <dependency>platformspring==platform</dependency>
+          <dependency>processingspring==processing</dependency>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/project.properties</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/eclipsebin" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/eclipsebin" />
+    <exclude-output />
+    <javadoc-paths>
+      <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
+    </javadoc-paths>
+    <content url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/backoffice/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/backoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/backoffice/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/.externalToolBuilders" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/.settings" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/acceleratoraddon/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/acceleratoraddon/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/acceleratoraddon/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/commonweb/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/commonweb/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/commonweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/web/testclasses" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/resources" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/bin" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/bin" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/lucenesearch/lib" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="platform" exported="" />
+  </component>
+</module>

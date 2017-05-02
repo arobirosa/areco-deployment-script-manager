@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
+<module descriptorType="CONFIG" importedAsReadOnly="false" type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager" forced_jdk="true">
+    <libelement value="file://licence/hybrislicence.jar" />
+    <src_description expected_position="1" />
+  </component>
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
@@ -7,17 +11,32 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/../hybris/config/eclipsebin" />
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../hybris/config5.6/eclipsebin/notused" />
     <output-test url="file://$MODULE_DIR$/../hybris/config/eclipsebin" />
     <exclude-output />
     <javadoc-paths>
-      <root url="https://download.hybris.com/api/5.7.0/commercesuite" />
+      <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
     </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/config">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/backoffice/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/backoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/backoffice/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/.settings" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/acceleratoraddon/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/acceleratoraddon/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/acceleratoraddon/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/acceleratoraddon/web/testclasses" />
@@ -27,22 +46,20 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/commonweb/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/eclipsebin" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/web/testclasses" />
     </content>
+    <content url="file://$MODULE_DIR$/../hybris/config5.6" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Common libs" level="project" />
     <orderEntry type="module-library" exported="">
-      <library>
+      <library name="hybrislicence.jar">
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../hybris/config/licence" />
+          <root url="file://licence/hybrislicence.jar" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../hybris/config/licence" recursive="true" />
       </library>
     </orderEntry>
   </component>

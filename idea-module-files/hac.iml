@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
+<module descriptorType="EXT" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="hacspring" name="hacspring" removed="false">
           <dependency>impexspring==impex</dependency>
-          <dependency>platformspring==platform</dependency>
           <dependency>platformservicesspring==platformservices</dependency>
           <dependency>processingspring==processing</dependency>
           <dependency>catalogspring==catalog</dependency>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/project.properties</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/resources/hac-spring.xml</file>
         </fileset>
       </configuration>
     </facet>
@@ -20,20 +21,48 @@
         <webroots>
           <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/web/webroot" relative="/" />
         </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/gensrc" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/resources" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/web/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/web/gensrc" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/commonweb/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/commonweb/gensrc" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/acceleratoraddon/web/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/acceleratoraddon/web/gensrc" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/backoffice/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/backoffice/resources" />
+        </sourceRoots>
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/eclipsebin" />
-    <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/eclipsebin" />
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/web/webroot/WEB-INF/eclipsebin" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/web/webroot/WEB-INF/eclipsebin" />
     <exclude-output />
     <javadoc-paths>
-      <root url="https://download.hybris.com/api/5.7.0/commercesuite" />
+      <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
     </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/backoffice/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/backoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/backoffice/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/.settings" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/acceleratoraddon/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/acceleratoraddon/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/acceleratoraddon/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/acceleratoraddon/web/testclasses" />
@@ -43,15 +72,13 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/commonweb/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/eclipsebin" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/web/testclasses" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Common libs" level="project" />
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
           <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/web/webroot/WEB-INF/classes" />
@@ -69,6 +96,26 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/bin" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/bin" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/lib" recursive="true" />
+      </library>
+    </orderEntry>
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -79,10 +126,9 @@
         <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/web/webroot/WEB-INF/lib" recursive="true" />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="processing" exported="" />
     <orderEntry type="module" module-name="platformservices" exported="" />
+    <orderEntry type="module" module-name="processing" exported="" />
     <orderEntry type="module" module-name="impex" exported="" />
     <orderEntry type="module" module-name="catalog" exported="" />
-    <orderEntry type="module" module-name="platform" exported="" />
   </component>
 </module>

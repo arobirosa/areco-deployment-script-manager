@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
+<module descriptorType="PLATFORM" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="platformspring" name="platformspring" removed="false">
           <dependency>deliveryzonespring==deliveryzone</dependency>
+          <dependency>validationspring==validation</dependency>
           <dependency>configspring==config</dependency>
-          <dependency>workflowspring==workflow</dependency>
+          <dependency>europe1spring==europe1</dependency>
           <dependency>commentsspring==comments</dependency>
           <dependency>maintenancewebspring==maintenanceweb</dependency>
           <dependency>platformservicesspring==platformservices</dependency>
@@ -19,25 +20,41 @@
           <dependency>impexspring==impex</dependency>
           <dependency>paymentstandardspring==paymentstandard</dependency>
           <dependency>commonsspring==commons</dependency>
-          <dependency>validationspring==validation</dependency>
+          <dependency>workflowspring==workflow</dependency>
           <dependency>processingspring==processing</dependency>
           <dependency>corespring==core</dependency>
-          <dependency>europe1spring==europe1</dependency>
+          <dependency>oauth2spring==oauth2</dependency>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/project.properties</file>
         </fileset>
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/../hybris/bin/platform/eclipsebin" />
     <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/eclipsebin" />
     <exclude-output />
     <javadoc-paths>
-      <root url="https://download.hybris.com/api/5.7.0/commercesuite" />
+      <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
     </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/platform">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/backoffice/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/backoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/backoffice/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/.settings" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/testclasses" />
@@ -48,7 +65,6 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/eclipsebin" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/tomcat/work" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/commonwebsrc" />
@@ -56,87 +72,35 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Common libs" level="project" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../hybris/bin/platform/resources/tanukiwrapper/lib" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/lib/dbdriver" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/resources/tanukiwrapper/lib" recursive="true" />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/lib/dbdriver" recursive="true" />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../hybris/bin/platform/resources/tanukiwrapper/bin" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/resources/tanukiwrapper/bin" recursive="true" />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../hybris/bin/platform/resources/ant/lib" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/resources/ant/lib" recursive="true" />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../hybris/bin/platform/bootstrap/bin" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/../hybris/bin/platform/bootstrap/gensrc" />
-        </SOURCES>
-        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/bootstrap/bin" recursive="true" />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../hybris/bin/platform/tomcat/bin" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/tomcat/bin" recursive="true" />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../hybris/bin/platform/tomcat/lib" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/tomcat/lib" recursive="true" />
-      </library>
-    </orderEntry>
-    <orderEntry type="module" module-name="paymentstandard" exported="" />
-    <orderEntry type="module" module-name="comments" exported="" />
-    <orderEntry type="module" module-name="workflow" exported="" />
-    <orderEntry type="module" module-name="impex" exported="" />
-    <orderEntry type="module" module-name="catalog" exported="" />
-    <orderEntry type="module" module-name="advancedsavedquery" exported="" />
-    <orderEntry type="module" module-name="hac" exported="" />
     <orderEntry type="module" module-name="commons" exported="" />
-    <orderEntry type="module" module-name="scripting" exported="" />
-    <orderEntry type="module" module-name="core" exported="" />
-    <orderEntry type="module" module-name="maintenanceweb" exported="" />
-    <orderEntry type="module" module-name="testweb" exported="" />
-    <orderEntry type="module" module-name="deliveryzone" exported="" />
-    <orderEntry type="module" module-name="europe1" exported="" />
-    <orderEntry type="module" module-name="processing" exported="" />
     <orderEntry type="module" module-name="platformservices" exported="" />
-    <orderEntry type="module" module-name="config" exported="" />
-    <orderEntry type="module" module-name="validation" exported="" />
+    <orderEntry type="module" module-name="processing" exported="" />
+    <orderEntry type="module" module-name="comments" exported="" />
+    <orderEntry type="module" module-name="deliveryzone" exported="" />
     <orderEntry type="module" module-name="mediaweb" exported="" />
+    <orderEntry type="module" module-name="scripting" exported="" />
+    <orderEntry type="module" module-name="oauth2" exported="" />
+    <orderEntry type="module" module-name="core" exported="" />
+    <orderEntry type="module" module-name="testweb" exported="" />
+    <orderEntry type="module" module-name="europe1" exported="" />
+    <orderEntry type="module" module-name="workflow" exported="" />
+    <orderEntry type="module" module-name="advancedsavedquery" exported="" />
+    <orderEntry type="module" module-name="paymentstandard" exported="" />
+    <orderEntry type="module" module-name="catalog" exported="" />
+    <orderEntry type="module" module-name="maintenanceweb" exported="" />
+    <orderEntry type="module" module-name="validation" exported="" />
+    <orderEntry type="module" module-name="impex" exported="" />
+    <orderEntry type="module" module-name="hac" exported="" />
+    <orderEntry type="module" module-name="config" exported="" />
   </component>
 </module>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
+<module descriptorType="EXT" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="platformservicesspring" name="platformservicesspring" removed="false">
-          <dependency>deliveryzonespring==deliveryzone</dependency>
           <dependency>processingspring==processing</dependency>
           <dependency>impexspring==impex</dependency>
-          <dependency>platformspring==platform</dependency>
-          <dependency>europe1spring==europe1</dependency>
           <dependency>paymentstandardspring==paymentstandard</dependency>
+          <dependency>deliveryzonespring==deliveryzone</dependency>
+          <dependency>europe1spring==europe1</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/resources/order-spring.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/project.properties</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/resources/catalog-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/resources/product-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/resources/converters-spring.xml</file>
@@ -21,17 +21,32 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/eclipsebin" />
     <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/eclipsebin" />
     <exclude-output />
     <javadoc-paths>
-      <root url="https://download.hybris.com/api/5.7.0/commercesuite" />
+      <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
     </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/backoffice/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/backoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/backoffice/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/.settings" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/acceleratoraddon/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/acceleratoraddon/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/acceleratoraddon/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/acceleratoraddon/web/testclasses" />
@@ -41,14 +56,12 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/commonweb/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/eclipsebin" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/web/testclasses" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Common libs" level="project" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -69,11 +82,20 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/lib" recursive="true" />
+      </library>
+    </orderEntry>
     <orderEntry type="module" module-name="europe1" exported="" />
     <orderEntry type="module" module-name="processing" exported="" />
-    <orderEntry type="module" module-name="paymentstandard" exported="" />
     <orderEntry type="module" module-name="impex" exported="" />
-    <orderEntry type="module" module-name="platform" exported="" />
+    <orderEntry type="module" module-name="paymentstandard" exported="" />
     <orderEntry type="module" module-name="deliveryzone" exported="" />
   </component>
 </module>
