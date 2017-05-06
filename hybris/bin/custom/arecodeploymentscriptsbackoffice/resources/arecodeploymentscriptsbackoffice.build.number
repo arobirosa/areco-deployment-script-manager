@@ -1,9 +1,2 @@
-#Ant properties
-#Tue Dec 13 15:20:48 CET 2016
-builddate=20161213 1519
-description=arecodeploymentscriptsbackoffice
-name=arecodeploymentscriptsbackoffice
-releasedate=20160628 1228
-vendor=hybris
-version=6.1.0.6
-version.api=6.0.0
+version=1.4.4
+
