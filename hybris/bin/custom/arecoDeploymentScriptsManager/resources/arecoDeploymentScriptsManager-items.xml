@@ -105,15 +105,6 @@
                 </attribute>
             </attributes>
         </itemtype>
-		
-        <itemtype code="RunPendingDeploymentScriptsWizard"
-                     extends="WizardBusinessItem"
-                     jaloonly="true"
-                     jaloclass="org.areco.ecommerce.deploymentscripts.hmc.RunPendingDeploymentScriptsWizard"
-                     generate="true" autocreate="true" >
-            <attributes>
-            </attributes>
-        </itemtype>
 
 	</itemtypes>
 </items>
