@@ -8,27 +8,10 @@ extensioninfo.xsd
 hmc.xsd
 items.xsd
 hybris/bin/custom/**/hmc/bin/
+hybris/bin/custom/**/resources/backoffice/*_bof.jar
 
 #We ignore the Hybris extensions
-hybris/bin/ext-content
-hybris/bin/ext-accelerator/
-hybris/bin/ext-addon/
-hybris/bin/ext-atdd/
-hybris/bin/ext-atddtests/
-hybris/bin/ext-backoffice/
-hybris/bin/ext-channel/
-hybris/bin/ext-cockpit/
-hybris/bin/ext-commerce/
-hybris/bin/ext-data/
-hybris/bin/ext-deprecated/
-hybris/bin/ext-integration/
-hybris/bin/ext-platform-optional/
-hybris/bin/ext-print/
-hybris/bin/ext-supportability/
-hybris/bin/ext-template/
-hybris/bin/ext-eventtracking/
-hybris/bin/ext-incubator/
-hybris/bin/ext-platform-backoffice/
+hybris/bin/ext-*/
 hybris/sampleconfigurations
 platform/
 data/
