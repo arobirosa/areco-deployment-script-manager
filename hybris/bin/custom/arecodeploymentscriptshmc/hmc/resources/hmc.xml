@@ -24,8 +24,6 @@
 			<group name="arecoDeploymentScriptsManagergroup">
 				<typeref type="ScriptExecution"
 				    description="typeref.scriptExecution.description" />
-				 <typeref type="RunPendingDeploymentScriptsWizard"
-				     description="typeref.runpendingdeploymentscriptswizard.description"/>
 				 <typeref type="DeploymentEnvironment"
                     description="typeref.deploymentenvironment.description" />
 			</group>
@@ -125,6 +123,10 @@
                   <attribute name="description"/>
                </itemlayout>
             </treeview>
+            <action
+                    type="searchresult"
+                    classname="org.areco.ecommerce.deploymentscripts.hmc.actions.RunPendingScriptsSearchResultAction"
+                    name="runPendingDeploymentScripts"/>
          </result>
          <editor>
             <essentials>
@@ -197,17 +199,4 @@
       </defaultreference>
    </type>
 
-   <type name="RunPendingDeploymentScriptsWizard" mode="append">
-      <organizer>
-         <editor>
-            <tab name="tab.runpendingdeploymentscriptswizard.start" position="0">
-               <section name="section.runpendingdeploymentscriptswizard.welcome">
-                  <listlayout>
-                     <text name="text.runpendingdeploymentscriptswizard.instructions"/>
-                  </listlayout>
-               </section>
-            </tab>
-         </editor>
-      </organizer>
-   </type>
 </configuration>
