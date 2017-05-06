@@ -24,8 +24,8 @@ public class RunPendingScriptsAction extends DefaultActionRenderer<String, Strin
     final ActionResult<String> result;
     final boolean thereWasAnError = starter.runAllPendingScripts();
     if (thereWasAnError) {
-      result = new ActionResult<>(ActionResult.ERROR, ctx.getLabel("message.therewasanerror"));
-      Messagebox.show(result.getData() + " (" + result.getResultCode() + ")");
+      result = new ActionResult<>(ActionResult.ERROR);
+      Messagebox.show(ctx.getLabel("message.therewasanerror"));
     } else {
       result = new ActionResult<>(ActionResult.SUCCESS);
     }
