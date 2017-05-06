@@ -5,9 +5,6 @@
       <configuration>
         <fileset id="arecodeploymentscriptsmanagerspring" name="arecodeploymentscriptsmanagerspring" removed="false">
           <dependency>hmcspring==hmc</dependency>
-          <dependency>backofficespring==backoffice</dependency>
-          <dependency>lucenesearchspring==lucenesearch</dependency>
-          <dependency>platformbackofficespring==platformbackoffice</dependency>
           <dependency>cockpitspring==cockpit</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/project.properties</file>
         </fileset>
@@ -40,8 +37,8 @@
     </facet>
   </component>
   <component name="NewModuleRootManager">
-    <output url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/backoffice/classes" />
-    <output-test url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/backoffice/classes" />
+    <output url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/classes" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/classes" />
     <exclude-output />
     <javadoc-paths>
       <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
@@ -103,28 +100,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/lib" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/lib" recursive="true" />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/backoffice/web/webroot/WEB-INF/classes" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module" module-name="backoffice" exported="" />
-    <orderEntry type="module" module-name="lucenesearch" exported="" />
-    <orderEntry type="module" module-name="platformbackoffice" exported="" />
     <orderEntry type="module" module-name="hmc" exported="" />
     <orderEntry type="module" module-name="cockpit" exported="" />
   </component>

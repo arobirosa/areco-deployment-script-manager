@@ -8,6 +8,7 @@
         <option value="amazoncloud" />
         <option value="arecodeploymentscriptsbackoffice" />
         <option value="arecodeploymentscriptsexamples" />
+        <option value="arecodeploymentscriptshmc" />
         <option value="arecodeploymentscriptsmanager" />
         <option value="azurecloud" />
         <option value="b2bcommercebackoffice" />
@@ -69,6 +70,7 @@
         <option value="yaasconnect" />
         <option value="ybackoffice" />
         <option value="ycockpit" />
+        <option value="yempty" />
         <option value="ygroovy" />
         <option value="yscala" />
       </set>

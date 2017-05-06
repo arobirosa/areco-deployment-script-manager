@@ -5,6 +5,8 @@
       <configuration>
         <fileset id="arecodeploymentscriptsbackofficespring" name="arecodeploymentscriptsbackofficespring" removed="false">
           <dependency>backofficespring==backoffice</dependency>
+          <dependency>platformbackofficespring==platformbackoffice</dependency>
+          <dependency>arecodeploymentscriptsmanagerspring==arecodeploymentscriptsmanager</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/project.properties</file>
           <file>file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/resources/arecodeploymentscriptsbackoffice-spring.xml</file>
         </fileset>
@@ -12,8 +14,8 @@
     </facet>
   </component>
   <component name="NewModuleRootManager">
-    <output url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/classes" />
-    <output-test url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/classes" />
+    <output url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/backoffice/classes" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/backoffice/classes" />
     <exclude-output />
     <javadoc-paths>
       <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
@@ -83,5 +85,7 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="backoffice" exported="" />
+    <orderEntry type="module" module-name="platformbackoffice" exported="" />
+    <orderEntry type="module" module-name="arecodeploymentscriptsmanager" exported="" />
   </component>
 </module>

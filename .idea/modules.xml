@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/advancedsavedquery.iml" filepath="$PROJECT_DIR$/idea-module-files/advancedsavedquery.iml" group="Platform" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsbackoffice.iml" filepath="$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsbackoffice.iml" group="Custom" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsexamples.iml" filepath="$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsexamples.iml" group="Custom" />
+      <module fileurl="file://$PROJECT_DIR$/idea-module-files/arecodeploymentscriptshmc.iml" filepath="$PROJECT_DIR$/idea-module-files/arecodeploymentscriptshmc.iml" group="Custom" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsmanager.iml" filepath="$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsmanager.iml" group="Custom" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/backoffice.iml" filepath="$PROJECT_DIR$/idea-module-files/backoffice.iml" group="Hybris" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/catalog.iml" filepath="$PROJECT_DIR$/idea-module-files/catalog.iml" group="Platform" />
@@ -18,7 +19,6 @@
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/hac.iml" filepath="$PROJECT_DIR$/idea-module-files/hac.iml" group="Platform" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/hmc.iml" filepath="$PROJECT_DIR$/idea-module-files/hmc.iml" group="Hybris" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/impex.iml" filepath="$PROJECT_DIR$/idea-module-files/impex.iml" group="Platform" />
-      <module fileurl="file://$PROJECT_DIR$/idea-module-files/lucenesearch.iml" filepath="$PROJECT_DIR$/idea-module-files/lucenesearch.iml" group="Hybris" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/maintenanceweb.iml" filepath="$PROJECT_DIR$/idea-module-files/maintenanceweb.iml" group="Platform" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/mediaweb.iml" filepath="$PROJECT_DIR$/idea-module-files/mediaweb.iml" group="Platform" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/oauth2.iml" filepath="$PROJECT_DIR$/idea-module-files/oauth2.iml" group="Platform" />
