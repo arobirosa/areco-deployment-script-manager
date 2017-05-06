@@ -11,8 +11,8 @@
     <inputType>java.lang.String</inputType>
     <outputType>java.lang.String</outputType>
 
-    <iconUri>icons/hwicon.png</iconUri>
-    <iconHoverUri>icons/hwicon_hover.png</iconHoverUri>
-    <iconDisabledUri>icons/hwicon_disabled.png</iconDisabledUri>
+    <iconUri>icons/icon_action_run_pending_scripts_default.png</iconUri>
+    <iconHoverUri>icons/icon_action_run_pending_scripts_hover.png</iconHoverUri>
+    <iconDisabledUri>icons/icon_action_run_pending_scripts_disabled.png</iconDisabledUri>
 
 </action-definition>
