@@ -15,8 +15,6 @@
 
 		<requires-extension name="platformbackoffice" />
 		<requires-extension name="arecoDeploymentScriptsManager" />
-		<!-- The default backoffice configuration of the extension backoffice uses Hybris type from this extension -->
-		<!--requires-extension name="lucenesearch" /-->
 
 		<coremodule generated="true" manager="org.areco.ecommerce.deploymentscripts.backoffice.jalo.ArecodeploymentscriptsbackofficeManager" packageroot="org.areco.ecommerce.deploymentscripts.backoffice"/>
 
