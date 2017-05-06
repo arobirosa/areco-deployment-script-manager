@@ -1,0 +1,18 @@
+<action-definition id="org.areco.ecommerce.deploymentscripts.backoffice.actions.runPendingScripts" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/action-definition.xsd">
+
+    <name>Run Pending Deployment Scripts</name>
+    <description>Runs all deployment scripts which weren't run on this database</description>
+    <author>Antonio Robirosa</author>
+    <version>0.1</version>
+
+    <actionClassName>org.areco.ecommerce.deploymentscripts.backoffice.actions.RunPendingScriptsAction</actionClassName>
+
+    <inputType>java.lang.String</inputType>
+    <outputType>java.lang.String</outputType>
+
+    <iconUri>icons/hwicon.png</iconUri>
+    <iconHoverUri>icons/hwicon_hover.png</iconHoverUri>
+    <iconDisabledUri>icons/hwicon_disabled.png</iconDisabledUri>
+
+</action-definition>
