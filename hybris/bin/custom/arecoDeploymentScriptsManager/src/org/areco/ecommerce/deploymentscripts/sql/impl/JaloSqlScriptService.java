@@ -45,7 +45,7 @@ public class JaloSqlScriptService implements SqlScriptService {
                 justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
         // CHECKSTYLE.ON
         //The variable affectedRows is needed because the cache must be cleared afterwards.
-        @SuppressWarnings("PMD.UnnecessaryLocalBeforeReturn") 
+        @SuppressWarnings("PMD.UnnecessaryLocalBeforeReturn")
         @Override
         public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException {
                 if (aStatement == null || aStatement.trim().isEmpty()) {

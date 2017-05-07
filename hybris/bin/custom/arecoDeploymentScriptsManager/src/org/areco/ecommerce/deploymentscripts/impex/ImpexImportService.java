@@ -33,5 +33,5 @@ public interface ImpexImportService {
      *            Required
      * @throws ImpExException
      */
-    void importImpexFile(final File impexFile) throws ImpExException;
+    void importImpexFile(File impexFile) throws ImpExException;
 }
