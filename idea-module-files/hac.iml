@@ -4,9 +4,9 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="hacspring" name="hacspring" removed="false">
-          <dependency>impexspring==impex</dependency>
-          <dependency>platformservicesspring==platformservices</dependency>
           <dependency>processingspring==processing</dependency>
+          <dependency>platformservicesspring==platformservices</dependency>
+          <dependency>impexspring==impex</dependency>
           <dependency>catalogspring==catalog</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/project.properties</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/resources/hac-spring.xml</file>
