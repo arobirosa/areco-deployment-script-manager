@@ -14,7 +14,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/../hybris/bin/platform/ext/comments/eclipsebin" />
     <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/ext/comments/eclipsebin" />
     <exclude-output />

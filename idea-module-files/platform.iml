@@ -5,18 +5,18 @@
       <configuration>
         <fileset id="platformspring" name="platformspring" removed="false">
           <dependency>deliveryzonespring==deliveryzone</dependency>
-          <dependency>validationspring==validation</dependency>
           <dependency>configspring==config</dependency>
           <dependency>europe1spring==europe1</dependency>
           <dependency>commentsspring==comments</dependency>
           <dependency>maintenancewebspring==maintenanceweb</dependency>
-          <dependency>platformservicesspring==platformservices</dependency>
           <dependency>hacspring==hac</dependency>
+          <dependency>platformservicesspring==platformservices</dependency>
+          <dependency>scriptingspring==scripting</dependency>
           <dependency>testwebspring==testweb</dependency>
           <dependency>mediawebspring==mediaweb</dependency>
           <dependency>catalogspring==catalog</dependency>
-          <dependency>scriptingspring==scripting</dependency>
           <dependency>advancedsavedqueryspring==advancedsavedquery</dependency>
+          <dependency>validationspring==validation</dependency>
           <dependency>impexspring==impex</dependency>
           <dependency>paymentstandardspring==paymentstandard</dependency>
           <dependency>commonsspring==commons</dependency>
@@ -29,7 +29,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/../hybris/bin/platform/eclipsebin" />
     <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/eclipsebin" />
     <exclude-output />

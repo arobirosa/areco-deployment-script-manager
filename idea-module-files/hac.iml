@@ -37,7 +37,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/web/webroot/WEB-INF/eclipsebin" />
     <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/ext/hac/web/webroot/WEB-INF/eclipsebin" />
     <exclude-output />
