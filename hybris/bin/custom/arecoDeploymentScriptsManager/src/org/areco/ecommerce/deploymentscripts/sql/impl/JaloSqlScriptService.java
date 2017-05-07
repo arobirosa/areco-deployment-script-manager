@@ -44,6 +44,8 @@ public class JaloSqlScriptService implements SqlScriptService {
         @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING",
                 justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
         // CHECKSTYLE.ON
+        //The variable affectedRows is needed because the cache must be cleared afterwards.
+        @SuppressWarnings("PMD.UnnecessaryLocalBeforeReturn") 
         @Override
         public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException {
                 if (aStatement == null || aStatement.trim().isEmpty()) {
@@ -54,7 +56,7 @@ public class JaloSqlScriptService implements SqlScriptService {
                 }
                 final String translatedStatement = translateTablePrefix(aStatement);
 
-                int affectedRows = runStatementOnDatabase(translatedStatement);
+                final int affectedRows = runStatementOnDatabase(translatedStatement);
 
                 /* Because clearing the cache doesn't remove the old values of the attributes saved in the model instances, a refresh of the models
                   is required to get the new values stored in the database. */
@@ -67,13 +69,12 @@ public class JaloSqlScriptService implements SqlScriptService {
                 justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
         // CHECKSTYLE.ON
         private int runStatementOnDatabase(String translatedStatement) throws SQLException {
-                int affectedRows = -1;
                 Connection aConnection = null;
                 PreparedStatement prepareStatement = null;
                 try {
                         aConnection = getConnection();
                         prepareStatement = aConnection.prepareStatement(translatedStatement);
-                        affectedRows = prepareStatement.executeUpdate();
+                        return prepareStatement.executeUpdate();
                 } finally {
                         if (prepareStatement != null) {
                                 prepareStatement.close();
@@ -86,7 +87,6 @@ public class JaloSqlScriptService implements SqlScriptService {
                                 }
                         }
                 }
-                return affectedRows;
         }
 
         private String translateTablePrefix(final String aStatement) {

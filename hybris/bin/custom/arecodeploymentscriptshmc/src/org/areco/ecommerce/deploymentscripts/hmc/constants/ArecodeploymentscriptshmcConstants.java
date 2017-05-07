@@ -22,8 +22,4 @@ public final class ArecodeploymentscriptshmcConstants extends GeneratedArecodepl
 	{
 		//empty to avoid instantiating this constant class
 	}
-
-	// implement here constants used by this extension
-
-    public static final String PLATFORM_LOGO_CODE = "arecodeploymentscriptshmcPlatformLogo";
 }
