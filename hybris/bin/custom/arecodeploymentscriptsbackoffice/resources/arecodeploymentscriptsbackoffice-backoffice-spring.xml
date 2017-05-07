@@ -16,8 +16,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="arecodeploymentscriptsbackofficeService" class="org.areco.ecommerce.deploymentscripts.backoffice.services.ArecodeploymentscriptsbackofficeService" />
-
 	<bean id="arecodeploymentscriptsbackofficeLabelLocator" class="com.hybris.cockpitng.util.labels.ResourcesLabelLocator" scope="singleton" init-method="init" lazy-init="false">
   		<property name="location" value="/arecodeploymentscriptsbackoffice-backoffice-labels/"/>
   		<property name="name" value="labels"/>
