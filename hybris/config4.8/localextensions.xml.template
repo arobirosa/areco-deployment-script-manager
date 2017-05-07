@@ -16,7 +16,6 @@
 
 	<extensions>
 		<extension dir="${HYBRIS_BIN_DIR}/custom/arecoDeploymentScriptsManager" />
-		<extension dir="${HYBRIS_BIN_DIR}/custom/arecoDeploymentScriptsExamples" />
 	</extensions>
 
 </hybrisconfig>

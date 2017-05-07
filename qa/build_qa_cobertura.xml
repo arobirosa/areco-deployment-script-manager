@@ -100,7 +100,7 @@
 			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/web/src" erroronmissingdir="false">
 				<include name="**/*.java" />
 			</fileset>
-			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/hmc/src" erroronmissingdir="false">
+			<fileset dir="${dir_hybris_bin}/custom/arecodeploymentscriptshmc/hmc/src" erroronmissingdir="false">
 				<include name="**/*.java" />
 			</fileset>
 			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/testsrc" erroronmissingdir="false">
@@ -109,7 +109,7 @@
 			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/web/testsrc" erroronmissingdir="false">
 				<include name="**/*.java" />
 			</fileset>
-			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsManager/hmc/testsrc" erroronmissingdir="false">
+			<fileset dir="${dir_hybris_bin}/custom/arecodeploymentscriptshmc/hmc/testsrc" erroronmissingdir="false">
 				<include name="**/*.java" />
 			</fileset>
 			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsExamples/src" erroronmissingdir="false">
@@ -128,6 +128,18 @@
 				<include name="**/*.java" />
 			</fileset>
 			<fileset dir="${dir_hybris_bin}/custom/arecoDeploymentScriptsExamples/hmc/testsrc" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecodeploymentscriptsbackoffice/src" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecodeploymentscriptsbackoffice/backoffice/src" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecodeploymentscriptsbackoffice/testsrc" erroronmissingdir="false">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${dir_hybris_bin}/custom/arecodeploymentscriptsbackoffice/backoffice/testsrc" erroronmissingdir="false">
 				<include name="**/*.java" />
 			</fileset>
 		</cobertura-report>

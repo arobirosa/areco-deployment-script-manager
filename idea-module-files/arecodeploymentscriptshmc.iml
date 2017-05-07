@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module descriptorType="CUSTOM" importedAsReadOnly="false" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="arecodeploymentscriptshmcspring" name="arecodeploymentscriptshmcspring" removed="false">
+          <dependency>hmcspring==hmc</dependency>
+          <dependency>arecodeploymentscriptsmanagerspring==arecodeploymentscriptsmanager</dependency>
+          <file>file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/project.properties</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/resources/arecodeploymentscriptshmc-spring.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/web/webroot/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/web/webroot" relative="/" />
+        </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/gensrc" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/resources" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/hmc/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/hmc/resources" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/web/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/web/gensrc" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/commonweb/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/commonweb/gensrc" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/acceleratoraddon/web/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/acceleratoraddon/web/gensrc" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/backoffice/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/backoffice/resources" />
+        </sourceRoots>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/web/webroot/WEB-INF/classes" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/web/webroot/WEB-INF/classes" />
+    <exclude-output />
+    <javadoc-paths>
+      <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
+    </javadoc-paths>
+    <content url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/hmc/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/hmc/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/backoffice/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/backoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/backoffice/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/.externalToolBuilders" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/.settings" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/acceleratoraddon/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/acceleratoraddon/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/acceleratoraddon/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/commonweb/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/commonweb/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/commonweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/hmc/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/web/webroot/WEB-INF/classes" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/lib" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/web/webroot/WEB-INF/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/web/webroot/WEB-INF/lib" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/hmc/bin" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptshmc/hmc/bin" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/web/webroot/WEB-INF/classes" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="arecodeploymentscriptsmanager" exported="" />
+    <orderEntry type="module" module-name="hmc" exported="" />
+  </component>
+</module>

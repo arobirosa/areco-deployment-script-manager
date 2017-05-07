@@ -46,5 +46,5 @@ public interface TenantDetector {
      *            Required
      * @return null if the tenant wasn't found
      */
-    Tenant getTenantByID(final String anID);
+    Tenant getTenantByID(String anID);
 }

@@ -20,18 +20,14 @@
                managername="ArecoDeploymentScriptsManagerManager"
                managersuperclass="de.hybris.platform.jalo.extension.Extension"
                >
-               
-      <!-- These dependencies are required by Hybris 5.x -->
-	  <requires-extension name="hmc"/>
+
+      <!-- Used by the integration tests running beanshells which reload the cockpit configuration -->
 	  <requires-extension name="cockpit"/>
 
       <coremodule	packageroot="org.areco.ecommerce.deploymentscripts"
 					manager="org.areco.ecommerce.deploymentscripts.jalo.ArecoDeploymentScriptsManagerManager"
 					generated="true" 
 					/>
-      <hmcmodule	extensionclassname="org.areco.ecommerce.deploymentscripts.hmc.ArecoDeploymentScriptsManagerHMCExtension"
-					/>
-
    </extension>
       
 </extensioninfo>

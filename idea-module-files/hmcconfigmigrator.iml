@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="hmcconfigmigratorspring" name="hmcconfigmigratorspring" removed="false">
+          <dependency>platformspring==platform</dependency>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/resources/hmcconfigmigrator-spring.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/resources/hmcconfigmigrator-backoffice-spring.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/eclipsebin" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/eclipsebin" />
+    <exclude-output />
+    <javadoc-paths>
+      <root url="https://download.hybris.com/api/5.7.0/commercesuite" />
+    </javadoc-paths>
+    <content url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator">
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/.externalToolBuilders" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/.settings" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/acceleratoraddon/hmc/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/acceleratoraddon/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/acceleratoraddon/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/acceleratoraddon/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/commonweb/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/commonweb/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/commonweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/hmc/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/web/testclasses" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Common libs" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/resources" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/bin" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/ext-backoffice/hmcconfigmigrator/bin" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="backoffice" exported="" />
+    <orderEntry type="module" module-name="platform" exported="" />
+  </component>
+</module>

@@ -16,11 +16,10 @@
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-
-import java.io.File;
-
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStepFactory;
+
+import java.io.File;
 
 /**
  * Its subclasses create the step which only require one single file.
@@ -54,7 +53,7 @@ public abstract class AbstractSingleFileScriptStepFactory implements DeploymentS
         }
     }
 
-    protected abstract boolean canCreateStepWith(final File aFile);
+    protected abstract boolean canCreateStepWith(File aFile);
 
     // Used by Spring to create new instances.
     protected abstract AbstractSingleFileScriptStep createStep();

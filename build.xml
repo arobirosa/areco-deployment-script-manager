@@ -21,6 +21,15 @@
 			inheritAll="false"/>
 	</target>
 	
+	<target name="allarecotests" description="executes all tests of the Areco deployment extensions">
+		<ant 
+			dir="${dir_platform}"
+			target="alltests"
+			inheritAll="false">
+				<property name="testclasses.packages" value="org.areco.*"/>
+			</ant>
+	</target>
+	
 	<target name="build" description="Builds all extensions">
 		<ant 
 			dir="${dir_platform}"
