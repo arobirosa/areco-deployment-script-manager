@@ -25,16 +25,20 @@ public class RunPendingScriptsSearchResultAction extends SearchResultAction {
       return new ActionResult(ActionResult.FAILED,
           Localization.getLocalizedString("runpendingdeploymentscriptsaction.message.therewasanerror"), true);
     } else {
-      return new ActionResult(ActionResult.OK, Localization.getLocalizedString("runpendingdeploymentscriptsaction.message.noerrors"), true);
+      return new ActionResult(ActionResult.OK,
+          Localization.getLocalizedString("runpendingdeploymentscriptsaction.message.noerrors"), true);
     }
 
   }
 
-  @Override public boolean needConfirmation() {
-    return false;
+  @Override
+  public boolean needConfirmation() {
+    return false; // There is an bug and Hmc always asks for confirmation
   }
 
-  @Override public String getConfirmationMessage() {
-    return Localization.getLocalizedString("runpendingdeploymentscriptsaction.message.noerrors");
+  @Override
+  public String getConfirmationMessage() {
+    return Localization.getLocalizedString("runpendingdeploymentscriptsaction.message.confirmation");
   }
+
 }
