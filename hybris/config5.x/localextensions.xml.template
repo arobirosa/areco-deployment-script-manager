@@ -15,7 +15,7 @@
 		<extension name="hmc" />
 		
 		<extension name="arecoDeploymentScriptsManager" />
-		<extension name="arecoDeploymentScriptsExamples" />
+		<extension name="arecodeploymentscriptshmc"/>
 
 	</extensions>
 </hybrisconfig>
