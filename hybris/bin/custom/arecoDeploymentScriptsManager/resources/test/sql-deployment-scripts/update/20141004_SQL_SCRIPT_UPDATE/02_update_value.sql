@@ -1,3 +1,3 @@
 update {TABLE_PREFIX}taxes
-set value = 19
-where code = 'dummySqlScriptTax'
+set p_value = 19
+where p_code = 'dummySqlScriptTax'

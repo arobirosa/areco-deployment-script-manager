@@ -1,1 +1,1 @@
-select value from {TABLE_PREFIX}taxes where code = 'dummySqlScriptTax'
+select value from {TABLE_PREFIX}taxes where p_code = 'dummySqlScriptTax'
