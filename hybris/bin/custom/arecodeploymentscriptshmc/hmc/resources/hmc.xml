@@ -22,14 +22,12 @@
 	<explorertree>
 		<group name="system">
 			<group name="arecoDeploymentScriptsManagergroup">
-				<typeref type="ScriptExecution"
-				    description="typeref.scriptExecution.description" />
-				 <typeref type="DeploymentEnvironment"
-                    description="typeref.deploymentenvironment.description" />
+				<typeref type="ScriptExecution" />
+				 <typeref type="DeploymentEnvironment" />
 			</group>
 		</group>
 	</explorertree>
-	
+
    <type name="ScriptExecution" mode="append">
       <organizer>
          <search autoperform="false" mode="replace">
@@ -66,6 +64,10 @@
                   <attribute name="phase"/>
                </itemlayout>
             </treeview>
+            <action
+                    type="searchresult"
+                    classname="org.areco.ecommerce.deploymentscripts.hmc.actions.RunPendingScriptsSearchResultAction"
+                    name="runpendingscriptssearchresultaction.name"/>
          </result>
          <editor>
             <essentials>
@@ -123,10 +125,6 @@
                   <attribute name="description"/>
                </itemlayout>
             </treeview>
-            <action
-                    type="searchresult"
-                    classname="org.areco.ecommerce.deploymentscripts.hmc.actions.RunPendingScriptsSearchResultAction"
-                    name="runPendingDeploymentScripts"/>
          </result>
          <editor>
             <essentials>

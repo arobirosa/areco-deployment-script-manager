@@ -24,9 +24,17 @@ public class RunPendingScriptsSearchResultAction extends SearchResultAction {
     if (thereWasAnError) {
       return new ActionResult(ActionResult.FAILED,
           Localization.getLocalizedString("runpendingdeploymentscriptsaction.message.therewasanerror"), true);
+    } else {
+      return new ActionResult(ActionResult.OK, Localization.getLocalizedString("runpendingdeploymentscriptsaction.message.noerrors"), true);
     }
-    return new ActionResult(ActionResult.OK, true);
+
   }
 
+  @Override public boolean needConfirmation() {
+    return false;
+  }
 
+  @Override public String getConfirmationMessage() {
+    return Localization.getLocalizedString("runpendingdeploymentscriptsaction.message.noerrors");
+  }
 }
