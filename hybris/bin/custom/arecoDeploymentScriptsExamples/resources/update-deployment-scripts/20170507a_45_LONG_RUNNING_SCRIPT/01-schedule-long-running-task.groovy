@@ -7,6 +7,7 @@ ModelService modelService = (ModelService) Registry.getApplicationContext().getB
 TaskService taskService = (TaskService) Registry.getApplicationContext().getBean(TaskService.class)
 
 ScriptingTaskModel longRunningTask = modelService.create(ScriptingTaskModel.class)
-longRunningTask.setScriptURI("classpath://update-deployment-scripts/20170507_45_LONG_RUNNING_SCRIPT/taskbody/run-for-five-minutes-task.groovy")
+longRunningTask.setScriptURI("classpath://update-deployment-scripts/20170507a_45_LONG_RUNNING_SCRIPT/taskbody/run-for-five-minutes-task.groovy")
 taskService.scheduleTask(longRunningTask)
-return "ERROR"
+Thread.sleep(10 * 1000) //Wait for the task to be scheduled
+return "OK"
