@@ -1,0 +1,32 @@
+#Create a new release branch
+git flow release start 1.5
+# Find all the properties with the version and replace them
+find ./hybris/bin/custom/ -name "*build.number"
+
+# Commit the changes
+git commit -am "New version"
+
+# Go to local.properties and check that the default Hypersql is used.
+
+# Run all the tests with HyperSQL on master tenant:
+rm -rf hybris/data/ && ant clean all yunitinit qa
+# Run all the tests with HyperSQL on junit tenant:
+rm -rf hybris/data/ && ant clean all initialize yunitinit qa
+
+# Go to local.properties and set up the MySQL database
+# Remove the old database:
+mysql --user=root --pass --host=127.0.0.1 -e "DROP DATABASE deploymentmanager; CREATE DATABASE deploymentmanager; grant all privileges on deploymentmanager.* to manager" deploymentmanager
+
+# Run all the tests with MySQL on master tenant:
+rm -rf hybris/data/ && ant clean all yunitinit qa
+
+# Remove the old database:
+mysql --user=root --pass --host=127.0.0.1 -e "DROP DATABASE deploymentmanager; CREATE DATABASE deploymentmanager; grant all privileges on deploymentmanager.* to manager" deploymentmanager
+
+# Run all the tests with MySQL on junit tenant:
+rm -rf hybris/data/ && ant clean all initialize yunitinit qa
+
+git archive --output=deploymentScriptsManager_1.5_20170515.zip HEAD hybris/bin/custom
+
+
+
