@@ -4,8 +4,8 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="advancedsavedqueryspring" name="advancedsavedqueryspring" removed="false">
-          <dependency>processingspring==processing</dependency>
           <dependency>impexspring==impex</dependency>
+          <dependency>processingspring==processing</dependency>
           <dependency>catalogspring==catalog</dependency>
         </fileset>
       </configuration>

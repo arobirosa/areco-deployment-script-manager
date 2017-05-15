@@ -5,10 +5,10 @@
       <configuration>
         <fileset id="platformservicesspring" name="platformservicesspring" removed="false">
           <dependency>paymentstandardspring==paymentstandard</dependency>
-          <dependency>processingspring==processing</dependency>
-          <dependency>deliveryzonespring==deliveryzone</dependency>
           <dependency>impexspring==impex</dependency>
           <dependency>europe1spring==europe1</dependency>
+          <dependency>deliveryzonespring==deliveryzone</dependency>
+          <dependency>processingspring==processing</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/resources/order-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/project.properties</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/platformservices/resources/catalog-spring.xml</file>
