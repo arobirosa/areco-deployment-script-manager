@@ -15,18 +15,18 @@ rm -rf hybris/data/ && ant clean all initialize yunitinit qa
 
 # Go to local.properties and set up the MySQL database
 # Remove the old database:
-mysql --user=root --pass --host=127.0.0.1 -e "DROP DATABASE deploymentmanager; CREATE DATABASE deploymentmanager; grant all privileges on deploymentmanager.* to manager" deploymentmanager
+mysql --user=root --password --host=127.0.0.1 -e "DROP DATABASE deploymentmanager; CREATE DATABASE deploymentmanager; grant all privileges on deploymentmanager.* to manager" deploymentmanager
 
 # Run all the tests with MySQL on master tenant:
 rm -rf hybris/data/ && ant clean all yunitinit qa
 
 # Remove the old database:
-mysql --user=root --pass --host=127.0.0.1 -e "DROP DATABASE deploymentmanager; CREATE DATABASE deploymentmanager; grant all privileges on deploymentmanager.* to manager" deploymentmanager
+mysql --user=root --password --host=127.0.0.1 -e "DROP DATABASE deploymentmanager; CREATE DATABASE deploymentmanager; grant all privileges on deploymentmanager.* to manager" deploymentmanager
 
 # Run all the tests with MySQL on junit tenant:
 rm -rf hybris/data/ && ant clean all initialize yunitinit qa
 
-git archive --output=deploymentScriptsManager_1.5_20170515.zip HEAD hybris/bin/custom
+git archive --output=deploymentScriptsManager_1.5_20170519.zip HEAD hybris/bin/custom
 
 
 
