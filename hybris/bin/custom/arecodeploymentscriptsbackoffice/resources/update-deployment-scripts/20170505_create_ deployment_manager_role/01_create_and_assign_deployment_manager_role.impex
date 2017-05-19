@@ -1,0 +1,16 @@
+INSERT_UPDATE BackofficeRole;UID[unique=true];locname[lang=en];backOfficeLoginDisabled;authorities
+;deploymentmanagerrole;Deployment scripts manager role;false;deploymentmanagerrole
+
+UPDATE UserGroup;UID[unique=true];groups(uid)[mode=append]
+;admingroup;deploymentmanagerrole
+
+# To delete ScriptExecutions is allowed for local troubleshooting of the scripts
+# To create, change or remove DeploymentEnvironments and ScriptExecutionResult can only be done using impex
+$START_USERRIGHTS;;;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;
+UserGroup;deploymentmanagerrole;;;;;;;;;;
+;;;;SystemPhase          ;+; ; ; ;
+;;;;ScriptExecutionResult;+;-;-;-;
+;;;;ScriptExecution      ;+;-;-;+;
+;;;;DeploymentEnvironment;+;-;-;-;
+$END_USERRIGHTS;;;;;;;;;;;

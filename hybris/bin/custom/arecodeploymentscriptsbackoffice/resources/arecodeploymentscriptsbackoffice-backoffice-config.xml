@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns="http://www.hybris.com/cockpit/config"
+		xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+		xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+		xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+		xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree"
+		xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
+		xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch"
+>
+	<context type="ScriptExecution" component="listviewactions" merge-by="type" principal="deploymentmanagerrole">
+		<y:actions>
+			<!-- The common group is overwritten to remove the create action. merge-mode="remove" isn't working -->
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>
+				<y:action action-id="org.areco.ecommerce.deploymentscripts.backoffice.actions.runPendingScripts" property="currentObject" />
+				<y:action action-id="com.hybris.cockpitng.listview.action.export.csv" property="exportColumnsAndData"/>
+			</y:group>
+		</y:actions>
+	</context>
+
+	<context type="DeploymentEnvironment" component="listviewactions" merge-by="type" principal="deploymentmanagerrole">
+		<y:actions>
+			<!-- The common group is overwritten to remove the create action. merge-mode="remove" isn't working -->
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>
+				<y:action action-id="com.hybris.cockpitng.listview.action.export.csv" property="exportColumnsAndData"/>
+			</y:group>
+		</y:actions>
+	</context>
+
+	<context component="explorer-tree" merge-by="module" parent="auto" principal="deploymentmanagerrole">
+		<explorer-tree:explorer-tree>
+			<explorer-tree:navigation-node id="hmc_treenode_system">
+				<explorer-tree:navigation-node id="hmc.arecoDeploymentScriptsManagergroup">
+					<explorer-tree:type-node code="ScriptExecution" id="ScriptExecution"/>
+					<explorer-tree:type-node code="DeploymentEnvironment" id="DeploymentEnvironment"/>
+				</explorer-tree:navigation-node>
+			</explorer-tree:navigation-node>
+		</explorer-tree:explorer-tree>
+	</context>
+	<context merge-by="type" type="DeploymentEnvironment" component="listview" principal="deploymentmanagerrole">
+		<list-view:list-view>
+			<list-view:column qualifier="name"/>
+			<list-view:column qualifier="description"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="ScriptExecution" component="listview" principal="deploymentmanagerrole">
+		<list-view:list-view>
+			<list-view:column qualifier="creationtime"/>
+			<list-view:column qualifier="extensionName"/>
+			<list-view:column qualifier="scriptName"/>
+			<list-view:column qualifier="result"/>
+			<list-view:column qualifier="phase"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="ScriptExecutionResult" component="listview" principal="deploymentmanagerrole">
+		<list-view:list-view>
+			<list-view:column qualifier="name"/>
+			<list-view:column qualifier="description"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="ScriptExecution" component="editor-area" principal="deploymentmanagerrole">
+		<editorArea:editorArea name="">
+			<editorArea:essentials>
+				<editorArea:essentialSection name="hmc.essential">
+					<editorArea:attribute qualifier="extensionName" readonly="true" />
+					<editorArea:attribute qualifier="scriptName" readonly="true"/>
+				</editorArea:essentialSection>
+			</editorArea:essentials>
+			<editorArea:tab name="hmc.common">
+				<editorArea:section name="hmc.section.common">
+					<editorArea:attribute qualifier="result" readonly="true"/>
+					<editorArea:attribute qualifier="phase" readonly="true"/>
+					<editorArea:attribute qualifier="stacktrace" readonly="true" editor="com.hybris.cockpitng.editor.defaulttext" >
+						<editorArea:editor-parameter>
+							<editorArea:name>multilineEditorRows</editorArea:name>
+							<editorArea:value>25</editorArea:value>
+						</editorArea:editor-parameter>
+					</editorArea:attribute>
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="DeploymentEnvironment" component="editor-area" principal="deploymentmanagerrole">
+		<editorArea:editorArea name="">
+			<editorArea:tab name="hmc.common">
+				<editorArea:section name="hmc.section.common">
+					<editorArea:attribute qualifier="name" readonly="true" />
+					<editorArea:attribute qualifier="description" />
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="ScriptExecutionResult" component="editor-area" principal="deploymentmanagerrole">
+		<editorArea:editorArea name="">
+			<editorArea:essentials>
+				<editorArea:essentialSection name="hmc.essential">
+					<editorArea:attribute qualifier="name" readonly="true"/>
+					<editorArea:attribute qualifier="description"/>
+				</editorArea:essentialSection>
+			</editorArea:essentials>
+			<editorArea:tab name="hmc.common">
+				<editorArea:section name="hmc.section.common">
+					<editorArea:attribute qualifier="canBeRunnedAgain" readonly="true"/>
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="DeploymentEnvironment" component="advanced-search" principal="deploymentmanagerrole">
+		<advanced-search:advanced-search>
+			<advanced-search:field-list>
+				<advanced-search:field name="name" selected="true"/>
+				<advanced-search:field name="description" selected="true"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="ScriptExecution" component="advanced-search" principal="deploymentmanagerrole">
+		<advanced-search:advanced-search>
+			<advanced-search:field-list>
+				<advanced-search:field name="extensionName" selected="true"/>
+				<advanced-search:field name="scriptName" selected="true"/>
+				<advanced-search:field name="result" selected="true"/>
+				<advanced-search:field name="phase" selected="true"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="ScriptExecutionResult" component="advanced-search" principal="deploymentmanagerrole">
+		<advanced-search:advanced-search>
+			<advanced-search:field-list>
+				<advanced-search:field name="description" selected="true"/>
+				<advanced-search:field name="name" selected="true"/>
+			</advanced-search:field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="DeploymentEnvironment" component="simple-search" principal="deploymentmanagerrole">
+		<simple-search:simple-search>
+			<simple-search:field name="name"/>
+			<simple-search:sort-field asc="false" name="name"/>
+		</simple-search:simple-search>
+	</context>
+	<context merge-by="type" type="ScriptExecutionResult" component="simple-search" principal="deploymentmanagerrole">
+		<simple-search:simple-search>
+			<simple-search:field name="name"/>
+			<simple-search:sort-field asc="false" name="name"/>
+		</simple-search:simple-search>
+	</context>
+	<context type="DeploymentEnvironment" component="base" merge-by="type" principal="deploymentmanagerrole">
+		<y:base>
+			<y:labels>
+				<y:label>name</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+	<context type="ScriptExecution" component="base" merge-by="type" principal="deploymentmanagerrole">
+		<y:base>
+			<y:labels>
+				<y:label>extensionName+ ' ' +scriptName</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+	<context type="ScriptExecutionResult" component="base" merge-by="type" principal="deploymentmanagerrole">
+		<y:base>
+			<y:labels>
+				<y:label>name</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+</config>

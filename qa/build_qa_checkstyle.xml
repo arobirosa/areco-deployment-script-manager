@@ -1,6 +1,6 @@
 <project name="ant_qa_checkstyle" default="checkstyle" basedir=".">
-	<property name="dir_checkstyle_home" value="${dir_qa}/checkstyle-6.17"/>
-	<property name="dir_checkstyle_donwload_url" value="http://downloads.sourceforge.net/project/checkstyle/checkstyle/6.17/checkstyle-6.17-bin.zip"/>
+	<property name="dir_checkstyle_home" value="${dir_qa}/checkstyle-7.7"/>
+	<property name="dir_checkstyle_donwload_url" value="http://downloads.sourceforge.net/project/checkstyle/checkstyle/7.7/checkstyle-7.7-bin.zip"/>
 	<property name="dir_checkstyle_donwload_file" value="${dir_qa}/checkstyle.zip"/>
 	
 	<target name="checkstyle" depends="checkstyle.install" description="Runs checkstyle">

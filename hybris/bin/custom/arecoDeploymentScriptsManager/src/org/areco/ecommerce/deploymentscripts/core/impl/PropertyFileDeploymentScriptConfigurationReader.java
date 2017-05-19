@@ -18,9 +18,14 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 import de.hybris.platform.core.Tenant;
 import de.hybris.platform.servicelayer.tenant.MockTenant;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
+import org.apache.log4j.Logger;
+import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationException;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
+import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -29,13 +34,6 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.Set;
-
-import org.apache.log4j.Logger;
-import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationException;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
-import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * It reads the configuration contained in a property file with the extension conf in the folder of the script.
@@ -153,15 +151,11 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
     }
 
     private File findConfigurationFile(final File deploymentScriptFolder) {
-        final File[] configurationFiles = deploymentScriptFolder.listFiles(new FileFilter() {
-            /*
-             * { @InheritDoc }
-             */
-            @Override
-            public boolean accept(final File pathname) {
-                return pathname.getName().toLowerCase(Locale.getDefault()).endsWith(PROPERTY_FILE_EXTENSION_CONF);
-            }
-        });
+        /*
+         * { @InheritDoc }
+         */
+        final File[] configurationFiles = deploymentScriptFolder.listFiles(
+          pathname -> pathname.getName().toLowerCase(Locale.getDefault()).endsWith(PROPERTY_FILE_EXTENSION_CONF));
         if (LOG.isTraceEnabled()) {
             LOG.trace("Found configuration files: " + Arrays.toString(configurationFiles));
         }

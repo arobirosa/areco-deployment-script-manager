@@ -12,16 +12,19 @@
 	<fileset dir="${dir_hybris_bin}" id="fileset_src">
 		<include name="custom/*/src/**/*.java"/>
 		<include name="custom/*/web/src/**/*.java"/>
+		<include name="custom/*/backoffice/src/**/*.java"/>
 		<include name="custom/*/hmc/src/**/*.java"/>
 		<include name="custom/*/testsrc/**/*.java"/>
 		<include name="custom/*/web/testsrc/**/*.java"/>
+		<include name="custom/*/backoffice/testsrc/**/*.java"/>
 		<include name="custom/*/hmc/testsrc/**/*.java"/>
 	</fileset>
 	
 	<fileset dir="${dir_hybris_bin}" id="fileset_bin">
-		<include name="custom/*/classes/"/>
+		<include name="custom/*/classes/**/*.class"/>
 		<include name="custom/*/web/webroot/WEB-INF/classes/"/>
-		<include name="custom/*/hmc/classes/**/"/>
+		<include name="custom/*/backoffice/classes/**/*.class"/>
+		<include name="custom/*/hmc/classes/**/*.class"/>
 	</fileset>
 	
 	<fileset dir="${dir_hybris_bin}" id="fileset_hybris_bin">
@@ -34,7 +37,10 @@
 		<include name="platform/ext/*/hmc/classes/**/*.class"/>
 		<include name="platform/ext/*/hmc/bin/*.jar"/>
 		<include name="platform/bootstrap/bin/*.jar"/>
-		<include name="platform/tomcat-6/lib/*.jar"/>
+		<include name="platform/tomcat/lib/*.jar"/>
+		<include name="ext-platform-optional/hmc/web/webroot/WEB-INF/classes/**/*.class"/>
+		<include name="ext-backoffice/backoffice/web/webroot/WEB-INF/lib/*.jar"/>
+		<include name="ext-cockpit/cockpit/bin/*.jar"/>
 	</fileset>
 	
 	<target name="qa" depends="qa_clean, findbugs, pmd, checkstyle, cobertura" description="Runs Findbugs, PMD, Checkstyle and Cobertura" />

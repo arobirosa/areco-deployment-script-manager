@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="Platform Bootstrap">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tanukiwrapper/lib" />
+      <root url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tanukiwrapper/bin" />
+      <root url="file://$PROJECT_DIR$/hybris/bin/platform/resources/ant/lib" />
+      <root url="file://$PROJECT_DIR$/hybris/bin/platform/bootstrap/bin" />
+      <root url="file://$PROJECT_DIR$/hybris/bin/platform/tomcat/bin" />
+      <root url="file://$PROJECT_DIR$/hybris/bin/platform/tomcat/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/hybris/bin/platform/bootstrap/gensrc" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/bootstrap/bin" recursive="true" />
+    <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/resources/ant/lib" recursive="true" />
+    <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tanukiwrapper/bin" recursive="true" />
+    <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tanukiwrapper/lib" recursive="true" />
+    <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/tomcat/bin" recursive="true" />
+    <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/tomcat/lib" recursive="true" />
+  </library>
+</component>

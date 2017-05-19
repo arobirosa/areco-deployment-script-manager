@@ -29,5 +29,5 @@ public interface InitialConfigurationImporter {
      * @param context
      *            Required
      */
-    void importConfigurationIfRequired(final UpdatingSystemExtensionContext context);
+    void importConfigurationIfRequired(UpdatingSystemExtensionContext context);
 }

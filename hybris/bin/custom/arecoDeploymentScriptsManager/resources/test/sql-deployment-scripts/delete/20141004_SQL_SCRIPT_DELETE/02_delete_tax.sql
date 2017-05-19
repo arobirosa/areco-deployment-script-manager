@@ -1,1 +1,1 @@
-delete from {TABLE_PREFIX}taxes where code = 'dummySqlScriptTax'
+delete from {TABLE_PREFIX}taxes where p_code = 'dummySqlScriptTax'
