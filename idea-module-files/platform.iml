@@ -6,24 +6,24 @@
         <fileset id="platformspring" name="platformspring" removed="false">
           <dependency>deliveryzonespring==deliveryzone</dependency>
           <dependency>configspring==config</dependency>
-          <dependency>workflowspring==workflow</dependency>
+          <dependency>europe1spring==europe1</dependency>
           <dependency>commentsspring==comments</dependency>
           <dependency>maintenancewebspring==maintenanceweb</dependency>
-          <dependency>oauth2spring==oauth2</dependency>
-          <dependency>platformservicesspring==platformservices</dependency>
           <dependency>hacspring==hac</dependency>
+          <dependency>platformservicesspring==platformservices</dependency>
+          <dependency>scriptingspring==scripting</dependency>
           <dependency>testwebspring==testweb</dependency>
           <dependency>mediawebspring==mediaweb</dependency>
           <dependency>catalogspring==catalog</dependency>
-          <dependency>scriptingspring==scripting</dependency>
           <dependency>advancedsavedqueryspring==advancedsavedquery</dependency>
+          <dependency>validationspring==validation</dependency>
           <dependency>impexspring==impex</dependency>
           <dependency>paymentstandardspring==paymentstandard</dependency>
           <dependency>commonsspring==commons</dependency>
-          <dependency>validationspring==validation</dependency>
+          <dependency>workflowspring==workflow</dependency>
           <dependency>processingspring==processing</dependency>
           <dependency>corespring==core</dependency>
-          <dependency>europe1spring==europe1</dependency>
+          <dependency>oauth2spring==oauth2</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/project.properties</file>
         </fileset>
       </configuration>
