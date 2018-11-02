@@ -84,7 +84,11 @@
 		<!-- Run the tests using another process. 
 			Hybris runs the tests using the currently running JVM. Cobertura saves the data when the JVM exits
 			and there is no way to run them on another JVM in another process.-->
-		<exec dir="${dir_platform}" executable="ant" failonerror="true" failifexecutionfails="true">
+		<exec dir="${dir_platform}" executable="ant" failonerror="true" failifexecutionfails="true" osfamily="unix">			
+			<arg line="alltests"/>
+			<arg line="-Dtestclasses.packages=org.areco.*"/>
+		</exec>
+		<exec dir="${dir_platform}" executable="ant.bat" failonerror="true" failifexecutionfails="true" osfamily="windows">
 			<arg line="alltests"/>
 			<arg line="-Dtestclasses.packages=org.areco.*"/>
 		</exec>
