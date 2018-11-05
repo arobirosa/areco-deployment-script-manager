@@ -52,3 +52,6 @@ qa/checkstyle
 qa/cobertura-*
 
 velocity.log
+qa/cobertura.zip
+
+**.bak
