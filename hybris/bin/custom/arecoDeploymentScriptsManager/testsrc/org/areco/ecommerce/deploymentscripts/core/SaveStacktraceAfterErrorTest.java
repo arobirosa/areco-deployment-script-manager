@@ -16,10 +16,12 @@
 package org.areco.ecommerce.deploymentscripts.core;
 
 import de.hybris.bootstrap.annotations.IntegrationTest;
-import junit.framework.Assert;
-import org.junit.Test;
 
 import java.io.IOException;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
 
 /**
  * It checks that the script configuration including the contraints are working correctly.
@@ -37,7 +39,13 @@ public class SaveStacktraceAfterErrorTest extends AbstractWithConfigurationResto
         this.getDeploymentConfigurationSetter().setEnvironment("DEV");
         final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
         Assert.assertTrue("There weren't any errors", wereThereErrors);
-        getDeploymentScriptResultAsserter().assertErrorResult("20150906_PENDING_SCRIPT_WRONG", "/test/save-stacktrace/expected-stackstrace.txt");
+		getDeploymentScriptResultAsserter()
+				.assertErrorResult(
+						"(.*)",
+						"hybris\\bin\\custom\\arecoDeploymentScriptsManager\\resources\\test\\save-stacktrace\\expected-stackstrace.txt");
+
+
+
     }
 
 }
