@@ -9,6 +9,9 @@ CatalogVersionDao catalogVersionDao = (CatalogVersionDao) Registry.getApplicatio
 
 final CatalogVersionModel stageVersion = catalogVersionDao.findCatalogVersions("ArecosSyncCataloguesImpexTest", "Staged").iterator().next();
 
+final CatalogVersionModel onlineVersion = catalogVersionDao.findCatalogVersions("ArecosSyncCataloguesImpexTest", "Online").iterator().next();
+
+
 } catch (Exception e) {
     System.err.println("There was an error:");
     e.printStackTrace(System.err);
