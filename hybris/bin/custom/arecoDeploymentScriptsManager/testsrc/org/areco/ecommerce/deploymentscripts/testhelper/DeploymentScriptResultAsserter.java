@@ -187,10 +187,4 @@ public final class DeploymentScriptResultAsserter {
 
   }
 
-  private void assertErrorResultString(final String deploymentScriptName, final String expectedStacktrace) {
-    ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
-    ServicesUtil.validateParameterNotNullStandardMessage("expectedStacktrace", expectedStacktrace);
-    final ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
-    Assert.assertEquals("The stacktraces are different", expectedStacktrace, executionOfTheScript.getStacktrace());
-  }
 }
