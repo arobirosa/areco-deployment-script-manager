@@ -1,5 +1,9 @@
 $catalogId=ArecosSyncCataloguesImpexTest
 
+REMOVE Media[batchmode=true];code[unique=true];catalogVersion(catalog(id), version)[unique=true]
+;testMedia;$catalogId:Online
+;testMedia;$catalogId:Staged
+
 INSERT_UPDATE Catalog;id[unique=true];name[lang=en]
                      ;$catalogId;$catalogId
 
@@ -8,7 +12,7 @@ INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];activ
                             ;$catalogId;Staged;false
 
 insert_update Media;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];alttext;catalogVersion(catalog(id),version)[unique=true];code[unique=true];mime;realfilename;
-                   ;jar:/test/synchronization_of_catalogs/14112018_Ticket49/catalogs.impex;; $catalogId:Staged; testMedia;text/plain;catalox.impex;
+                   ;jar:/test/synchronization_of_catalogs/14112018_Ticket49/1-catalogs.impex;; $catalogId:Staged; testMedia;text/plain;catalox.impex;
 
 INSERT_UPDATE SyncItemJob; code [unique=true]; sourceVersion(catalog(id),version); targetVersion (catalog(id),version); rootTypes (code);
                          ; TestArecoStaged2TestArecoOnline; $catalogId:Staged ; $catalogId:Online; Media;

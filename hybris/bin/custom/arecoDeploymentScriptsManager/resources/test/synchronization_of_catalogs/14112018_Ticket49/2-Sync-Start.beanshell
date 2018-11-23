@@ -11,6 +11,8 @@ final CatalogVersionModel stageVersion = catalogVersionDao.findCatalogVersions("
 
 final CatalogVersionModel onlineVersion = catalogVersionDao.findCatalogVersions("ArecosSyncCataloguesImpexTest", "Online").iterator().next();
 
+catalogSynchronizationService.synchronizeFully(stageVersion, onlineVersion);
+
 
 } catch (Exception e) {
     System.err.println("There was an error:");
