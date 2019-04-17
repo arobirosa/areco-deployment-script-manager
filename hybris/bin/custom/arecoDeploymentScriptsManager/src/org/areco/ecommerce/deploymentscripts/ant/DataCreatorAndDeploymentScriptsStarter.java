@@ -38,7 +38,7 @@ import java.io.StringWriter;
 import java.util.Collections;
 
 /**
- * It creates the essential data for the tenant junit. The command "ant yunitinit" doesn't run the essential data creation step. Due to this, no deployment
+ * It creates the essential and project data for the tenant junit. The command "ant yunitinit" doesn't run the essential data creation step. Due to this, no deployment
  * scripts are run.
  * 
  * TODO This class uses Jalo and a workaround to trigger the essential data creation. We must find a cleaner way to do this.
@@ -46,15 +46,15 @@ import java.util.Collections;
  * @author arobirosa
  * 
  */
-@Service("essentialDataCreatorAndDeploymentScriptsStarter")
+@Service("dataCreatorAndDeploymentScriptsStarter")
 @Scope("tenant")
 @SuppressWarnings("PMD.UnnecessaryLocalBeforeReturn")
 // We keep the local variable jspc because we only want to create a context once. The warning suppression only works at this point.
-public class EssentialDataCreatorAndDeploymentScriptsStarter {
+public class DataCreatorAndDeploymentScriptsStarter {
 
     private static final String JUNIT_TENANT_CREATEESSENTIALDATA_CONF = "deploymentscripts.init.junittenant.createessentialdata";
 
-    private static final Logger LOG = Logger.getLogger(EssentialDataCreatorAndDeploymentScriptsStarter.class);
+    private static final Logger LOG = Logger.getLogger(DataCreatorAndDeploymentScriptsStarter.class);
 
     @Autowired
     private ExtensionHelper extensionHelper;
@@ -66,7 +66,7 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter {
     private ConfigurationService configurationService;
 
     /**
-     * Creates the essential data and runs the deployment scripts in the junit tenant.
+     * Creates the essential and project data. This triggers the runs of the deployment scripts in the junit tenant.
      */
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     // We catch all exceptions because this method is called by ant.
@@ -74,30 +74,38 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter {
         if (!extensionHelper.isDeploymentManagerExtensionTurnedOn()
                 || !Boolean.parseBoolean(this.configurationService.getConfiguration().getString(JUNIT_TENANT_CREATEESSENTIALDATA_CONF))) {
             if (LOG.isDebugEnabled()) {
-                LOG.debug("The essential data won't be created and the deployment scripts won't be run.");
+                LOG.debug("The essential and project data won't be created and the deployment scripts won't be run.");
             }
             return;
         }
+        if (createDataAndLogErrors(SystemSetup.Type.ESSENTIAL)) {
+            createDataAndLogErrors(SystemSetup.Type.PROJECT);
+        }
+
+    }
+
+    private boolean createDataAndLogErrors(SystemSetup.Type aCreationDataType) {
         if (LOG.isInfoEnabled()) {
-            LOG.info("Creating the essential data in junit tenant.");
+            LOG.info(String.format("Creating the %s data in junit tenant.", aCreationDataType));
         }
 
         try {
-            createEssentialDataForAllExtensions();
+            createDataForAllExtensions(aCreationDataType);
         } catch (final Exception e) {
             // We log here to see the stacktrace. The beanshell code of the ant task yunit logs the exception partially.
-            LOG.error("There was an error creating the essential data: " + e.getLocalizedMessage(), e);
-            return;
+            LOG.error(String.format("There was an error creating the %s data: %s", aCreationDataType, e.getLocalizedMessage()), e);
+            return false; // There was an error
         }
         if (LOG.isInfoEnabled()) {
-            LOG.info("The essential data was successfully created in junit tenant.");
+            LOG.info(String.format("The %s data was successfully created in junit tenant.", aCreationDataType));
         }
+        return true; // All went ok.
     }
 
     @SuppressWarnings(value = { "deprecation", "PMD.SignatureDeclareThrowsException" })
     // The caller of this method must handle any exception, because this class is called by ant, which doesn't
     // show the complete stack trace.
-    private void createEssentialDataForAllExtensions() throws Exception {
+    private void createDataForAllExtensions(SystemSetup.Type aCreationDataType) throws Exception {
         // To import the encodings.
         new CoreBasicDataCreator().createEssentialData(Collections.EMPTY_MAP, null);
 
@@ -108,7 +116,7 @@ public class EssentialDataCreatorAndDeploymentScriptsStarter {
             // Old Jalo method
             anExtension.createEssentialData(Collections.EMPTY_MAP, jspc);
             // New mechanism with annotations.
-            final SystemSetupContext ctx = new SystemSetupContext(Collections.EMPTY_MAP, SystemSetup.Type.ESSENTIAL, SystemSetup.Process.INIT, extensionName);
+            final SystemSetupContext ctx = new SystemSetupContext(Collections.EMPTY_MAP, aCreationDataType, SystemSetup.Process.INIT, extensionName);
             ctx.setJspContext(jspc);
             this.systemSetupCollector.executeMethods(ctx);
         }

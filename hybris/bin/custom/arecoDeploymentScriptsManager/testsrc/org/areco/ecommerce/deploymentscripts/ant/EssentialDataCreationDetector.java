@@ -35,6 +35,7 @@ public class EssentialDataCreationDetector {
     private static final Logger LOG = Logger.getLogger(EssentialDataCreationDetector.class);
 
     private boolean wasEssentialDataCreated = false;
+    private boolean wasProjectDataCreated = false;
 
     /**
      * This method must be triggered during the creation of the essential data.
@@ -54,5 +55,25 @@ public class EssentialDataCreationDetector {
      */
     public boolean isWasEssentialDataCreated() {
         return wasEssentialDataCreated;
+    }
+
+    /**
+     * This method must be triggered during the creation of the project data.
+     */
+    @SystemSetup(type = SystemSetup.Type.PROJECT, process = SystemSetup.Process.ALL)
+    public void createDummyProjectData() {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("The project data creation was triggered.");
+        }
+        wasEssentialDataCreated = true;
+    }
+
+    /**
+     * Was the project data triggered.
+     *
+     * @return true if the project data was triggered.
+     */
+    public boolean isWasProjectDataCreated() {
+        return wasProjectDataCreated;
     }
 }
