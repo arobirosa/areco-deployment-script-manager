@@ -5,7 +5,6 @@
       <Settings>
         <option name="enableJSFormatting" value="true" />
         <option name="formatSeletedTextInAllFileTypes" value="false" />
-        <option name="formatter" value="ECLIPSE" />
         <option name="id" value="1456910909900" />
         <option name="name" value="default" />
         <option name="optimizeImports" value="false" />
