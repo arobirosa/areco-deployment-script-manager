@@ -1,9 +1,9 @@
-import de.hybris.platform.core.Registry
-import de.hybris.platform.core.model.type.AttributeDescriptorModel
-import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException
-import de.hybris.platform.servicelayer.model.ModelService
-import de.hybris.platform.servicelayer.type.TypeService
-import org.apache.log4j.Logger
+import de.hybris.platform.core.Registry;
+import de.hybris.platform.core.model.type.AttributeDescriptorModel;
+import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
+import de.hybris.platform.servicelayer.model.ModelService;
+import de.hybris.platform.servicelayer.type.TypeService;
+import org.apache.log4j.Logger;
 
 TypeService typeService = Registry.getApplicationContext().getBean(TypeService.class);
 ModelService modelService = Registry.getApplicationContext().getBean("modelService", ModelService.class);
