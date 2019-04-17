@@ -3,28 +3,30 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/advancedsavedquery.iml" filepath="$PROJECT_DIR$/idea-module-files/advancedsavedquery.iml" group="Platform" />
+      <module fileurl="file://$PROJECT_DIR$/idea-module-files/all_local_extensions.iml" filepath="$PROJECT_DIR$/idea-module-files/all_local_extensions.iml" />
+      <module fileurl="file://$PROJECT_DIR$/idea-module-files/arecoDeploymentScriptsExamples.iml" filepath="$PROJECT_DIR$/idea-module-files/arecoDeploymentScriptsExamples.iml" group="Custom" />
+      <module fileurl="file://$PROJECT_DIR$/idea-module-files/arecoDeploymentScriptsManager.iml" filepath="$PROJECT_DIR$/idea-module-files/arecoDeploymentScriptsManager.iml" group="Custom" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsbackoffice.iml" filepath="$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsbackoffice.iml" group="Custom" />
-      <module fileurl="file://$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsexamples.iml" filepath="$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsexamples.iml" group="Custom" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/arecodeploymentscriptshmc.iml" filepath="$PROJECT_DIR$/idea-module-files/arecodeploymentscriptshmc.iml" group="Custom" />
-      <module fileurl="file://$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsmanager.iml" filepath="$PROJECT_DIR$/idea-module-files/arecodeploymentscriptsmanager.iml" group="Custom" />
-      <module fileurl="file://$PROJECT_DIR$/idea-module-files/backoffice.iml" filepath="$PROJECT_DIR$/idea-module-files/backoffice.iml" group="Hybris" />
+      <module fileurl="file://$PROJECT_DIR$/idea-module-files/auditreportservices.iml" filepath="$PROJECT_DIR$/idea-module-files/auditreportservices.iml" group="Hybris/ext-platform-optional" />
+      <module fileurl="file://$PROJECT_DIR$/idea-module-files/backoffice.iml" filepath="$PROJECT_DIR$/idea-module-files/backoffice.iml" group="Hybris/ext-backoffice" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/catalog.iml" filepath="$PROJECT_DIR$/idea-module-files/catalog.iml" group="Platform" />
-      <module fileurl="file://$PROJECT_DIR$/idea-module-files/cockpit.iml" filepath="$PROJECT_DIR$/idea-module-files/cockpit.iml" group="Hybris" />
+      <module fileurl="file://$PROJECT_DIR$/idea-module-files/cockpit.iml" filepath="$PROJECT_DIR$/idea-module-files/cockpit.iml" group="Hybris/ext-cockpit" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/comments.iml" filepath="$PROJECT_DIR$/idea-module-files/comments.iml" group="Platform" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/commons.iml" filepath="$PROJECT_DIR$/idea-module-files/commons.iml" group="Platform" />
-      <module fileurl="file://$PROJECT_DIR$/idea-module-files/config.iml" filepath="$PROJECT_DIR$/idea-module-files/config.iml" group="Others" />
+      <module fileurl="file://$PROJECT_DIR$/idea-module-files/config.iml" filepath="$PROJECT_DIR$/idea-module-files/config.iml" group="Custom" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/core.iml" filepath="$PROJECT_DIR$/idea-module-files/core.iml" group="Platform" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/deliveryzone.iml" filepath="$PROJECT_DIR$/idea-module-files/deliveryzone.iml" group="Platform" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/europe1.iml" filepath="$PROJECT_DIR$/idea-module-files/europe1.iml" group="Platform" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/hac.iml" filepath="$PROJECT_DIR$/idea-module-files/hac.iml" group="Platform" />
-      <module fileurl="file://$PROJECT_DIR$/idea-module-files/hmc.iml" filepath="$PROJECT_DIR$/idea-module-files/hmc.iml" group="Hybris" />
+      <module fileurl="file://$PROJECT_DIR$/idea-module-files/hmc.iml" filepath="$PROJECT_DIR$/idea-module-files/hmc.iml" group="Hybris/ext-platform-optional" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/impex.iml" filepath="$PROJECT_DIR$/idea-module-files/impex.iml" group="Platform" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/maintenanceweb.iml" filepath="$PROJECT_DIR$/idea-module-files/maintenanceweb.iml" group="Platform" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/mediaweb.iml" filepath="$PROJECT_DIR$/idea-module-files/mediaweb.iml" group="Platform" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/oauth2.iml" filepath="$PROJECT_DIR$/idea-module-files/oauth2.iml" group="Platform" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/paymentstandard.iml" filepath="$PROJECT_DIR$/idea-module-files/paymentstandard.iml" group="Platform" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/platform.iml" filepath="$PROJECT_DIR$/idea-module-files/platform.iml" group="Platform" />
-      <module fileurl="file://$PROJECT_DIR$/idea-module-files/platformbackoffice.iml" filepath="$PROJECT_DIR$/idea-module-files/platformbackoffice.iml" group="Hybris" />
+      <module fileurl="file://$PROJECT_DIR$/idea-module-files/platformbackoffice.iml" filepath="$PROJECT_DIR$/idea-module-files/platformbackoffice.iml" group="Hybris/ext-platform-backoffice" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/platformservices.iml" filepath="$PROJECT_DIR$/idea-module-files/platformservices.iml" group="Platform" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/processing.iml" filepath="$PROJECT_DIR$/idea-module-files/processing.iml" group="Platform" />
       <module fileurl="file://$PROJECT_DIR$/idea-module-files/scripting.iml" filepath="$PROJECT_DIR$/idea-module-files/scripting.iml" group="Platform" />

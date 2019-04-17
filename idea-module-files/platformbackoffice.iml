@@ -2,7 +2,7 @@
 <module descriptorType="OOTB" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
-      <configuration>
+      <configuration process_explicitly_annotated="false">
         <fileset id="platformbackofficespring" name="platformbackofficespring" removed="false">
           <dependency>backofficespring==backoffice</dependency>
           <dependency>platformspring==platform</dependency>
@@ -16,25 +16,16 @@
     <output url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/eclipsebin" />
     <output-test url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/eclipsebin" />
     <exclude-output />
-    <javadoc-paths>
-      <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
-    </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice">
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/web/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/web/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/web/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/commonweb/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/commonweb/gensrc" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/commonweb/groovytestsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/acceleratoraddon/web/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/acceleratoraddon/web/testsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/backoffice/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/backoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/acceleratoraddon/web/groovytestsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/backoffice/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/.settings" />
@@ -42,11 +33,15 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/acceleratoraddon/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/acceleratoraddon/web/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/bower_components" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/commonweb/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/commonweb/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/jsTarget" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/web/testclasses" />
@@ -65,11 +60,10 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/bin" />
+          <root url="jar://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/bin/platformbackofficeserver.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/bin" recursive="true" />
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">

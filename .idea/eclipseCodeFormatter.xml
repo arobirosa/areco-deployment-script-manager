@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EclipseCodeFormatterProjectSettings">
+    <option name="selectedGlobalProfile">
+      <Settings>
+        <option name="enableJSFormatting" value="true" />
+        <option name="formatSeletedTextInAllFileTypes" value="false" />
+        <option name="formatter" value="ECLIPSE" />
+        <option name="id" value="1456910909900" />
+        <option name="name" value="default" />
+        <option name="optimizeImports" value="false" />
+        <option name="pathToConfigFileJS" value="$PROJECT_DIR$/../../baywaShop/config/riso_js_formater.xml" />
+        <option name="pathToConfigFileJava" value="$PROJECT_DIR$/../../baywaShop/config/riso_formater.xml" />
+        <option name="selectedJavaProfile" value="RiSo Formater" />
+        <option name="selectedJavaScriptProfile" value="riso-js" />
+      </Settings>
+    </option>
+  </component>
+</project>

@@ -2,10 +2,11 @@
 <module descriptorType="OOTB" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
-      <configuration>
+      <configuration process_explicitly_annotated="false">
         <fileset id="hmcspring" name="hmcspring" removed="false">
           <dependency>scriptingspring==scripting</dependency>
           <dependency>platformspring==platform</dependency>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/web/webroot/WEB-INF/hmc-web-spring.xml</file>
         </fileset>
       </configuration>
     </facet>
@@ -18,44 +19,30 @@
           <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/web/webroot" relative="/" />
         </webroots>
         <sourceRoots>
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/src" />
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/gensrc" />
           <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/resources" />
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/web/src" />
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/web/gensrc" />
           <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/commonweb/src" />
           <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/commonweb/gensrc" />
           <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/acceleratoraddon/web/src" />
           <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/acceleratoraddon/web/gensrc" />
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/backoffice/src" />
           <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/backoffice/resources" />
         </sourceRoots>
       </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager">
-    <output url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/web/webroot/WEB-INF/eclipsebin" />
-    <output-test url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/web/webroot/WEB-INF/eclipsebin" />
+    <output url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/eclipsebin" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/eclipsebin" />
     <exclude-output />
-    <javadoc-paths>
-      <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
-    </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc">
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/web/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/web/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/web/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/commonweb/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/commonweb/gensrc" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/commonweb/groovytestsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/acceleratoraddon/web/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/acceleratoraddon/web/testsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/backoffice/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/backoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/acceleratoraddon/web/groovytestsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/backoffice/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/.settings" />
@@ -63,11 +50,15 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/acceleratoraddon/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/acceleratoraddon/web/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/bower_components" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/commonweb/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/commonweb/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/jsTarget" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/web/testclasses" />
@@ -95,11 +86,10 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/bin" />
+          <root url="jar://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/bin/hmcserver.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/bin" recursive="true" />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
