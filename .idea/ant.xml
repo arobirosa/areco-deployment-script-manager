@@ -3,8 +3,7 @@
   <component name="AntConfiguration">
     <buildFile url="file://$PROJECT_DIR$/hybris/bin/platform/build.xml">
       <additionalClassPath>
-        <entry path="file://$APPLICATION_PLUGINS_DIR$/ccom.intellij.idea.plugin.hybris.impex/lib/Hybris-Integration.jar" />
-        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/resources/ant/lib" />
+        <entry path="file://$APPLICATION_PLUGINS_DIR$/Hybris-Integration-Pro/lib/rt-ant.jar" />
         <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/lib" />
         <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/lib" />
         <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/catalog/lib" />
@@ -25,8 +24,9 @@
         <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/testweb/lib" />
         <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/validation/lib" />
         <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/workflow/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/resources/ant/lib" />
       </additionalClassPath>
-      <antReference name="Apache Ant version 1.9.1" />
+      <antReference name="Apache Ant version 1.9.13" />
       <maximumHeapSize value="512" />
       <maximumStackSize value="128" />
       <properties>

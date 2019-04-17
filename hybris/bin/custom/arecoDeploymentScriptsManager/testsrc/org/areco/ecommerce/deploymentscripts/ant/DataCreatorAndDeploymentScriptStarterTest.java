@@ -32,7 +32,7 @@ import javax.annotation.Resource;
  * 
  */
 @IntegrationTest
-public class EssentialDataCreatorAndDeploymentScriptStarterTest extends AbstractWithConfigurationRestorationTest {
+public class DataCreatorAndDeploymentScriptStarterTest extends AbstractWithConfigurationRestorationTest {
 
     private static final String RESOURCES_FOLDER = "/resources/test/essential-data-creator";
 
@@ -40,7 +40,7 @@ public class EssentialDataCreatorAndDeploymentScriptStarterTest extends Abstract
     private DeploymentScriptResultAsserter deploymentScriptResultAsserter;
 
     @Resource
-    private EssentialDataCreatorAndDeploymentScriptsStarter essentialDataCreatorAndDeploymentScriptsStarter;
+    private DataCreatorAndDeploymentScriptsStarter dataCreatorAndDeploymentScriptsStarter;
 
     @Resource
     private AntDeploymentScriptsStarter antDeploymentScriptsStarter;
@@ -57,10 +57,11 @@ public class EssentialDataCreatorAndDeploymentScriptStarterTest extends Abstract
         // single tenant environments.
         if (registryTenantDetector.areWeInATestSystemWithOneSingleTenant()) {
             this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "scripts");
-            this.essentialDataCreatorAndDeploymentScriptsStarter.runInJunitTenant();
+            this.dataCreatorAndDeploymentScriptsStarter.runInJunitTenant();
             Assert.assertTrue("There were errors running the deployment scripts", antDeploymentScriptsStarter.wasLastScriptSuccessful());
             deploymentScriptResultAsserter.assertSuccessfulResult("20141004_RELOAD_CMS_CONF");
             Assert.assertTrue("The creation of the essential data wasn't triggered.", essentialDataCreationDetector.isWasEssentialDataCreated());
+            Assert.assertTrue("The creation of the project data wasn't triggered.", essentialDataCreationDetector.isWasProjectDataCreated());
         }
     }
 

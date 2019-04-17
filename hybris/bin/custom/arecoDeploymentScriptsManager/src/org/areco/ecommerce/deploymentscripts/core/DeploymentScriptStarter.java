@@ -18,14 +18,14 @@ package org.areco.ecommerce.deploymentscripts.core;
 import de.hybris.platform.constants.CoreConstants;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetupContext;
-
+import de.hybris.platform.servicelayer.config.ConfigurationService;
+import de.hybris.platform.servicelayer.exceptions.ConfigurationException;
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-
-import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 
 /**
  * It triggers the execution of the deployment scripts.
@@ -39,11 +39,16 @@ import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 public class DeploymentScriptStarter {
     private static final Logger LOG = Logger.getLogger(DeploymentScriptStarter.class);
 
+    private static final String CREATE_DATA_TYPE_CONF = "deploymentscripts.createdata.type";
+
     @Autowired
     private DeploymentScriptService deploymentScriptService;
 
     @Autowired
     private ExtensionHelper extensionHelper;
+
+    @Autowired
+    private ConfigurationService configurationService;
 
     private boolean wasThereAnError = false;
 
@@ -64,20 +69,38 @@ public class DeploymentScriptStarter {
 
     /**
      * This method is called by every extension during the update or init process.
-     * 
+     * <p>
      * We hook the essential data process. Due to this the deployment scripts could be run using "ant updatessystem".
-     * 
-     * @param hybrisContext
-     *            Required
+     *
+     * @param hybrisContext Required
      */
 
-    @SystemSetup(type = SystemSetup.Type.ESSENTIAL, process = SystemSetup.Process.ALL)
-    public void runUpdateDeploymentScripts(final SystemSetupContext hybrisContext) {
-        final UpdatingSystemExtensionContext context = this.getUpdatingContext(hybrisContext);
-        if (this.extensionHelper.isFirstExtension(context) && SystemSetup.Process.UPDATE.equals(context.getProcess())) {
-            this.clearErrorFlag();
+    @SystemSetup(type = SystemSetup.Type.ALL, process = SystemSetup.Process.ALL)
+    public void runUpdateDeploymentScripts(
+            final SystemSetupContext hybrisContext) {
+        if (getConfiguredCreateDataStep().equals(hybrisContext.getType())) {
+            final UpdatingSystemExtensionContext context = this.getUpdatingContext(hybrisContext);
+            if (this.extensionHelper.isFirstExtension(context) && SystemSetup.Process.UPDATE.equals(context.getProcess())) {
+                this.clearErrorFlag();
+            }
+            this.runDeploymentScripts(context, false);
+        } else {
+            Logger.getLogger(this.getClass())
+                    .trace(String.format("Not running the deployment scripts because were are in the %s data creation.", hybrisContext.getType()));
         }
-        this.runDeploymentScripts(context, false);
+    }
+
+    @java.lang.SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.AvoidCatchingNPE" })
+    // We catch the null pointer exception to give hints about what is misconfigured
+    private SystemSetup.Type getConfiguredCreateDataStep() {
+        final String typeCode = configurationService.getConfiguration().getString(CREATE_DATA_TYPE_CONF);
+        try {
+            return SystemSetup.Type.valueOf(typeCode);
+        } catch (IllegalArgumentException | NullPointerException e) {
+            throw new ConfigurationException(
+                    String.format("Unable to find the create data step with code '%s'. Please check the configuration of %s", typeCode, CREATE_DATA_TYPE_CONF),
+                    e);
+        }
     }
 
     /**

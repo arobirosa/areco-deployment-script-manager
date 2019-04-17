@@ -90,16 +90,16 @@
 		<sequential>
 			<yrun failonerror="true">
 		import de.hybris.platform.core.Registry;
-		import org.areco.ecommerce.deploymentscripts.ant.EssentialDataCreatorAndDeploymentScriptsStarter;
+		import org.areco.ecommerce.deploymentscripts.ant.DataCreatorAndDeploymentScriptsStarter;
 		import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
 
 		import de.hybris.platform.util.Utilities;
 
 		Utilities.setJUnitTenant();
-		AntDeploymentScriptsStarter starter = (AntDeploymentScriptsStarter) Registry.getApplicationContext().getBean(AntDeploymentScriptsStarter.class);		
-		EssentialDataCreatorAndDeploymentScriptsStarter essentialDataCreator = (EssentialDataCreatorAndDeploymentScriptsStarter) Registry.getApplicationContext().getBean(EssentialDataCreatorAndDeploymentScriptsStarter.class);      
+		AntDeploymentScriptsStarter starter = (AntDeploymentScriptsStarter) Registry.getApplicationContext().getBean(AntDeploymentScriptsStarter.class);
+		DataCreatorAndDeploymentScriptsStarter dataCreator = (DataCreatorAndDeploymentScriptsStarter) Registry.getApplicationContext().getBean(DataCreatorAndDeploymentScriptsStarter.class);
 				
-		essentialDataCreator.runInJunitTenant();
+		dataCreator.runInJunitTenant();
 		boolean wasLastScriptSuccessful = starter.wasLastScriptSuccessful();
 	    de.hybris.platform.util.RedeployUtilities.shutdown();
 		System.exit(wasLastScriptSuccessful ? 0 : 1);

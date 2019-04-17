@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Integration Tests" type="HybrisTests" factoryName="Hybris Tests" singleton="true">
+    <module name="all_local_extensions" />
+    <option name="PACKAGE_NAME" value="" />
+    <option name="TEST_OBJECT" value="package" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <option name="TEST_SEARCH_SCOPE">
+      <value defaultName="moduleWithDependencies" />
+    </option>
+    <hybris annotationFilter="INTEGRATION_TESTS" scopeFilter="ALL_CUSTOM_MODULES" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

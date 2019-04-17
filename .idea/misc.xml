@@ -19,19 +19,6 @@
     <option name="pathToUserRulesConfiguration" value="" />
     <option name="pathToJarWithRules" value="" />
   </component>
-  <component name="EclipseCodeFormatter">
-    <option name="defaultSettings" value="true" />
-    <option name="enableJSFormatting" value="true" />
-    <option name="formatSeletedTextInAllFileTypes" value="false" />
-    <option name="formatter" value="ECLIPSE" />
-    <option name="id" value="1456910909900" />
-    <option name="name" value="default" />
-    <option name="optimizeImports" value="false" />
-    <option name="pathToConfigFileJS" value="$PROJECT_DIR$/../../baywaShop/config/riso_js_formater.xml" />
-    <option name="pathToConfigFileJava" value="$PROJECT_DIR$/../../baywaShop/config/riso_formater.xml" />
-    <option name="selectedJavaProfile" value="RiSo Formater" />
-    <option name="selectedJavaScriptProfile" value="riso-js" />
-  </component>
   <component name="FindBugsConfigurable">
     <option name="make" value="true" />
     <option name="effort" value="default" />
@@ -42,9 +29,6 @@
     <type id="javaeeApplication" />
     <type id="Spring" />
     <type id="web" />
-  </component>
-  <component name="PDMPlugin">
-    <option name="skipTestSources" value="false" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

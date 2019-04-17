@@ -2,56 +2,47 @@
 <module descriptorType="PLATFORM" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
-      <configuration>
+      <configuration process_explicitly_annotated="false">
         <fileset id="platformspring" name="platformspring" removed="false">
-          <dependency>deliveryzonespring==deliveryzone</dependency>
-          <dependency>configspring==config</dependency>
-          <dependency>europe1spring==europe1</dependency>
-          <dependency>commentsspring==comments</dependency>
-          <dependency>maintenancewebspring==maintenanceweb</dependency>
-          <dependency>hacspring==hac</dependency>
+          <dependency>commonsspring==commons</dependency>
           <dependency>platformservicesspring==platformservices</dependency>
-          <dependency>scriptingspring==scripting</dependency>
-          <dependency>testwebspring==testweb</dependency>
+          <dependency>processingspring==processing</dependency>
+          <dependency>commentsspring==comments</dependency>
+          <dependency>deliveryzonespring==deliveryzone</dependency>
           <dependency>mediawebspring==mediaweb</dependency>
-          <dependency>catalogspring==catalog</dependency>
+          <dependency>scriptingspring==scripting</dependency>
+          <dependency>oauth2spring==oauth2</dependency>
+          <dependency>corespring==core</dependency>
+          <dependency>testwebspring==testweb</dependency>
+          <dependency>europe1spring==europe1</dependency>
+          <dependency>workflowspring==workflow</dependency>
           <dependency>advancedsavedqueryspring==advancedsavedquery</dependency>
+          <dependency>paymentstandardspring==paymentstandard</dependency>
+          <dependency>catalogspring==catalog</dependency>
+          <dependency>maintenancewebspring==maintenanceweb</dependency>
           <dependency>validationspring==validation</dependency>
           <dependency>impexspring==impex</dependency>
-          <dependency>paymentstandardspring==paymentstandard</dependency>
-          <dependency>commonsspring==commons</dependency>
-          <dependency>workflowspring==workflow</dependency>
-          <dependency>processingspring==processing</dependency>
-          <dependency>corespring==core</dependency>
-          <dependency>oauth2spring==oauth2</dependency>
+          <dependency>hacspring==hac</dependency>
+          <dependency>configspring==config</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/project.properties</file>
         </fileset>
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/../hybris/bin/platform/eclipsebin" />
     <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/eclipsebin" />
     <exclude-output />
-    <javadoc-paths>
-      <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
-    </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/platform">
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/gensrc" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/groovytestsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/testsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/backoffice/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/backoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/groovytestsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/backoffice/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/.settings" />
@@ -60,15 +51,20 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/backoffice/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/bootstrap/modelclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/bower_components" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/eclipsebin" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/tomcat/work" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/jsTarget" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/tomcat" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/testclasses" />
+      <excludePattern pattern="apache-ant-*" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

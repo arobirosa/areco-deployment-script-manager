@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module descriptorType="OOTB" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration process_explicitly_annotated="false">
+        <fileset id="auditreportservicesspring" name="auditreportservicesspring" removed="false">
+          <dependency>platformspring==platform</dependency>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/resources/auditreportservices-spring.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/project.properties</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/eclipsebin" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/eclipsebin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/commonweb/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/acceleratoraddon/web/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/backoffice/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/.externalToolBuilders" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/.settings" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/acceleratoraddon/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/acceleratoraddon/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/acceleratoraddon/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/bower_components" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/commonweb/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/commonweb/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/commonweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/jsTarget" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/web/testclasses" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/resources" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/bin/auditreportservicesserver.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/auditreportservices/lib" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="platform" exported="" />
+  </component>
+</module>

@@ -3,30 +3,39 @@
   <component name="HybrisProjectSettings">
     <option name="completeSetOfAvailableExtensionsInHybris">
       <set>
+        <option value="adaptivesearchbackoffice" />
         <option value="admincockpit" />
         <option value="alipaymentbackoffice" />
         <option value="amazoncloud" />
+        <option value="arecoDeploymentScriptsExamples" />
+        <option value="arecoDeploymentScriptsManager" />
         <option value="arecodeploymentscriptsbackoffice" />
-        <option value="arecodeploymentscriptsexamples" />
         <option value="arecodeploymentscriptshmc" />
-        <option value="arecodeploymentscriptsmanager" />
+        <option value="auditreportservices" />
         <option value="azurecloud" />
         <option value="b2bcommercebackoffice" />
         <option value="backoffice" />
         <option value="backofficesolrsearch" />
         <option value="basecommercebackoffice" />
+        <option value="bpmn" />
+        <option value="bpmnbackoffice" />
         <option value="chinaacceleratorbackoffice" />
         <option value="chineseaddressbackoffice" />
         <option value="chineselogisticbackoffice" />
         <option value="chinesepspalipaysbackoffice" />
         <option value="chinesepspwechatpaysbackoffice" />
         <option value="chinesetaxinvoicebackoffice" />
+        <option value="cmsbackoffice" />
         <option value="cockpit" />
         <option value="commercesearchbackoffice" />
         <option value="commerceservicesbackoffice" />
+        <option value="consignmenttrackingbackoffice" />
         <option value="corepluscommons" />
         <option value="couponbackoffice" />
+        <option value="customercouponbackoffice" />
         <option value="customersupportbackoffice" />
+        <option value="datahubbackoffice" />
+        <option value="dataservicesbackoffice" />
         <option value="deltadetection" />
         <option value="dynamicwebservices" />
         <option value="embeddedserver" />
@@ -37,10 +46,20 @@
         <option value="lucenesearch" />
         <option value="lucenesearchbackoffice" />
         <option value="lucenesearchhmc" />
+        <option value="marketplacebackoffice" />
         <option value="mcc" />
         <option value="mediaconversion" />
         <option value="mediaconversionbackoffice" />
         <option value="mediaconversionhmc" />
+        <option value="patches" />
+        <option value="patchesbackoffice" />
+        <option value="patchesdemo" />
+        <option value="pcmbackoffice" />
+        <option value="personalizationcmsbackoffice" />
+        <option value="personalizationintegrationbackoffice" />
+        <option value="personalizationpromotionsbackoffice" />
+        <option value="personalizationsearchbackoffice" />
+        <option value="personalizationservicesbackoffice" />
         <option value="platformbackoffice" />
         <option value="platformhmc" />
         <option value="platformwebservices" />
@@ -49,37 +68,40 @@
         <option value="reportcockpit" />
         <option value="rulebuilderbackoffice" />
         <option value="ruleenginebackoffice" />
+        <option value="sapdigitalpaymentbackoffice" />
         <option value="scalanature" />
         <option value="solrfacetsearchbackoffice" />
         <option value="springintegrationlibs" />
         <option value="subscriptionbackoffice" />
         <option value="textfieldconfiguratortemplatebackoffice" />
         <option value="ticketsystembackoffice" />
+        <option value="timedaccesspromotionenginebackoffice" />
         <option value="timedaccesspromotionsbackoffice" />
         <option value="tomcatembeddedserver" />
         <option value="virtualjdbc" />
         <option value="voucherbackoffice" />
         <option value="warehousingbackoffice" />
-        <option value="webservicescommons" />
         <option value="xyformsbackoffice" />
         <option value="y2ysync" />
         <option value="y2ysyncbackoffice" />
         <option value="y2ysyncdemoelectronics" />
         <option value="y2ysynchmc" />
         <option value="yaasconfigurationbackoffice" />
-        <option value="yaasconnect" />
         <option value="ybackoffice" />
         <option value="ycockpit" />
         <option value="yempty" />
-        <option value="ygroovy" />
-        <option value="yscala" />
       </set>
     </option>
+    <option name="configDirectory" value="$PROJECT_DIR$/hybris/config" />
     <option name="hybrisDirectory" value="hybris" />
     <option name="hybrisProject" value="true" />
     <option name="ideModulesFilesDirectory" value="$PROJECT_DIR$/idea-module-files" />
     <option name="importOotbModulesInReadOnlyMode" value="true" />
-    <option name="importedByVersion" value="6.2" />
-    <option name="sourceCodeZip" value="$PROJECT_DIR$/hybris" />
+    <option name="importedByVersion" value="9.2.7.182" />
+    <option name="modulesOnBlackList">
+      <set>
+        <option value="/hybris/config6.x" />
+      </set>
+    </option>
   </component>
 </project>
