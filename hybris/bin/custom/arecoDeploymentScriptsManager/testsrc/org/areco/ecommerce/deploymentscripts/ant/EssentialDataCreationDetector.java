@@ -65,7 +65,7 @@ public class EssentialDataCreationDetector {
         if (LOG.isDebugEnabled()) {
             LOG.debug("The project data creation was triggered.");
         }
-        wasEssentialDataCreated = true;
+        wasProjectDataCreated = true;
     }
 
     /**

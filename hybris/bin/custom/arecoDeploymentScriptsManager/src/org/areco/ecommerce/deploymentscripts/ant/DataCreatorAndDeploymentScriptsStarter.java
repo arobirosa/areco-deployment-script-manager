@@ -38,13 +38,12 @@ import java.io.StringWriter;
 import java.util.Collections;
 
 /**
- * It creates the essential and project data for the tenant junit. The command "ant yunitinit" doesn't run the essential data creation step. Due to this, no deployment
- * scripts are run.
- * 
+ * It creates the essential and project data for the tenant junit. The command "ant yunitinit" doesn't run the essential data creation step.
+ * Due to this, no deployment scripts are run.
+ * <p>
  * TODO This class uses Jalo and a workaround to trigger the essential data creation. We must find a cleaner way to do this.
- * 
+ *
  * @author arobirosa
- * 
  */
 @Service("dataCreatorAndDeploymentScriptsStarter")
 @Scope("tenant")
@@ -68,8 +67,6 @@ public class DataCreatorAndDeploymentScriptsStarter {
     /**
      * Creates the essential and project data. This triggers the runs of the deployment scripts in the junit tenant.
      */
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    // We catch all exceptions because this method is called by ant.
     public void runInJunitTenant() {
         if (!extensionHelper.isDeploymentManagerExtensionTurnedOn()
                 || !Boolean.parseBoolean(this.configurationService.getConfiguration().getString(JUNIT_TENANT_CREATEESSENTIALDATA_CONF))) {
@@ -84,7 +81,9 @@ public class DataCreatorAndDeploymentScriptsStarter {
 
     }
 
-    private boolean createDataAndLogErrors(SystemSetup.Type aCreationDataType) {
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    // We catch all exceptions because this method is called by ant.
+    private boolean createDataAndLogErrors(final SystemSetup.Type aCreationDataType) {
         if (LOG.isInfoEnabled()) {
             LOG.info(String.format("Creating the %s data in junit tenant.", aCreationDataType));
         }
@@ -105,7 +104,7 @@ public class DataCreatorAndDeploymentScriptsStarter {
     @SuppressWarnings(value = { "deprecation", "PMD.SignatureDeclareThrowsException" })
     // The caller of this method must handle any exception, because this class is called by ant, which doesn't
     // show the complete stack trace.
-    private void createDataForAllExtensions(SystemSetup.Type aCreationDataType) throws Exception {
+    private void createDataForAllExtensions(final SystemSetup.Type aCreationDataType) throws Exception {
         // To import the encodings.
         new CoreBasicDataCreator().createEssentialData(Collections.EMPTY_MAP, null);
 

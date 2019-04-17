@@ -69,35 +69,37 @@ public class DeploymentScriptStarter {
 
     /**
      * This method is called by every extension during the update or init process.
-     * 
+     * <p>
      * We hook the essential data process. Due to this the deployment scripts could be run using "ant updatessystem".
-     * 
-     * @param hybrisContext
-     *            Required
+     *
+     * @param hybrisContext Required
      */
 
-      @SystemSetup(type = SystemSetup.Type.ALL, process = SystemSetup.Process.ALL)
-      public void runUpdateDeploymentScripts(final SystemSetupContext hybrisContext) {
+    @SystemSetup(type = SystemSetup.Type.ALL, process = SystemSetup.Process.ALL)
+    public void runUpdateDeploymentScripts(
+            final SystemSetupContext hybrisContext) {
         if (getConfiguredCreateDataStep().equals(hybrisContext.getType())) {
-          final UpdatingSystemExtensionContext context = this.getUpdatingContext(hybrisContext);
-          if (this.extensionHelper.isFirstExtension(context) && SystemSetup.Process.UPDATE.equals(context.getProcess())) {
-            this.clearErrorFlag();
-          }
-          this.runDeploymentScripts(context, false);
+            final UpdatingSystemExtensionContext context = this.getUpdatingContext(hybrisContext);
+            if (this.extensionHelper.isFirstExtension(context) && SystemSetup.Process.UPDATE.equals(context.getProcess())) {
+                this.clearErrorFlag();
+            }
+            this.runDeploymentScripts(context, false);
         } else {
-          Logger.getLogger(this.getClass()).trace(String
-              .format("Not running the deployment scripts because were are in the %s data creation.", hybrisContext.getType()));
+            Logger.getLogger(this.getClass())
+                    .trace(String.format("Not running the deployment scripts because were are in the %s data creation.", hybrisContext.getType()));
         }
-      }
+    }
 
+    @java.lang.SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.AvoidCatchingNPE" })
+    // We catch the null pointer exception to give hints about what is misconfigured
     private SystemSetup.Type getConfiguredCreateDataStep() {
         final String typeCode = configurationService.getConfiguration().getString(CREATE_DATA_TYPE_CONF);
         try {
             return SystemSetup.Type.valueOf(typeCode);
         } catch (IllegalArgumentException | NullPointerException e) {
             throw new ConfigurationException(
-                    String.format("Unable to find the create data step with code '%s'. Please check the configuration of %s",
-                            typeCode, CREATE_DATA_TYPE_CONF), e);
+                    String.format("Unable to find the create data step with code '%s'. Please check the configuration of %s", typeCode, CREATE_DATA_TYPE_CONF),
+                    e);
         }
     }
 
