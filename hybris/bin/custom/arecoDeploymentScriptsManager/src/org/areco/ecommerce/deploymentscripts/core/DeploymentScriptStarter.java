@@ -19,13 +19,13 @@ import de.hybris.platform.constants.CoreConstants;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetupContext;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
+import de.hybris.platform.servicelayer.exceptions.ConfigurationException;
 import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import org.terracotta.modules.ehcache.wan.IllegalConfigurationException;
 
 /**
  * It triggers the execution of the deployment scripts.
@@ -85,7 +85,7 @@ public class DeploymentScriptStarter {
           }
           this.runDeploymentScripts(context, false);
         } else {
-          Logger.getLogger(this.getClass()).debug(String
+          Logger.getLogger(this.getClass()).trace(String
               .format("Not running the deployment scripts because were are in the %s data creation.", hybrisContext.getType()));
         }
       }
@@ -95,7 +95,7 @@ public class DeploymentScriptStarter {
         try {
             return SystemSetup.Type.valueOf(typeCode);
         } catch (IllegalArgumentException | NullPointerException e) {
-            throw new IllegalConfigurationException(
+            throw new ConfigurationException(
                     String.format("Unable to find the create data step with code '%s'. Please check the configuration of %s",
                             typeCode, CREATE_DATA_TYPE_CONF), e);
         }
