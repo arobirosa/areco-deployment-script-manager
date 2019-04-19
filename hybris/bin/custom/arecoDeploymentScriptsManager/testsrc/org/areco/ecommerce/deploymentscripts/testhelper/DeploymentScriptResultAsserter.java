@@ -147,27 +147,27 @@ public final class DeploymentScriptResultAsserter {
         this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
     }
 
-  /**
-   * Checks if the given script was run and there was an error. The stacktrace must be the expected one.
-   *
-   * @param deploymentScriptName
-   *            Required
-   * @param pathFileExpectedStacktracePattern
-   *            Required
-   */
-  public void assertErrorResultWithPattern(final String deploymentScriptName, final String pathFileExpectedStacktracePattern) throws IOException {
-    ServicesUtil.validateParameterNotNullStandardMessage("pathFileExpectedStacktracePattern", pathFileExpectedStacktracePattern);
-    assertErrorResult(deploymentScriptName);
+     /**
+      * Checks if the given script was run and there was an error. The stacktrace must be the expected one.
+      *
+      * @param deploymentScriptName              Required
+      * @param pathFileExpectedStacktracePattern Required
+      */
+     public void assertErrorResultWithPattern(final String deploymentScriptName, final String pathFileExpectedStacktracePattern) throws IOException {
+         ServicesUtil.validateParameterNotNullStandardMessage("pathFileExpectedStacktracePattern", pathFileExpectedStacktracePattern);
+         assertErrorResult(deploymentScriptName);
 
-    InputStream expectedPatternStream = DeploymentScriptResultAsserter.class.getResourceAsStream(pathFileExpectedStacktracePattern);
-    Assert.assertNotNull("The file " + pathFileExpectedStacktracePattern + " with the expected stacktrace wasn't found", expectedPatternStream);
+         InputStream expectedPatternStream = DeploymentScriptResultAsserter.class.getResourceAsStream(pathFileExpectedStacktracePattern);
+         Assert.assertNotNull("The file " + pathFileExpectedStacktracePattern + " with the expected stacktrace wasn't found", expectedPatternStream);
 
-    final String loadedPattern = IOUtils.toString(expectedPatternStream).replaceAll(System.getProperty("line.separator"), "");
-    final Pattern compiledStacktracePattern = Pattern.compile(loadedPattern, Pattern.DOTALL);
-    ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
+         final String loadedPattern = IOUtils.toString(expectedPatternStream).replaceAll(System.getProperty("line.separator"), "");
+         final Pattern compiledStacktracePattern = Pattern.compile(loadedPattern, Pattern.DOTALL);
+         ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
 
-    final Matcher stacktraceMatcher = compiledStacktracePattern.matcher(executionOfTheScript.getStacktrace());
+         final Matcher stacktraceMatcher = compiledStacktracePattern.matcher(executionOfTheScript.getStacktrace());
 
-    Assert.assertTrue(String.format("The stacktrace don't contain the expected pattern. Current stacktrace: %s",executionOfTheScript.getStacktrace()), stacktraceMatcher.matches());
-  }
+         Assert.assertTrue(
+             String.format("The stacktrace don't contain the expected pattern. Current stacktrace: %s", executionOfTheScript.getStacktrace()),
+             stacktraceMatcher.matches());
+     }
 }
