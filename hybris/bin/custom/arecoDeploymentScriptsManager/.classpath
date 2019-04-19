@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="eclipsebin/classes" path="gensrc"/>
-	<classpathentry kind="src" output="eclipsebin/classes" path="src"/>
 	<classpathentry kind="src" output="eclipsebin/classes" path="testsrc"/>
-	<classpathentry kind="src" output="eclipsebin/web/webroot/WEB-INF/classes" path="web/src"/>
-	<classpathentry kind="src" output="eclipsebin/hmc/classes" path="hmc/src"/>
+	<classpathentry exported="true" kind="src" path="/cockpit"/>
+	<classpathentry kind="src" output="eclipsebin/classes" path="src"/>
 	<classpathentry exported="true" kind="lib" path="resources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" output="eclipsebin/classes" path="gensrc"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/platform"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" output="eclipsebin/web/webroot/WEB-INF/classes" path="web/src"/>
 	<classpathentry kind="output" path="eclipsebin/notused"/>
 </classpath>

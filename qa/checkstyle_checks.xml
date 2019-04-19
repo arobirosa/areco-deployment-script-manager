@@ -8,19 +8,16 @@ This checkstyle configuration is based on the coding conventions from Sun.
 -->
 
 <module name="Checker">
-    <!--
+
+   <!--
         If you set the basedir property below, then all reported file
         names will be relative to the specified directory. See
         http://checkstyle.sourceforge.net/5.x/config.html#Checker
 
         <property name="basedir" value="${basedir}"/>
-    -->
-    <module name="SuppressionCommentFilter">
-		<property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
-		<property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
-	</module>
-
-    <!-- Checks that a package-info.java file exists for each package.     -->
+    -->    
+	
+	<!-- Checks that a package-info.java file exists for each package.     -->
     <!-- See http://checkstyle.sf.net/config_javadoc.html#JavadocPackage -->
     <!-- <module name="JavadocPackage"/> It doesn't bring any value to have documention of the packages. -->
 
@@ -38,8 +35,8 @@ This checkstyle configuration is based on the coding conventions from Sun.
     
     <!-- Checks for whitespace                               -->
     <!-- See http://checkstyle.sf.net/config_whitespace.html -->
-    <module name="FileTabCharacter"/>
-
+    <module name="FileTabCharacter"/>	
+    
     <!-- Miscellaneous other checks.                   -->
     <!-- See http://checkstyle.sf.net/config_misc.html -->
 <!-- There isn't any added value on this test.
@@ -57,12 +54,14 @@ This checkstyle configuration is based on the coding conventions from Sun.
     <!--   <property name="headerFile" value="${checkstyle.header.file}"/> -->
     <!--   <property name="fileExtensions" value="java"/> -->
     <!-- </module> -->
-
+    
     <module name="TreeWalker">
-
-		<!-- This is required by the SuppressionCommentFilter -->
-		<module name="FileContentsHolder"/>
-
+		
+		<module name="SuppressionCommentFilter">
+			<property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
+			<property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
+		</module>
+		
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
         
@@ -133,8 +132,7 @@ This checkstyle configuration is based on the coding conventions from Sun.
         <module name="LeftCurly"/>
         <module name="NeedBraces"/>
         <module name="RightCurly"/>
-
-
+        
         <!-- Checks for common coding problems               -->
         <!-- See http://checkstyle.sf.net/config_coding.html -->
         <!-- PMD already checks this
@@ -143,14 +141,15 @@ This checkstyle configuration is based on the coding conventions from Sun.
         <module name="EqualsHashCode"/>
         -->
         <module name="HiddenField">
-			<!-- In setters and constructor the this keyboard is used to deambigueated -->
-			<property name="ignoreSetter" value="true"/>
-			<property name="ignoreConstructorParameter" value="true"/>
-		</module>
-		
+			   <!-- In setters and constructor the this keyboard is used to deambigueated -->
+			   <property name="ignoreSetter" value="true"/>
+			   <property name="ignoreConstructorParameter" value="true"/>
+	   </module>
+	   
         <module name="IllegalInstantiation">
-			<property name="classes" value="*.model.*"/>
-	    </module>
+                      <property name="classes" value="*.model.*"/>
+        </module>
+     
         <module name="InnerAssignment"/>
         <!-- module name="MagicNumber"/ Too much effort is to avoid magic numbers -->
          <!-- PMD already checks this
@@ -158,8 +157,8 @@ This checkstyle configuration is based on the coding conventions from Sun.
         <module name="RedundantThrows"/>
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>
-		-->
-
+               -->
+         
         <!-- Checks for class design                         -->
         <!-- See http://checkstyle.sf.net/config_design.html -->
         <!-- <module name="DesignForExtension"/ Too much effort to implement this rules. When you create a subclass, you must know how the superclass works. -->
@@ -167,8 +166,8 @@ This checkstyle configuration is based on the coding conventions from Sun.
         <module name="HideUtilityClassConstructor"/>
         <!-- <module name="InterfaceIsType"/ Already detected by PMD -->
         <module name="VisibilityModifier"/>
-
-
+          
+ 
         <!-- Miscellaneous other checks.                   -->
         <!-- See http://checkstyle.sf.net/config_misc.html -->
         <module name="ArrayTypeStyle"/>
@@ -176,7 +175,7 @@ This checkstyle configuration is based on the coding conventions from Sun.
         <!-- <module name="TodoComment"/ The todo comments are useful to inform the next programmer, what you should have done
         if you had more time. It is always better to create a ticket, but in most projects this a bureacratic procedure -->
         <module name="UpperEll"/>
-
+        
     </module>
-
+               
 </module>

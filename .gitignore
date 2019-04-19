@@ -46,9 +46,12 @@ qa_reports/
 #We ignore the directories with the binaries of PMD, Checkstyle and Findbugs.
 qa/findbugs-*
 qa/pmd-bin*
-qa/checkstyle-*
+qa/checkstyle
 !qa/checkstyle-simple.xsl
 
 qa/cobertura-*
 
 velocity.log
+qa/cobertura.zip
+
+**.bak

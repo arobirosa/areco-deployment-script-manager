@@ -2,15 +2,9 @@
 <module descriptorType="OOTB" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
-      <configuration>
+      <configuration process_explicitly_annotated="false">
         <fileset id="cockpitspring" name="cockpitspring" removed="false">
-          <dependency>commentsspring==comments</dependency>
-          <dependency>validationspring==validation</dependency>
-          <dependency>processingspring==processing</dependency>
-          <dependency>impexspring==impex</dependency>
           <dependency>platformspring==platform</dependency>
-          <dependency>workflowspring==workflow</dependency>
-          <dependency>catalogspring==catalog</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/cockpit-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/project.properties</file>
           <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/global-cockpit-spring.xml</file>
@@ -23,16 +17,11 @@
           <root url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/web/webroot" relative="/" />
         </webroots>
         <sourceRoots>
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/src" />
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/gensrc" />
           <root url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources" />
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/web/src" />
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/web/gensrc" />
           <root url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/commonweb/src" />
           <root url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/commonweb/gensrc" />
           <root url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/acceleratoraddon/web/src" />
           <root url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/acceleratoraddon/web/gensrc" />
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/backoffice/src" />
           <root url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/backoffice/resources" />
         </sourceRoots>
       </configuration>
@@ -42,25 +31,16 @@
     <output url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/eclipsebin" />
     <output-test url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/eclipsebin" />
     <exclude-output />
-    <javadoc-paths>
-      <root url="https://help.hybris.com/6.0.0/api/commercesuite/index.html" />
-    </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit">
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/web/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/web/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/web/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/commonweb/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/commonweb/gensrc" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/commonweb/groovytestsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/acceleratoraddon/web/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/acceleratoraddon/web/testsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/backoffice/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/backoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/acceleratoraddon/web/groovytestsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/backoffice/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/.settings" />
@@ -68,11 +48,15 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/acceleratoraddon/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/acceleratoraddon/web/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/bower_components" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/commonweb/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/commonweb/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/jsTarget" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/web/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/web/testclasses" />
@@ -91,11 +75,10 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/bin" />
+          <root url="jar://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/bin/cockpitserver.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/bin" recursive="true" />
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">

@@ -1,0 +1,22 @@
+import de.hybris.platform.core.Registry;
+import de.hybris.platform.catalog.synchronization.CatalogSynchronizationService;
+import de.hybris.platform.catalog.daos.CatalogVersionDao;
+import de.hybris.platform.catalog.model.CatalogVersionModel;
+
+try {
+CatalogSynchronizationService catalogSynchronizationService = (CatalogSynchronizationService) Registry.getApplicationContext().getBean(CatalogSynchronizationService.class);
+CatalogVersionDao catalogVersionDao = (CatalogVersionDao) Registry.getApplicationContext().getBean(CatalogVersionDao.class);
+
+final CatalogVersionModel stageVersion = catalogVersionDao.findCatalogVersions("ArecosSyncCataloguesImpexTest", "Staged").iterator().next();
+
+final CatalogVersionModel onlineVersion = catalogVersionDao.findCatalogVersions("ArecosSyncCataloguesImpexTest", "Online").iterator().next();
+
+catalogSynchronizationService.synchronizeFully(stageVersion, onlineVersion);
+
+
+} catch (Exception e) {
+    System.err.println("There was an error:");
+    e.printStackTrace(System.err);
+    return "Error, please see the console of the app server";
+}
+return "OK";
