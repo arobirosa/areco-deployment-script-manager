@@ -48,7 +48,7 @@ rm -rf hybris/data/* && ant clean all initialize yunitinit qa
 firefox /home/arobirosa/no_backup/areco/arecodeploymentscriptsmanager-code/hybris/log/junit/index.html &
 
 # Remove the connection information, so the hybris intallation works again with the HyperSQL database
-# If some tests were unsuccessfull, solve the isssues and repeat the tests
+# If some tests were unsuccessful, solve the isssues and repeat the tests
 
 git flow release finish 1.5
 
