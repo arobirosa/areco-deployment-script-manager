@@ -1,4 +1,2 @@
-de.hybris.platform.impex.jalo.ImpExException: 
-	at de.hybris.platform.impex.jalo.Importer.importNextInternal 
-Caused by: de.hybris.platform.impex.jalo.header.HeaderValidationException: no current header for value line:
-	at de.hybris.platform.impex.jalo.ImpExReader.readLine
+.*ImpExException: line 4 at main script: Can not resolve any more lines.*Caused by: .*ImpExException: Can not resolve any more lines \.\.\. Aborting further passes .*
+

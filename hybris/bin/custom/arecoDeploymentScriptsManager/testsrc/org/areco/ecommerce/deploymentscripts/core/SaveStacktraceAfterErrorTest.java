@@ -37,11 +37,7 @@ public class SaveStacktraceAfterErrorTest extends AbstractWithConfigurationResto
     this.getDeploymentConfigurationSetter().setEnvironment("DEV");
     final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
     Assert.assertTrue("There weren't any errors", wereThereErrors);
-    getDeploymentScriptResultAsserter()
-      .assertErrorResult(
-        "(.*)",
-        "hybris\\bin\\custom\\arecoDeploymentScriptsManager\\resources\\test\\save-stacktrace\\expected-stackstrace.txt");
-
+        getDeploymentScriptResultAsserter().assertErrorResultWithPattern("20150906_PENDING_SCRIPT_WRONG", "/test/save-stacktrace/expected-stackstrace.txt");
   }
 
 }

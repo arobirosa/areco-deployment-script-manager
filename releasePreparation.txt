@@ -1,3 +1,6 @@
+# Check that there isn't any open ticket assigned to the version (milestone) to be released
+# If there is an open ticket, decide to postpone the release or move the ticket to the next release
+
 #Create a new release branch
 git flow release start 1.5
 # Find all the properties with the version and replace them
@@ -9,27 +12,55 @@ git commit -am "New version"
 # Go to local.properties and check that the default Hypersql is used.
 
 # Run all the tests with HyperSQL on master tenant:
-rm -rf hybris/data/ && ant clean all yunitinit qa
+rm -rf hybris/data/* && ant clean all yunitinit qa
+# Check the test results because not always the build fails
+firefox /home/arobirosa/no_backup/areco/arecodeploymentscriptsmanager-code/hybris/log/junit/index.html &
+
 # Run all the tests with HyperSQL on junit tenant:
-rm -rf hybris/data/ && ant clean all initialize yunitinit qa
+rm -rf hybris/data/* && ant clean all initialize yunitinit qa
+# Check the test results because not always the build fails
+firefox /home/arobirosa/no_backup/areco/arecodeploymentscriptsmanager-code/hybris/log/junit/index.html &
 
 # Go to local.properties and set up the MySQL database
+
+db.url=jdbc:mysql://localhost/deploymentmanager?useConfigs=maxPerformance&characterEncoding=utf8
+db.driver=com.mysql.jdbc.Driver
+db.username=manager
+db.password=<password>
+db.tableprefix=
+mysql.optional.tabledefs=CHARSET=utf8 COLLATE=utf8_bin
+mysql.tabletype=InnoDB
+
 # Remove the old database:
 mysql --user=root --password --host=127.0.0.1 -e "DROP DATABASE deploymentmanager; CREATE DATABASE deploymentmanager; grant all privileges on deploymentmanager.* to manager" deploymentmanager
 
 # Run all the tests with MySQL on master tenant:
-rm -rf hybris/data/ && ant clean all yunitinit qa
+rm -rf hybris/data/* && ant clean all yunitinit qa
+# Check the test results because not always the build fails
+firefox /home/arobirosa/no_backup/areco/arecodeploymentscriptsmanager-code/hybris/log/junit/index.html &
 
 # Remove the old database:
 mysql --user=root --password --host=127.0.0.1 -e "DROP DATABASE deploymentmanager; CREATE DATABASE deploymentmanager; grant all privileges on deploymentmanager.* to manager" deploymentmanager
 
 # Run all the tests with MySQL on junit tenant:
-rm -rf hybris/data/ && ant clean all initialize yunitinit qa
+rm -rf hybris/data/* && ant clean all initialize yunitinit qa
+# Check the test results because not always the build fails
+firefox /home/arobirosa/no_backup/areco/arecodeploymentscriptsmanager-code/hybris/log/junit/index.html &
+
+# Remove the connection information, so the hybris intallation works again with the HyperSQL database
+# If some tests were unsuccessful, solve the isssues and repeat the tests
 
 git flow release finish 1.5
 
 git archive --output=deploymentScriptsManager_1.5_20170519.zip production hybris/bin/custom
 
-Send an email from arobirosa@gmail.com to arecodeploymentscriptsmanager-releases@lists.sourceforge.net
+# Upload the zip to sourceforge
 
-Save the body of the message and upload it as a file named README.txt
+# Close the milestone
+
+# Communicate the release
+#
+# Prepare an email with the list of bugs and features
+# Send an email from arobirosa@gmail.com to arecodeploymentscriptsmanager-releases@lists.sourceforge.net
+# Send the email to the developers who I know and are using the Areco Deployment Manager
+# Save the body of the message and upload it as a file named README.txt

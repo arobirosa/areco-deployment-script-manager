@@ -15,7 +15,6 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
-import de.hybris.platform.constants.CoreConstants;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetupContext;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
@@ -37,9 +36,9 @@ import org.springframework.stereotype.Service;
 @Scope("tenant")
 @SystemSetup(extension = "ALL_EXTENSIONS")
 public class DeploymentScriptStarter {
-    private static final Logger LOG = Logger.getLogger(DeploymentScriptStarter.class);
+    public static final String CREATE_DATA_TYPE_CONF = "deploymentscripts.createdata.type";
 
-    private static final String CREATE_DATA_TYPE_CONF = "deploymentscripts.createdata.type";
+    private static final Logger LOG = Logger.getLogger(DeploymentScriptStarter.class);
 
     @Autowired
     private DeploymentScriptService deploymentScriptService;
@@ -197,20 +196,6 @@ public class DeploymentScriptStarter {
             }
         }
         return this.isWasThereAnError();
-    }
-
-    /**
-     * This method is only called once during the initialization of the core extension. It runs all the INIT deployment scripts sequentially.
-     * 
-     * @param context
-     *            Required. Describes the current update system process.
-     */
-    @SystemSetup(type = SystemSetup.Type.ESSENTIAL, process = SystemSetup.Process.INIT, extension = CoreConstants.EXTENSIONNAME)
-    public void runInitDeploymentScripts(final SystemSetupContext context) {
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Running all INIT deployment scripts.");
-        }
-        this.runAllPendingScripts(true);
     }
 
     /**

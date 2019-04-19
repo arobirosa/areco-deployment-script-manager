@@ -18,6 +18,7 @@ package org.areco.ecommerce.deploymentscripts.core;
 import de.hybris.bootstrap.annotations.IntegrationTest;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetupContext;
+import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.util.JspContext;
 import de.hybris.platform.util.localization.Localization;
 import junit.framework.Assert;
@@ -27,7 +28,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockJspWriter;
 
+import javax.annotation.Resource;
 import java.io.StringWriter;
+
+import static org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter.CREATE_DATA_TYPE_CONF;
 
 /**
  * It checks that the result of the execution of the scripts is log in HAC.
@@ -43,6 +47,9 @@ public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfi
 
         private static final String DEPLOYMENT_SCRIPT_NAME = "20150126_TICKET_USE_BEANSHELL_TO_RELOAD_CMS_CONF";
 
+        @Resource
+        private ConfigurationService configurationService;
+
         @Before
         public void setResourcesFolder() {
                 if (LOG.isInfoEnabled()) {
@@ -57,7 +64,7 @@ public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfi
                         { DEPLOYMENT_SCRIPT_NAME,
                                 this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult().getDescription() }) + "<br/>";
 
-                final SystemSetupContext hybrisContext = new SystemSetupContext(null, SystemSetup.Type.ESSENTIAL,
+                final SystemSetupContext hybrisContext = new SystemSetupContext(null, getConfiguredCreateDataStep(),
                         SystemSetup.Process.UPDATE, ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
                 final StringWriter loggingCollector = new StringWriter();
                 hybrisContext.setJspContext(new JspContext(new MockJspWriter(loggingCollector), null, null));
@@ -74,9 +81,14 @@ public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfi
         @Test
         @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
         public void testNoErrorsWhenCalledWithoutJspContext() {
-                final SystemSetupContext hybrisContext = new SystemSetupContext(null, SystemSetup.Type.ESSENTIAL,
+                final SystemSetupContext hybrisContext = new SystemSetupContext(null, getConfiguredCreateDataStep(),
                         SystemSetup.Process.UPDATE, ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
                 hybrisContext.setJspContext(null); // We don't have a JSP Context
                 this.getDeploymentScriptStarter().runUpdateDeploymentScripts(hybrisContext);
         }
+
+        private SystemSetup.Type getConfiguredCreateDataStep() {
+                return SystemSetup.Type.valueOf(configurationService.getConfiguration().getString(CREATE_DATA_TYPE_CONF));
+        }
+
 }
