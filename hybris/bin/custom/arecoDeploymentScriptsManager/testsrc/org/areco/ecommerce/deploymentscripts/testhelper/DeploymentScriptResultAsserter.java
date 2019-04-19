@@ -15,13 +15,11 @@
  */
 package org.areco.ecommerce.deploymentscripts.testhelper;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import de.hybris.platform.servicelayer.exceptions.ModelNotFoundException;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.FlexibleSearchService;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
@@ -31,11 +29,13 @@ import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import de.hybris.platform.servicelayer.exceptions.ModelNotFoundException;
-import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
-import de.hybris.platform.servicelayer.search.FlexibleSearchService;
-import de.hybris.platform.servicelayer.search.SearchResult;
-import de.hybris.platform.servicelayer.util.ServicesUtil;
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This DAO provides services to the tests.
@@ -152,20 +152,22 @@ public final class DeploymentScriptResultAsserter {
    *
    * @param deploymentScriptName
    *            Required
-   * @param expectedStacktrace
+   * @param pathFileExpectedStacktracePattern
    *            Required
    */
-  public void assertErrorResult(final String deploymentScriptName, final String pathFileExpectedStacktrace) throws IOException {
-    ServicesUtil.validateParameterNotNullStandardMessage("pathFileExpectedStacktrace", pathFileExpectedStacktrace);
-    InputStream expectedStacktraceStream = DeploymentScriptResultAsserter.class.getResourceAsStream(pathFileExpectedStacktrace);
-    Assert.assertNotNull("The file " + pathFileExpectedStacktrace + " with the expected stacktrace wasn't found", expectedStacktraceStream);
-    this.assertErrorResultString(deploymentScriptName, IOUtils.toString(expectedStacktraceStream));
-  }
+  public void assertErrorResultWithPattern(final String deploymentScriptName, final String pathFileExpectedStacktracePattern) throws IOException {
+    ServicesUtil.validateParameterNotNullStandardMessage("pathFileExpectedStacktracePattern", pathFileExpectedStacktracePattern);
+    assertErrorResult(deploymentScriptName);
 
-  private void assertErrorResultString(final String deploymentScriptName, final String expectedStacktrace) {
-    ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
-    ServicesUtil.validateParameterNotNullStandardMessage("expectedStacktrace", expectedStacktrace);
+    InputStream expectedPatternStream = DeploymentScriptResultAsserter.class.getResourceAsStream(pathFileExpectedStacktracePattern);
+    Assert.assertNotNull("The file " + pathFileExpectedStacktracePattern + " with the expected stacktrace wasn't found", expectedPatternStream);
+
+    final String loadedPattern = IOUtils.toString(expectedPatternStream).replaceAll(System.getProperty("line.separator"), "");
+    final Pattern compiledStacktracePattern = Pattern.compile(loadedPattern, Pattern.DOTALL);
     ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
-    Assert.assertEquals("The stacktraces are different", expectedStacktrace, executionOfTheScript.getStacktrace());
+
+    final Matcher stacktraceMatcher = compiledStacktracePattern.matcher(executionOfTheScript.getStacktrace());
+
+    Assert.assertTrue(String.format("The stacktrace don't contain the expected pattern. Current stacktrace: %s",executionOfTheScript.getStacktrace()), stacktraceMatcher.matches());
   }
 }
