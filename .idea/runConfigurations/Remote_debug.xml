@@ -5,6 +5,6 @@
     <option name="SHMEM_ADDRESS" value="javadebug" />
     <option name="HOST" value="localhost" />
     <option name="PORT" value="8000" />
-    <method v="2" />
+    <method />
   </configuration>
 </component>

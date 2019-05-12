@@ -15,6 +15,7 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
+import de.hybris.platform.constants.CoreConstants;
 import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetupContext;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
@@ -85,7 +86,7 @@ public class DeploymentScriptStarter {
             this.runDeploymentScripts(context, false);
         } else {
             Logger.getLogger(this.getClass())
-                    .trace(String.format("Not running the deployment scripts because were are in the %s data creation.", hybrisContext.getType()));
+                    .trace(String.format("Not running the deployment update scripts because were are in the %s data creation.", hybrisContext.getType()));
         }
     }
 
@@ -179,10 +180,10 @@ public class DeploymentScriptStarter {
         if (LOG.isInfoEnabled()) {
             LOG.info("Running all pending update deployment scripts.");
         }
-        return this.runAllPendingScripts(false);
+        return this.runAllPendingScriptsInAllExtensions(false);
     }
 
-    private boolean runAllPendingScripts(final boolean runInitScripts) {
+    private boolean runAllPendingScriptsInAllExtensions(final boolean runInitScripts) {
         if (LOG.isInfoEnabled()) {
             LOG.info("Running all deployment scripts. RunInitScripts? " + runInitScripts);
         }
@@ -197,6 +198,27 @@ public class DeploymentScriptStarter {
         }
         return this.isWasThereAnError();
     }
+
+    /**
+     * This method is only called once during the initialization of the core extension. It runs all the INIT deployment scripts sequentially.
+     *
+     * @param hybrisContext
+     *            Required. Describes the current update system process.
+     */
+    @java.lang.SuppressWarnings("unused") // This method is called by Hybris to start the init scripts
+    @SystemSetup(type = SystemSetup.Type.ALL, process = SystemSetup.Process.INIT, extension = CoreConstants.EXTENSIONNAME)
+    public void runInitDeploymentScripts(final SystemSetupContext hybrisContext) {
+        if (getConfiguredCreateDataStep().equals(hybrisContext.getType())) {
+            if (LOG.isInfoEnabled()) {
+                LOG.info("Running all INIT deployment scripts.");
+            }
+            this.runAllPendingScriptsInAllExtensions(true);
+        } else {
+            Logger.getLogger(this.getClass())
+                    .trace(String.format("Not running the init deployment scripts because were are in the %s data creation.", hybrisContext.getType()));
+        }
+    }
+
 
     /**
      * Check if the last executed deployment scripts was successful.
