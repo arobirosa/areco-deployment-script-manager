@@ -15,7 +15,8 @@
  */
 package org.areco.ecommerce.deploymentscripts.ant;
 
-import static org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants.*;
+import static org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants.DEFAULT_INIT_SCRIPTS_FOLDER;
+import static org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants.DEFAULT_UPDATE_SCRIPTS_FOLDER;
 import de.hybris.bootstrap.annotations.IntegrationTest;
 import de.hybris.platform.core.model.order.price.TaxModel;
 import de.hybris.platform.order.daos.TaxDao;
@@ -65,7 +66,8 @@ public class DataCreatorAndDeploymentScriptStarterTest extends AbstractWithConfi
 
     @Before
     public void skipIfJunitTenantDoesNotExist() {
-        Assume.assumeFalse("Hybris cannot change the tenant when we are inside a transaction, because we need transactions to import the essential data, this test only works in environments with a separated junit tenant", registryTenantDetector.areWeInATestSystemWithOneSingleTenant());
+        Assume.assumeFalse("Hybris cannot change the tenant when we are inside a transaction, because we need transactions to import the essential data, "
+                + "this test only works in environments with a separated junit tenant", registryTenantDetector.areWeInATestSystemWithOneSingleTenant());
     }
 
 
