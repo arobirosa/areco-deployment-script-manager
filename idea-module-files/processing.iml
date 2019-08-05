@@ -59,7 +59,6 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/processing/acceleratoraddon/web/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/processing/backoffice/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/processing/bower_components" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/processing/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/processing/commonweb/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/processing/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/processing/commonweb/testclasses" />

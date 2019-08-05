@@ -6,5 +6,9 @@
       <jdbc-driver>org.hsqldb.jdbcDriver</jdbc-driver>
       <jdbc-url>jdbc:hsqldb:file:$PROJECT_DIR$/hybris/data/hsqldb/mydb;shutdown=true;hsqldb.tx=MVCC</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="config" uuid="22d98a05-1108-4c30-9241-228d6329f780">
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost/deploymentmanager?useConfigs=maxPerformance&amp;characterEncoding=utf8&amp;useSSL=false</jdbc-url>
+    </data-source>
   </component>
 </project>

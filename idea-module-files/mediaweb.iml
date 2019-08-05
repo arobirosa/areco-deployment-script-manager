@@ -49,7 +49,6 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/mediaweb/acceleratoraddon/web/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/mediaweb/backoffice/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/mediaweb/bower_components" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/mediaweb/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/mediaweb/commonweb/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/mediaweb/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/mediaweb/commonweb/testclasses" />

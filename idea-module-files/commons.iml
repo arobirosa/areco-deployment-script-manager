@@ -32,7 +32,6 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/commons/acceleratoraddon/web/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/commons/backoffice/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/commons/bower_components" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/commons/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/commons/commonweb/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/commons/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/commons/commonweb/testclasses" />

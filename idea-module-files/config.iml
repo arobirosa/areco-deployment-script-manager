@@ -29,7 +29,6 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/acceleratoraddon/web/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/backoffice/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/bower_components" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/commonweb/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/config/commonweb/testclasses" />

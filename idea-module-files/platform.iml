@@ -52,7 +52,6 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/backoffice/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/bootstrap/modelclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/bower_components" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/testclasses" />
