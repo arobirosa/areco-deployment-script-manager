@@ -19,8 +19,8 @@ import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguag
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * It runs Groovy code and check that it was successful.
@@ -38,7 +38,7 @@ public class DefaultGroovyService extends AbstractScriptingLanguageService {
   @Override
   protected Object compileAndExecute(final String code) throws ScriptingLanguageExecutionException {
     // We don't bind any bean.
-    final Map<String, Object> emptyContext = new HashMap<String, Object>();
+    final Map<String, Object> emptyContext = new ConcurrentHashMap<>();
 
     final Binding binding = new Binding(emptyContext);
     final GroovyShell groovyShell = new GroovyShell(binding);

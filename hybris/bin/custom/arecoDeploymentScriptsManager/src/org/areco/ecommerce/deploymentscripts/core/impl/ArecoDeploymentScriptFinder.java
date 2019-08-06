@@ -33,7 +33,6 @@ import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -48,6 +47,7 @@ import java.util.Locale;
  * 
  */
 // The configuration of this bean is in the spring application context.
+@SuppressWarnings("PMD") // The import of all the classes from the core package is correct
 public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFinder {
     private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptFinder.class);
 
@@ -81,7 +81,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
     private List<File> getScriptsToBeRun(final String extensionName, final boolean runInitScripts) {
         final List<String> alreadyExecutedScripts = getAlreadyExecutedScripts(extensionName);
 
-        final List<File> pendingScriptsFolders = new ArrayList<File>();
+        final List<File> pendingScriptsFolders = new ArrayList<>();
         for (final File foundScriptFolder : getExistingScripts(extensionName, runInitScripts)) {
             if (!alreadyExecutedScripts.contains(foundScriptFolder.getName())) {
                 pendingScriptsFolders.add(foundScriptFolder);
@@ -100,17 +100,11 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
      *            Required
      */
     private void sortFilesCaseInsensitive(final List<File> files) {
-        Collections.sort(files, new Comparator<File>() {
-
-            @Override
-            public int compare(final File f1, final File f2) {
-                return f1.getName().toLowerCase(Locale.getDefault()).compareTo(f2.getName().toLowerCase(Locale.getDefault()));
-            }
-        });
+        Collections.sort(files, Comparator.comparing(f -> f.getName().toLowerCase(Locale.getDefault())));
     }
 
     private List<String> getAlreadyExecutedScripts(final String extensionName) {
-        final List<String> alreadyExecutedScripts = new ArrayList<String>();
+        final List<String> alreadyExecutedScripts = new ArrayList<>();
         for (final ScriptExecutionModel alreadyExecutedScript : this.scriptExecutionDao.getSuccessfullyExecutedScripts(extensionName)) {
             alreadyExecutedScripts.add(alreadyExecutedScript.getScriptName());
         }
@@ -137,15 +131,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
         if (!deploymentScriptFolder.exists()) {
             return new File[0];
         }
-
-        final File[] scriptsFolders = deploymentScriptFolder.listFiles(new FileFilter() {
-
-            @Override
-            public boolean accept(final File pathname) {
-                return pathname.isDirectory();
-            }
-        });
-        return scriptsFolders;
+        return deploymentScriptFolder.listFiles(pathname -> pathname.isDirectory());
     }
 
     /**
@@ -158,7 +144,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
      * @return Never null
      */
     private List<DeploymentScript> getDeploymentScripts(final List<File> pendingScriptsFolders, final String extensionName, final Process process) {
-        final List<DeploymentScript> newDeploymentScripts = new ArrayList<DeploymentScript>();
+        final List<DeploymentScript> newDeploymentScripts = new ArrayList<>();
 
         for (final File pendingScriptsFolder : pendingScriptsFolders) {
             final DeploymentScript newScript = createDeploymentScript(pendingScriptsFolder, extensionName, process);
@@ -193,12 +179,8 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
     }
 
     private List<DeploymentScriptStep> createOrderedSteps(final File scriptFolder) {
-        final List<DeploymentScriptStep> steps = new ArrayList<DeploymentScriptStep>();
-        File[] foundFiles = scriptFolder.listFiles(new FileFilter() {
-            @Override public boolean accept(final File pathname) {
-                return pathname.isFile();
-            }
-        });
+        final List<DeploymentScriptStep> steps = new ArrayList<>();
+        File[] foundFiles = scriptFolder.listFiles(pathname -> pathname.isFile());
         if (foundFiles == null) {
             foundFiles = new File[] {};
         }

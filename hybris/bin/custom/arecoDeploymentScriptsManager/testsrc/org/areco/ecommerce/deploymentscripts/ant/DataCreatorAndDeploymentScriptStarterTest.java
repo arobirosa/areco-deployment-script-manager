@@ -15,21 +15,22 @@
  */
 package org.areco.ecommerce.deploymentscripts.ant;
 
-import static org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants.DEFAULT_INIT_SCRIPTS_FOLDER;
-import static org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants.DEFAULT_UPDATE_SCRIPTS_FOLDER;
 import de.hybris.bootstrap.annotations.IntegrationTest;
 import de.hybris.platform.core.model.order.price.TaxModel;
 import de.hybris.platform.order.daos.TaxDao;
-import junit.framework.Assert;
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
+import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
 import javax.annotation.Resource;
 import java.util.List;
+
+import static org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants.DEFAULT_INIT_SCRIPTS_FOLDER;
+import static org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants.DEFAULT_UPDATE_SCRIPTS_FOLDER;
 
 
 /**
@@ -92,7 +93,7 @@ public class DataCreatorAndDeploymentScriptStarterTest extends AbstractWithConfi
         List<TaxModel> foundTaxes = taxDao.findTaxesByCode("dummyRunOrderTax");
         Assert.assertFalse("The test tax don't exist", foundTaxes.isEmpty());
         Assert.assertEquals("Many test taxes exist", 1, foundTaxes.size());
-        Assert.assertEquals("The tax wasn't updated", 19d, foundTaxes.get(0).getValue());
+        Assert.assertEquals("The tax wasn't updated", 19d, foundTaxes.get(0).getValue().doubleValue(), 0d);
     }
 
 

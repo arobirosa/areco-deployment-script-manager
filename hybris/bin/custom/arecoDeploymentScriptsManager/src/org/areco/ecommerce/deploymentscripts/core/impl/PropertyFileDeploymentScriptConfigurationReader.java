@@ -26,14 +26,11 @@ import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Properties;
-import java.util.Set;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 /**
  * It reads the configuration contained in a property file with the extension conf in the folder of the script.
@@ -88,22 +85,11 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
 
     private PropertyFileDeploymentScriptConfiguration createConfigurationFrom(final File configurationFile) {
         final Properties properties = new Properties();
-        FileInputStream configurationFileStream = null;
-        try {
-            configurationFileStream = new FileInputStream(configurationFile);
+
+        try (InputStream configurationFileStream = Files.newInputStream(Paths.get(configurationFile.toURI()))){
             properties.load(configurationFileStream);
-        } catch (final FileNotFoundException e) {
-            throw new DeploymentScriptConfigurationException(e);
         } catch (final IOException e) {
             throw new DeploymentScriptConfigurationException(e);
-        } finally {
-            if (configurationFileStream != null) {
-                try {
-                    configurationFileStream.close();
-                } catch (final IOException e) {
-                    LOG.warn("There was an error closing the input stream", e);
-                }
-            }
         }
         final Set<Tenant> tenants = getAllowedTenants(properties);
         final Set<String> environmentNames = getAllowedDeploymentEnvironments(properties);
@@ -130,7 +116,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
     }
 
     private Set<Tenant> convertTenants(final String tenantNamesList) {
-        final Set<Tenant> tenants = new HashSet<Tenant>();
+        final Set<Tenant> tenants = new HashSet<>();
         for (final String aTenantName : tenantNamesList.split(VALUES_SEPARATOR)) {
             Tenant foundTenant = tenantDetector.getTenantByID(aTenantName);
             if (foundTenant == null && ArecoDeploymentScriptsManagerConstants.JUNIT_TENANT_ID.equals(aTenantName)

@@ -189,8 +189,8 @@ public class DeploymentScriptStarter {
         }
         this.clearErrorFlag();
         for (final String extensionName : this.extensionHelper.getExtensionNames()) {
-            final UpdatingSystemExtensionContext aContext = new UpdatingSystemExtensionContext(extensionName, (runInitScripts ? SystemSetup.Process.INIT
-                    : SystemSetup.Process.UPDATE));
+            final UpdatingSystemExtensionContext aContext = new UpdatingSystemExtensionContext(extensionName, runInitScripts ? SystemSetup.Process.INIT
+                    : SystemSetup.Process.UPDATE);
             final boolean somethingWentWrong = this.runDeploymentScripts(aContext, runInitScripts);
             if (somethingWentWrong) {
                 return true;

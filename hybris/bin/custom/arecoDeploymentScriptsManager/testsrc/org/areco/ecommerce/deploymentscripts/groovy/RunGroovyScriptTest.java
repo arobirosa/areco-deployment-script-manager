@@ -15,7 +15,7 @@
  */
 package org.areco.ecommerce.deploymentscripts.groovy;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.junit.Test;

@@ -101,7 +101,7 @@ public class DataCreatorAndDeploymentScriptsStarter {
         return true; // All went ok.
     }
 
-    @SuppressWarnings(value = { "deprecation", "PMD.SignatureDeclareThrowsException" })
+    @SuppressWarnings({ "deprecation", "PMD.SignatureDeclareThrowsException" })
     // The caller of this method must handle any exception, because this class is called by ant, which doesn't
     // show the complete stack trace.
     private void createDataForAllExtensions(final SystemSetup.Type aCreationDataType) throws Exception {

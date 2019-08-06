@@ -30,12 +30,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
 
 /**
  * This default implementation uses the impex importer. It allows the configuration of the locale.
@@ -60,23 +58,14 @@ public class LocalizedImpexImportService implements ImpexImportService {
     @Override
     public void importImpexFile(final File impexFile) throws ImpExException {
         ServicesUtil.validateParameterNotNullStandardMessage("impexFile", impexFile);
-
-        InputStream inputStream = null;
-        try {
-            inputStream = new FileInputStream(impexFile);
+        try ( InputStream inputStream = Files.newInputStream(Paths.get(impexFile.toURI())) ) {
             importImpexFile(inputStream);
-        } catch (final FileNotFoundException e) {
+        } catch (final FileNotFoundException | NoSuchFileException e) {
             throw new ImpExException(e, "Unable to find the file " + impexFile, 0);
         } catch (final UnsupportedEncodingException e) {
             throw new ImpExException(e, "The file " + impexFile + " must use the UTF-8 encoding.", 0);
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (final IOException e) {
-                    LOG.warn("There was an error clossing the input stream associated to the file " + impexFile, e);
-                }
-            }
+        } catch (final IOException e) {
+            throw new ImpExException(e, "There was an IP exception opening the file " + impexFile + ": " + e.getMessage(), 0);
         }
     }
 
