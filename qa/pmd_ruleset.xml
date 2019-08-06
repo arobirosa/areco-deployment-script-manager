@@ -14,12 +14,20 @@
     
   <rule ref="category/java/codestyle.xml" > <!-- It is consistent with the code conventions and improves readibility -->
 	  <exclude name="AvoidFinalLocalVariable"/> <!-- There isn't any wrong in final local variables -->
+	  <exclude name="AtLeastOneConstructor" /> <!-- Classes with implicit contructors are accepted -->
+	  <exclude name="LongVariable" /> <!-- Long variables makes easier to understand the purpose -->
+	  <exclude name="OnlyOneReturn" /> <!-- A method may have many exit points as long as the code is readable -->
+	  <exclude name="CallSuperInConstructor"/> <!-- Explicit calls to super constructors are accepted -->
+	  <exclude name="LocalVariableCouldBeFinal"/> <!-- The compiler already sets these variables to final if their value isn't changed -->
   </rule>
   
   <!-- Good practices to avoid imperative programming. The limits require tweaking. -->
   <rule ref="category/java/design.xml" >
 	  <exclude name="ModifiedCyclomaticComplexity"/> <!-- One rule to measure the cyclomatic complexity is enough. -->
 	  <exclude name="StdCyclomaticComplexity"/> <!-- One rule to measure the cyclomatic complexity is enough. -->
+	  <exclude name="LawOfDemeter" /> <!-- It leads to many wrapper methods -->
+	  <exclude name="DataClass" /> <!-- Due to the use of the model and facade layers, data classes are required with Hybris -->
+	  <exclude name="LoosePackageCoupling" /> <!-- We currently don'T need this rule -->
   </rule>
   
   <!-- Comments ruleset. The next one is the only useful rule. -->
@@ -41,7 +49,16 @@
   
   <rule ref="category/java/errorprone.xml" >
 	  <!-- Good practices with the clone method -->
+	  <exclude name="BeanMembersShouldSerialize" /> <!-- Most of the classes are never serialized and defining the serialID is only more work for the developer. -->
+	  <exclude name="MissingSerialVersionUID"/> <!-- Most of the classes are never serialized and defining the serialID is only more work for the developer. -->
+	  <exclude name="DataflowAnomalyAnalysis"/> <!-- It is reporting wrong anomalies when the variables are for loop variables -->	  	  
   </rule>  
+  
+  <rule ref="category/java/errorprone.xml/AvoidLiteralsInIfCondition">
+		<properties>
+			<property name="ignoreMagicNumbers" value="-1,0,1" /> <!-- One is an useful literal value -->
+		</properties>
+  </rule>
   
   <rule ref="category/java/multithreading.xml"> 
 	<!-- AvoidUsingVolatile: I don't really understand volatile and Java's memory model, and you? -->	
@@ -49,12 +66,14 @@
   </rule>
   
   <rule ref="category/java/performance.xml"> 	  
+	  <exclude name="ConsecutiveAppendsShouldReuse"/> <!-- The developer must choose if the chain calls are more readable -->	  
+	  <exclude name="ConsecutiveLiteralAppends"/> <!-- The developer must choose if the chain calls are more readable -->	  
+	  <exclude name="AvoidInstantiatingObjectsInLoops"/> <!-- Most of the cases are conversions from one object to the other one -->
+	  <exclude name="AppendCharacterWithChar"/> <!-- The cost of changing all the toString methods is higher than the performance gain -->
+	  <exclude name="RedundantFieldInitializer"/> <!-- Explicit initialization documents the expectations of the developer -->
   </rule>
   
   <rule ref="category/java/security.xml"> 	  
-  </rule>
-  
-  
-  <!-- JavaBean: Most of the classes are never serialized and defining the serialID is only more work for the developer. -->
+  </rule>  
    
 </ruleset>
