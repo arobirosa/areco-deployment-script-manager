@@ -15,7 +15,7 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 

@@ -4,6 +4,12 @@
     <facet type="Spring" name="Spring">
       <configuration process_explicitly_annotated="false">
         <fileset id="cockpitspring" name="cockpitspring" removed="false">
+          <dependency>workflowspring==workflow</dependency>
+          <dependency>processingspring==processing</dependency>
+          <dependency>commentsspring==comments</dependency>
+          <dependency>catalogspring==catalog</dependency>
+          <dependency>validationspring==validation</dependency>
+          <dependency>impexspring==impex</dependency>
           <dependency>platformspring==platform</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/resources/cockpit-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/project.properties</file>
@@ -49,7 +55,6 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/acceleratoraddon/web/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/backoffice/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/bower_components" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/commonweb/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-cockpit/cockpit/commonweb/testclasses" />

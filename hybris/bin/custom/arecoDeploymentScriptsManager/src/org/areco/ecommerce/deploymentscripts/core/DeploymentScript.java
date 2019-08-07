@@ -15,15 +15,15 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents each folder containing the deployment script.
@@ -64,7 +64,7 @@ public class DeploymentScript {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Running " + this.getLongName() + " - Start");
         }
-        final ScriptExecutionResultModel configurationContraintsCheckResult = this.getConfiguration().isAllowedInThisServer();
+        final ScriptExecutionResultModel configurationContraintsCheckResult = this.getConfiguration().reasonToIgnoreExecutionOnThisServer();
         if (configurationContraintsCheckResult != null) {
             return configurationContraintsCheckResult;
         }
@@ -126,7 +126,7 @@ public class DeploymentScript {
      */
     public List<DeploymentScriptStep> getOrderedSteps() {
         if (orderedSteps == null) {
-            this.orderedSteps = new ArrayList<DeploymentScriptStep>();
+            this.orderedSteps = new ArrayList<>();
         }
         return orderedSteps;
     }
@@ -191,7 +191,7 @@ public class DeploymentScript {
      */
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder(79);
         builder.append("DeploymentScript [name=");
         builder.append(name);
         builder.append(", extensionName=");

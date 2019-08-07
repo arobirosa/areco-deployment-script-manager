@@ -85,7 +85,7 @@ public class UpdatingSystemExtensionContext {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder(70);
         builder.append("UpdatingSystemExtensionContext [extensionName=");
         builder.append(extensionName);
         builder.append(", process=");

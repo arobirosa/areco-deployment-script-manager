@@ -34,7 +34,6 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/acceleratoraddon/web/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/backoffice/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/bower_components" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/commonweb/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/commonweb/testclasses" />
@@ -64,16 +63,6 @@
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/lib" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/ext-platform-backoffice/platformbackoffice/lib" recursive="true" />
       </library>
     </orderEntry>
     <orderEntry type="module-library">

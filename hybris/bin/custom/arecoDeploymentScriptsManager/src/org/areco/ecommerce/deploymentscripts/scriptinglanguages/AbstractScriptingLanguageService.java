@@ -1,5 +1,6 @@
 package org.areco.ecommerce.deploymentscripts.scriptinglanguages;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -10,6 +11,7 @@ import org.apache.log4j.Logger;
 public abstract class AbstractScriptingLanguageService implements ScriptingLanguageService {
 
   private static final Logger LOG = Logger.getLogger(AbstractScriptingLanguageService.class);
+  private static final String OK_RETURN_VALUE = "OK";
 
   /**
    * It executes and compiles the given script.
@@ -19,7 +21,7 @@ public abstract class AbstractScriptingLanguageService implements ScriptingLangu
    */
   @Override
   public void executeScript(final String code) throws ScriptingLanguageExecutionException {
-    if (code == null || code.trim().isEmpty()) {
+    if (StringUtils.isBlank(code)) {
       throw new IllegalArgumentException("The parameter code cannot be null");
     }
     if (LOG.isDebugEnabled()) {
@@ -29,10 +31,10 @@ public abstract class AbstractScriptingLanguageService implements ScriptingLangu
   }
 
   private void checkSuccessfulResult(final Object anObject) throws ScriptingLanguageExecutionException {
-    if (anObject instanceof String && "OK".equalsIgnoreCase((String) anObject)) {
+    if (anObject instanceof String && OK_RETURN_VALUE.equalsIgnoreCase((String) anObject)) {
       return;
     }
-    throw new ScriptingLanguageExecutionException("The code didn't return the string 'OK' but '"
+    throw new ScriptingLanguageExecutionException("The code didn't return the string '" + OK_RETURN_VALUE + "' but '"
                                                     + anObject + "'. Please check if there was an error.");
   }
 

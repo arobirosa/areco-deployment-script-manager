@@ -17,20 +17,21 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.bootstrap.annotations.UnitTest;
 import de.hybris.platform.servicelayer.tenant.MockTenant;
-
-import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
-
-import junit.framework.Assert;
-
 import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import static org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants.JUNIT_TENANT_ID;
+import static org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants.MASTER_TENANT_ID;
 
 /**
  * It checks that the script configuration reader is handling correctly the conversion of the tenants.
@@ -67,37 +68,37 @@ public class TenantConversionInScriptConfigurationTest {
     @Test
     public void testJunitTenantInSingleTenantEnvironment() throws URISyntaxException {
         Mockito.when(tenantDetector.areWeInATestSystemWithOneSingleTenant()).thenReturn(Boolean.TRUE);
-        Mockito.when(tenantDetector.getCurrentTenant()).thenReturn(new MockTenant("master"));
-        Mockito.when(tenantDetector.getTenantByID(Mockito.eq("junit"))).thenReturn(null);
-        assertTenantConversion("master", JUNIT_TENANT_SCRIPT_NAME);
+        Mockito.when(tenantDetector.getCurrentTenant()).thenReturn(new MockTenant(MASTER_TENANT_ID));
+        Mockito.when(tenantDetector.getTenantByID(Mockito.eq(JUNIT_TENANT_ID))).thenReturn(null);
+        assertTenantConversion(MASTER_TENANT_ID, JUNIT_TENANT_SCRIPT_NAME);
     }
 
     @Test
     public void testMasterTenantInSingleTenantEnvironment() throws URISyntaxException {
         Mockito.when(tenantDetector.areWeInATestSystemWithOneSingleTenant()).thenReturn(Boolean.TRUE);
-        Mockito.when(tenantDetector.getCurrentTenant()).thenReturn(new MockTenant("master"));
-        Mockito.when(tenantDetector.getTenantByID(Mockito.eq("master"))).thenReturn(new MockTenant("master"));
+        Mockito.when(tenantDetector.getCurrentTenant()).thenReturn(new MockTenant(MASTER_TENANT_ID));
+        Mockito.when(tenantDetector.getTenantByID(Mockito.eq(MASTER_TENANT_ID))).thenReturn(new MockTenant(MASTER_TENANT_ID));
         assertTenantConversion("unexistentMaster", MASTER_TENANT_SCRIPT_NAME);
     }
 
     @Test
     public void testJunitTenantInMultiTenantEnvironment() throws URISyntaxException {
         Mockito.when(tenantDetector.areWeInATestSystemWithOneSingleTenant()).thenReturn(Boolean.FALSE);
-        Mockito.when(tenantDetector.getCurrentTenant()).thenReturn(new MockTenant("junit"));
-        Mockito.when(tenantDetector.getTenantByID(Mockito.eq("junit"))).thenReturn(new MockTenant("junit"));
-        assertTenantConversion("junit", JUNIT_TENANT_SCRIPT_NAME);
+        Mockito.when(tenantDetector.getCurrentTenant()).thenReturn(new MockTenant(JUNIT_TENANT_ID));
+        Mockito.when(tenantDetector.getTenantByID(Mockito.eq(JUNIT_TENANT_ID))).thenReturn(new MockTenant(JUNIT_TENANT_ID));
+        assertTenantConversion(JUNIT_TENANT_ID, JUNIT_TENANT_SCRIPT_NAME);
     }
 
     @Test
     public void testMasterTenantInMultiTenantEnvironment() throws URISyntaxException {
         Mockito.when(tenantDetector.areWeInATestSystemWithOneSingleTenant()).thenReturn(Boolean.FALSE);
-        Mockito.when(tenantDetector.getCurrentTenant()).thenReturn(new MockTenant("master"));
-        Mockito.when(tenantDetector.getTenantByID(Mockito.eq("master"))).thenReturn(new MockTenant("master"));
-        assertTenantConversion("master", MASTER_TENANT_SCRIPT_NAME);
+        Mockito.when(tenantDetector.getCurrentTenant()).thenReturn(new MockTenant(MASTER_TENANT_ID));
+        Mockito.when(tenantDetector.getTenantByID(Mockito.eq(MASTER_TENANT_ID))).thenReturn(new MockTenant(MASTER_TENANT_ID));
+        assertTenantConversion(MASTER_TENANT_ID, MASTER_TENANT_SCRIPT_NAME);
     }
 
     private void assertTenantConversion(final String expectedTenantID, final String deploymentScriptNameD) throws URISyntaxException {
-        final URL scriptUrl = this.getClass().getClassLoader().getResource(DEPLOYMENT_SCRIPTS_FOLDER + deploymentScriptNameD);
+        final URL scriptUrl = Thread.currentThread().getContextClassLoader().getResource(DEPLOYMENT_SCRIPTS_FOLDER + deploymentScriptNameD);
         final PropertyFileDeploymentScriptConfiguration actualConfiguration = configurationReader.loadConfiguration(new File(scriptUrl.toURI()));
         Assert.assertEquals("The must be one tenant", 1, actualConfiguration.getAllowedTenants().size());
         Assert.assertEquals("The tenant has the wrong ID", expectedTenantID, actualConfiguration.getAllowedTenants().iterator().next().getTenantID());

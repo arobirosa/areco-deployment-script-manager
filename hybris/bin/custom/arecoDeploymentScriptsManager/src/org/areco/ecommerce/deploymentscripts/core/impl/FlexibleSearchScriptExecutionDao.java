@@ -27,9 +27,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Default implementation of the dao.
@@ -56,7 +56,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Getting the executed scripts of the extension " + extensionName);
         }
-        final StringBuilder queryBuilder = new StringBuilder();
+        final StringBuilder queryBuilder = new StringBuilder(84);
 
         queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
                 .append(" as es ").append("JOIN ").append(ScriptExecutionResultModel._TYPECODE).append(" as r ").append("ON {es.")
@@ -64,7 +64,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
                 .append(ScriptExecutionResultModel.CANBERUNNEDAGAIN).append("} = ?").append(ScriptExecutionResultModel.CANBERUNNEDAGAIN).append(" } ")
                 .append("WHERE ").append(" {es.").append(ScriptExecutionModel.EXTENSIONNAME).append("} = ?").append(ScriptExecutionModel.EXTENSIONNAME);
 
-        final Map<String, Object> queryParams = new HashMap<String, Object>();
+        final Map<String, Object> queryParams = new ConcurrentHashMap<>();
         queryParams.put(ScriptExecutionResultModel.CANBERUNNEDAGAIN, Boolean.FALSE);
         queryParams.put(ScriptExecutionModel.EXTENSIONNAME, extensionName);
 
@@ -88,13 +88,13 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Checking if the last deployment script was successful");
         }
-        final StringBuilder queryBuilder = new StringBuilder();
+        final StringBuilder queryBuilder = new StringBuilder(36);
 
         // The creation time is unreliable because on fast machines two items can have the same creation time.
         queryBuilder.append("SELECT {").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
                 .append("} ORDER BY {pk} DESC");
 
-        final Map<String, Object> queryParams = new HashMap<String, Object>();
+        final Map<String, Object> queryParams = new ConcurrentHashMap<>();
         if (LOG.isTraceEnabled()) {
             LOG.trace("Executing the query: '" + queryBuilder.toString() + "'.");
         }

@@ -22,6 +22,7 @@ import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
@@ -32,8 +33,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
+import java.nio.charset.Charset;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -84,13 +86,13 @@ public final class DeploymentScriptResultAsserter {
             LOG.debug("Getting the execution of the script " + deploymentScriptName);
         }
         logExecutedScriptsInTheDatabase();
-        final StringBuilder queryBuilder = new StringBuilder();
+        final StringBuilder queryBuilder = new StringBuilder(45);
 
         queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
                 .append(" as es ").append(" } ").append("WHERE ").append(" {es.").append(ScriptExecutionModel.SCRIPTNAME).append("} = ?")
                 .append(ScriptExecutionModel.SCRIPTNAME);
 
-        final Map<String, Object> queryParams = new HashMap<String, Object>();
+        final Map<String, Object> queryParams = new ConcurrentHashMap<>();
         queryParams.put(ScriptExecutionModel.SCRIPTNAME, deploymentScriptName);
 
         if (LOG.isTraceEnabled()) {
@@ -109,7 +111,7 @@ public final class DeploymentScriptResultAsserter {
     }
 
     private void logExecutedScriptsInTheDatabase() {
-      final StringBuilder queryBuilder = new StringBuilder();
+      final StringBuilder queryBuilder = new StringBuilder(29);
 
       queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
         .append(" as es ").append(" } ");
@@ -157,10 +159,14 @@ public final class DeploymentScriptResultAsserter {
          ServicesUtil.validateParameterNotNullStandardMessage("pathFileExpectedStacktracePattern", pathFileExpectedStacktracePattern);
          assertErrorResult(deploymentScriptName);
 
-         InputStream expectedPatternStream = DeploymentScriptResultAsserter.class.getResourceAsStream(pathFileExpectedStacktracePattern);
-         Assert.assertNotNull("The file " + pathFileExpectedStacktracePattern + " with the expected stacktrace wasn't found", expectedPatternStream);
+         final String loadedPattern;
+         try (InputStream expectedPatternStream = DeploymentScriptResultAsserter.class.getResourceAsStream(pathFileExpectedStacktracePattern)) {
+             Assert.assertNotNull("The file " + pathFileExpectedStacktracePattern + " with the expected stacktrace wasn't found", expectedPatternStream);
 
-         final String loadedPattern = IOUtils.toString(expectedPatternStream).replaceAll(System.getProperty("line.separator"), "");
+             loadedPattern = IOUtils.toString(expectedPatternStream, Charset.forName(DeploymentScript.DEFAULT_FILE_ENCODING)).
+                     replaceAll(System.getProperty("line.separator"), "");
+         }
+
          final Pattern compiledStacktracePattern = Pattern.compile(loadedPattern, Pattern.DOTALL);
          ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
 

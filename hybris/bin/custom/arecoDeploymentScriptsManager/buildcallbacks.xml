@@ -27,30 +27,6 @@
             </sequential>
     </macrodef>
 	
-	<!-- Redeclaration of the updatesystem macro to include the callbacks. The ant target
-	       cannot be overriden.
-	       Ant will generate a warning but we can ignore it. -->
-	<macrodef name="updatesystem">
-        <sequential>
-        	<foreachext>
-                <do>
-                    <callback extname="@{extname}" target="before_updatesystem" />
-                </do>
-            </foreachext>
-            <input message="Enter valid tenant id" addproperty="tenant" />
-            <yrun>
-                de.hybris.ant.taskdefs.AntPerformable p = new de.hybris.ant.taskdefs.UpdatePlatformAntPerformableImpl("${tenant}");
-                p.doPerform();
-                de.hybris.platform.util.RedeployUtilities.shutdown();
-            </yrun>
-        	<foreachext>
-                <do>
-                    <callback extname="@{extname}" target="after_updatesystem" />
-                </do>
-            </foreachext>
-        </sequential>
-    </macrodef>
-	
 	<!-- Logging during the update running system -->
     <macrodef name="arecoDeploymentScriptsManager_before_updatesystem">
         <sequential>

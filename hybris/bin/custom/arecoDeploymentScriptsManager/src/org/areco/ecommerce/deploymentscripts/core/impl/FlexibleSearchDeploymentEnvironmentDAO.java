@@ -68,12 +68,12 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
         if (environmentNames.isEmpty()) {
             throw new IllegalArgumentException("The parameter environmentNames cannot be empty.");
         }
-        Set<String> normalizedEnvironmentNames = new HashSet<String>();
+        Set<String> normalizedEnvironmentNames = new HashSet<>();
         for (String givenEnvironmentName : environmentNames) {
             normalizedEnvironmentNames.add(givenEnvironmentName.trim().toUpperCase(Locale.getDefault()));
         }
 
-        final StringBuilder queryBuilder = new StringBuilder();
+        final StringBuilder queryBuilder = new StringBuilder(76);
         queryBuilder.append("SELECT {r.").append(DeploymentEnvironmentModel.PK).append("}")
                 .append(" FROM {").append(DeploymentEnvironmentModel._TYPECODE)
                 .append(" as r ").append("} ")
@@ -98,7 +98,7 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
         if (StringUtils.isBlank(currentEnvironmentName)) {
             throw new IllegalStateException(UNCONFIGURATED_CURRENT_ENVIRONMENT_ERROR_MESSAGE);
         }
-        final Set<String> names = new HashSet<String>();
+        final Set<String> names = new HashSet<>();
         names.add(currentEnvironmentName);
         // We return the first environment
         return this.loadEnvironments(names).iterator().next();
