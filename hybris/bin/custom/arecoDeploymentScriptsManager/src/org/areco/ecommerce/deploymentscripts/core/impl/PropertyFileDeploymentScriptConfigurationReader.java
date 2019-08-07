@@ -86,7 +86,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
     private PropertyFileDeploymentScriptConfiguration createConfigurationFrom(final File configurationFile) {
         final Properties properties = new Properties();
 
-        try (InputStream configurationFileStream = Files.newInputStream(Paths.get(configurationFile.toURI()))){
+        try (InputStream configurationFileStream = Files.newInputStream(Paths.get(configurationFile.toURI()))) {
             properties.load(configurationFileStream);
         } catch (final IOException e) {
             throw new DeploymentScriptConfigurationException(e);

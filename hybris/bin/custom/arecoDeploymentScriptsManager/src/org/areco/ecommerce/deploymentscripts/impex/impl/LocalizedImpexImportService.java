@@ -58,7 +58,7 @@ public class LocalizedImpexImportService implements ImpexImportService {
     @Override
     public void importImpexFile(final File impexFile) throws ImpExException {
         ServicesUtil.validateParameterNotNullStandardMessage("impexFile", impexFile);
-        try ( InputStream inputStream = Files.newInputStream(Paths.get(impexFile.toURI())) ) {
+        try (InputStream inputStream = Files.newInputStream(Paths.get(impexFile.toURI()))) {
             importImpexFile(inputStream);
         } catch (final FileNotFoundException | NoSuchFileException e) {
             throw new ImpExException(e, "Unable to find the file " + impexFile, 0);

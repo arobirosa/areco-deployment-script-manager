@@ -60,7 +60,7 @@ public class ImportMediaTest extends AbstractWithConfigurationRestorationTest {
                 MediaModel foundMedia = mediaService.getMedia(catalogVersionService.getCatalogVersion("Default", "Online"), "test_user_export");
                 Assert.assertNotNull("The imported media wasn't found", foundMedia);
 
-                try (InputStream dataStream = mediaService.getStreamFromMedia(foundMedia) ){
+                try (InputStream dataStream = mediaService.getStreamFromMedia(foundMedia)) {
                         String actualData = IOUtils.toString(dataStream, DeploymentScript.DEFAULT_FILE_ENCODING);
                         Assert.assertEquals("The saved data of the media is wrong", EXPECTED_DATA, actualData);
                 }

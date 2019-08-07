@@ -34,7 +34,7 @@ public abstract class AbstractScriptingLanguageService implements ScriptingLangu
     if (anObject instanceof String && OK_RETURN_VALUE.equalsIgnoreCase((String) anObject)) {
       return;
     }
-    throw new ScriptingLanguageExecutionException("The code didn't return the string '" + OK_RETURN_VALUE +"' but '"
+    throw new ScriptingLanguageExecutionException("The code didn't return the string '" + OK_RETURN_VALUE + "' but '"
                                                     + anObject + "'. Please check if there was an error.");
   }
 

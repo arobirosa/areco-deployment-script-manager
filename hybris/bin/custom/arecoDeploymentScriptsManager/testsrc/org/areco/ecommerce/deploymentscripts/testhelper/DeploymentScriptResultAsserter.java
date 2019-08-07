@@ -160,10 +160,11 @@ public final class DeploymentScriptResultAsserter {
          assertErrorResult(deploymentScriptName);
 
          final String loadedPattern;
-         try (InputStream expectedPatternStream = DeploymentScriptResultAsserter.class.getResourceAsStream(pathFileExpectedStacktracePattern) ) {
+         try (InputStream expectedPatternStream = DeploymentScriptResultAsserter.class.getResourceAsStream(pathFileExpectedStacktracePattern)) {
              Assert.assertNotNull("The file " + pathFileExpectedStacktracePattern + " with the expected stacktrace wasn't found", expectedPatternStream);
 
-             loadedPattern = IOUtils.toString(expectedPatternStream, Charset.forName(DeploymentScript.DEFAULT_FILE_ENCODING)).replaceAll(System.getProperty("line.separator"), "");
+             loadedPattern = IOUtils.toString(expectedPatternStream, Charset.forName(DeploymentScript.DEFAULT_FILE_ENCODING)).
+                     replaceAll(System.getProperty("line.separator"), "");
          }
 
          final Pattern compiledStacktracePattern = Pattern.compile(loadedPattern, Pattern.DOTALL);
