@@ -12,15 +12,14 @@
  */
 package org.areco.ecommerce.deploymentscripts.scriptinglanguages.groovy;
 
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
+import de.hybris.platform.scripting.engine.ScriptExecutable;
+import de.hybris.platform.scripting.engine.ScriptingLanguagesService;
+import de.hybris.platform.scripting.engine.content.impl.SimpleScriptContent;
 import org.areco.ecommerce.deploymentscripts.scriptinglanguages.AbstractScriptingLanguageService;
 import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageExecutionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * It runs Groovy code and check that it was successful.
@@ -32,20 +31,19 @@ import java.util.concurrent.ConcurrentHashMap;
 @Scope("tenant")
 public class DefaultGroovyService extends AbstractScriptingLanguageService {
 
+  @Autowired
+  private ScriptingLanguagesService scriptingLanguagesService;
+
   // The groovy interpreter doesn't encapsulate the exceptions in a GrovyRuntimeException.
   // Any exception except ScriptingLanguageExecutionException may stop abruptly the update running system process.
   @SuppressWarnings("PMD.AvoidCatchingGenericException")
   @Override
   protected Object compileAndExecute(final String code) throws ScriptingLanguageExecutionException {
-    // We don't bind any bean.
-    final Map<String, Object> emptyContext = new ConcurrentHashMap<>();
-
-    final Binding binding = new Binding(emptyContext);
-    final GroovyShell groovyShell = new GroovyShell(binding);
+    final SimpleScriptContent scriptContent = new SimpleScriptContent("groovy", code);
+    final ScriptExecutable executable = scriptingLanguagesService.getExecutableByContent(scriptContent);
 
     try {
-      return groovyShell.evaluate(code);
-
+      return executable.execute().getScriptResult();
     } catch (final Exception e) {
       throw new ScriptingLanguageExecutionException("There was an error executing the code: " + e.getLocalizedMessage(), e);
     }
