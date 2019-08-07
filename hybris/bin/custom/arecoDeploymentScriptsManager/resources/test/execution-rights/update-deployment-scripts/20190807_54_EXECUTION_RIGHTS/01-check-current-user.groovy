@@ -6,5 +6,5 @@ def userService = Registry.getApplicationContext().getBean(UserService.class)
 if (userService.getAdminUser().equals(userService.getCurrentUser())) {
     return "OK"
 } else {
-    return "The current user is " + userService.getCurrentUser().getUid()
+    throw new IllegalStateException("The current user is " + userService.getCurrentUser().getUid())
 }
