@@ -45,7 +45,7 @@ rm -rf hybris/data/* && ant clean all initialize yunitinit qa
 # If some tests were unsuccessful, solve the isssues and repeat the tests
 
 git flow release finish 1.5
-git push
+git push --all
 
 git archive --output=deploymentScriptsManager_1.5_20170519.zip production hybris/bin/custom
 
