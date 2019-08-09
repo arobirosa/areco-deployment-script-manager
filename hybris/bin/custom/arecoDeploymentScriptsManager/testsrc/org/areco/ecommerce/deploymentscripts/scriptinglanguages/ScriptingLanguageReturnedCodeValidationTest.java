@@ -7,7 +7,7 @@ import org.junit.Test;
 
 /**
  * It checks if the beanshell service handles the returned codes from the script correctly.
- *
+ * <p>
  * Created by arobirosa on 27.01.15.
  */
 @IntegrationTest
@@ -21,7 +21,8 @@ public class ScriptingLanguageReturnedCodeValidationTest extends AbstractWithCon
                 this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "scripts-returning-ok");
                 final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
                 Assert.assertFalse("There were errors", wereThereErrors);
-                getDeploymentScriptResultAsserter().assertResult("20190807_54_GROOVY_RETURN_OK", this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+                getDeploymentScriptResultAsserter()
+                        .assertResult("20190807_54_GROOVY_RETURN_OK", this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
         }
 
         @Test
