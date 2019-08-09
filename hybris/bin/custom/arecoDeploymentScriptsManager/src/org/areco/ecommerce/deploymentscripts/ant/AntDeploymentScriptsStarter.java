@@ -15,6 +15,7 @@
  */
 package org.areco.ecommerce.deploymentscripts.ant;
 
+import de.hybris.platform.servicelayer.user.UserService;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,9 @@ public class AntDeploymentScriptsStarter {
     @Autowired
     private DeploymentScriptStarter deploymentScriptStarter;
 
+    @Autowired
+    private UserService userService;
+
     /**
      * Run any deployment script which wasn't run yet. The method is called by the ant script.
      * 
@@ -47,6 +51,7 @@ public class AntDeploymentScriptsStarter {
         if (LOG.isInfoEnabled()) {
             LOG.info("Running any pending UPDATE deployment scripts.");
         }
+        userService.setCurrentUser(userService.getAdminUser());
 
         final boolean wasThereAnError = this.deploymentScriptStarter.runAllPendingScripts();
         if (wasThereAnError) {

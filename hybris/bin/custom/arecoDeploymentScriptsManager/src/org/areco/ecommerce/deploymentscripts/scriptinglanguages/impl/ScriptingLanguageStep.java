@@ -13,15 +13,14 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.areco.ecommerce.deploymentscripts.scriptinglanguages.groovy;
+package org.areco.ecommerce.deploymentscripts.scriptinglanguages.impl;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStep;
 import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageExecutionException;
-import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageService;
+import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageExecutionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -34,13 +33,12 @@ import org.springframework.stereotype.Component;
 @Component
 // Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
-public class GroovyScriptStep extends AbstractSingleFileScriptStep {
+public class ScriptingLanguageStep extends AbstractSingleFileScriptStep {
 
-    private static final Logger LOG = Logger.getLogger(GroovyScriptStep.class);
+    private static final Logger LOG = Logger.getLogger(ScriptingLanguageStep.class);
 
     @Autowired
-    @Qualifier("defaultGroovyService")
-    private ScriptingLanguageService groovyService;
+    private ScriptingLanguageExecutionService scriptingLanguageExecutionService;
 
     /*
      * Runs the script represented by this step.
@@ -50,12 +48,12 @@ public class GroovyScriptStep extends AbstractSingleFileScriptStep {
     @Override
     public void run() throws DeploymentScriptExecutionException {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Running the groovy script " + this.getId());
+            LOG.debug("Running the script " + this.getId());
         }
         try {
-            this.groovyService.executeScript(this.loadFileContent());
+            this.scriptingLanguageExecutionService.executeScript(this.getScriptFile());
         } catch (final ScriptingLanguageExecutionException e) {
-            throw new DeploymentScriptExecutionException("There was an error running the groovy step " + this.getId() + ": " + e.getLocalizedMessage(), e);
+            throw new DeploymentScriptExecutionException("There was an error running the script step " + this.getId() + ": " + e.getLocalizedMessage(), e);
         }
     }
 
