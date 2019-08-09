@@ -34,7 +34,7 @@ public class DelegatingScriptingLanguageExecutionService implements ScriptingLan
    * @throws ScriptingLanguageExecutionException
    */
   @Override
-  public void executeScript(File scriptFile) throws ScriptingLanguageExecutionException {
+  public void executeScript(final File scriptFile) throws ScriptingLanguageExecutionException {
     Objects.requireNonNull(scriptFile);
     if (LOG.isDebugEnabled()) {
       LOG.debug("Running the script file '" + scriptFile.toPath().toString());
@@ -43,7 +43,8 @@ public class DelegatingScriptingLanguageExecutionService implements ScriptingLan
     checkSuccessfulResult(runScript(scriptFile));
   }
 
-  private Object runScript(File scriptFile) throws ScriptingLanguageExecutionException {
+  @SuppressWarnings("PMD.AvoidCatchingGenericException") // To avoid interruptions during the update running system, we catch all exceptions
+  private Object runScript(final File scriptFile) throws ScriptingLanguageExecutionException {
     final ScriptExecutable executable = scriptingLanguagesService.getExecutableByURI(scriptFile.toPath().toAbsolutePath().toUri().toString());
     try {
       return executable.execute().getScriptResult();
