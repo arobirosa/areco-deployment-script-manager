@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.areco.ecommerce.deploymentscripts.groovy;
+package org.areco.ecommerce.deploymentscripts.scriptinglanguages;
 
 import org.junit.Assert;
 

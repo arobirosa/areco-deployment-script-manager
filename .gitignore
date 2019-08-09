@@ -56,3 +56,4 @@ velocity.log
 qa/cobertura.zip
 
 **.bak
+*-testclasses.xml

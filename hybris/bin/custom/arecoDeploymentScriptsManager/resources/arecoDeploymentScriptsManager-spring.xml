@@ -42,15 +42,15 @@
     </bean>
     
     <bean id="beanShellScriptStepFactory"
-        class="org.areco.ecommerce.deploymentscripts.scriptinglanguages.beanshell.BeanShellScriptStepFactory"
+        class="org.areco.ecommerce.deploymentscripts.scriptinglanguages.impl.BeanShellScriptStepFactory"
         scope="tenant">
-        <lookup-method name="createStep" bean="beanShellScriptStep"/>
+        <lookup-method name="createStep" bean="scriptingLanguageStep"/>
     </bean>
 
     <bean id="groovyScriptStepFactory"
-          class="org.areco.ecommerce.deploymentscripts.scriptinglanguages.groovy.GroovyScriptStepFactory"
+          class="org.areco.ecommerce.deploymentscripts.scriptinglanguages.impl.GroovyScriptStepFactory"
           scope="tenant">
-        <lookup-method name="createStep" bean="groovyScriptStep"/>
+        <lookup-method name="createStep" bean="scriptingLanguageStep"/>
     </bean>
     
     <bean id="propertyFileDeploymentScriptConfigurationReader"

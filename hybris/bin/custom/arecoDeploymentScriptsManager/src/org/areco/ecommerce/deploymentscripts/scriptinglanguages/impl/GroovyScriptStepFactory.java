@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.areco.ecommerce.deploymentscripts.scriptinglanguages.groovy;
+package org.areco.ecommerce.deploymentscripts.scriptinglanguages.impl;
 
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStepFactory;
 
