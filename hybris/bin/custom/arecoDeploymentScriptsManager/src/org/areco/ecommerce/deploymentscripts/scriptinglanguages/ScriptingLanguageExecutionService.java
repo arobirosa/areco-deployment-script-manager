@@ -13,23 +13,23 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-package org.areco.ecommerce.deploymentscripts.scriptinglanguages.beanshell;
+package org.areco.ecommerce.deploymentscripts.scriptinglanguages;
 
 import java.io.File;
-import java.util.Locale;
-
-import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStepFactory;
 
 /**
- * It creates steps which run Beanshell scripts.
+ * Executes the script files.
  * 
  * @author arobirosa
  * 
  */
-// The configuration of this bean is in the spring application context.
-public abstract class BeanShellScriptStepFactory extends AbstractSingleFileScriptStepFactory {
-    @Override
-    protected boolean canCreateStepWith(final File aFile) {
-        return aFile.getName().toLowerCase(Locale.getDefault()).endsWith(".beanshell");
-    }
+public interface ScriptingLanguageExecutionService {
+
+    /** Runs the given script file. The extension indicates what language it is
+     *
+     * @param scriptFile Required
+     * @return
+     */
+
+    void executeScript(File scriptFile) throws ScriptingLanguageExecutionException;
 }

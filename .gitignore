@@ -7,6 +7,7 @@ platformhome.properties
 extensioninfo.xsd
 hmc.xsd
 items.xsd
+beans.xsd
 hybris/bin/custom/**/hmc/bin/
 hybris/bin/custom/**/resources/backoffice/*_bof.jar
 
@@ -55,3 +56,4 @@ velocity.log
 qa/cobertura.zip
 
 **.bak
+*-testclasses.xml

@@ -16,6 +16,7 @@
 package org.areco.ecommerce.deploymentscripts.sql.impl;
 
 import de.hybris.platform.core.Registry;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.sql.SqlScriptService;
 import org.springframework.context.annotation.Scope;
@@ -48,7 +49,7 @@ public class JaloSqlScriptService implements SqlScriptService {
         @SuppressWarnings("PMD.UnnecessaryLocalBeforeReturn")
         @Override
         public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException {
-                if (aStatement == null || aStatement.trim().isEmpty()) {
+                if (StringUtils.isBlank(aStatement)) {
                         throw new IllegalArgumentException("The parameter aStatement is empty.");
                 }
                 if (aStatement.trim().toUpperCase(Locale.getDefault()).startsWith("SELECT")) {
@@ -68,24 +69,11 @@ public class JaloSqlScriptService implements SqlScriptService {
         @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING",
                 justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
         // CHECKSTYLE.ON
-        private int runStatementOnDatabase(String translatedStatement) throws SQLException {
-                Connection aConnection = null;
-                PreparedStatement prepareStatement = null;
-                try {
-                        aConnection = getConnection();
-                        prepareStatement = aConnection.prepareStatement(translatedStatement);
+        private int runStatementOnDatabase(final String translatedStatement) throws SQLException {
+
+                try ( Connection aConnection = getConnection(); PreparedStatement prepareStatement = aConnection.prepareStatement(translatedStatement))
+                {
                         return prepareStatement.executeUpdate();
-                } finally {
-                        if (prepareStatement != null) {
-                                prepareStatement.close();
-                        }
-                        if (aConnection != null) {
-                                try {
-                                        aConnection.close();
-                                } catch (final SQLException e) {
-                                        LOG.error("There was an error while closing the connection", e);
-                                }
-                        }
                 }
         }
 

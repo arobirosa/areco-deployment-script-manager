@@ -18,12 +18,12 @@ package org.areco.ecommerce.deploymentscripts.impex.impl;
 import de.hybris.platform.catalog.CatalogVersionService;
 import de.hybris.platform.core.model.media.MediaModel;
 import de.hybris.platform.servicelayer.media.MediaService;
-import junit.framework.Assert;
 import org.apache.commons.io.IOUtils;
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
+import org.junit.Assert;
 import org.junit.Test;
 
 import javax.annotation.Resource;
@@ -59,15 +59,10 @@ public class ImportMediaTest extends AbstractWithConfigurationRestorationTest {
                 deploymentScriptResultAsserter.assertSuccessfulResult("20150315_IMPORT_HEADER_LIBRARY");
                 MediaModel foundMedia = mediaService.getMedia(catalogVersionService.getCatalogVersion("Default", "Online"), "test_user_export");
                 Assert.assertNotNull("The imported media wasn't found", foundMedia);
-                InputStream dataStream = null;
-                try {
-                        dataStream = mediaService.getStreamFromMedia(foundMedia);
+
+                try (InputStream dataStream = mediaService.getStreamFromMedia(foundMedia)) {
                         String actualData = IOUtils.toString(dataStream, DeploymentScript.DEFAULT_FILE_ENCODING);
                         Assert.assertEquals("The saved data of the media is wrong", EXPECTED_DATA, actualData);
-                } finally {
-                        if (dataStream != null) {
-                                dataStream.close();
-                        }
                 }
         }
 }

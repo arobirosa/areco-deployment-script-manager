@@ -31,7 +31,6 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/acceleratoraddon/web/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/backoffice/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/bower_components" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/commonweb/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/commonweb/testclasses" />

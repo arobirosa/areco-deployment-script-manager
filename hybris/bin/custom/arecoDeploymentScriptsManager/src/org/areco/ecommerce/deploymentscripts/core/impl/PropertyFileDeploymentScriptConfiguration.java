@@ -17,9 +17,6 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.Tenant;
-
-import java.util.Set;
-
 import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfiguration;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
@@ -27,6 +24,8 @@ import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 /**
  * It defines special properties of the deployment scripts like where they are allowed to run.
@@ -57,7 +56,7 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
      * @return null if it is allowed to run. Otherwise it returns the execution result.
      */
     @Override
-    public ScriptExecutionResultModel isAllowedInThisServer() {
+    public ScriptExecutionResultModel reasonToIgnoreExecutionOnThisServer() {
         if (!this.isAllowedInThisTenant()) {
             return this.scriptExecutionResultDAO.getIgnoredOtherTenantResult();
         }

@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 package org.areco.ecommerce.deploymentscripts.core;
-
-import junit.framework.Assert;
-
-import org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchDeploymentEnvironmentDAO;
-import org.junit.Test;
-
 import de.hybris.bootstrap.annotations.IntegrationTest;
+import org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchDeploymentEnvironmentDAO;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * It checks that the script configuration including the contraints are working correctly.
@@ -28,25 +25,27 @@ import de.hybris.bootstrap.annotations.IntegrationTest;
  * @author arobirosa
  */
 @IntegrationTest
-@SuppressWarnings("PMD.TooManyMethods") //It a test with many cases
+@SuppressWarnings({"PMD.TooManyMethods", "PMD.JUnitTestsShouldIncludeAssert"}) //It a test with many cases. The assert statements are inside a private method.
 public class ScriptConfigurationTest extends AbstractWithConfigurationRestorationTest {
     private static final String RESOURCES_FOLDER = "/resources/test/script-configuration-test";
 
     @Test
     public void testCurrentEnvironment() {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "dev-only");
-        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-        final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
-        Assert.assertFalse("There were errors", wereThereErrors);
+        this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
+        runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_DEV_CRONJOBS", this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+    }
+
+    private void runAndAssertNoErrors() {
+        Assert.assertFalse("There were errors", this.getDeploymentScriptStarter().runAllPendingScripts());
     }
 
     @Test
     public void currentTenant() {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "junit-only");
-        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-        final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
-        Assert.assertFalse("There were errors", wereThereErrors);
+        this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
+        runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_TEST_CRONJOBS",
                 this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
     }
@@ -54,18 +53,17 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
     @Test
     public void otherEnvironment() {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "prod-only");
-        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-        final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
-        Assert.assertFalse("There were errors", wereThereErrors);
+        this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
+        runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_PROD_CRONJOBS",
                 this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherEnvironmentResult());
     }
 
+    @Test
     public void otherEnvironmentAndTenant() {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "prod-env-and-tenant-master-only");
-        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-        final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
-        Assert.assertFalse("There were errors", wereThereErrors);
+        this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
+        runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_PROD_CRONJOBS",
                 this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherTenantResult());
     }
@@ -73,9 +71,8 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
     @Test
     public void otherTenant() {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "master-tenant-only");
-        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
-        final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
-        Assert.assertFalse("There were errors", wereThereErrors);
+        this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
+        runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_TEST_CRONJOBS",
                 this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherTenantResult());
     }
@@ -83,7 +80,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
     @Test(expected = DeploymentScriptConfigurationException.class)
     public void twoConfigurations() {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "two-configurations");
-        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
+        this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         this.getDeploymentScriptStarter().runAllPendingScripts();
         Assert.fail("An exception must have been thrown");
     }
@@ -91,7 +88,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
     @Test(expected = IllegalStateException.class)
     public void unknownEnvironment() {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "unknown-environment");
-        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
+        this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         this.getDeploymentScriptStarter().runAllPendingScripts();
         Assert.fail("An exception must have been thrown");
     }
@@ -99,7 +96,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
     @Test(expected = DeploymentScriptConfigurationException.class)
     public void unknownTenant() {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "unknown-tenant");
-        this.getDeploymentConfigurationSetter().setEnvironment("DEV");
+        this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         this.getDeploymentScriptStarter().runAllPendingScripts();
         Assert.fail("An exception must have been thrown");
     }
@@ -109,8 +106,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment");
         // We simulate that we are in the just created environment
         this.getDeploymentConfigurationSetter().setEnvironment("QA_WEBSERVICE");
-        final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
-        Assert.assertFalse("There were errors", wereThereErrors);
+        runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_02_TICKET_ADD_QA_CRONJOBS",
                 this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
     }

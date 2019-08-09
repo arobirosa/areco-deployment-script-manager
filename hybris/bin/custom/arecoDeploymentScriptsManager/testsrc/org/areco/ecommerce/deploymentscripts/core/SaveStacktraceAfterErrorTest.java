@@ -16,7 +16,7 @@
 package org.areco.ecommerce.deploymentscripts.core;
 
 import de.hybris.bootstrap.annotations.IntegrationTest;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;

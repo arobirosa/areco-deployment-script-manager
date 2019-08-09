@@ -5,19 +5,36 @@
     xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
   <description>Custom Rule set for Hybris proyects</description>
   
-  <rule ref="rulesets/java/basic.xml" /> <!-- All these rules are common sense -->
-  <rule ref="rulesets/java/braces.xml" /> <!-- It is consistent with the code conventions and improves readibility -->
-  <rule ref="rulesets/java/clone.xml" /> <!-- Good practices with the clone method -->
+  <rule ref="category/java/bestpractices.xml"> <!-- These rules are common sense -->
+	  <exclude name="GuardLogStatement"/> <!-- Guarding is only reuired when the calculation of string takes resources -->	   
+	  <exclude name="ConstantsInInterface" /> <!-- I prefer to use an interface than an abstract class for constants -->
+	  <!-- PreserveStackTrace: The stacktrace must be logged -->
+  </rule>
+  
+    
+  <rule ref="category/java/codestyle.xml" > <!-- It is consistent with the code conventions and improves readibility -->
+	  <exclude name="AvoidFinalLocalVariable"/> <!-- There isn't any wrong in final local variables -->
+	  <exclude name="AtLeastOneConstructor" /> <!-- Classes with implicit contructors are accepted -->
+	  <exclude name="LongVariable" /> <!-- Long variables makes easier to understand the purpose -->
+	  <exclude name="OnlyOneReturn" /> <!-- A method may have many exit points as long as the code is readable -->
+	  <exclude name="CallSuperInConstructor"/> <!-- Explicit calls to super constructors are accepted -->
+	  <exclude name="LocalVariableCouldBeFinal"/> <!-- The compiler already sets these variables to final if their value isn't changed -->
+  </rule>
+  
   <!-- Good practices to avoid imperative programming. The limits require tweaking. -->
-  <rule ref="rulesets/java/codesize.xml"> 
-	<exclude name="StdCyclomaticComplexity"/> <!-- One rule to measure the cyclomatic complexity is enough. -->
-	<exclude name="ModifiedCyclomaticComplexity"/> <!-- One rule to measure the cyclomatic complexity is enough. -->
+  <rule ref="category/java/design.xml" >
+	  <exclude name="ModifiedCyclomaticComplexity"/> <!-- One rule to measure the cyclomatic complexity is enough. -->
+	  <exclude name="StdCyclomaticComplexity"/> <!-- One rule to measure the cyclomatic complexity is enough. -->
+	  <exclude name="LawOfDemeter" /> <!-- It leads to many wrapper methods -->
+	  <exclude name="DataClass" /> <!-- Due to the use of the model and facade layers, data classes are required with Hybris -->
+	  <exclude name="LoosePackageCoupling" /> <!-- We currently don'T need this rule -->
   </rule>
   
   <!-- Comments ruleset. The next one is the only useful rule. -->
-  <rule ref="rulesets/java/comments.xml/CommentRequired" >
-	<!-- Only the interface should have comments -->
-    <properties>
+  <rule ref="category/java/documentation.xml/CommentRequired" >
+	<!-- UncommentedEmptyMethodBody: Always document empty blocks -->
+	<!-- Only the interface of a classshould have comments -->
+	<properties>
 		<property name="enumCommentRequirement" value="Ignored" />
 		<property name="protectedMethodCommentRequirement" value="Ignored" />
 		<property name="publicMethodCommentRequirement" value="Required" />
@@ -29,65 +46,34 @@
 		<property name="violationSuppressXPath" value="//ClassOrInterfaceBodyDeclaration/MethodDeclaration[@Public='true' and ../Annotation/MarkerAnnotation/Name[@Image= 'Override' or @Image= 'Test' or @Image= 'After' or @Image= 'Before']] | //ClassOrInterfaceBodyDeclaration/ConstructorDeclaration" />
 	</properties>
   </rule>
-
-  <!-- Controversial: Most of the rules applied to unusual cases. -->
-  <rule ref="rulesets/java/controversial.xml/AvoidUsingVolatile" >
-	<!-- I don't really understand volatile, and you? -->
+  
+  <rule ref="category/java/errorprone.xml" >
+	  <!-- Good practices with the clone method -->
+	  <exclude name="BeanMembersShouldSerialize" /> <!-- Most of the classes are never serialized and defining the serialID is only more work for the developer. -->
+	  <exclude name="MissingSerialVersionUID"/> <!-- Most of the classes are never serialized and defining the serialID is only more work for the developer. -->
+	  <exclude name="DataflowAnomalyAnalysis"/> <!-- It is reporting wrong anomalies when the variables are for loop variables -->	  	  
+  </rule>  
+  
+  <rule ref="category/java/errorprone.xml/AvoidLiteralsInIfCondition">
+		<properties>
+			<property name="ignoreMagicNumbers" value="-1,0,1" /> <!-- One is an useful literal value -->
+		</properties>
   </rule>
   
-  <!-- Coupling: Most of the rules yield to many false positives -->
-   <rule ref="rulesets/java/coupling.xml/LooseCoupling" >
-	<!-- It is always better to use the interface. -->
-  </rule>
-  
-   <!-- Design: These rules make sense -->
-  <rule ref="rulesets/java/design.xml" >
+  <rule ref="category/java/multithreading.xml"> 
+	<!-- AvoidUsingVolatile: I don't really understand volatile and Java's memory model, and you? -->	
 	<exclude name="AvoidSynchronizedAtMethodLevel"/> <!-- The synchronized at method level is easier to understand -->
-	<!-- UncommentedEmptyMethod: Always document empty blocks -->
-	<!-- PreserveStackTrace: The stacktrace must be logged -->
   </rule>
   
-   <!-- Empty: These rules make sense -->
-  <rule ref="rulesets/java/empty.xml" />
-  
-  <!-- Finalizer: It is rarely used. But these rules prevent developers from using it badly. -->
-  <rule ref="rulesets/java/finalizers.xml" />
-  
-   <!-- Imports: All these rules make sense. -->
-  <rule ref="rulesets/java/imports.xml" />
-  
-  <!-- J2EE: We don't use it in this project. -->
-  <!-- JavaBean: Most of the classes are never serialized and defining the serialID is only more work for the developer. -->
-
-  <!-- Junit: They make tests more readibable and documented. -->
-  <rule ref="rulesets/java/junit.xml" />
-  
-  <!-- logging-jakarta-commons: Not used on this project -->
-  
-  <!-- Logging Java: These rules make sense. Most of the errors are uncommon. -->
-  <rule ref="rulesets/java/logging-java.xml" >
-	<exclude name="GuardLogStatementJavaUtil"/> <!-- There isn't any solid evidence that this improves the performance. And there were some issues with this rule in the past. -->
+  <rule ref="category/java/performance.xml"> 	  
+	  <exclude name="ConsecutiveAppendsShouldReuse"/> <!-- The developer must choose if the chain calls are more readable -->	  
+	  <exclude name="ConsecutiveLiteralAppends"/> <!-- The developer must choose if the chain calls are more readable -->	  
+	  <exclude name="AvoidInstantiatingObjectsInLoops"/> <!-- Most of the cases are conversions from one object to the other one -->
+	  <exclude name="AppendCharacterWithChar"/> <!-- The cost of changing all the toString methods is higher than the performance gain -->
+	  <exclude name="RedundantFieldInitializer"/> <!-- Explicit initialization documents the expectations of the developer -->
   </rule>
   
-   <!-- migration: Old Java versions aren't used on this project -->
-  <!-- Naming: TODO A code convention must be defined.-->
-  <!-- Optimizations: Most of these rules could improve perfoermance, but the effort of changing the code is high
-       and sometimes controvertial.-->
-       
-   <!-- Strict Exceptios: These rules avoid bad practises and are very useful. -->
-  <rule ref="rulesets/java/strictexception.xml" />
-  
-    <!-- strings: Most of this rule are optimizations and it always easier to read string as stringbuffers which has a low performance. -->
-
-  <!-- sunsecure: These rules about arrays prevent difficult to find bugs. -->
-  <rule ref="rulesets/java/sunsecure.xml" />
-  
-  
-  <!-- typeresolution: These rules make sense. Some of them are already contained in other packages. -->
-   <rule ref="rulesets/java/typeresolution.xml" />
-
-   <!-- unnecessary: These rules make sense.  -->
-   <rule ref="rulesets/java/unnecessary.xml" />
-
-   <rule ref="rulesets/java/unusedcode.xml"></rule> <!-- We detect unsused code. -->
+  <rule ref="category/java/security.xml"> 	  
+  </rule>  
+   
 </ruleset>

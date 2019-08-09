@@ -87,8 +87,7 @@ This checkstyle configuration is based on the coding conventions from Sun.
 
 
         <!-- Checks for imports                              -->
-        <!-- See http://checkstyle.sf.net/config_import.html -->
-        <module name="AvoidStarImport"/>
+        <!-- See http://checkstyle.sf.net/config_import.html -->        
         <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>

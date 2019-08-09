@@ -8,7 +8,7 @@ import de.hybris.platform.servicelayer.ServicelayerTest;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter;
@@ -93,7 +93,7 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
     ServicesUtil.validateParameterNotNull(catalogId, "catalog Id must not be null");
     ServicesUtil.validateParameterNotNull(catalogVersionName, "catalog Id must not be null");
 
-    final StringBuilder sql = new StringBuilder();
+    final StringBuilder sql = new StringBuilder(122);
 
     sql.append("SELECT {m.").append(MediaModel.PK);
     sql.append("} FROM { Media");

@@ -30,6 +30,6 @@ public interface DeploymentScriptConfiguration {
      * 
      * @return null if it is allowed to run. Otherwise it returns the execution result.
      */
-    ScriptExecutionResultModel isAllowedInThisServer();
+    ScriptExecutionResultModel reasonToIgnoreExecutionOnThisServer();
 
 }

@@ -23,6 +23,10 @@ public final class ArecoDeploymentScriptsManagerConstants extends GeneratedAreco
 
     public static final String JUNIT_TENANT_ID = "junit";
 
+    public static final String DEFAULT_UPDATE_SCRIPTS_FOLDER = "update-deployment-scripts";
+
+    public static final String DEFAULT_INIT_SCRIPTS_FOLDER = "init-deployment-scripts";
+
     private ArecoDeploymentScriptsManagerConstants() {
         // empty to avoid instantiating this constant class
     }

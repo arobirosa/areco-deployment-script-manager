@@ -32,11 +32,45 @@
       <properties>
         <property name="PLATFORM_HOME" value="$PROJECT_DIR$/hybris/bin/platform" />
         <property name="ANT_HOME" value="$PROJECT_DIR$/hybris/bin/platform/apache-ant-1.9.1" />
-        <property name="ANT_OPTS" value="-Xmx512 -Dfile.encoding=UTF-8" />
+        <property name="ANT_OPTS" value="-Xmx512m -Dfile.encoding=UTF-8" />
       </properties>
       <executeOn event="compositeTask" target="[clean,all]" presentableName="[clean,all]" />
       <executeOn event="compositeTask" target="[clean,customize,all,initialize]" presentableName="[clean,customize,all,initialize]" />
       <executeOn event="compositeTask" target="[clean,customize,all,production]" presentableName="[clean,customize,all,production]" />
+    </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/hybris/bin/custom/arecoDeploymentScriptsManager/build.xml">
+      <additionalClassPath>
+        <entry path="file://$APPLICATION_PLUGINS_DIR$/Hybris-Integration-Pro/lib/rt-ant.jar" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/advancedsavedquery/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/catalog/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/comments/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/commons/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/core/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/deliveryzone/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/europe1/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/hac/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/impex/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/maintenanceweb/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/mediaweb/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/oauth2/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/paymentstandard/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/platformservices/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/processing/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/scripting/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/testweb/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/validation/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/ext/workflow/lib" />
+        <entry dir="file://$PROJECT_DIR$/hybris/bin/platform/resources/ant/lib" />
+      </additionalClassPath>
+      <antReference name="Apache Ant version 1.9.13" />
+      <maximumHeapSize value="512" />
+      <maximumStackSize value="128" />
+      <properties>
+        <property name="PLATFORM_HOME" value="$PROJECT_DIR$/hybris/bin/platform" />
+        <property name="ANT_HOME" value="$PROJECT_DIR$/hybris/bin/platform/apache-ant-1.9.1" />
+        <property name="ANT_OPTS" value="-Xmx512m -Dfile.encoding=UTF-8" />
+      </properties>
     </buildFile>
   </component>
 </project>

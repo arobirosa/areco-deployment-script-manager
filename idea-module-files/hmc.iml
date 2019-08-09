@@ -51,7 +51,6 @@
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/acceleratoraddon/web/testclasses" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/backoffice/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/bower_components" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/commonweb/addonsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/ext-platform-optional/hmc/commonweb/testclasses" />

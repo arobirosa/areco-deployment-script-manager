@@ -20,16 +20,15 @@ import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.servicelayer.type.TypeService;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Default implementation which looks for the instances using flexible search.
@@ -119,9 +118,9 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
         if (LOG.isDebugEnabled()) {
             LOG.debug("Loading the results.");
         }
-        final Map<String, ScriptExecutionResultModel> instances = new HashMap<String, ScriptExecutionResultModel>();
+        final Map<String, ScriptExecutionResultModel> instances = new ConcurrentHashMap<>();
 
-        final StringBuilder queryBuilder = new StringBuilder();
+        final StringBuilder queryBuilder = new StringBuilder(26);
         queryBuilder.append("SELECT {r.").append(ScriptExecutionResultModel.PK).append("}").append(" FROM {").append(ScriptExecutionResultModel._TYPECODE)
                 .append(" as r ").append("} ");
 

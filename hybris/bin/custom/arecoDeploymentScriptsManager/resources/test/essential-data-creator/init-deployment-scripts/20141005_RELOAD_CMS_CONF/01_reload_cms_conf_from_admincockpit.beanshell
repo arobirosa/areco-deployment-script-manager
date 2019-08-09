@@ -1,0 +1,14 @@
+import de.hybris.platform.core.Registry;
+import java.io.PrintStream;
+import org.areco.ecommerce.deploymentscripts.beanshell.util.CockpitConfigurationReloader;
+final String extensionName = "arecoDeploymentScriptsManager";
+ 
+try {
+  CockpitConfigurationReloader reloader = (CockpitConfigurationReloader) Registry.getApplicationContext().getBean("cockpitConfigurationReloader");
+  reloader.reloadCockpitConfiguration(extensionName);
+} catch (Exception e) {
+  System.err.println("There was an error:");
+  e.printStackTrace(System.err);
+  return "Error, please see the console of the app server";
+}
+return "OK"; //We muss return 'ok'

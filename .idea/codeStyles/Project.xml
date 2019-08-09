@@ -2,6 +2,10 @@
   <code_scheme name="Project" version="173">
     <option name="RIGHT_MARGIN" value="160" />
     <option name="FORMATTER_TAGS_ENABLED" value="true" />
+    <JavaCodeStyleSettings>
+      <option name="ANNOTATION_PARAMETER_WRAP" value="1" />
+      <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="10" />
+    </JavaCodeStyleSettings>
     <XML>
       <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
     </XML>
@@ -29,9 +33,6 @@
       <option name="BINARY_OPERATION_SIGN_ON_NEXT_LINE" value="true" />
       <option name="TERNARY_OPERATION_WRAP" value="5" />
       <option name="ARRAY_INITIALIZER_WRAP" value="1" />
-      <option name="METHOD_ANNOTATION_WRAP" value="0" />
-      <option name="CLASS_ANNOTATION_WRAP" value="0" />
-      <option name="FIELD_ANNOTATION_WRAP" value="0" />
       <indentOptions>
         <option name="INDENT_SIZE" value="8" />
       </indentOptions>

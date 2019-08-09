@@ -15,13 +15,14 @@
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * It represents a step which only uses one single file.
@@ -49,7 +50,7 @@ public abstract class AbstractSingleFileScriptStep implements DeploymentScriptSt
             throw new DeploymentScriptExecutionException("There was an error while reading the contents of the SQL Script " + this.getId() + ':'
                     + e.getLocalizedMessage(), e);
         }
-        if (sqlStatement == null || sqlStatement.trim().isEmpty()) {
+        if (StringUtils.isBlank(sqlStatement)) {
             throw new DeploymentScriptExecutionException("The file " + this.getScriptFile() + " is empty.");
         }
         return sqlStatement;

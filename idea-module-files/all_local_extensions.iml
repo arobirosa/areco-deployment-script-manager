@@ -4,8 +4,8 @@
     <exclude-output />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="arecoDeploymentScriptsExamples" />
     <orderEntry type="module" module-name="arecoDeploymentScriptsManager" />
+    <orderEntry type="module" module-name="arecoDeploymentScriptsExamples" />
     <orderEntry type="module" module-name="arecodeploymentscriptsbackoffice" />
     <orderEntry type="module" module-name="arecodeploymentscriptshmc" />
   </component>
