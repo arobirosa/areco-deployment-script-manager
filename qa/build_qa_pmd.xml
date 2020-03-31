@@ -1,6 +1,6 @@
 <project name="ant_qa_pmd" default="pmd" basedir=".">
-	<property name="dir_pmd_home" value="${dir_qa}/pmd-bin-6.17.0"/>
-	<property name="dir_pmd_donwload_url" value="http://downloads.sourceforge.net/project/pmd/pmd/6.17.0/pmd-bin-6.17.0.zip"/>
+	<property name="dir_pmd_home" value="${dir_qa}/pmd-bin-6.21.0"/>
+	<property name="dir_pmd_donwload_url" value="http://downloads.sourceforge.net/project/pmd/pmd/6.21.0/pmd-bin-6.21.0.zip"/>
 	<property name="dir_pmd_donwload_file" value="${dir_qa}/pmd.zip"/>
 	
 	
@@ -14,13 +14,12 @@
 		</taskdef>
 		<!-- Any violation must break the build -->
 		<pmd shortFilenames="true" failonerror="true" failOnRuleViolation="true"
-			rulesetfiles="${dir_qa}/pmd_ruleset.xml" >
-			<sourceLanguage name="java" version="1.8"/>
+			rulesetfiles="${dir_qa}/pmd_ruleset.xml" >			
 			<formatter type="html" toFile="${dir_qa_reports}/pmd_report.html" toConsole="true">
 			</formatter>
 			<formatter type="text" showSuppressed="false" toConsole="true">
 			</formatter>
-			<fileset refid="fileset_src"/>
+			<fileset refid="fileset_src_without_training"/>
 		</pmd>
 	</target>
 	

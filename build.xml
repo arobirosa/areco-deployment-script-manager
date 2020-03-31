@@ -73,12 +73,31 @@
 			inheritAll="false"/>
 	</target>
 	
-	<target name="yunitinit" description="Initializes JUnit tenant">
+	<target name="reinstall_addons" description="Re-install all the addons that were installed in the target storefront specified.">
 		<ant 
 			dir="${dir_platform}"
-			target="yunitinit"
+			target="reinstall_addons"
 			inheritAll="false"/>
 	</target>
-	
-	
+
+	<target name="addonclean" description="Clean addons">
+		<ant
+				dir="${dir_platform}"
+				target="addonclean"
+				inheritAll="false"/>
+	</target>
+
+	<target name="addoninstall" description="Install addon">
+		<ant
+				dir="${dir_platform}"
+				target="addoninstall"
+				inheritAll="false"/>
+	</target>
+
+	<target name="addonuninstall" description="Uninstall addon">
+		<ant
+				dir="${dir_platform}"
+				target="addonuninstall"
+				inheritAll="false"/>
+	</target>
 </project>

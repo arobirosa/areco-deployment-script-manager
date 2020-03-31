@@ -40,6 +40,7 @@
 		<property name="publicMethodCommentRequirement" value="Required" />
 		<property name="fieldCommentRequirement" value="Ignored" />
 		<property name="headerCommentRequirement" value="Required" />
+		<property name="classCommentRequirement" value="Ignored" />		
 		<!-- We ignore the rule for setters and getters -->
 		<property name="violationSuppressRegex" value="(is|get|set).*"/>
 		<!-- We ignore overidden public methods, constructors and methods with the annotations @Test, @Before or @After -->

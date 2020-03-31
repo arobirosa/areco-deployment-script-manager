@@ -17,6 +17,14 @@
 		<Bug code="SnVI" />
      </Match>
      
+     <!-- We exclude Hybris' code included in the training storefront -->
+     <Match>
+		<Package name="~com\.hybris\..*" />		
+     </Match>
+     <Match>
+		<Package name="~de\.hybris\..*" />		
+     </Match>
+          
      <!-- Exclude some performance warnings. The code must be optimized when it is really required. Early optimization
           just decreases readability. -->
      <Match>
