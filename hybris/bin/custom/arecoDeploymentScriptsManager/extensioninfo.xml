@@ -21,9 +21,6 @@
                managersuperclass="de.hybris.platform.jalo.extension.Extension"
                >
 
-      <!-- Used by the integration tests running beanshells which reload the cockpit configuration -->
-	  <requires-extension name="cockpit"/>
-
       <coremodule	packageroot="org.areco.ecommerce.deploymentscripts"
 					manager="org.areco.ecommerce.deploymentscripts.jalo.ArecoDeploymentScriptsManagerManager"
 					generated="true" 
