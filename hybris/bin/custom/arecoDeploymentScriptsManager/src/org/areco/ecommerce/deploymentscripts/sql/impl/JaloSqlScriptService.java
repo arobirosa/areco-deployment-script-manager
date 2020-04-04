@@ -1,17 +1,17 @@
 /**
  * Copyright 2014 Antonio Robirosa
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.areco.ecommerce.deploymentscripts.sql.impl;
 
@@ -35,20 +35,17 @@ import java.util.regex.Pattern;
  *
  * @author arobirosa
  */
-@Service
-@Scope("tenant")
-public class JaloSqlScriptService implements SqlScriptService {
+@Service @Scope("tenant") public class JaloSqlScriptService implements SqlScriptService {
 
         private static final Logger LOG = Logger.getLogger(JaloSqlScriptService.class);
 
         // CHECKSTYLE.OFF: This annotation generates a long line.
-        @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING",
+        @edu.umd.cs.findbugs.annotations.SuppressWarnings(
+                value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING",
                 justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
         // CHECKSTYLE.ON
         //The variable affectedRows is needed because the cache must be cleared afterwards.
-        @SuppressWarnings("PMD.UnnecessaryLocalBeforeReturn")
-        @Override
-        public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException {
+        @SuppressWarnings("PMD.UnnecessaryLocalBeforeReturn") @Override public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException {
                 if (StringUtils.isBlank(aStatement)) {
                         throw new IllegalArgumentException("The parameter aStatement is empty.");
                 }
@@ -66,13 +63,13 @@ public class JaloSqlScriptService implements SqlScriptService {
         }
 
         // CHECKSTYLE.OFF: This annotation generates a long line.
-        @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING",
+        @edu.umd.cs.findbugs.annotations.SuppressWarnings(
+                value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING",
                 justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
         // CHECKSTYLE.ON
         private int runStatementOnDatabase(final String translatedStatement) throws SQLException {
 
-                try ( Connection aConnection = getConnection(); PreparedStatement prepareStatement = aConnection.prepareStatement(translatedStatement))
-                {
+                try (Connection aConnection = getConnection(); PreparedStatement prepareStatement = aConnection.prepareStatement(translatedStatement)) {
                         return prepareStatement.executeUpdate();
                 }
         }
@@ -82,8 +79,8 @@ public class JaloSqlScriptService implements SqlScriptService {
                         LOG.debug("SQL Statement before the translation: <" + aStatement + ">");
                 }
                 Pattern tablePrefixPattern = Pattern.compile("\\{table_prefix\\}", Pattern.CASE_INSENSITIVE);
-                final String returnedStatement = tablePrefixPattern.matcher(aStatement).replaceAll(
-                        Registry.getCurrentTenant().getDataSource().getTablePrefix());
+                final String returnedStatement = tablePrefixPattern.matcher(aStatement)
+                        .replaceAll(Registry.getCurrentTenant().getDataSource().getTablePrefix());
                 if (LOG.isDebugEnabled()) {
                         LOG.debug("SQL Statement after the translation: <" + returnedStatement + ">");
                 }
