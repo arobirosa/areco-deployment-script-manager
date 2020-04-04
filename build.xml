@@ -72,6 +72,20 @@
 			target="yunit"
 			inheritAll="false"/>
 	</target>
+
+	<target name="yunitinit" description="Initializes JUnit tenant">
+		<ant
+				dir="${dir_platform}"
+				target="yunitinit"
+				inheritAll="false"/>
+	</target>
+
+	<target name="yunitupdate" description="Updates JUnit tenant">
+		<ant
+				dir="${dir_platform}"
+				target="yunitupdate"
+				inheritAll="false"/>
+	</target>
 	
 	<target name="reinstall_addons" description="Re-install all the addons that were installed in the target storefront specified.">
 		<ant 
