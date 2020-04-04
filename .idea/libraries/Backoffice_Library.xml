@@ -1,10 +1,10 @@
 <component name="libraryTable">
   <library name="Backoffice Library">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/hybris/bin/ext-platform-backoffice/platformbackoffice/resources/backoffice" />
+      <root url="file://$PROJECT_DIR$/hybris/bin/modules/backoffice-framework/platformbackoffice/resources/backoffice" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
-    <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/ext-platform-backoffice/platformbackoffice/resources/backoffice" recursive="true" />
+    <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/modules/backoffice-framework/platformbackoffice/resources/backoffice" recursive="true" />
   </library>
 </component>
