@@ -1,4 +1,4 @@
 #!/bin/sh
 cd hybris/bin/platform
-./hybrisserver.sh 
+./hybrisserver.sh "$@"
 cd ../../..

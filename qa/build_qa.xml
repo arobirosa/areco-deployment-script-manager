@@ -4,27 +4,37 @@
 	<property name="dir_qa" value="${basedir}/qa"/>
 	<property name="dir_qa_reports" value="${basedir}/qa_reports"/>
 	
-	<import file="${dir_qa}/build_qa_findbugs.xml"/>
+	<import file="${dir_qa}/build_qa_spotbugs.xml"/>
 	<import file="${dir_qa}/build_qa_pmd.xml"/>
 	<import file="${dir_qa}/build_qa_checkstyle.xml"/>
 	<import file="${dir_qa}/build_qa_cobertura.xml"/>
 	
 	<fileset dir="${dir_hybris_bin}" id="fileset_src">
-		<include name="custom/*/src/**/*.java"/>
-		<include name="custom/*/web/src/**/*.java"/>
-		<include name="custom/*/backoffice/src/**/*.java"/>
-		<include name="custom/*/hmc/src/**/*.java"/>
-		<include name="custom/*/testsrc/**/*.java"/>
-		<include name="custom/*/web/testsrc/**/*.java"/>
-		<include name="custom/*/backoffice/testsrc/**/*.java"/>
-		<include name="custom/*/hmc/testsrc/**/*.java"/>
+		<include name="custom/**/src/**/*.java"/>
+		<include name="custom/**/web/src/**/*.java"/>
+		<include name="custom/**/backoffice/src/**/*.java"/>		
+		<include name="custom/**/testsrc/**/*.java"/>
+		<include name="custom/**/web/testsrc/**/*.java"/>
+		<include name="custom/**/backoffice/testsrc/**/*.java"/>
+		<include name="custom/**/accelerator/web/src/**/*.java"/>
 	</fileset>
 	
+	<!-- Excludes the training extensions containing accelerator code -->
+	<fileset dir="${dir_hybris_bin}" id="fileset_src_without_training">
+		<include name="custom/areco*/src/**/*.java"/>
+		<include name="custom/areco*/web/src/**/*.java"/>
+		<include name="custom/areco*/backoffice/src/**/*.java"/>		
+		<include name="custom/areco*/testsrc/**/*.java"/>
+		<include name="custom/areco*/web/testsrc/**/*.java"/>
+		<include name="custom/areco*/backoffice/testsrc/**/*.java"/>
+		<include name="custom/areco*/accelerator/web/src/**/*.java"/>
+	</fileset>
+	
+	
 	<fileset dir="${dir_hybris_bin}" id="fileset_bin">
-		<include name="custom/*/classes/**/*.class"/>
-		<include name="custom/*/web/webroot/WEB-INF/classes/"/>
-		<include name="custom/*/backoffice/classes/**/*.class"/>
-		<include name="custom/*/hmc/classes/**/*.class"/>
+		<include name="custom/**/classes/**/*.class"/>
+		<include name="custom/**/web/webroot/WEB-INF/classes/"/>
+		<include name="custom/**/backoffice/classes/**/*.class"/>		
 	</fileset>
 	
 	<fileset dir="${dir_hybris_bin}" id="fileset_hybris_bin">
@@ -33,17 +43,15 @@
 		<include name="platform/ext/*/lib/*.jar"/>
 		<include name="platform/ext/*/classes/**/*.class"/>
 		<include name="platform/ext/*/web/webroot/WEB-INF/classes/**/*.class"/>
-		<include name="platform/ext/*/web/webroot/WEB-INF/bin/*.jar"/>
-		<include name="platform/ext/*/hmc/classes/**/*.class"/>
-		<include name="platform/ext/*/hmc/bin/*.jar"/>
+		<include name="platform/ext/*/web/webroot/WEB-INF/bin/*.jar"/>		
 		<include name="platform/bootstrap/bin/*.jar"/>
-		<include name="platform/tomcat/lib/*.jar"/>
-		<include name="ext-platform-optional/hmc/web/webroot/WEB-INF/classes/**/*.class"/>
-		<include name="ext-backoffice/backoffice/web/webroot/WEB-INF/lib/*.jar"/>
-		<include name="ext-cockpit/cockpit/bin/*.jar"/>
+		<include name="platform/tomcat/lib/*.jar"/>		
+		<include name="modules/**/web/webroot/WEB-INF/lib/*.jar"/>
+		<include name="modules/**/bin/*.jar"/>
+		<include name="modules/**/classes/**/*.class"/>
 	</fileset>
 	
-	<target name="qa" depends="qa_clean, findbugs, pmd, checkstyle, cobertura" description="Runs Findbugs, PMD, Checkstyle and Cobertura" />
+	<target name="qa" depends="qa_clean, spotbugs, pmd, checkstyle, cobertura" description="Runs Spotbugs, PMD, Checkstyle and Cobertura" />
 	
 	<target name="qa_clean" description="Cleans the directory with the QA reports">
 		<delete dir="${dir_qa_reports}"/>

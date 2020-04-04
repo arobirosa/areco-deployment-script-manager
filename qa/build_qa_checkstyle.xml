@@ -1,6 +1,6 @@
 <project name="ant_qa_checkstyle" default="checkstyle" basedir=".">
-	<property name="dir_checkstyle_home" value="${dir_qa}/checkstyle"/>
-	<property name="dir_checkstyle_donwload_url" value="https://github.com/checkstyle/checkstyle/releases/download/checkstyle-8.14/checkstyle-8.14-all.jar"/>
+	<property name="dir_checkstyle_home" value="${dir_qa}/checkstyle-8.29"/>
+	<property name="dir_checkstyle_donwload_url" value="https://github.com/checkstyle/checkstyle/releases/download/checkstyle-8.29/checkstyle-8.29-all.jar"/>
 	<property name="dir_checkstyle_donwload_file" value="${dir_checkstyle_home}/checkstyle.jar"/>
 	
 	<target name="checkstyle" depends="checkstyle.install" description="Runs checkstyle">
@@ -14,7 +14,7 @@
 		<!-- Any violation must break the build after the html was generated -->
 		<checkstyle config="${dir_qa}/checkstyle_checks.xml"
 			failureProperty="checkstyle.failure" failOnViolation="false" >
-			<fileset refid="fileset_src"/>
+			<fileset refid="fileset_src_without_training"/>
 			<formatter type="xml" tofile="${dir_qa_reports}/checkstyle_report.xml" />
 			<formatter type="plain" />
 		</checkstyle>
@@ -35,7 +35,7 @@
 	<target name="checkstyle.install" description="Downloads and installs checkstyle"
         unless="checkstyle.available"
 		depends="checkstyle.check.installation">
-		<mkdir dir="${dir_qa}/checkstyle"/>
+		<mkdir dir="${dir_checkstyle_home}"/>
 		<get src="${dir_checkstyle_donwload_url}" 
 			dest="${dir_checkstyle_home}" 
 			verbose="true"

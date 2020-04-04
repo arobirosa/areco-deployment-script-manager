@@ -12,7 +12,17 @@ hybris/bin/custom/**/hmc/bin/
 hybris/bin/custom/**/resources/backoffice/*_bof.jar
 
 #We ignore the Hybris extensions
+README
+SIGNATURE.SMF
+build-tools/
+c4c-integration/
+hybris-sbg/
+hybris/bin/modules/
+installer/
+licenses/
+
 hybris/bin/ext-*/
+hybris/bin/modules/
 hybris/sampleconfigurations
 platform/
 data/
@@ -45,9 +55,9 @@ qa_reports/
 .ruleset
 
 #We ignore the directories with the binaries of PMD, Checkstyle and Findbugs.
-qa/findbugs-*
+qa/spotbugs-*
 qa/pmd-bin*
-qa/checkstyle
+qa/checkstyle-*
 !qa/checkstyle-simple.xsl
 
 qa/cobertura-*
