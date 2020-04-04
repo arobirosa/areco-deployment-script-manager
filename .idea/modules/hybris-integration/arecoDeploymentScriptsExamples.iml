@@ -4,6 +4,7 @@
     <facet type="Spring" name="Spring">
       <configuration process_explicitly_annotated="false">
         <fileset id="arecoDeploymentScriptsExamplesspring" name="arecoDeploymentScriptsExamplesspring" removed="false">
+          <dependency>cockpitspring==cockpit</dependency>
           <dependency>arecoDeploymentScriptsManagerspring==arecoDeploymentScriptsManager</dependency>
           <file>file://$MODULE_DIR$/../../../hybris/bin/custom/arecoDeploymentScriptsExamples/web/webroot/WEB-INF/arecoDeploymentScriptsExamples-web-spring.xml</file>
           <file>file://$MODULE_DIR$/../../../hybris/bin/custom/arecoDeploymentScriptsExamples/resources/arecoDeploymentScriptsExamples-spring.xml</file>
@@ -85,6 +86,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="cockpit" exported="" />
     <orderEntry type="module" module-name="arecoDeploymentScriptsManager" exported="" />
   </component>
 </module>
