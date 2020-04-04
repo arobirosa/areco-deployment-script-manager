@@ -55,9 +55,9 @@ qa_reports/
 .ruleset
 
 #We ignore the directories with the binaries of PMD, Checkstyle and Findbugs.
-qa/findbugs-*
+qa/spotbugs-*
 qa/pmd-bin*
-qa/checkstyle
+qa/checkstyle-*
 !qa/checkstyle-simple.xsl
 
 qa/cobertura-*
