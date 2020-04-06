@@ -69,7 +69,7 @@ import java.util.regex.Pattern;
         // CHECKSTYLE.ON
         private int runStatementOnDatabase(final String translatedStatement) throws SQLException {
 
-                try (Connection aConnection = getConnection(); PreparedStatement prepareStatement = aConnection.prepareStatement(translatedStatement)) {
+                try (Connection aConnection = getConnection(); PreparedStatement prepareStatement = (aConnection == null) ? null : aConnection.prepareStatement(translatedStatement)) {
                         return prepareStatement.executeUpdate();
                 }
         }
