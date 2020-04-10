@@ -15,8 +15,6 @@
  */
 package org.areco.ecommerce.deploymentscripts.impex;
 
-import de.hybris.platform.impex.jalo.ImpExException;
-
 import java.io.File;
 
 /**
@@ -29,9 +27,8 @@ public interface ImpexImportService {
     /**
      * Imports the given file and returns an importResult. It throws an exception if there was an error and the caller has to manage it.
      * 
-     * @param impexFile
-     *            Required
-     * @throws ImpExException
+     * @param impexFile Required
+     * @throws ImpexImportException If any error during the import process
      */
     void importImpexFile(File impexFile) throws ImpexImportException;
 }
