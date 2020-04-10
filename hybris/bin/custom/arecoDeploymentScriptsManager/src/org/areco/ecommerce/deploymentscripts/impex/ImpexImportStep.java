@@ -15,8 +15,6 @@
  */
 package org.areco.ecommerce.deploymentscripts.impex;
 
-import de.hybris.platform.impex.jalo.ImpExException;
-
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStep;
@@ -49,7 +47,7 @@ public class ImpexImportStep extends AbstractSingleFileScriptStep {
         }
         try {
             this.impexImportService.importImpexFile(this.getScriptFile());
-        } catch (final ImpExException cause) {
+        } catch (final ImpexImportException cause) {
             throw new DeploymentScriptExecutionException("There was an error importing the step " + this.getId(), cause);
         }
     }

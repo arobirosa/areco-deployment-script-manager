@@ -88,6 +88,10 @@ import java.util.regex.Pattern;
         }
 
         private Connection getConnection() throws SQLException {
-                return Registry.getCurrentTenant().getDataSource().getConnection();
+                final Connection connection = Registry.getCurrentTenant().getDataSource().getConnection();
+                if (connection == null) {
+                   throw new SQLException("The connection is down");
+                }
+                return connection;
         }
 }

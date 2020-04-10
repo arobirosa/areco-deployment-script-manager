@@ -15,22 +15,26 @@
  */
 package org.areco.ecommerce.deploymentscripts.impex.impl;
 
-import de.hybris.platform.impex.jalo.ImpExException;
-import de.hybris.platform.impex.jalo.Importer;
-import de.hybris.platform.impex.jalo.media.DefaultMediaDataHandler;
-import de.hybris.platform.impex.jalo.media.MediaDataTranslator;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
+import de.hybris.platform.servicelayer.impex.ImportConfig;
+import de.hybris.platform.servicelayer.impex.ImportResult;
+import de.hybris.platform.servicelayer.impex.ImportService;
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import de.hybris.platform.util.CSVReader;
 import org.apache.commons.lang.LocaleUtils;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
+import org.areco.ecommerce.deploymentscripts.impex.ImpexImportException;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
@@ -52,46 +56,43 @@ public class LocalizedImpexImportService implements ImpexImportService {
     @Autowired
     private ConfigurationService configurationService;
 
+    @Autowired
+    private ImportService importService;
+
     /*
      * { @InheritDoc }
      */
     @Override
-    public void importImpexFile(final File impexFile) throws ImpExException {
+    public void importImpexFile(final File impexFile) throws ImpexImportException {
         ServicesUtil.validateParameterNotNullStandardMessage("impexFile", impexFile);
         try (InputStream inputStream = Files.newInputStream(Paths.get(impexFile.toURI()))) {
             importImpexFile(inputStream);
         } catch (final FileNotFoundException | NoSuchFileException e) {
-            throw new ImpExException(e, "Unable to find the file " + impexFile, 0);
+            throw new ImpexImportException("Unable to find the file " + impexFile, e);
         } catch (final UnsupportedEncodingException e) {
-            throw new ImpExException(e, "The file " + impexFile + " must use the UTF-8 encoding.", 0);
+            throw new ImpexImportException("The file " + impexFile + " must use the UTF-8 encoding.", e);
         } catch (final IOException e) {
-            throw new ImpExException(e, "There was an IP exception opening the file " + impexFile + ": " + e.getMessage(), 0);
+            throw new ImpexImportException("There was an IO exception opening the file " + impexFile + ": " + e.getMessage(), e);
         }
     }
 
-    private void importImpexFile(final InputStream inputStream) throws ImpExException, UnsupportedEncodingException {
-        //Why we have to set this manually?
-        MediaDataTranslator.setMediaDataHandler(new DefaultMediaDataHandler());
-
-        final CSVReader reader = new CSVReader(inputStream, DeploymentScript.DEFAULT_FILE_ENCODING);
-        final Importer importer = new Importer(reader);
+    private void importImpexFile(final InputStream inputStream) throws ImpexImportException {
+        final ImportConfig importConfig = new ImportConfig();
+        importConfig.setScript(new StreamBasedImpExResource(inputStream, DeploymentScript.DEFAULT_FILE_ENCODING));
         final String localeCode = configurationService.getConfiguration().getString(IMPEX_LOCALE_CONF);
         if (LOG.isDebugEnabled()) {
             LOG.debug("Code of the impex locale: '" + localeCode + "'.");
         }
         if (localeCode != null && !localeCode.isEmpty()) {
-            importer.getReader().setLocale(LocaleUtils.toLocale(localeCode));
+            importConfig.setLocale(LocaleUtils.toLocale(localeCode));
         }
-        importer.getReader().enableCodeExecution(true);
-        try {
-            importer.importAll();
-            if (importer.isFinished()) {
-                return;
-            } else {
-                throw new ImpExException("The import of the impex file finished with errors. ");
-            }
-        } finally {
-            importer.close();
+        importConfig.setEnableCodeExecution(true);
+
+        final ImportResult importResult = importService.importData(importConfig);
+        if (importResult.isSuccessful()) {
+            return;
+        } else {
+            throw new ImpexImportException("The import of the impex file finished with errors. ");
         }
     }
 }

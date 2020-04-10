@@ -43,6 +43,11 @@
                     <persistence type="property"/>
                 </attribute>
             </attributes>
+            <indexes>
+                <index name="ScriptExecutionResultName" unique="true">
+                    <key attribute="name" />
+                </index>
+            </indexes>
         </itemtype>
 		<itemtype generate="true"
 		   code="ScriptExecution"
@@ -71,20 +76,20 @@
                     <persistence type="property"/>
                 </attribute>
                 <attribute qualifier="stacktrace" type="java.lang.String">
-                    <description>Stacktrace if the script was unsuccessful. It is 4KB long.</description>
+                    <description>Stacktrace if the script was unsuccessful.</description>
                     <persistence type="property">
-                        <columntype database="oracle">
-                            <value>clob</value>
-                        </columntype>
-                        <columntype database="mysql">
-                            <value>text</value>
-                        </columntype>
                         <columntype>
-                            <value>varchar(4096)</value>
+                            <value>HYBRIS.LONG_STRING</value>
                         </columntype>
                     </persistence>
                 </attribute>
 			</attributes>
+            <indexes>
+                <index name="ScriptExecutionInExtension" unique="false">
+                    <key attribute="extensionName" />
+                    <key attribute="result" />
+                </index>
+            </indexes>
 		</itemtype>
 		
 	   <itemtype generate="true"
@@ -104,6 +109,11 @@
                     <persistence type="property"/>
                 </attribute>
             </attributes>
+           <indexes>
+               <index name="DeploymentEnvironmentName" unique="true">
+                   <key attribute="name" />
+               </index>
+           </indexes>
         </itemtype>
 
 	</itemtypes>
