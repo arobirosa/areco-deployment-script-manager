@@ -16,9 +16,11 @@ INSERT ScriptExecutionResult;name[unique=true];canBeRunnedAgain[forceWrite=true]
                             ;SUCCESS_MULTIPLE_RUNS;true;"Success (multiple runs)";
 #% endif:
 
+#% if: de.hybris.platform.core.Registry.getApplicationContext().getBean(de.hybris.platform.servicelayer.search.FlexibleSearchService.class).search("SELECT {e.PK} FROM {DeploymentEnvironment as e} ").getCount() == 0;
 # These are the out-of-box environments. They may be changed using a deployment script.
 INSERT DeploymentEnvironment;name[unique=true];description[lang=en];
 ;DEV;Development servers and the computers of the programmers;
 ;TEST;Servers used by the business analysts and customers for testing;
 ;INT;Integration and QA environment with the same configuration as in production;
 ;PRODUCTION;Production;
+#% endif:
