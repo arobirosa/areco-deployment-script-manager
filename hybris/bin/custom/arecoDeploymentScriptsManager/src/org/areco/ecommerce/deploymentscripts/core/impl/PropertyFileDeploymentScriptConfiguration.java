@@ -50,6 +50,8 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
      */
     private Set<String> allowedDeploymentEnvironmentNames;
 
+    private boolean runMultipleTimes = false;
+
     /**
      * Checks if this script is allowed to run in this server.
      * 
@@ -64,6 +66,11 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
             return this.scriptExecutionResultDAO.getIgnoredOtherEnvironmentResult();
         }
         return null; // We can run this script
+    }
+
+    @Override
+    public boolean runsMultipleTimes() {
+        return this.isRunMultipleTimes();
     }
 
     private boolean isAllowedInThisDeploymentEnvironment() {
@@ -134,5 +141,13 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
      */
     public void setAllowedDeploymentEnvironmentNames(final Set<String> allowedDeploymentEnvironmentNames) {
         this.allowedDeploymentEnvironmentNames = allowedDeploymentEnvironmentNames;
+    }
+
+    public boolean isRunMultipleTimes() {
+        return runMultipleTimes;
+    }
+
+    public void setRunMultipleTimes(boolean runMultipleTimes) {
+        this.runMultipleTimes = runMultipleTimes;
     }
 }

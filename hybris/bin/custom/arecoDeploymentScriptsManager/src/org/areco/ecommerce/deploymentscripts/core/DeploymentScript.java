@@ -78,7 +78,12 @@ public class DeploymentScript {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Running " + this.getLongName() + " - Ended successfully");
         }
-        return this.scriptExecutionResultDAO.getSuccessResult();
+        if (this.getConfiguration().runsMultipleTimes()) {
+            return this.scriptExecutionResultDAO.getSuccessMultipleRunsResult();
+        } else {
+            return this.scriptExecutionResultDAO.getSuccessResult();
+        }
+
     }
 
     /**
