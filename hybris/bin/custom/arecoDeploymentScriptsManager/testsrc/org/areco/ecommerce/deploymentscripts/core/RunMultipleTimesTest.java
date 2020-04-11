@@ -34,17 +34,15 @@ public class RunMultipleTimesTest extends AbstractWithConfigurationRestorationTe
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20200410_4_RUN_MULTIPLE_TIMES", this.getFlexibleSearchScriptExecutionResultDao().getSuccessMultipleRunsResult());
         runAndAssertNoErrors();
-        getDeploymentScriptResultAsserter().assertResult("20200410_4_RUN_MULTIPLE_TIMES", this.getFlexibleSearchScriptExecutionResultDao().getSuccessMultipleRunsResult());
         getDeploymentScriptResultAsserter().assertNumberOfResults("20200410_4_RUN_MULTIPLE_TIMES", 2);
     }
 
     @Test
     public void testRunMultipleTimesScriptWithError() {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "multiple-times-error");
-        runAndAssertNoErrors();
+        getDeploymentScriptStarter().runAllPendingScripts();
         getDeploymentScriptResultAsserter().assertResult("20200410_4_RUN_MULTIPLE_TIMES_ERROR", this.getFlexibleSearchScriptExecutionResultDao().getErrorResult());
-        runAndAssertNoErrors();
-        getDeploymentScriptResultAsserter().assertResult("20200410_4_RUN_MULTIPLE_TIMES_ERROR", this.getFlexibleSearchScriptExecutionResultDao().getErrorResult());
+        getDeploymentScriptStarter().runAllPendingScripts();
         getDeploymentScriptResultAsserter().assertNumberOfResults("20200410_4_RUN_MULTIPLE_TIMES_ERROR", 2);
     }
 
@@ -55,9 +53,8 @@ public class RunMultipleTimesTest extends AbstractWithConfigurationRestorationTe
         getDeploymentScriptResultAsserter().assertResult("20200410_4_RUN_MULTIPLE_TIMES", this.getFlexibleSearchScriptExecutionResultDao().getSuccessMultipleRunsResult());
         getDeploymentScriptResultAsserter().assertResult("20200410_4_RUN_ONCE_WITHOUT_CONF", this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
         runAndAssertNoErrors();
-        getDeploymentScriptResultAsserter().assertResult("20200410_4_RUN_MULTIPLE_TIMES", this.getFlexibleSearchScriptExecutionResultDao().getSuccessMultipleRunsResult());
         getDeploymentScriptResultAsserter().assertNumberOfResults("20200410_4_RUN_MULTIPLE_TIMES", 2);
-        getDeploymentScriptResultAsserter().assertNumberOfResults("20200410_4_RUN_ONCE_WITHOUT_CONF", 2);
+        getDeploymentScriptResultAsserter().assertNumberOfResults("20200410_4_RUN_ONCE_WITHOUT_CONF", 1);
     }
 
     @Test
