@@ -49,11 +49,12 @@ rm -rf hybris/data/* && ant clean all initialize yunitinit qa
 
 git flow release finish 1.5.3
 git push --all
+git push --tags
 
 git archive --output=deploymentScriptsManager_1.5.3_20200411.zip production hybris/bin/custom
 
 # Prepare the release notes with the list of bugs and features
-# Create release in Github
+# Create release in Github from the latest tag
 # Upload the zip to Github
 
 # Close the milestone
