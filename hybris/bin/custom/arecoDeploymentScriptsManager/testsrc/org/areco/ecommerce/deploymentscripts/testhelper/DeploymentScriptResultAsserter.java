@@ -21,6 +21,7 @@ import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
@@ -64,12 +65,18 @@ public final class DeploymentScriptResultAsserter {
      * @param expectedResult       Required
      */
     public ScriptExecutionModel assertResult(final String deploymentScriptName, final ScriptExecutionResultModel expectedResult) {
-        ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
+        isScriptNameParameterValid(deploymentScriptName);
         ServicesUtil.validateParameterNotNullStandardMessage("expectedResult", expectedResult);
         final ScriptExecutionModel executionOfTheScript = getDeploymentScriptExecution(deploymentScriptName);
         Assert.assertEquals("The deployment script " + deploymentScriptName + " has the wrong result. Expected: " + expectedResult.getName() + " Actual: "
             + executionOfTheScript.getResult().getName(), expectedResult, executionOfTheScript.getResult());
         return executionOfTheScript;
+    }
+
+    private void isScriptNameParameterValid(final String deploymentScriptName) {
+        if (StringUtils.isBlank(deploymentScriptName)) {
+            throw new IllegalArgumentException("The parameter deploymentScriptName is blank");
+        }
     }
 
     /**
@@ -131,9 +138,9 @@ public final class DeploymentScriptResultAsserter {
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
 
-        SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
+        final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
         LOG.trace("Number of executions: " + result.getCount());
-        for (ScriptExecutionModel anExecution : result.getResult()) {
+        for (final ScriptExecutionModel anExecution : result.getResult()) {
             LOG.trace("Executed '" + anExecution.getScriptName() + "'");
         }
     }
@@ -144,7 +151,7 @@ public final class DeploymentScriptResultAsserter {
      * @param deploymentScriptName Required
      */
     public void assertSuccessfulResult(final String deploymentScriptName) {
-        ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
+        isScriptNameParameterValid(deploymentScriptName);
         this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getSuccessResult());
     }
 
@@ -154,7 +161,7 @@ public final class DeploymentScriptResultAsserter {
      * @param deploymentScriptName Required
      */
     public void assertErrorResult(final String deploymentScriptName) {
-        ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
+        isScriptNameParameterValid(deploymentScriptName);
         this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
     }
 
@@ -177,7 +184,7 @@ public final class DeploymentScriptResultAsserter {
         }
 
         final Pattern compiledStacktracePattern = Pattern.compile(loadedPattern, Pattern.DOTALL);
-        ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
+        final ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
 
         final Matcher stacktraceMatcher = compiledStacktracePattern.matcher(executionOfTheScript.getStacktrace());
 
@@ -185,8 +192,14 @@ public final class DeploymentScriptResultAsserter {
             stacktraceMatcher.matches());
     }
 
-    public void assertNumberOfResults(final String deploymentScriptName, int expectedNumberOfExecutions) {
-        ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptName", deploymentScriptName);
+    /**
+     * Checks if the script was ran the expected number of times
+     *
+     * @param deploymentScriptName       Required
+     * @param expectedNumberOfExecutions Required
+     */
+    public void assertNumberOfResults(final String deploymentScriptName, final int expectedNumberOfExecutions) {
+        isScriptNameParameterValid(deploymentScriptName);
         Assert.assertEquals(String.format("The number of executions of %s is incorrect", deploymentScriptName), expectedNumberOfExecutions,
             getAllDeploymentScriptExecutions(deploymentScriptName).size());
     }

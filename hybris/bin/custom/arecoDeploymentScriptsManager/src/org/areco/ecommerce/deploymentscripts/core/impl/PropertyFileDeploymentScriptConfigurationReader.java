@@ -105,7 +105,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
         return newConfiguration;
     }
 
-    private boolean getRunMultipleTimes(Properties properties) {
+    private boolean getRunMultipleTimes(final Properties properties) {
         final String flagValue = properties.getProperty(RUN_MULTIPLE_TIMES_PROPERTY);
         return BooleanUtils.toBoolean(flagValue);
     }

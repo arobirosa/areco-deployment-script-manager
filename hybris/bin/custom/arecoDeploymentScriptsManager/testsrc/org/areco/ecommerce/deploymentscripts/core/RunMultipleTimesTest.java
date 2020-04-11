@@ -24,24 +24,28 @@ import org.junit.Test;
  * @author arobirosa
  */
 @IntegrationTest
-@SuppressWarnings({"PMD.TooManyMethods", "PMD.JUnitTestsShouldIncludeAssert"}) //It a test with many cases. The assert statements are inside a private method.
+@SuppressWarnings({ "PMD.TooManyMethods", "PMD.JUnitTestsShouldIncludeAssert" }) //It a test with many cases. The assert statements are inside a private method.
 public class RunMultipleTimesTest extends AbstractWithConfigurationRestorationTest {
     private static final String RESOURCES_FOLDER = "/resources/test/run-multiple-times";
+    public static final String RUN_MULTIPLE_TIMES_OK_SCRIPT = "20200410_4_RUN_MULTIPLE_TIMES";
+    public static final String RUN_ONCE_WITHOUT_CONF_SCRIPT = "20200410_4_RUN_ONCE_WITHOUT_CONF";
 
     @Test
     public void testRunMultipleTimesScript() {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "multiple-times");
         runAndAssertNoErrors();
-        getDeploymentScriptResultAsserter().assertResult("20200410_4_RUN_MULTIPLE_TIMES", this.getFlexibleSearchScriptExecutionResultDao().getSuccessMultipleRunsResult());
+        getDeploymentScriptResultAsserter()
+            .assertResult(RUN_MULTIPLE_TIMES_OK_SCRIPT, this.getFlexibleSearchScriptExecutionResultDao().getSuccessMultipleRunsResult());
         runAndAssertNoErrors();
-        getDeploymentScriptResultAsserter().assertNumberOfResults("20200410_4_RUN_MULTIPLE_TIMES", 2);
+        getDeploymentScriptResultAsserter().assertNumberOfResults(RUN_MULTIPLE_TIMES_OK_SCRIPT, 2);
     }
 
     @Test
     public void testRunMultipleTimesScriptWithError() {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "multiple-times-error");
         getDeploymentScriptStarter().runAllPendingScripts();
-        getDeploymentScriptResultAsserter().assertResult("20200410_4_RUN_MULTIPLE_TIMES_ERROR", this.getFlexibleSearchScriptExecutionResultDao().getErrorResult());
+        getDeploymentScriptResultAsserter()
+            .assertResult("20200410_4_RUN_MULTIPLE_TIMES_ERROR", this.getFlexibleSearchScriptExecutionResultDao().getErrorResult());
         getDeploymentScriptStarter().runAllPendingScripts();
         getDeploymentScriptResultAsserter().assertNumberOfResults("20200410_4_RUN_MULTIPLE_TIMES_ERROR", 2);
     }
@@ -50,21 +54,22 @@ public class RunMultipleTimesTest extends AbstractWithConfigurationRestorationTe
     public void testRunMixedScript() {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "mixed-scripts");
         runAndAssertNoErrors();
-        getDeploymentScriptResultAsserter().assertResult("20200410_4_RUN_MULTIPLE_TIMES", this.getFlexibleSearchScriptExecutionResultDao().getSuccessMultipleRunsResult());
-        getDeploymentScriptResultAsserter().assertResult("20200410_4_RUN_ONCE_WITHOUT_CONF", this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+        getDeploymentScriptResultAsserter()
+            .assertResult(RUN_MULTIPLE_TIMES_OK_SCRIPT, this.getFlexibleSearchScriptExecutionResultDao().getSuccessMultipleRunsResult());
+        getDeploymentScriptResultAsserter().assertResult(RUN_ONCE_WITHOUT_CONF_SCRIPT, this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
         runAndAssertNoErrors();
-        getDeploymentScriptResultAsserter().assertNumberOfResults("20200410_4_RUN_MULTIPLE_TIMES", 2);
-        getDeploymentScriptResultAsserter().assertNumberOfResults("20200410_4_RUN_ONCE_WITHOUT_CONF", 1);
+        getDeploymentScriptResultAsserter().assertNumberOfResults(RUN_MULTIPLE_TIMES_OK_SCRIPT, 2);
+        getDeploymentScriptResultAsserter().assertNumberOfResults(RUN_ONCE_WITHOUT_CONF_SCRIPT, 1);
     }
 
     @Test
     public void testRunOnceWithoutConfigurationScript() {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "once-without-conf");
         runAndAssertNoErrors();
-        getDeploymentScriptResultAsserter().assertResult("20200410_4_RUN_ONCE_WITHOUT_CONF", this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+        getDeploymentScriptResultAsserter().assertResult(RUN_ONCE_WITHOUT_CONF_SCRIPT, this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
         runAndAssertNoErrors();
-        getDeploymentScriptResultAsserter().assertResult("20200410_4_RUN_ONCE_WITHOUT_CONF", this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
-        getDeploymentScriptResultAsserter().assertNumberOfResults("20200410_4_RUN_ONCE_WITHOUT_CONF", 1);
+        getDeploymentScriptResultAsserter().assertResult(RUN_ONCE_WITHOUT_CONF_SCRIPT, this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+        getDeploymentScriptResultAsserter().assertNumberOfResults(RUN_ONCE_WITHOUT_CONF_SCRIPT, 1);
     }
 
     @Test

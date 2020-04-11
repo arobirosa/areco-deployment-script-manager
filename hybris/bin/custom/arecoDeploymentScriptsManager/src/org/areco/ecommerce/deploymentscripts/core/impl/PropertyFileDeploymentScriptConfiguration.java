@@ -147,7 +147,7 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
         return runMultipleTimes;
     }
 
-    public void setRunMultipleTimes(boolean runMultipleTimes) {
+    public void setRunMultipleTimes(final boolean runMultipleTimes) {
         this.runMultipleTimes = runMultipleTimes;
     }
 }
