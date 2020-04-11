@@ -5,13 +5,22 @@ INSERT ScriptExecutionResult;name[unique=true];canBeRunnedAgain[forceWrite=true]
 ;ERROR;true;Error;
 #% endif:
 
+#% if: de.hybris.platform.core.Registry.getApplicationContext().getBean(de.hybris.platform.servicelayer.search.FlexibleSearchService.class).search("SELECT {r.PK} FROM {ScriptExecutionResult as r} WHERE {r.name} = 'IGNORED_NOT_FOR_THIS_TENANT'").getCount() == 0;
 INSERT ScriptExecutionResult;name[unique=true];canBeRunnedAgain[forceWrite=true];description[lang=en];
 ;IGNORED_NOT_FOR_THIS_ENVIRONMENT;false;"Ignored: Other environment";
 ;IGNORED_NOT_FOR_THIS_TENANT;false;"Ignored: Other tenant";
+#% endif:
 
+#% if: de.hybris.platform.core.Registry.getApplicationContext().getBean(de.hybris.platform.servicelayer.search.FlexibleSearchService.class).search("SELECT {r.PK} FROM {ScriptExecutionResult as r} WHERE {r.name} = 'SUCCESS_MULTIPLE_RUNS'").getCount() == 0;
+INSERT ScriptExecutionResult;name[unique=true];canBeRunnedAgain[forceWrite=true];description[lang=en];
+                            ;SUCCESS_MULTIPLE_RUNS;true;"Success (multiple runs)";
+#% endif:
+
+#% if: de.hybris.platform.core.Registry.getApplicationContext().getBean(de.hybris.platform.servicelayer.search.FlexibleSearchService.class).search("SELECT {e.PK} FROM {DeploymentEnvironment as e} ").getCount() == 0;
 # These are the out-of-box environments. They may be changed using a deployment script.
 INSERT DeploymentEnvironment;name[unique=true];description[lang=en];
 ;DEV;Development servers and the computers of the programmers;
 ;TEST;Servers used by the business analysts and customers for testing;
 ;INT;Integration and QA environment with the same configuration as in production;
 ;PRODUCTION;Production;
+#% endif:

@@ -33,11 +33,18 @@ public interface ScriptExecutionResultDAO {
     ScriptExecutionResultModel getErrorResult();
 
     /**
-     * Returns the instance which represents an error.
+     * Returns the instance which represents an success run. There scripts will only be run once.
      * 
      * @return ScriptExecutionResultModel Never null.
      */
     ScriptExecutionResultModel getSuccessResult();
+
+    /**
+     * Returns the instance which represents an success run. There scripts will only be run during every essential or project data creation step.
+     *
+     * @return ScriptExecutionResultModel Never null.
+     */
+    ScriptExecutionResultModel getSuccessMultipleRunsResult();
 
     /**
      * Returns the instance which represents the ignored result because the deployment script can't be run in the current environment.

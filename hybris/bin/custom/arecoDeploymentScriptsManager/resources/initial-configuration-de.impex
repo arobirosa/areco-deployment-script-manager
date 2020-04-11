@@ -1,5 +1,6 @@
 UPDATE ScriptExecutionResult;name[unique=true];description[lang=de];
 ;SUCCESS;Erfolgreich
+;SUCCESS_MULTIPLE_RUNS;Erfolreich (mehrere Ausführungen)
 ;ERROR;Fehler
 ;IGNORED_NOT_FOR_THIS_ENVIRONMENT;"Ignoriert: Andere Umgebung"
 ;IGNORED_NOT_FOR_THIS_TENANT;"Ignoriert: Anderer Tenant"
