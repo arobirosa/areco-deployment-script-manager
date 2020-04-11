@@ -2,11 +2,14 @@
 # If there is an open ticket, decide to postpone the release or move the ticket to the next release
 
 #Create a new release branch
-git flow release start 1.5
+git flow release start 1.5.3
 # Find all the properties with the version and replace them
 find ./hybris/bin/custom/ -name "*build.number"
 
-# Update the version manually
+# Update the version
+echo "version=1.5.3" > /tmp/release.areco.txt
+find ./hybris/bin/custom/ -name "*build.number" -exec cp -v /tmp/release.areco.txt {}  \;
+find ./hybris/bin/custom/ -name "*build.number" -exec cat {} \;
 
 # Commit the changes
 git commit -am "New version"
@@ -44,12 +47,14 @@ rm -rf hybris/data/* && ant clean all initialize yunitinit qa
 # Remove the connection information, so the hybris intallation works again with the HyperSQL database
 # If some tests were unsuccessful, solve the isssues and repeat the tests
 
-git flow release finish 1.5
+git flow release finish 1.5.3
 git push --all
 
-git archive --output=deploymentScriptsManager_1.5_20170519.zip production hybris/bin/custom
+git archive --output=deploymentScriptsManager_1.5.3_20200411.zip production hybris/bin/custom
 
-# Upload the zip to sourceforge
+# Prepare the release notes with the list of bugs and features
+# Create release in Github
+# Upload the zip to Github
 
 # Close the milestone
 
@@ -58,4 +63,3 @@ git archive --output=deploymentScriptsManager_1.5_20170519.zip production hybris
 # Prepare an email with the list of bugs and features
 # Send an email from arobirosa@gmail.com to arecodeploymentscriptsmanager-releases@lists.sourceforge.net
 # Send the email to the developers who I know and are using the Areco Deployment Manager
-# Save the body of the message and upload it as a file named README.txt
