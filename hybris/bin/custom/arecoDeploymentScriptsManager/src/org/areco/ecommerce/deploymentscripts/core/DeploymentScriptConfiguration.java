@@ -32,4 +32,9 @@ public interface DeploymentScriptConfiguration {
      */
     ScriptExecutionResultModel reasonToIgnoreExecutionOnThisServer();
 
+    /**
+     * Returns if this script runs once or multiple times by every essential or project data creation step
+     * @return
+     */
+    boolean runsMultipleTimes();
 }

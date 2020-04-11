@@ -3,13 +3,13 @@
 
 	<macrodef name="deploymentScriptsLoggingStart">
 		<sequential>
-			<record action="start" append="true" name="${HYBRIS_LOG_DIR}/deploymentScripts.log" loglevel="info" />
+			<record action="start" append="true" name="${HYBRIS_LOG_DIR}/deploymentScripts.log" loglevel="debug" />
 		</sequential>
 	</macrodef>
 
 	<macrodef name="deploymentScriptsLoggingEnd">
 		<sequential>
-			<record action="stop" append="false" name="${HYBRIS_LOG_DIR}/deploymentScripts.log" loglevel="info" />
+			<record action="stop" append="false" name="${HYBRIS_LOG_DIR}/deploymentScripts.log" loglevel="debug" />
 		</sequential>
 	</macrodef>
 	
@@ -26,6 +26,28 @@
             </yrun>
             </sequential>
     </macrodef>
+
+	<macrodef name="initializeJunitTenant">
+		<sequential>
+			<yrun failonerror="true">
+				import de.hybris.platform.core.Registry;
+				import org.areco.ecommerce.deploymentscripts.ant.DataCreatorAndDeploymentScriptsStarter;
+				import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
+
+				import de.hybris.platform.util.Utilities;
+
+				Utilities.setJUnitTenant();
+				AntDeploymentScriptsStarter starter = (AntDeploymentScriptsStarter) Registry.getApplicationContext().getBean(AntDeploymentScriptsStarter.class);
+				DataCreatorAndDeploymentScriptsStarter dataCreator = (DataCreatorAndDeploymentScriptsStarter) Registry.getApplicationContext().getBean(DataCreatorAndDeploymentScriptsStarter.class);
+
+				dataCreator.runInJunitTenant();
+				boolean wasLastScriptSuccessful = starter.wasLastScriptSuccessful();
+				de.hybris.platform.util.RedeployUtilities.shutdown();
+				System.exit(wasLastScriptSuccessful ? 0 : 1);
+			</yrun>
+			<deploymentScriptsLoggingEnd />
+		</sequential>
+	</macrodef>
 	
 	<!-- Logging during the update running system -->
     <macrodef name="arecoDeploymentScriptsManager_before_updatesystem">
@@ -50,8 +72,16 @@
 
 	<macrodef name="arecoDeploymentScriptsManager_after_initialize">
 		<sequential>
-			<deploymentScriptsLoggingEnd />
-			<checkIfTheDeploymentScriptsWereSuccessful />
+			<if>
+				<equals arg1="${tenant}" arg2="junit"/>
+				<then>
+					<initializeJunitTenant />
+				</then>
+				<else>
+					<deploymentScriptsLoggingEnd />
+					<checkIfTheDeploymentScriptsWereSuccessful />
+				</else>
+			</if>
 		</sequential>
 	</macrodef>
 
@@ -64,22 +94,7 @@
 
 	<macrodef name="arecoDeploymentScriptsManager_after_yunitinit">
 		<sequential>
-			<yrun failonerror="true">
-		import de.hybris.platform.core.Registry;
-		import org.areco.ecommerce.deploymentscripts.ant.DataCreatorAndDeploymentScriptsStarter;
-		import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
-
-		import de.hybris.platform.util.Utilities;
-
-		Utilities.setJUnitTenant();
-		AntDeploymentScriptsStarter starter = (AntDeploymentScriptsStarter) Registry.getApplicationContext().getBean(AntDeploymentScriptsStarter.class);
-		DataCreatorAndDeploymentScriptsStarter dataCreator = (DataCreatorAndDeploymentScriptsStarter) Registry.getApplicationContext().getBean(DataCreatorAndDeploymentScriptsStarter.class);
-				
-		dataCreator.runInJunitTenant();
-		boolean wasLastScriptSuccessful = starter.wasLastScriptSuccessful();
-	    de.hybris.platform.util.RedeployUtilities.shutdown();
-		System.exit(wasLastScriptSuccessful ? 0 : 1);
-			</yrun>
+			<initializeJunitTenant />
 			<deploymentScriptsLoggingEnd />
 		</sequential>
 	</macrodef>

@@ -26,10 +26,8 @@
 	
 	<fileset dir="${dir_hybris_bin}" id="fileset_bin_instrumentation">
 		<include name="custom/*/classes/"/>
-		<include name="custom/*/web/webroot/WEB-INF/classes/"/>
-		<include name="custom/*/hmc/classes/**/"/>
-		<exclude name="**/jalo/*.class" /> <!-- Jalo layer -->
-		<exclude name="**/hmc/*.class" /> <!-- Hmc Classes -->
+		<include name="custom/*/web/webroot/WEB-INF/classes/"/>		
+		<exclude name="**/jalo/*.class" /> <!-- Jalo layer -->		
 		<exclude name="**/Generated*.class" /> <!-- Generated Classes (Jalo and hmc) -->
 		<exclude name="**/*Constants.class" /> <!-- Generated Classes (constants) -->
 	</fileset>

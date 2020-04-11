@@ -18,6 +18,7 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 import de.hybris.platform.core.Tenant;
 import de.hybris.platform.servicelayer.tenant.MockTenant;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationException;
@@ -50,6 +51,10 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
      * Allowed tenants
      */
     private static final String RUN_ONLY_ON_TENANTS_PROPERTY = "runonlyontenants";
+    /**
+     * Flag indicating if the deployment script runs once or multiple times
+     */
+    private static final String RUN_MULTIPLE_TIMES_PROPERTY = "runmultipletimes";
     /**
      * Separator of tenant and environment names.
      */
@@ -96,7 +101,13 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
         final PropertyFileDeploymentScriptConfiguration newConfiguration = this.createConfiguration();
         newConfiguration.setAllowedTenants(tenants);
         newConfiguration.setAllowedDeploymentEnvironmentNames(environmentNames);
+        newConfiguration.setRunMultipleTimes(getRunMultipleTimes(properties));
         return newConfiguration;
+    }
+
+    private boolean getRunMultipleTimes(final Properties properties) {
+        final String flagValue = properties.getProperty(RUN_MULTIPLE_TIMES_PROPERTY);
+        return BooleanUtils.toBoolean(flagValue);
     }
 
     private Set<String> getAllowedDeploymentEnvironments(final Properties properties) {

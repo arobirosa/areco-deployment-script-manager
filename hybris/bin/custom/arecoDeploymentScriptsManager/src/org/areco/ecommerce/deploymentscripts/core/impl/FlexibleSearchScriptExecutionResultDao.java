@@ -43,13 +43,15 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 
     private static final String SUCCESS = "SUCCESS";
 
+    private static final String SUCCESS_MULTIPLE_RUNS = "SUCCESS_MULTIPLE_RUNS";
+
     private static final String ERROR = "ERROR";
 
     private static final String IGNORED_NOT_FOR_THIS_ENVIRONMENT = "IGNORED_NOT_FOR_THIS_ENVIRONMENT";
 
     private static final String IGNORED_NOT_FOR_THIS_TENANT = "IGNORED_NOT_FOR_THIS_TENANT";
 
-    private static final int NUMBER_OF_RESULT_INSTANCES = 4;
+    private static final int NUMBER_OF_RESULT_INSTANCES = 5;
 
     private Map<String, ScriptExecutionResultModel> resultsByCode;
 
@@ -104,6 +106,14 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
     @Override
     public ScriptExecutionResultModel getSuccessResult() {
         return this.getResult(SUCCESS);
+    }
+
+    /*
+     * { @InheritDoc }
+     */
+    @Override
+    public ScriptExecutionResultModel getSuccessMultipleRunsResult() {
+        return this.getResult(SUCCESS_MULTIPLE_RUNS);
     }
 
     private ScriptExecutionResultModel getResult(final String aCode) {

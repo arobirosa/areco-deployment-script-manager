@@ -21,6 +21,8 @@
                managersuperclass="de.hybris.platform.jalo.extension.Extension"
       >
       <requires-extension name="arecoDeploymentScriptsManager" />
+       <!-- The reload cockpit configuration examples uses de.hybris.platform.cockpit.systemsetup.CockpitImportConfig -->
+       <requires-extension name="cockpit" />
 
       <coremodule	packageroot="org.areco.ecommerce.deploymentscripts.examples"
 					manager="org.areco.ecommerce.deploymentscripts.examples.jalo.ArecoDeploymentScriptsExamplesManager"
