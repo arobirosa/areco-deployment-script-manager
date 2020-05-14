@@ -1,4 +1,4 @@
-# areco-deployment-script-manager
+# Areco Deployment Script Manager
 Simple but powerful Patch system for SAP Commerce Cloud, formely known as SAP hybris
 
 With this extension you can create deployment scripts (patches) which are going to be automatically run during the update running system of the SAP Commerce platform.
