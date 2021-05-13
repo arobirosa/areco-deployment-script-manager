@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module descriptorType="EXT" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration process_explicitly_annotated="false">
+        <fileset id="maintenancewebspring" name="maintenancewebspring" removed="false">
+          <dependency>corespring==core</dependency>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/project.properties</file>
+        </fileset>
+      </configuration>
+    </facet>
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/web/webroot/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/web/webroot" relative="/" />
+        </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/resources" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/commonweb/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/commonweb/gensrc" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/acceleratoraddon/web/src" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/acceleratoraddon/web/gensrc" />
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/backoffice/resources" />
+        </sourceRoots>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/eclipsebin" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/eclipsebin" />
+    <exclude-output />
+    <javadoc-paths>
+      <root url="https://download.hybris.com/api/2005/commercesuite" />
+    </javadoc-paths>
+    <content url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/commonweb/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/acceleratoraddon/web/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/backoffice/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/.externalToolBuilders" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/.settings" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/acceleratoraddon/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/acceleratoraddon/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/acceleratoraddon/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/bower_components" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/commonweb/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/commonweb/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/commonweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/jsTarget" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/web/testclasses" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/resources" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/ext/maintenanceweb/lib" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="core" exported="" />
+  </component>
+</module>

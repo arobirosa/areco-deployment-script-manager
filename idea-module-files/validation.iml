@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module descriptorType="EXT" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration process_explicitly_annotated="false">
+        <fileset id="validationspring" name="validationspring" removed="false">
+          <dependency>impexspring==impex</dependency>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/project.properties</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/resources/validation-spring.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/eclipsebin" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/eclipsebin" />
+    <exclude-output />
+    <javadoc-paths>
+      <root url="https://download.hybris.com/api/2005/commercesuite" />
+    </javadoc-paths>
+    <content url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/commonweb/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/acceleratoraddon/web/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/backoffice/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/.externalToolBuilders" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/.settings" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/acceleratoraddon/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/acceleratoraddon/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/acceleratoraddon/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/bower_components" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/commonweb/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/commonweb/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/commonweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/jsTarget" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/web/testclasses" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/resources" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../hybris/bin/platform/ext/validation/bin/validationserver.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/ext/validation/lib" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="impex" exported="" />
+  </component>
+</module>

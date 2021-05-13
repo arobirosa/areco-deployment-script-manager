@@ -8,7 +8,6 @@
         <option value="reformatChangedCode" />
         <option value="fieldCanBeFinal" />
         <option value="localCanBeFinalExceptImplicit" />
-        <option value="missingOverrideAnnotation" />
       </set>
     </option>
     <option name="configurationPath" value="" />

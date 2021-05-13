@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module descriptorType="CONFIG" importedAsReadOnly="false" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration process_explicitly_annotated="false">
+        <fileset id="configspring" name="configspring" removed="false" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../hybris/config/eclipsebin" />
+    <output-test url="file://$MODULE_DIR$/../hybris/config/eclipsebin" />
+    <exclude-output />
+    <javadoc-paths>
+      <root url="https://download.hybris.com/api/2005/commercesuite" />
+    </javadoc-paths>
+    <content url="file://$MODULE_DIR$/../hybris/config">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/commonweb/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/acceleratoraddon/web/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/config/backoffice/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/.externalToolBuilders" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/.settings" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/acceleratoraddon/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/acceleratoraddon/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/acceleratoraddon/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/bower_components" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/commonweb/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/commonweb/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/commonweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/jsTarget" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/config/web/testclasses" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/config/licence" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/config/licence" recursive="true" />
+      </library>
+    </orderEntry>
+  </component>
+</module>

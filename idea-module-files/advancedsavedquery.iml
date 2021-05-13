@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module descriptorType="EXT" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration process_explicitly_annotated="false">
+        <fileset id="advancedsavedqueryspring" name="advancedsavedqueryspring" removed="false">
+          <dependency>catalogspring==catalog</dependency>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/eclipsebin" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/eclipsebin" />
+    <exclude-output />
+    <javadoc-paths>
+      <root url="https://download.hybris.com/api/2005/commercesuite" />
+    </javadoc-paths>
+    <content url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/commonweb/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/backoffice/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/.externalToolBuilders" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/.settings" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/acceleratoraddon/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/bower_components" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/commonweb/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/commonweb/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/commonweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/jsTarget" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/web/testclasses" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/resources" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/bin/advancedsavedqueryserver.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/ext/advancedsavedquery/lib" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="catalog" exported="" />
+  </component>
+</module>

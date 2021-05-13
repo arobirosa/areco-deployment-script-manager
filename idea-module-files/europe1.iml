@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module descriptorType="EXT" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration process_explicitly_annotated="false">
+        <fileset id="europe1spring" name="europe1spring" removed="false">
+          <dependency>catalogspring==catalog</dependency>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/project.properties</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/resources/europe1-spring.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/eclipsebin" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/eclipsebin" />
+    <exclude-output />
+    <javadoc-paths>
+      <root url="https://download.hybris.com/api/2005/commercesuite" />
+    </javadoc-paths>
+    <content url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/commonweb/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/acceleratoraddon/web/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/backoffice/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/.externalToolBuilders" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/.settings" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/acceleratoraddon/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/acceleratoraddon/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/acceleratoraddon/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/bower_components" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/commonweb/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/commonweb/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/commonweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/jsTarget" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/web/testclasses" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/resources" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/bin/europe1server.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/ext/europe1/lib" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="catalog" exported="" />
+  </component>
+</module>

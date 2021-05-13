@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module descriptorType="EXT" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration process_explicitly_annotated="false">
+        <fileset id="paymentstandardspring" name="paymentstandardspring" removed="false">
+          <dependency>corespring==core</dependency>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/eclipsebin" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/eclipsebin" />
+    <exclude-output />
+    <javadoc-paths>
+      <root url="https://download.hybris.com/api/2005/commercesuite" />
+    </javadoc-paths>
+    <content url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/commonweb/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/acceleratoraddon/web/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/backoffice/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/.externalToolBuilders" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/.settings" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/acceleratoraddon/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/acceleratoraddon/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/acceleratoraddon/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/bower_components" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/commonweb/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/commonweb/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/commonweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/jsTarget" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/web/testclasses" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/resources" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/bin/paymentstandardserver.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/ext/paymentstandard/lib" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="core" exported="" />
+  </component>
+</module>

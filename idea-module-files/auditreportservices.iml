@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module descriptorType="OOTB" importedAsReadOnly="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration process_explicitly_annotated="false">
+        <fileset id="auditreportservicesspring" name="auditreportservicesspring" removed="false">
+          <dependency>platformspring==platform</dependency>
+          <file>file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/project.properties</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/resources/auditreportservices-spring.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/eclipsebin" />
+    <output-test url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/eclipsebin" />
+    <exclude-output />
+    <javadoc-paths>
+      <root url="https://download.hybris.com/api/2005/commercesuite" />
+    </javadoc-paths>
+    <content url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices">
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/commonweb/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/acceleratoraddon/web/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/acceleratoraddon/web/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/backoffice/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/.externalToolBuilders" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/.settings" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/acceleratoraddon/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/acceleratoraddon/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/acceleratoraddon/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/backoffice/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/bower_components" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/commonweb/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/commonweb/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/commonweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/jsTarget" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/web/testclasses" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/resources" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/bin/auditreportservicesserver.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/modules/platform/auditreportservices/lib" recursive="true" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="platform" exported="" />
+  </component>
+</module>
