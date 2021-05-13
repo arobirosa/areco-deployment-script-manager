@@ -71,3 +71,4 @@ qa/cobertura.zip
 **.bak
 *-testclasses.xml
 integration_tests_with_ant/docker-volumes/
+.idea/dataSources/

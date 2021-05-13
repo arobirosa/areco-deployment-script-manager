@@ -1,5 +1,8 @@
 #!/bin/bash -x
 
+#TODO
+# * Add volume for DB
+
 # exit when any command fails
 set -e
 ### keep track of the last executed command
@@ -27,10 +30,11 @@ echo "START TEST";
 echo "Clearing the database and data folder"
 rm -rf $ARECO_HYBRIS_DIR/data/*;
 docker-compose --file $ARECO_CURRENT_TEST_FOLDER/docker-compose.yml down;
-rm -rf $ARECO_DB_DATA_FOLDER/*;
+# rm -rf $ARECO_DB_DATA_FOLDER/*;
 docker-compose --file $ARECO_CURRENT_TEST_FOLDER/docker-compose.yml up -d;
+$ARECO_CURRENT_TEST_FOLDER/../utils/wait-for-it.sh --host=127.0.0.1 --port=9500 --timeout=600 -- echo "Waiting for the oracle database to be ready";
 
-echon "Run all the tests on master tenant"
+echo "Run all the tests on master tenant"
 ant clean all yunitinit qa;
 
 ## Clear the database and data folder
