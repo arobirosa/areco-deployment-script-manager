@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+  areco-database:
+    image: oracle/database:18.4.0-xe
+    container_name: areco-oracle-xe
+    environment:
+      - ORACLE_PWD=password123
+#    volumes:
+#      - ${PWD}/../docker_volumes/oracle-xe:/opt/oracle/oradata:delegated
+    ports:
+      - 9521:1521
+      - 9500:5500
