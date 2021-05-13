@@ -23,8 +23,20 @@ cp -v $ARECO_CURRENT_TEST_FOLDER/../dbdriver/*.jar $ARECO_HYBRIS_DIR/bin/platfor
 echo "Starting the oracle XE container"
 docker-compose --file $ARECO_CURRENT_TEST_FOLDER/docker-compose.yml up -d;
 $ARECO_CURRENT_TEST_FOLDER/../utils/wait-for-it.sh --host=127.0.0.1 --port=9500 --timeout=600 -- echo "Waiting for the oracle database to be ready";
-docker-compose --file $ARECO_CURRENT_TEST_FOLDER/docker-compose.yml logs --follow areco-database | grep 'DATABASE IS READY TO USE' | read -t 600 areco_unused_variable
-[ $? -eq 0 ]  && echo 'Oracle XE is up'  || (echo 'Oracle XE did not start' && exit 3)
+
+timeout() {
+   sleep 6
+   kill -SIGUSR1 $1
+}
+
+watch_for_database() {
+   docker-compose --file $ARECO_CURRENT_TEST_FOLDER/docker-compose.yml logs --follow areco-database | grep 'DATABASE IS READY TO USE'
+}
+
+trap 'echo "Oracle XE did not start"; exit 3' SIGUSR1
+timeout $BASHPID &
+watch_for_database
+echo "Oracle XE is up";
 
 echo "Configuring database connection and other properties";
 export HYBRIS_OPT_CONFIG_DIR=$ARECO_CURRENT_TEST_FOLDER;
