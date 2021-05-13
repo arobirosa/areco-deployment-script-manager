@@ -1,7 +1,10 @@
 #!/bin/bash -x
 
-#TODO
+# TODO
 # * Add volume for DB
+
+# NOTES
+# Becauase the database container may take up to 10 minutes to start, all tests with Oracle are done here. The database schema is removed but not the container.
 
 # exit when any command fails
 set -e
@@ -24,19 +27,30 @@ echo "Starting the oracle XE container"
 docker-compose --file $ARECO_CURRENT_TEST_FOLDER/docker-compose.yml up -d;
 $ARECO_CURRENT_TEST_FOLDER/../utils/wait-for-it.sh --host=127.0.0.1 --port=9500 --timeout=600 -- echo "Waiting for the oracle database to be ready";
 
-timeout() {
-   sleep 6
-   kill -SIGUSR1 $1
-}
-
-watch_for_database() {
-   docker-compose --file $ARECO_CURRENT_TEST_FOLDER/docker-compose.yml logs --follow areco-database | grep 'DATABASE IS READY TO USE'
-}
-
-trap 'echo "Oracle XE did not start"; exit 3' SIGUSR1
-timeout $BASHPID &
-watch_for_database
+start_time=$(date +"%s")
+while true
+do
+    if [[ $(docker-compose --file $ARECO_CURRENT_TEST_FOLDER/docker-compose.yml logs areco-database | grep -c 'DATABASE IS READY TO USE') -ge 1 ]]; then        
+        break
+    fi
+    elapsed_time=$(($(date +"%s") - $start_time))
+    if [[ "$elapsed_time" -gt 1200 ]]; then
+        echo "Oracle XE did not start after 20 minutes";
+        exit 3;
+    fi
+    echo "Waiting for the database container to be ready. Sleeping for 30 seconds";
+    sleep 30;
+done
 echo "Oracle XE is up";
+
+echo "Dropping user with its objects if it is exist";
+docker-compose exec areco-database /opt/oracle/product/18c/dbhomeXE/bin/sqlplus -s /nolog <<EOF
+connect SYS/password123@XEPDB1 AS SYSDBA
+drop user ARECOMANAGER CASCADE;
+create user ARECOMANAGER IDENTIFIED by secret3odks;
+grant all privileges to ARECOMANAGER;
+quit
+EOF
 
 echo "Configuring database connection and other properties";
 export HYBRIS_OPT_CONFIG_DIR=$ARECO_CURRENT_TEST_FOLDER;
