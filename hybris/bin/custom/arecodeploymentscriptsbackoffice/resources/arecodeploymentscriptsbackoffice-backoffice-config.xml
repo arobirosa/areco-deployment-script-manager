@@ -71,7 +71,8 @@
 				<editorArea:section name="hmc.section.common">
 					<editorArea:attribute qualifier="result" readonly="true"/>
 					<editorArea:attribute qualifier="phase" readonly="true"/>
-					<editorArea:attribute qualifier="stacktrace" readonly="true" editor="com.hybris.cockpitng.editor.defaulttext" >
+					<editorArea:attribute qualifier="fullStacktrace" readonly="true"
+										  editor="com.hybris.cockpitng.editor.defaulttext">
 						<editorArea:editor-parameter>
 							<editorArea:name>multilineEditorRows</editorArea:name>
 							<editorArea:value>25</editorArea:value>

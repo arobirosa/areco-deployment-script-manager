@@ -17,12 +17,18 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.model.ModelService;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
+import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
+import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionExceptionFactory;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,24 +36,31 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * Default script runner.
  *
  * @author arobirosa
  */
-@Service @Scope("tenant") public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
+@Service
+@Scope("tenant")
+public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner
+{
 
         private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptsRunner.class);
 
-        @Autowired private ModelService modelService;
+        @Resource
+        private DeploymentScriptExecutionExceptionFactory deploymentScriptExecutionExceptionFactory;
+
+        @Autowired
+        private ModelService modelService;
 
         @Autowired
         // We inject by name because Spring can't see the generic parameters.
-        @Qualifier("deploymentScript2ExecutionConverter") private Converter<DeploymentScript, ScriptExecutionModel> scriptConverter;
+        @Qualifier("deploymentScript2ExecutionConverter")
+        private Converter<DeploymentScript, ScriptExecutionModel> scriptConverter;
 
-        @Autowired private ScriptExecutionResultDAO scriptExecutionResultDao;
+        @Autowired
+        private ScriptExecutionResultDAO scriptExecutionResultDao;
 
         /*
          * (non-Javadoc)
@@ -61,16 +74,16 @@ import java.util.List;
                         try {
                                 final ScriptExecutionResultModel scriptResult = aScript.run();
                                 if (scriptResult == null) {
-                                        throw new DeploymentScriptExecutionException(
-                                                "No script execution result was returned. Please check if the database contains all the "
-                                                        + "ScriptExecutionResultModel required by the Areco deployment manager");
+                                        throw this.deploymentScriptExecutionExceptionFactory.newWith(
+                                            "No script execution result was returned. Please check if the database contains all the "
+                                            + "ScriptExecutionResultModel required by the Areco deployment manager");
                                 }
                                 scriptExecution.setResult(scriptResult);
                         } catch (final DeploymentScriptExecutionException e) {
                                 LOG.error("There was an error running " + aScript.getLongName() + ':' + e.getLocalizedMessage(), e);
 
                                 scriptExecution.setResult(this.scriptExecutionResultDao.getErrorResult());
-                                scriptExecution.setStacktrace(e.getCauseShortStackTrace());
+                                scriptExecution.setFullStacktrace(e.getCauseShortStackTrace());
                                 this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
                                 return true; // We stop after the first error.
                         }

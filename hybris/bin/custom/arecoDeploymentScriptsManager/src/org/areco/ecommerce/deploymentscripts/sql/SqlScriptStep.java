@@ -15,14 +15,14 @@
  */
 package org.areco.ecommerce.deploymentscripts.sql;
 
-import java.sql.SQLException;
-
 import org.apache.log4j.Logger;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStep;
+import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import java.sql.SQLException;
 
 /**
  * Represents an SQL script.
@@ -57,7 +57,10 @@ public class SqlScriptStep extends AbstractSingleFileScriptStep {
         try {
             rows = this.sqlScriptService.runDeleteOrUpdateStatement(sqlStatement);
         } catch (final SQLException e) {
-            throw new DeploymentScriptExecutionException("There was an error while running the SQL Script " + this.getId() + ':' + e.getLocalizedMessage(), e);
+            throw this.getDeploymentScriptExecutionExceptionFactory()
+                    .newWith(
+                            "There was an error while running the SQL Script " + this.getId() + ':' + e.getLocalizedMessage(),
+                            e);
         }
         if (LOG.isDebugEnabled()) {
             LOG.debug("The SQL Script was executed successfully. " + rows + " rows were affected.");

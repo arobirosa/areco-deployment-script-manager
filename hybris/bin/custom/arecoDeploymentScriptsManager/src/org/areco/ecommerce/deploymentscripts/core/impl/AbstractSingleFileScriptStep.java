@@ -15,64 +15,84 @@
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
-
 import java.io.File;
 import java.io.IOException;
 
+import javax.annotation.Resource;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
+import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
+import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionExceptionFactory;
+
 /**
  * It represents a step which only uses one single file.
- * 
+ *
  * @author arobirosa
- * 
  */
-public abstract class AbstractSingleFileScriptStep implements DeploymentScriptStep {
+public abstract class AbstractSingleFileScriptStep implements DeploymentScriptStep
+{
+
+    @Resource
+    private DeploymentScriptExecutionExceptionFactory deploymentScriptExecutionExceptionFactory;
 
     private File scriptFile;
 
     @Override
-    public String getId() {
-        if (this.scriptFile == null) {
+    public String getId()
+    {
+        if (this.scriptFile == null)
+        {
             return null;
         }
         return this.scriptFile.getName();
     }
 
     protected String loadFileContent() throws DeploymentScriptExecutionException {
-        String sqlStatement;
-        try {
+        final String sqlStatement;
+        try
+        {
             sqlStatement = FileUtils.readFileToString(this.getScriptFile(), DeploymentScript.DEFAULT_FILE_ENCODING);
-        } catch (final IOException e) {
-            throw new DeploymentScriptExecutionException("There was an error while reading the contents of the SQL Script " + this.getId() + ':'
-                    + e.getLocalizedMessage(), e);
+        } catch (final IOException e)
+        {
+            throw deploymentScriptExecutionExceptionFactory.newWith(
+                "There was an error while reading the contents of the SQL Script " + this.getId() + ':'
+                + e.getLocalizedMessage(), e);
         }
         if (StringUtils.isBlank(sqlStatement)) {
-            throw new DeploymentScriptExecutionException("The file " + this.getScriptFile() + " is empty.");
+            throw deploymentScriptExecutionExceptionFactory.newWith("The file " + this.getScriptFile() + " is empty.");
         }
         return sqlStatement;
     }
 
-    public File getScriptFile() {
+    public File getScriptFile()
+    {
         return scriptFile;
     }
 
-    public void setScriptFile(final File scriptFile) {
+    public void setScriptFile(final File scriptFile)
+    {
         this.scriptFile = scriptFile;
+    }
+
+    protected DeploymentScriptExecutionExceptionFactory getDeploymentScriptExecutionExceptionFactory()
+    {
+        return deploymentScriptExecutionExceptionFactory;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
-    public String toString() {
+    public String toString()
+    {
         final StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName());
+        builder.append(this.getClass()
+                           .getSimpleName());
         builder.append(" [scriptFile=");
         builder.append(scriptFile);
         builder.append("]");

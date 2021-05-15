@@ -16,8 +16,8 @@
 package org.areco.ecommerce.deploymentscripts.impex;
 
 import org.apache.log4j.Logger;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStep;
+import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -47,8 +47,10 @@ public class ImpexImportStep extends AbstractSingleFileScriptStep {
         }
         try {
             this.impexImportService.importImpexFile(this.getScriptFile());
-        } catch (final ImpexImportException cause) {
-            throw new DeploymentScriptExecutionException("There was an error importing the step " + this.getId(), cause);
+        } catch (final ImpexImportException cause)
+        {
+            this.getDeploymentScriptExecutionExceptionFactory()
+                .newWith("There was an error importing the step " + this.getId(), cause);
         }
     }
 }

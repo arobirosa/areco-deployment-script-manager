@@ -1,22 +1,23 @@
 /**
  * Copyright 2014 Antonio Robirosa
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
+import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -27,9 +28,8 @@ import java.util.List;
 
 /**
  * Represents each folder containing the deployment script.
- * 
+ *
  * @author arobirosa
- * 
  */
 // Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
@@ -57,7 +57,7 @@ public class DeploymentScript {
 
     /**
      * Does the actual job.
-     * 
+     *
      * @throws DeploymentScriptExecutionException
      */
     public ScriptExecutionResultModel run() throws DeploymentScriptExecutionException {
@@ -90,12 +90,12 @@ public class DeploymentScript {
      * @return the name
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
      * ID used to identify the deployment script
-     * 
+     *
      * @return Never null
      */
 
@@ -104,8 +104,7 @@ public class DeploymentScript {
     }
 
     /**
-     * @param name
-     *            the name to set
+     * @param name the name to set
      */
     public void setName(final String name) {
         this.name = name;
@@ -115,12 +114,11 @@ public class DeploymentScript {
      * @return the extensionName
      */
     public String getExtensionName() {
-        return extensionName;
+        return this.extensionName;
     }
 
     /**
-     * @param extensionName
-     *            the extensionName to set
+     * @param extensionName the extensionName to set
      */
     public void setExtensionName(final String extensionName) {
         this.extensionName = extensionName;
@@ -130,15 +128,14 @@ public class DeploymentScript {
      * @return the orderedSteps
      */
     public List<DeploymentScriptStep> getOrderedSteps() {
-        if (orderedSteps == null) {
+        if (this.orderedSteps == null) {
             this.orderedSteps = new ArrayList<>();
         }
-        return orderedSteps;
+        return this.orderedSteps;
     }
 
     /**
-     * @param orderedSteps
-     *            the orderedSteps to set
+     * @param orderedSteps the orderedSteps to set
      */
     public void setOrderedSteps(final List<DeploymentScriptStep> orderedSteps) {
         this.orderedSteps = orderedSteps;
@@ -151,8 +148,8 @@ public class DeploymentScript {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((extensionName == null) ? 0 : extensionName.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((this.extensionName == null) ? 0 : this.extensionName.hashCode());
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
         return result;
     }
 
@@ -172,18 +169,18 @@ public class DeploymentScript {
             return false;
         }
         final DeploymentScript other = (DeploymentScript) obj;
-        if (extensionName == null) {
+        if (this.extensionName == null) {
             if (other.extensionName != null) {
                 return false;
             }
-        } else if (!extensionName.equals(other.extensionName)) {
+        } else if (!this.extensionName.equals(other.extensionName)) {
             return false;
         }
-        if (name == null) {
+        if (this.name == null) {
             if (other.name != null) {
                 return false;
             }
-        } else if (!name.equals(other.name)) {
+        } else if (!this.name.equals(other.name)) {
             return false;
         }
         return true;
@@ -191,40 +188,39 @@ public class DeploymentScript {
 
     /*
      * Returns a string representation of this object.
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder(79);
         builder.append("DeploymentScript [name=");
-        builder.append(name);
+        builder.append(this.name);
         builder.append(", extensionName=");
-        builder.append(extensionName);
+        builder.append(this.extensionName);
         builder.append(", orderedSteps=");
-        builder.append(orderedSteps);
+        builder.append(this.orderedSteps);
         builder.append(", phase=");
-        builder.append(phase);
+        builder.append(this.phase);
         builder.append(", configuration=");
-        builder.append(configuration);
+        builder.append(this.configuration);
         builder.append("]");
         return builder.toString();
     }
 
     /**
      * Getter of the phase.
-     * 
+     *
      * @return the phase
      */
     public SystemPhase getPhase() {
-        return phase;
+        return this.phase;
     }
 
     /**
      * Setter of the phase
-     * 
-     * @param phase
-     *            the phase to set
+     *
+     * @param phase the phase to set
      */
     public void setPhase(final SystemPhase phase) {
         this.phase = phase;
@@ -232,18 +228,17 @@ public class DeploymentScript {
 
     /**
      * Returns the configuration of this script.
-     * 
+     *
      * @return Never null
      */
     public DeploymentScriptConfiguration getConfiguration() {
-        return configuration;
+        return this.configuration;
     }
 
     /**
      * Setter of the configuration
-     * 
-     * @param configuration
-     *            Required
+     *
+     * @param configuration Required
      */
     public void setConfiguration(final DeploymentScriptConfiguration configuration) {
         this.configuration = configuration;

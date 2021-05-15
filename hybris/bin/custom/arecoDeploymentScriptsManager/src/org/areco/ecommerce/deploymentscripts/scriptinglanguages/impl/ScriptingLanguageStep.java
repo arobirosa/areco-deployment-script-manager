@@ -16,8 +16,8 @@
 package org.areco.ecommerce.deploymentscripts.scriptinglanguages.impl;
 
 import org.apache.log4j.Logger;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStep;
+import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageExecutionException;
 import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageExecutionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +52,11 @@ public class ScriptingLanguageStep extends AbstractSingleFileScriptStep {
         }
         try {
             this.scriptingLanguageExecutionService.executeScript(this.getScriptFile());
-        } catch (final ScriptingLanguageExecutionException e) {
-            throw new DeploymentScriptExecutionException("There was an error running the script step " + this.getId() + ": " + e.getLocalizedMessage(), e);
+        } catch (final ScriptingLanguageExecutionException e)
+        {
+            throw this.getDeploymentScriptExecutionExceptionFactory()
+                .newWith("There was an error running the script step " + this.getId() + ": " + e.getLocalizedMessage(),
+                         e);
         }
     }
 

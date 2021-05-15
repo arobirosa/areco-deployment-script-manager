@@ -4,10 +4,12 @@
     <option name="actions">
       <set>
         <option value="activate" />
+        <option value="activateOnShortcut" />
         <option value="organizeImports" />
         <option value="reformatChangedCode" />
         <option value="fieldCanBeFinal" />
         <option value="localCanBeFinalExceptImplicit" />
+        <option value="unqualifiedFieldAccess" />
       </set>
     </option>
     <option name="configurationPath" value="" />

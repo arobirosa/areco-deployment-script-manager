@@ -75,9 +75,15 @@
                     <modifiers optional="false" initial="true"/>
                     <persistence type="property"/>
                 </attribute>
-                <attribute qualifier="stacktrace" type="java.lang.String">
+                <attribute qualifier="fullStacktrace" type="java.lang.String">
                     <description>Stacktrace if the script was unsuccessful.</description>
                     <persistence type="property">
+                        <columntype database="oracle">
+                            <value>clob</value>
+                        </columntype>
+                        <columntype database="mysql">
+                            <value>text</value>
+                        </columntype>
                         <columntype>
                             <value>HYBRIS.LONG_STRING</value>
                         </columntype>
