@@ -19,18 +19,6 @@ import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.annotation.Resource;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -42,6 +30,16 @@ import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This DAO provides services to the tests.
@@ -71,7 +69,7 @@ public final class DeploymentScriptResultAsserter {
         ServicesUtil.validateParameterNotNullStandardMessage("expectedResult", expectedResult);
         final ScriptExecutionModel executionOfTheScript = getDeploymentScriptExecution(deploymentScriptName);
         Assert.assertEquals("The deployment script " + deploymentScriptName + " has the wrong result. Expected: " + expectedResult.getName() + " Actual: "
-            + executionOfTheScript.getResult().getName(), expectedResult, executionOfTheScript.getResult());
+                + executionOfTheScript.getResult().getName(), expectedResult, executionOfTheScript.getResult());
         return executionOfTheScript;
     }
 
@@ -114,8 +112,8 @@ public final class DeploymentScriptResultAsserter {
         final StringBuilder queryBuilder = new StringBuilder(45);
 
         queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
-            .append(" as es ").append(" } ").append("WHERE ").append(" {es.").append(ScriptExecutionModel.SCRIPTNAME).append("} = ?")
-            .append(ScriptExecutionModel.SCRIPTNAME);
+                .append(" as es ").append(" } ").append("WHERE ").append(" {es.").append(ScriptExecutionModel.SCRIPTNAME).append("} = ?")
+                .append(ScriptExecutionModel.SCRIPTNAME);
 
         final Map<String, Object> queryParams = new ConcurrentHashMap<>();
         queryParams.put(ScriptExecutionModel.SCRIPTNAME, deploymentScriptName);
@@ -134,7 +132,7 @@ public final class DeploymentScriptResultAsserter {
         final StringBuilder queryBuilder = new StringBuilder(29);
 
         queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
-            .append(" as es ").append(" } ");
+                .append(" as es ").append(" } ");
 
         LOG.trace("Executing the query: '" + queryBuilder.toString());
 
@@ -154,7 +152,7 @@ public final class DeploymentScriptResultAsserter {
      */
     public void assertSuccessfulResult(final String deploymentScriptName) {
         isScriptNameParameterValid(deploymentScriptName);
-        this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getSuccessResult());
+        this.assertResult(deploymentScriptName, this.flexibleSearchScriptExecutionResultDao.getSuccessResult());
     }
 
     /**
@@ -164,7 +162,7 @@ public final class DeploymentScriptResultAsserter {
      */
     public void assertErrorResult(final String deploymentScriptName) {
         isScriptNameParameterValid(deploymentScriptName);
-        this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
+        this.assertResult(deploymentScriptName, this.flexibleSearchScriptExecutionResultDao.getErrorResult());
     }
 
     /**
@@ -182,16 +180,16 @@ public final class DeploymentScriptResultAsserter {
             Assert.assertNotNull("The file " + pathFileExpectedStacktracePattern + " with the expected stacktrace wasn't found", expectedPatternStream);
 
             loadedPattern = IOUtils.toString(expectedPatternStream, Charset.forName(DeploymentScript.DEFAULT_FILE_ENCODING)).
-                replaceAll(System.getProperty("line.separator"), "");
+                    replaceAll(System.getProperty("line.separator"), "");
         }
 
         final Pattern compiledStacktracePattern = Pattern.compile(loadedPattern, Pattern.DOTALL);
-        final ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
+        final ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, this.flexibleSearchScriptExecutionResultDao.getErrorResult());
 
         final Matcher stacktraceMatcher = compiledStacktracePattern.matcher(executionOfTheScript.getFullStacktrace());
 
         Assert.assertTrue(String.format("The stacktrace don't contain the expected pattern. Current stacktrace: %s",
-                                        executionOfTheScript.getFullStacktrace()), stacktraceMatcher.matches());
+                executionOfTheScript.getFullStacktrace()), stacktraceMatcher.matches());
     }
 
     /**
@@ -203,6 +201,6 @@ public final class DeploymentScriptResultAsserter {
     public void assertNumberOfResults(final String deploymentScriptName, final int expectedNumberOfExecutions) {
         isScriptNameParameterValid(deploymentScriptName);
         Assert.assertEquals(String.format("The number of executions of %s is incorrect", deploymentScriptName), expectedNumberOfExecutions,
-            getAllDeploymentScriptExecutions(deploymentScriptName).size());
+                getAllDeploymentScriptExecutions(deploymentScriptName).size());
     }
 }

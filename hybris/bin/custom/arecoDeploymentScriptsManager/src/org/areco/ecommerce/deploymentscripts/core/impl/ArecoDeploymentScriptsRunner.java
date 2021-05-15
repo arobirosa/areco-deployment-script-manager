@@ -17,11 +17,6 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.model.ModelService;
-
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
@@ -36,6 +31,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.List;
+
 /**
  * Default script runner.
  *
@@ -43,8 +41,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Scope("tenant")
-public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner
-{
+public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
 
         private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptsRunner.class);
 
@@ -67,7 +64,8 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner
          *
          * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner#run(java.util.List)
          */
-        @Override public boolean run(final UpdatingSystemExtensionContext updatingSystemContext, final List<DeploymentScript> scriptsToBeRun) {
+        @Override
+        public boolean run(final UpdatingSystemExtensionContext updatingSystemContext, final List<DeploymentScript> scriptsToBeRun) {
                 for (final DeploymentScript aScript : scriptsToBeRun) {
                         final ScriptExecutionModel scriptExecution = this.scriptConverter.convert(aScript);
 
@@ -75,8 +73,8 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner
                                 final ScriptExecutionResultModel scriptResult = aScript.run();
                                 if (scriptResult == null) {
                                         throw this.deploymentScriptExecutionExceptionFactory.newWith(
-                                            "No script execution result was returned. Please check if the database contains all the "
-                                            + "ScriptExecutionResultModel required by the Areco deployment manager");
+                                                "No script execution result was returned. Please check if the database contains all the "
+                                                        + "ScriptExecutionResultModel required by the Areco deployment manager");
                                 }
                                 scriptExecution.setResult(scriptResult);
                         } catch (final DeploymentScriptExecutionException e) {
@@ -93,7 +91,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner
         }
 
         private void saveAndLogScriptExecution(final UpdatingSystemExtensionContext context, final ScriptExecutionModel scriptExecution) {
-                modelService.save(scriptExecution);
+                this.modelService.save(scriptExecution);
                 context.logScriptExecutionResult(scriptExecution);
         }
 }

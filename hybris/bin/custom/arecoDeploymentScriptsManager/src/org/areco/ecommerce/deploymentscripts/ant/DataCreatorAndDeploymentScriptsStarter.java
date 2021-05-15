@@ -1,17 +1,17 @@
 /**
  * Copyright 2014 Antonio Robirosa
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.areco.ecommerce.deploymentscripts.ant;
 
@@ -68,7 +68,7 @@ public class DataCreatorAndDeploymentScriptsStarter {
      * Creates the essential and project data. This triggers the runs of the deployment scripts in the junit tenant.
      */
     public void runInJunitTenant() {
-        if (!extensionHelper.isDeploymentManagerExtensionTurnedOn()
+        if (!this.extensionHelper.isDeploymentManagerExtensionTurnedOn()
                 || !Boolean.parseBoolean(this.configurationService.getConfiguration().getString(JUNIT_TENANT_CREATEESSENTIALDATA_CONF))) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("The essential and project data won't be created and the deployment scripts won't be run.");
@@ -101,7 +101,7 @@ public class DataCreatorAndDeploymentScriptsStarter {
         return true; // All went ok.
     }
 
-    @SuppressWarnings({ "deprecation", "PMD.SignatureDeclareThrowsException" })
+    @SuppressWarnings({"deprecation", "PMD.SignatureDeclareThrowsException"})
     // The caller of this method must handle any exception, because this class is called by ant, which doesn't
     // show the complete stack trace.
     private void createDataForAllExtensions(final SystemSetup.Type aCreationDataType) throws Exception {

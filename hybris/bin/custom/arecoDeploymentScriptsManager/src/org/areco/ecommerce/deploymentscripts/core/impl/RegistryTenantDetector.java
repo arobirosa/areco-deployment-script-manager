@@ -1,24 +1,23 @@
 /**
  * Copyright 2014 Antonio Robirosa
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.Tenant;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
 import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
@@ -28,9 +27,9 @@ import org.springframework.stereotype.Component;
 
 /**
  * It uses the Hybris registry to find out how many tenants are in this environment.
- * 
+ *
  * @author arobirosa
- * 
+ *
  */
 @Scope("tenant")
 @Component
@@ -41,7 +40,7 @@ public class RegistryTenantDetector implements TenantDetector {
     /**
      * In systems with only one tenant where were initialize with "ant clean all yunitinit yunit", the current tenant is the junit tenant. It is unfortunately
      * named "master".
-     * 
+     *
      * @return true if we are in a system with only one tenant.
      */
     @Override

@@ -1,17 +1,17 @@
 /**
  * Copyright 2014 Antonio Robirosa
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
@@ -29,9 +29,9 @@ import java.util.Set;
 
 /**
  * It defines special properties of the deployment scripts like where they are allowed to run.
- * 
+ *
  * @author arobirosa
- * 
+ *
  */
 // Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
@@ -54,7 +54,7 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
 
     /**
      * Checks if this script is allowed to run in this server.
-     * 
+     *
      * @return null if it is allowed to run. Otherwise it returns the execution result.
      */
     @Override
@@ -89,7 +89,7 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
 
     /**
      * Returns the current tenant
-     * 
+     *
      * @return Never null
      */
     private Tenant getCurrentTenant() {
@@ -98,7 +98,7 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
 
     /**
      * Determines of the current environment is in the given list of names.
-     * 
+     *
      * @param deploymentEnvironmentNames
      *            Required
      * @return true if the current environment is present.
@@ -109,16 +109,16 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
 
     /**
      * Returns the allowed tenants.
-     * 
+     *
      * @return Never null.
      */
     public Set<Tenant> getAllowedTenants() {
-        return allowedTenants;
+        return this.allowedTenants;
     }
 
     /**
      * Sets the allowed tenants.
-     * 
+     *
      * @param allowedTenants
      *            Required
      */
@@ -128,23 +128,23 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
 
     /**
      * Getter of the environments
-     * 
+     *
      * @return Never null
      */
     public Set<String> getAllowedDeploymentEnvironmentNames() {
-        return allowedDeploymentEnvironmentNames;
+        return this.allowedDeploymentEnvironmentNames;
     }
 
     /**
      * Setter of the environments
-     * 
+     *
      */
     public void setAllowedDeploymentEnvironmentNames(final Set<String> allowedDeploymentEnvironmentNames) {
         this.allowedDeploymentEnvironmentNames = allowedDeploymentEnvironmentNames;
     }
 
     public boolean isRunMultipleTimes() {
-        return runMultipleTimes;
+        return this.runMultipleTimes;
     }
 
     public void setRunMultipleTimes(final boolean runMultipleTimes) {

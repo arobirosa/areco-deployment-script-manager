@@ -1,12 +1,12 @@
 /**
  * Copyright 2014 Antonio Robirosa
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package org.areco.ecommerce.deploymentscripts.core;
+
 import de.hybris.bootstrap.annotations.IntegrationTest;
 import org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchDeploymentEnvironmentDAO;
 import org.junit.Assert;
@@ -25,7 +26,8 @@ import org.junit.Test;
  * @author arobirosa
  */
 @IntegrationTest
-@SuppressWarnings({"PMD.TooManyMethods", "PMD.JUnitTestsShouldIncludeAssert"}) //It a test with many cases. The assert statements are inside a private method.
+@SuppressWarnings({"PMD.TooManyMethods", "PMD.JUnitTestsShouldIncludeAssert"})
+//It a test with many cases. The assert statements are inside a private method.
 public class ScriptConfigurationTest extends AbstractWithConfigurationRestorationTest {
     private static final String RESOURCES_FOLDER = "/resources/test/script-configuration-test";
 

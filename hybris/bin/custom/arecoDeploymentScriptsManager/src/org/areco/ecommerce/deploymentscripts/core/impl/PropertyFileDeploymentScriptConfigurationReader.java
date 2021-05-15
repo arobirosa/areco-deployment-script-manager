@@ -1,17 +1,17 @@
 /**
  * Copyright 2014 Antonio Robirosa
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
@@ -35,9 +35,9 @@ import java.util.*;
 
 /**
  * It reads the configuration contained in a property file with the extension conf in the folder of the script.
- * 
+ *
  * @author arobirosa
- * 
+ *
  */
 // The configuration of this bean is in the spring application context.
 public abstract class PropertyFileDeploymentScriptConfigurationReader implements DeploymentScriptConfigurationReader {
@@ -129,10 +129,10 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
     private Set<Tenant> convertTenants(final String tenantNamesList) {
         final Set<Tenant> tenants = new HashSet<>();
         for (final String aTenantName : tenantNamesList.split(VALUES_SEPARATOR)) {
-            Tenant foundTenant = tenantDetector.getTenantByID(aTenantName);
+            Tenant foundTenant = this.tenantDetector.getTenantByID(aTenantName);
             if (foundTenant == null && ArecoDeploymentScriptsManagerConstants.JUNIT_TENANT_ID.equals(aTenantName)
-                    && tenantDetector.areWeInATestSystemWithOneSingleTenant()) {
-                foundTenant = tenantDetector.getCurrentTenant();
+                    && this.tenantDetector.areWeInATestSystemWithOneSingleTenant()) {
+                foundTenant = this.tenantDetector.getCurrentTenant();
             }
             if (foundTenant == null) {
                 throw new DeploymentScriptConfigurationException("Unable to find the tenant with the ID '" + aTenantName + "'.");
@@ -152,7 +152,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
          * { @InheritDoc }
          */
         final File[] configurationFiles = deploymentScriptFolder.listFiles(
-          pathname -> pathname.getName().toLowerCase(Locale.getDefault()).endsWith(PROPERTY_FILE_EXTENSION_CONF));
+                pathname -> pathname.getName().toLowerCase(Locale.getDefault()).endsWith(PROPERTY_FILE_EXTENSION_CONF));
         if (LOG.isTraceEnabled()) {
             LOG.trace("Found configuration files: " + Arrays.toString(configurationFiles));
         }

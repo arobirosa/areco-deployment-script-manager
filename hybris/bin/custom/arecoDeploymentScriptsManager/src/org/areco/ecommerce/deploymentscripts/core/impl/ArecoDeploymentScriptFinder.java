@@ -1,17 +1,17 @@
 /**
  * Copyright 2014 Antonio Robirosa
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
@@ -22,29 +22,19 @@ import de.hybris.platform.core.initialization.SystemSetup.Process;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.log4j.Logger;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStepFactory;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
+import org.areco.ecommerce.deploymentscripts.core.*;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * Default implementation of the deployment script finder.
- * 
+ *
  * @author arobirosa
- * 
+ *
  */
 // The configuration of this bean is in the spring application context.
 @SuppressWarnings("PMD") // The import of all the classes from the core package is correct
@@ -93,9 +83,9 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
 
     /**
      * It sorts the given collection ignoring the case of the filenames. This results in the same order of the files in Windows and Unix-like systems.
-     * 
+     *
      * All the files MUST be in the same directory because the path isn't compared.
-     * 
+     *
      * @param files
      *            Required
      */
@@ -113,7 +103,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
 
     private File[] getExistingScripts(final String extensionName, final boolean runInitScripts) {
         final ExtensionInfo extension = ConfigUtil.getPlatformConfig(ArecoDeploymentScriptFinder.class).getExtensionInfo(extensionName);
-        String scriptsFolderName;
+        final String scriptsFolderName;
         if (runInitScripts) {
             scriptsFolderName = this.configurationService.getConfiguration().getString(INIT_SCRIPTS_FOLDER_CONF);
         } else {
@@ -126,7 +116,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
         final File deploymentScriptFolder = new File(extension.getExtensionDirectory()
                 + this.configurationService.getConfiguration().getString(RESOURCES_FOLDER_CONF), scriptsFolderName);
         if (LOG.isDebugEnabled()) {
-                LOG.debug("Looking for scripts in '" + deploymentScriptFolder.getAbsolutePath() + '\'');
+            LOG.debug("Looking for scripts in '" + deploymentScriptFolder.getAbsolutePath() + '\'');
         }
         if (!deploymentScriptFolder.exists()) {
             return new File[0];
@@ -136,7 +126,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
 
     /**
      * Converts the given folders to deployment script instances.
-     * 
+     *
      * @param pendingScriptsFolders
      *            Required
      * @param extensionName
@@ -165,7 +155,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
         newScript.setName(deploymentScriptFolder.getName());
         newScript.setExtensionName(extensionName);
         newScript.setOrderedSteps(orderedSteps);
-        newScript.setConfiguration(configurationReader.loadConfiguration(deploymentScriptFolder));
+        newScript.setConfiguration(this.configurationReader.loadConfiguration(deploymentScriptFolder));
         if (LOG.isTraceEnabled()) {
             LOG.trace("Current Hybris process: " + process);
         }
@@ -182,7 +172,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
         final List<DeploymentScriptStep> steps = new ArrayList<>();
         File[] foundFiles = scriptFolder.listFiles(pathname -> pathname.isFile());
         if (foundFiles == null) {
-            foundFiles = new File[] {};
+            foundFiles = new File[]{};
         }
         final List<File> sortedFiles = Arrays.asList(foundFiles);
 
@@ -202,7 +192,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
 
     /**
      * Creates an empty instance of the deployment script class.
-     * 
+     *
      * @return Never null.
      */
     protected abstract DeploymentScript newDeploymentScript();

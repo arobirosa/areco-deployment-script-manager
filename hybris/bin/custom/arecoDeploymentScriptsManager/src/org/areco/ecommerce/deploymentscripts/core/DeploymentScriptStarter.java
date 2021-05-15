@@ -1,17 +1,17 @@
 /**
  * Copyright 2014 Antonio Robirosa
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
@@ -29,9 +29,9 @@ import org.springframework.stereotype.Service;
 
 /**
  * It triggers the execution of the deployment scripts.
- * 
+ *
  * @author arobirosa
- * 
+ *
  */
 @Service
 @Scope("tenant")
@@ -56,7 +56,7 @@ public class DeploymentScriptStarter {
      * @return the wasThereAnError
      */
     private boolean isWasThereAnError() {
-        return wasThereAnError;
+        return this.wasThereAnError;
     }
 
     /**
@@ -90,10 +90,10 @@ public class DeploymentScriptStarter {
         }
     }
 
-    @java.lang.SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.AvoidCatchingNPE" })
+    @java.lang.SuppressWarnings({"PMD.AvoidCatchingGenericException", "PMD.AvoidCatchingNPE"})
     // We catch the null pointer exception to give hints about what is misconfigured
     private SystemSetup.Type getConfiguredCreateDataStep() {
-        final String typeCode = configurationService.getConfiguration().getString(CREATE_DATA_TYPE_CONF);
+        final String typeCode = this.configurationService.getConfiguration().getString(CREATE_DATA_TYPE_CONF);
         try {
             return SystemSetup.Type.valueOf(typeCode);
         } catch (IllegalArgumentException | NullPointerException e) {
@@ -105,7 +105,7 @@ public class DeploymentScriptStarter {
 
     /**
      * It receibes a SystemSetupContext and it converts it to a UpdatingSystemExtensionContext used by {@link DeploymentScriptService}
-     * 
+     *
      * @param hybrisContext
      *            Required
      * @return SystemSetupContext Never null.
@@ -120,12 +120,12 @@ public class DeploymentScriptStarter {
 
     /**
      * Runs the all the pending deployment scripts using the given context.
-     * 
+     *
      * @param context
      *            Required.
      * @param runInitScripts
      *            Required.
-     * 
+     *
      * @return true if there was an error.
      */
 
@@ -142,7 +142,7 @@ public class DeploymentScriptStarter {
 
     /**
      * It removes any previous error. It is usually call during the initialization and the update process by the core extension.
-     * 
+     *
      */
     public void clearErrorFlag() {
         this.setWasThereAnError(false);
@@ -172,7 +172,7 @@ public class DeploymentScriptStarter {
 
     /**
      * Runs all the pending UPDATE deployment scripts.
-     * 
+     *
      * @return boolean if there was an error.
      */
 
@@ -222,7 +222,7 @@ public class DeploymentScriptStarter {
 
     /**
      * Check if the last executed deployment scripts was successful.
-     * 
+     *
      * @return true if the last deployment script was successful.
      */
     public boolean wasLastScriptSuccessful() {

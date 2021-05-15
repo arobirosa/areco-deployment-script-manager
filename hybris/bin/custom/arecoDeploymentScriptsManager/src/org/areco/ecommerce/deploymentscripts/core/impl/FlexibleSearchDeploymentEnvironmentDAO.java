@@ -1,17 +1,17 @@
 /**
  * Copyright 2014 Antonio Robirosa
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
@@ -35,9 +35,9 @@ import java.util.Set;
 
 /**
  * This implementation uses Flexible Search.
- * 
+ *
  * @author arobirosa
- * 
+ *
  */
 @Repository
 @Scope("tenant")
@@ -45,8 +45,8 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
 
     public static final String CURRENT_ENVIRONMENT_CONF = "deploymentscripts.environment.current";
     public static final String UNCONFIGURATED_CURRENT_ENVIRONMENT_ERROR_MESSAGE =
-    "Please set in the file local.properties the name of the current deployemnt environment." + " The property "
-      + CURRENT_ENVIRONMENT_CONF + " is empty.";
+            "Please set in the file local.properties the name of the current deployemnt environment." + " The property "
+                    + CURRENT_ENVIRONMENT_CONF + " is empty.";
 
     private static final Logger LOG = Logger.getLogger(FlexibleSearchDeploymentEnvironmentDAO.class);
 
@@ -68,8 +68,8 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
         if (environmentNames.isEmpty()) {
             throw new IllegalArgumentException("The parameter environmentNames cannot be empty.");
         }
-        Set<String> normalizedEnvironmentNames = new HashSet<>();
-        for (String givenEnvironmentName : environmentNames) {
+        final Set<String> normalizedEnvironmentNames = new HashSet<>();
+        for (final String givenEnvironmentName : environmentNames) {
             normalizedEnvironmentNames.add(givenEnvironmentName.trim().toUpperCase(Locale.getDefault()));
         }
 

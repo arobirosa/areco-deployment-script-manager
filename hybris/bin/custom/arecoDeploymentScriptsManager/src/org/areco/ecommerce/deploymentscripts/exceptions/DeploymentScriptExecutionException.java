@@ -16,22 +16,19 @@
 package org.areco.ecommerce.deploymentscripts.exceptions;
 
 import de.hybris.platform.servicelayer.config.ConfigurationService;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.annotation.Resource;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * This is a checked exception because the caller has to manage it. It usually means setting the execution of the deployment script to some error state.
  *
  * @author arobirosa
  */
-public class DeploymentScriptExecutionException extends Exception
-{
+public class DeploymentScriptExecutionException extends Exception {
 
     private static final Logger LOG = LoggerFactory.getLogger(DeploymentScriptExecutionException.class);
 
@@ -46,8 +43,7 @@ public class DeploymentScriptExecutionException extends Exception
      * @param message
      * @param cause
      */
-    DeploymentScriptExecutionException(final String message, final Throwable cause)
-    {
+    DeploymentScriptExecutionException(final String message, final Throwable cause) {
         // package-private access used by the factory
         super(message, cause);
     }
@@ -57,21 +53,17 @@ public class DeploymentScriptExecutionException extends Exception
      *
      * @param message
      */
-    DeploymentScriptExecutionException(final String message)
-    {
+    DeploymentScriptExecutionException(final String message) {
         // package-private access used by the factory
         super(message);
     }
 
-    public String getCauseShortStackTrace()
-    {
+    public String getCauseShortStackTrace() {
         String output = this.getCauseFullStackTrace();
         final int maximumLength = this.configurationService.getConfiguration()
-            .getInt(MAXIMUM_CAUSE_STACK_TRACE_CONF_KEY, 0);
-        if (maximumLength > 0 && output.length() > maximumLength)
-        {
-            if (LOG.isDebugEnabled())
-            {
+                .getInt(MAXIMUM_CAUSE_STACK_TRACE_CONF_KEY, 0);
+        if (maximumLength > 0 && output.length() > maximumLength) {
+            if (LOG.isDebugEnabled()) {
                 LOG.debug("Returning the first {} bytes of the stack trace", maximumLength);
             }
             output = output.substring(0, maximumLength - 1);
@@ -79,17 +71,14 @@ public class DeploymentScriptExecutionException extends Exception
         return output;
     }
 
-    private String getCauseFullStackTrace()
-    {
+    private String getCauseFullStackTrace() {
         final StringWriter stringWriter = new StringWriter();
         final PrintWriter printWriter = new PrintWriter(stringWriter);
-        if (this.getCause() == null)
-        {
+        if (this.getCause() == null) {
             this.printStackTrace(printWriter);
-        } else
-        {
+        } else {
             this.getCause()
-                .printStackTrace(printWriter);
+                    .printStackTrace(printWriter);
         }
         return stringWriter.toString();
     }
