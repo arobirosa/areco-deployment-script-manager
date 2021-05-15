@@ -5,7 +5,7 @@
       <driver-ref>oracle</driver-ref>
       <auto-commit>false</auto-commit>
       <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
-      <jdbc-url>jdbc:oracle:thin:@localhost:9521:XE</jdbc-url>
+      <jdbc-url>jdbc:oracle:thin:@//localhost:9521/xepdb1</jdbc-url>
     </data-source>
   </component>
 </project>
