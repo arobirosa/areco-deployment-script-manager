@@ -48,7 +48,7 @@ public class ImpexImportStep extends AbstractSingleFileScriptStep {
         try {
             this.impexImportService.importImpexFile(this.getScriptFile());
         } catch (final ImpexImportException cause) {
-            this.getDeploymentScriptExecutionExceptionFactory()
+            throw this.getDeploymentScriptExecutionExceptionFactory()
                     .newWith("There was an error importing the step " + this.getId(), cause);
         }
     }
