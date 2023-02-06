@@ -7,8 +7,8 @@
           <dependency>arecoDeploymentScriptsManagerspring==arecoDeploymentScriptsManager</dependency>
           <dependency>backofficespring==backoffice</dependency>
           <dependency>platformbackofficespring==platformbackoffice</dependency>
-          <file>file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/resources/arecodeploymentscriptsbackoffice-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/project.properties</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/resources/arecodeploymentscriptsbackoffice-spring.xml</file>
         </fileset>
       </configuration>
     </facet>
@@ -18,49 +18,59 @@
     <output-test url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/eclipsebin" />
     <exclude-output />
     <javadoc-paths>
-      <root url="https://download.hybris.com/api/2005/commercesuite" />
+      <root url="https://download.hybris.com/api/2205/commercesuite" />
     </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice">
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/testsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/groovytestsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/web/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/web/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/web/testsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/web/groovytestsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/testsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/groovytestsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/acceleratoraddon/web/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/acceleratoraddon/web/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/acceleratoraddon/web/groovytestsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/backoffice/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/backoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/acceleratoraddon/web/scalasrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/acceleratoraddon/web/scalatestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/acceleratoraddon/web/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/backoffice/groovytestsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/backoffice/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/backoffice/scalasrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/backoffice/scalatestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/backoffice/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/backoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/scalasrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/scalatestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/scalasrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/scalatestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/web/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/web/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/web/scalasrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/web/scalatestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/web/testsrc" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/.settings" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/acceleratoraddon/web/addonsrc" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/acceleratoraddon/web/commonwebsrc" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/acceleratoraddon/web/testclasses" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/backoffice/classes" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/bower_components" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/classes" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/addonsrc" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/commonwebsrc" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/testclasses" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/eclipsebin" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/jsTarget" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/bower_components" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/jsTarget" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/web/addonsrc" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/web/webroot/WEB-INF/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/commonweb/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/acceleratoraddon/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/acceleratoraddon/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/acceleratoraddon/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/custom/arecodeploymentscriptsbackoffice/backoffice/classes" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

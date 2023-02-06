@@ -3,8 +3,8 @@
     <CLASSES>
       <root url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tanukiwrapper/lib" />
       <root url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tanukiwrapper/bin" />
-      <root url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tomcat-8.5.57/lib" />
-      <root url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tomcat-8.5.57/bin" />
+      <root url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tomcat-8.5.82/lib" />
+      <root url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tomcat-8.5.82/bin" />
       <root url="file://$PROJECT_DIR$/hybris/bin/platform/resources/ant/lib" />
       <root url="file://$PROJECT_DIR$/hybris/bin/platform/bootstrap/bin" />
       <root url="file://$PROJECT_DIR$/hybris/bin/platform/tomcat/bin" />
@@ -18,8 +18,8 @@
     <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/resources/ant/lib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tanukiwrapper/bin" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tanukiwrapper/lib" recursive="true" />
-    <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tomcat-8.5.57/bin" recursive="true" />
-    <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tomcat-8.5.57/lib" recursive="true" />
+    <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tomcat-8.5.82/bin" recursive="true" />
+    <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/resources/tomcat-8.5.82/lib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/tomcat/bin" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/hybris/bin/platform/tomcat/lib" recursive="true" />
   </library>

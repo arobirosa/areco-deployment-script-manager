@@ -4,26 +4,26 @@
     <facet type="Spring" name="Spring">
       <configuration process_explicitly_annotated="false">
         <fileset id="platformspring" name="platformspring" removed="false">
-          <dependency>platformservicesspring==platformservices</dependency>
-          <dependency>impexspring==impex</dependency>
-          <dependency>commonsspring==commons</dependency>
-          <dependency>validationspring==validation</dependency>
-          <dependency>catalogspring==catalog</dependency>
-          <dependency>corespring==core</dependency>
-          <dependency>commentsspring==comments</dependency>
           <dependency>advancedsavedqueryspring==advancedsavedquery</dependency>
-          <dependency>oauth2spring==oauth2</dependency>
-          <dependency>scriptingspring==scripting</dependency>
-          <dependency>testwebspring==testweb</dependency>
+          <dependency>catalogspring==catalog</dependency>
+          <dependency>commentsspring==comments</dependency>
+          <dependency>commonsspring==commons</dependency>
+          <dependency>configspring==config</dependency>
+          <dependency>corespring==core</dependency>
+          <dependency>deliveryzonespring==deliveryzone</dependency>
           <dependency>europe1spring==europe1</dependency>
-          <dependency>workflowspring==workflow</dependency>
-          <dependency>processingspring==processing</dependency>
-          <dependency>paymentstandardspring==paymentstandard</dependency>
           <dependency>hacspring==hac</dependency>
+          <dependency>impexspring==impex</dependency>
           <dependency>maintenancewebspring==maintenanceweb</dependency>
           <dependency>mediawebspring==mediaweb</dependency>
-          <dependency>configspring==config</dependency>
-          <dependency>deliveryzonespring==deliveryzone</dependency>
+          <dependency>oauth2spring==oauth2</dependency>
+          <dependency>paymentstandardspring==paymentstandard</dependency>
+          <dependency>platformservicesspring==platformservices</dependency>
+          <dependency>processingspring==processing</dependency>
+          <dependency>scriptingspring==scripting</dependency>
+          <dependency>testwebspring==testweb</dependency>
+          <dependency>validationspring==validation</dependency>
+          <dependency>workflowspring==workflow</dependency>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/project.properties</file>
         </fileset>
       </configuration>
@@ -34,38 +34,43 @@
     <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/eclipsebin" />
     <exclude-output />
     <javadoc-paths>
-      <root url="https://download.hybris.com/api/2005/commercesuite" />
+      <root url="https://download.hybris.com/api/2205/commercesuite" />
     </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/platform">
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/testsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/groovytestsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/scalasrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/scalatestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/backoffice/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/scalasrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/scalatestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/.settings" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/bower_components" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/jsTarget" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/addonsrc" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/acceleratoraddon/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/backoffice/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/bootstrap/modelclasses" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/bower_components" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/addonsrc" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/commonwebsrc" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/commonweb/testclasses" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/eclipsebin" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/jsTarget" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/node_modules" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/bootstrap/gensrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/tomcat" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/addonsrc" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/commonwebsrc" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/web/testclasses" />
       <excludePattern pattern="apache-ant-*" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -80,25 +85,25 @@
         <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/lib/dbdriver" recursive="true" />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="platformservices" exported="" />
-    <orderEntry type="module" module-name="impex" exported="" />
-    <orderEntry type="module" module-name="commons" exported="" />
-    <orderEntry type="module" module-name="validation" exported="" />
-    <orderEntry type="module" module-name="catalog" exported="" />
-    <orderEntry type="module" module-name="core" exported="" />
-    <orderEntry type="module" module-name="comments" exported="" />
     <orderEntry type="module" module-name="advancedsavedquery" exported="" />
-    <orderEntry type="module" module-name="oauth2" exported="" />
-    <orderEntry type="module" module-name="scripting" exported="" />
-    <orderEntry type="module" module-name="testweb" exported="" />
+    <orderEntry type="module" module-name="catalog" exported="" />
+    <orderEntry type="module" module-name="comments" exported="" />
+    <orderEntry type="module" module-name="commons" exported="" />
+    <orderEntry type="module" module-name="core" exported="" />
+    <orderEntry type="module" module-name="deliveryzone" exported="" />
     <orderEntry type="module" module-name="europe1" exported="" />
-    <orderEntry type="module" module-name="workflow" exported="" />
-    <orderEntry type="module" module-name="processing" exported="" />
-    <orderEntry type="module" module-name="paymentstandard" exported="" />
     <orderEntry type="module" module-name="hac" exported="" />
+    <orderEntry type="module" module-name="impex" exported="" />
     <orderEntry type="module" module-name="maintenanceweb" exported="" />
     <orderEntry type="module" module-name="mediaweb" exported="" />
+    <orderEntry type="module" module-name="oauth2" exported="" />
+    <orderEntry type="module" module-name="paymentstandard" exported="" />
+    <orderEntry type="module" module-name="platformservices" exported="" />
+    <orderEntry type="module" module-name="processing" exported="" />
+    <orderEntry type="module" module-name="scripting" exported="" />
+    <orderEntry type="module" module-name="testweb" exported="" />
+    <orderEntry type="module" module-name="validation" exported="" />
+    <orderEntry type="module" module-name="workflow" exported="" />
     <orderEntry type="module" module-name="config" exported="" />
-    <orderEntry type="module" module-name="deliveryzone" exported="" />
   </component>
 </module>

@@ -24,7 +24,6 @@
       <w>cronjobs</w>
       <w>defaultvalue</w>
       <w>deliveryzone</w>
-      <w>deploymentscriptmanager 2005</w>
       <w>dontoptimize</w>
       <w>elementtype</w>
       <w>europe1</w>
@@ -40,6 +39,7 @@
       <w>jspc</w>
       <w>jstl</w>
       <w>maintenanceweb</w>
+      <w>manager2205</w>
       <w>maptypes</w>
       <w>mediaweb</w>
       <w>metatype</w>

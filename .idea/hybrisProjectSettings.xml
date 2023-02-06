@@ -40,6 +40,7 @@
         <option value="assistedserviceyprofilefacades" />
         <option value="auditreportservices" />
         <option value="azurecloud" />
+        <option value="azuredtu" />
         <option value="b2bacceleratoraddon" />
         <option value="b2bacceleratorfacades" />
         <option value="b2bacceleratorservices" />
@@ -55,8 +56,12 @@
         <option value="b2bordermanagementwebservices" />
         <option value="b2bpunchout" />
         <option value="b2bpunchoutaddon" />
+        <option value="b2bpunchoutbackoffice" />
+        <option value="b2bpunchoutocc" />
+        <option value="b2bpunchoutocctests" />
         <option value="b2bwebservicescommons" />
         <option value="backoffice" />
+        <option value="backofficesearchservices" />
         <option value="backofficesolrsearch" />
         <option value="basecommerce" />
         <option value="basecommercebackoffice" />
@@ -103,12 +108,8 @@
         <option value="chinesetaxinvoiceocc" />
         <option value="chinesetaxinvoiceoccaddon" />
         <option value="chinesetaxinvoiceservices" />
-        <option value="cisavs" />
-        <option value="cisclient" />
-        <option value="cisclienttest" />
-        <option value="cispayment" />
         <option value="cissubscription" />
-        <option value="cistax" />
+        <option value="classificationgroupsservices" />
         <option value="cms2" />
         <option value="cms2lib" />
         <option value="cmsbackoffice" />
@@ -132,6 +133,8 @@
         <option value="configurablebundlebackoffice" />
         <option value="configurablebundlecockpits" />
         <option value="configurablebundlefacades" />
+        <option value="configurablebundleocc" />
+        <option value="configurablebundleocctests" />
         <option value="configurablebundleservices" />
         <option value="consignmenttrackingaddon" />
         <option value="consignmenttrackingbackoffice" />
@@ -160,6 +163,8 @@
         <option value="customersupportbackoffice" />
         <option value="customerticketingaddon" />
         <option value="customerticketingfacades" />
+        <option value="customerticketingocc" />
+        <option value="customerticketingocctests" />
         <option value="datahubadapter" />
         <option value="datahubbackoffice" />
         <option value="datahubclient" />
@@ -221,8 +226,6 @@
         <option value="odata2services" />
         <option value="odata2webservices" />
         <option value="odata2webservicesfeaturetests" />
-        <option value="ondemandcommon" />
-        <option value="ondemandsampledata" />
         <option value="orbeonweb" />
         <option value="ordercalculation" />
         <option value="ordermanagementaddon" />
@@ -287,6 +290,7 @@
         <option value="sapproductconfigb2bservices" />
         <option value="sapproductconfigfacades" />
         <option value="sapproductconfigocc" />
+        <option value="sapproductconfigocctests" />
         <option value="sapproductconfigrules" />
         <option value="sapproductconfigrulesbackoffice" />
         <option value="sapproductconfigruntimeinterface" />
@@ -295,13 +299,17 @@
         <option value="savedorderforms" />
         <option value="savedorderformsocc" />
         <option value="savedorderformsoccaddon" />
-        <option value="secureportaladdon" />
+        <option value="searchbackoffice" />
+        <option value="searchprovidercssearchbackoffice" />
+        <option value="searchprovidercssearchservices" />
+        <option value="searchservices" />
         <option value="selectivecartaddon" />
         <option value="selectivecartfacades" />
         <option value="selectivecartservices" />
         <option value="selectivecartsplitlistaddon" />
         <option value="smartedit" />
         <option value="smarteditaddon" />
+        <option value="smartedittools" />
         <option value="smarteditwebservices" />
         <option value="solrfacetsearch" />
         <option value="solrfacetsearchbackoffice" />
@@ -343,6 +351,8 @@
         <option value="warehousingbackoffice" />
         <option value="warehousingfacades" />
         <option value="warehousingwebservices" />
+        <option value="webhookbackoffice" />
+        <option value="webhookservices" />
         <option value="webservicescommons" />
         <option value="wishlist" />
         <option value="xyformsbackoffice" />
@@ -384,11 +394,11 @@
     <option name="followSymlink" value="true" />
     <option name="hybrisDirectory" value="hybris" />
     <option name="hybrisProject" value="true" />
-    <option name="hybrisVersion" value="2005.7" />
+    <option name="hybrisVersion" value="2205.6" />
     <option name="ideModulesFilesDirectory" value="$PROJECT_DIR$/idea-module-files" />
     <option name="importOotbModulesInReadOnlyMode" value="true" />
-    <option name="importedByVersion" value="2019.2" />
-    <option name="javadocUrl" value="https://download.hybris.com/api/2005/commercesuite" />
+    <option name="importedByVersion" value="2022.1" />
+    <option name="javadocUrl" value="https://download.hybris.com/api/2205/commercesuite" />
     <option name="modulesOnBlackList">
       <set>
         <option value="/hybris/config6.x" />

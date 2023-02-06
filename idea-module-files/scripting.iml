@@ -5,8 +5,8 @@
       <configuration process_explicitly_annotated="false">
         <fileset id="scriptingspring" name="scriptingspring" removed="false">
           <dependency>corespring==core</dependency>
-          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/resources/scripting-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/project.properties</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/resources/scripting-spring.xml</file>
         </fileset>
       </configuration>
     </facet>
@@ -16,36 +16,40 @@
     <output-test url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/eclipsebin" />
     <exclude-output />
     <javadoc-paths>
-      <root url="https://download.hybris.com/api/2005/commercesuite" />
+      <root url="https://download.hybris.com/api/2205/commercesuite" />
     </javadoc-paths>
     <content url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting">
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/testsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/groovytestsrc" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/acceleratoraddon/web/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/acceleratoraddon/web/gensrc" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/acceleratoraddon/web/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/acceleratoraddon/web/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/acceleratoraddon/web/scalasrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/acceleratoraddon/web/scalatestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/acceleratoraddon/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/acceleratoraddon/web/testsrc" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/backoffice/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/gensrc" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/groovytestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/scalasrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/scalatestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/.externalToolBuilders" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/.settings" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/acceleratoraddon/web/addonsrc" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/acceleratoraddon/web/commonwebsrc" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/acceleratoraddon/web/testclasses" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/backoffice/classes" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/bower_components" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/addonsrc" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/commonwebsrc" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/testclasses" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/eclipsebin" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/jsTarget" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/eclipsebin" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/bower_components" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/jsTarget" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/web/addonsrc" />
-      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/web/commonwebsrc" />
       <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/commonweb/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/acceleratoraddon/web/addonsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/acceleratoraddon/web/testclasses" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/acceleratoraddon/web/commonwebsrc" />
+      <excludeFolder url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/backoffice/classes" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -53,6 +57,15 @@
       <library>
         <CLASSES>
           <root url="file://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/resources" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../hybris/bin/platform/ext/scripting/bin/scriptingserver.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
