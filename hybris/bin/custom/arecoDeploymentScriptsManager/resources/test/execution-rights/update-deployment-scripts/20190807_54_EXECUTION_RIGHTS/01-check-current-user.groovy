@@ -1,7 +1,7 @@
 import de.hybris.platform.core.Registry
 import de.hybris.platform.servicelayer.user.UserService
 
-def userService = Registry.getApplicationContext().getBean(UserService.class)
+def userService = Registry.getApplicationContext().getBean "defaultUserService", UserService.class
 
 if (userService.getAdminUser().equals(userService.getCurrentUser())) {
     return "OK"
