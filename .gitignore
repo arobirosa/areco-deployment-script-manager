@@ -72,3 +72,5 @@ qa/cobertura.zip
 *-testclasses.xml
 integration_tests_with_ant/docker-volumes/
 .idea/dataSources/
+.idea/consolestorage/
+.idea/sonarlint/
