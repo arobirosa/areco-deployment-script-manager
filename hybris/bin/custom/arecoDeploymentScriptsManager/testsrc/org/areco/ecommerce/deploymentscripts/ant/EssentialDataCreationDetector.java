@@ -25,7 +25,6 @@ import org.springframework.stereotype.Component;
  * doesn't work.
  *
  * @author arobirosa
- *
  */
 @Scope("tenant")
 @Component

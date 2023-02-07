@@ -30,7 +30,6 @@ import org.springframework.stereotype.Component;
  * It takes a deployment script and returns an unsaved ScriptExecutionModel.
  *
  * @author arobirosa
- *
  */
 @Scope("tenant")
 @Component("deploymentScript2ExecutionConverter")
@@ -47,7 +46,7 @@ public class DeploymentScript2ExecutionConverter implements Converter<Deployment
      */
     @Override
     public ScriptExecutionModel convert(final DeploymentScript source) throws ConversionException {
-        return this.convert(source, (ScriptExecutionModel) this.modelService.create(ScriptExecutionModel.class));
+        return this.convert(source, this.modelService.create(ScriptExecutionModel.class));
     }
 
     /*

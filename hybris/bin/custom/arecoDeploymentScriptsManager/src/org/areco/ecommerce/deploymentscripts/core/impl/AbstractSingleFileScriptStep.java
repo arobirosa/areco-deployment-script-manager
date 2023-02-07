@@ -120,13 +120,8 @@ public abstract class AbstractSingleFileScriptStep implements DeploymentScriptSt
         }
         final AbstractSingleFileScriptStep other = (AbstractSingleFileScriptStep) obj;
         if (this.scriptFile == null) {
-            if (other.scriptFile != null) {
-                return false;
-            }
-        } else if (!this.scriptFile.equals(other.scriptFile)) {
-            return false;
-        }
-        return true;
+            return other.scriptFile == null;
+        } else return this.scriptFile.equals(other.scriptFile);
     }
 
 }

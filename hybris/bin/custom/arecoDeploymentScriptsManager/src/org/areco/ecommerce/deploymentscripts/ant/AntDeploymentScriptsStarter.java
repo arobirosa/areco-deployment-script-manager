@@ -24,12 +24,11 @@ import org.springframework.stereotype.Service;
 
 /**
  * It runs any pending UPDATE deployment scripts when the ant target "runDeploymentScripts" is called.
- *
+ * <p>
  * WARNING: The pending scripts must not require changes of the Hybris Type System. You would have to run them during the Update Running System process if this
  * is the case.
  *
  * @author arobirosa
- *
  */
 @Service("antDeploymentScriptsStarter")
 @Scope("tenant")

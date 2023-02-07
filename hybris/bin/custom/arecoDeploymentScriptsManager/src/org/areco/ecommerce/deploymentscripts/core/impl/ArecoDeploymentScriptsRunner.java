@@ -43,55 +43,55 @@ import java.util.List;
 @Scope("tenant")
 public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
 
-        private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptsRunner.class);
+    private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptsRunner.class);
 
-        @Resource
-        private DeploymentScriptExecutionExceptionFactory deploymentScriptExecutionExceptionFactory;
+    @Resource
+    private DeploymentScriptExecutionExceptionFactory deploymentScriptExecutionExceptionFactory;
 
-        @Autowired
-        private ModelService modelService;
+    @Autowired
+    private ModelService modelService;
 
-        @Autowired
-        // We inject by name because Spring can't see the generic parameters.
-        @Qualifier("deploymentScript2ExecutionConverter")
-        private Converter<DeploymentScript, ScriptExecutionModel> scriptConverter;
+    @Autowired
+    // We inject by name because Spring can't see the generic parameters.
+    @Qualifier("deploymentScript2ExecutionConverter")
+    private Converter<DeploymentScript, ScriptExecutionModel> scriptConverter;
 
-        @Autowired
-        private ScriptExecutionResultDAO scriptExecutionResultDao;
+    @Autowired
+    private ScriptExecutionResultDAO scriptExecutionResultDao;
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner#run(java.util.List)
-         */
-        @Override
-        public boolean run(final UpdatingSystemExtensionContext updatingSystemContext, final List<DeploymentScript> scriptsToBeRun) {
-                for (final DeploymentScript aScript : scriptsToBeRun) {
-                        final ScriptExecutionModel scriptExecution = this.scriptConverter.convert(aScript);
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner#run(java.util.List)
+     */
+    @Override
+    public boolean run(final UpdatingSystemExtensionContext updatingSystemContext, final List<DeploymentScript> scriptsToBeRun) {
+        for (final DeploymentScript aScript : scriptsToBeRun) {
+            final ScriptExecutionModel scriptExecution = this.scriptConverter.convert(aScript);
 
-                        try {
-                                final ScriptExecutionResultModel scriptResult = aScript.run();
-                                if (scriptResult == null) {
-                                        throw this.deploymentScriptExecutionExceptionFactory.newWith(
-                                                "No script execution result was returned. Please check if the database contains all the "
-                                                        + "ScriptExecutionResultModel required by the Areco deployment manager");
-                                }
-                                scriptExecution.setResult(scriptResult);
-                        } catch (final DeploymentScriptExecutionException e) {
-                                LOG.error("There was an error running " + aScript.getLongName() + ':' + e.getLocalizedMessage(), e);
-
-                                scriptExecution.setResult(this.scriptExecutionResultDao.getErrorResult());
-                                scriptExecution.setFullStacktrace(e.getCauseShortStackTrace());
-                                this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
-                                return true; // We stop after the first error.
-                        }
-                        this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
+            try {
+                final ScriptExecutionResultModel scriptResult = aScript.run();
+                if (scriptResult == null) {
+                    throw this.deploymentScriptExecutionExceptionFactory.newWith(
+                            "No script execution result was returned. Please check if the database contains all the "
+                                    + "ScriptExecutionResultModel required by the Areco deployment manager");
                 }
-                return false; // Everything when successfully
-        }
+                scriptExecution.setResult(scriptResult);
+            } catch (final DeploymentScriptExecutionException e) {
+                LOG.error("There was an error running " + aScript.getLongName() + ':' + e.getLocalizedMessage(), e);
 
-        private void saveAndLogScriptExecution(final UpdatingSystemExtensionContext context, final ScriptExecutionModel scriptExecution) {
-                this.modelService.save(scriptExecution);
-                context.logScriptExecutionResult(scriptExecution);
+                scriptExecution.setResult(this.scriptExecutionResultDao.getErrorResult());
+                scriptExecution.setFullStacktrace(e.getCauseShortStackTrace());
+                this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
+                return true; // We stop after the first error.
+            }
+            this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
         }
+        return false; // Everything when successfully
+    }
+
+    private void saveAndLogScriptExecution(final UpdatingSystemExtensionContext context, final ScriptExecutionModel scriptExecution) {
+        this.modelService.save(scriptExecution);
+        context.logScriptExecutionResult(scriptExecution);
+    }
 }

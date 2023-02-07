@@ -28,8 +28,7 @@ public interface DeploymentEnvironmentDAO {
     /**
      * Return the environments with the given names.
      *
-     * @param environmentNames
-     *            Required
+     * @param environmentNames Required
      * @return Never null.
      */
     Set<DeploymentEnvironmentModel> loadEnvironments(Set<String> environmentNames);

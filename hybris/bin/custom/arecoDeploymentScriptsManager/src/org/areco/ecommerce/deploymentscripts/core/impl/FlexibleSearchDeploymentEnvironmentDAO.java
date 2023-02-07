@@ -37,7 +37,6 @@ import java.util.Set;
  * This implementation uses Flexible Search.
  *
  * @author arobirosa
- *
  */
 @Repository
 @Scope("tenant")

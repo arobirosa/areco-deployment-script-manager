@@ -119,7 +119,7 @@ public final class DeploymentScriptResultAsserter {
         queryParams.put(ScriptExecutionModel.SCRIPTNAME, deploymentScriptName);
 
         if (LOG.isTraceEnabled()) {
-            LOG.trace("Executing the query: '" + queryBuilder.toString() + "' with the parameters " + queryParams);
+            LOG.trace("Executing the query: '" + queryBuilder + "' with the parameters " + queryParams);
         }
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
@@ -134,7 +134,7 @@ public final class DeploymentScriptResultAsserter {
         queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
                 .append(" as es ").append(" } ");
 
-        LOG.trace("Executing the query: '" + queryBuilder.toString());
+        LOG.trace("Executing the query: '" + queryBuilder);
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
 

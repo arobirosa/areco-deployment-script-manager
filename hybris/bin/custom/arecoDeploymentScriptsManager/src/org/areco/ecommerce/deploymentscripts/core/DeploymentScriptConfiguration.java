@@ -21,7 +21,6 @@ import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
  * It represents the definition of the properties of a deployment script
  *
  * @author arobirosa
- *
  */
 public interface DeploymentScriptConfiguration {
 
@@ -34,6 +33,7 @@ public interface DeploymentScriptConfiguration {
 
     /**
      * Returns if this script runs once or multiple times by every essential or project data creation step
+     *
      * @return
      */
     boolean runsMultipleTimes();

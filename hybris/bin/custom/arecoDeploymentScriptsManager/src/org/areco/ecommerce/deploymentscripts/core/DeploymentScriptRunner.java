@@ -21,17 +21,14 @@ import java.util.List;
  * It executes the deployment scripts.
  *
  * @author arobirosa
- *
  */
 public interface DeploymentScriptRunner {
 
     /**
      * Runs the deployment scripts in the given order.
      *
-     * @param context
-     *            Required
-     * @param scriptsToBeRun
-     *            Required
+     * @param context        Required
+     * @param scriptsToBeRun Required
      * @return boolean False is everything was successful. True if there was an error.
      */
     boolean run(UpdatingSystemExtensionContext context, List<DeploymentScript> scriptsToBeRun);

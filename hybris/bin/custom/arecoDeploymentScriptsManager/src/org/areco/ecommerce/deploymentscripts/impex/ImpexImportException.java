@@ -20,7 +20,6 @@ package org.areco.ecommerce.deploymentscripts.impex;
  * It don't inherit from hybris' exception hierarchy because it must be only used inside the Areco deployment manager extension.
  *
  * @author arobirosa
- *
  */
 public class ImpexImportException extends Exception {
 
@@ -28,7 +27,7 @@ public class ImpexImportException extends Exception {
      * Default constructor with a message and a cause
      *
      * @param message Optional
-     * @param cause Optional
+     * @param cause   Optional
      */
     public ImpexImportException(final String message, final Throwable cause) {
         super(message, cause);

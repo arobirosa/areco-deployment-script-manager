@@ -37,7 +37,6 @@ import java.util.*;
  * It reads the configuration contained in a property file with the extension conf in the folder of the script.
  *
  * @author arobirosa
- *
  */
 // The configuration of this bean is in the spring application context.
 public abstract class PropertyFileDeploymentScriptConfigurationReader implements DeploymentScriptConfigurationReader {

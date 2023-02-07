@@ -21,16 +21,14 @@ import java.sql.SQLException;
  * It runs raw SQL code.
  *
  * @author arobirosa
- *
  */
 public interface SqlScriptService {
     /**
      * Executes a SQL statement containing an UPDATE or DELETE and returns the number of affected rows.
-     *
+     * <p>
      * The FlexibleSearchFacade from the HAC doesn't something similar but I can't include the class in the classpath.
      *
-     * @param aStatement
-     *            Required
+     * @param aStatement Required
      * @return Number of affected rows.
      * @throws SQLException
      */

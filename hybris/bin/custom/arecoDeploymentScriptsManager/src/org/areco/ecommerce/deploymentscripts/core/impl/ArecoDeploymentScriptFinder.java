@@ -34,7 +34,6 @@ import java.util.*;
  * Default implementation of the deployment script finder.
  *
  * @author arobirosa
- *
  */
 // The configuration of this bean is in the spring application context.
 @SuppressWarnings("PMD") // The import of all the classes from the core package is correct
@@ -59,7 +58,9 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
     @Autowired
     private ConfigurationService configurationService;
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<DeploymentScript> getPendingScripts(final String extensionName, final Process process, final boolean runInitScripts) {
         ServicesUtil.validateParameterNotNullStandardMessage("extensionName", extensionName);
@@ -83,11 +84,10 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
 
     /**
      * It sorts the given collection ignoring the case of the filenames. This results in the same order of the files in Windows and Unix-like systems.
-     *
+     * <p>
      * All the files MUST be in the same directory because the path isn't compared.
      *
-     * @param files
-     *            Required
+     * @param files Required
      */
     private void sortFilesCaseInsensitive(final List<File> files) {
         Collections.sort(files, Comparator.comparing(f -> f.getName().toLowerCase(Locale.getDefault())));
@@ -127,10 +127,8 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
     /**
      * Converts the given folders to deployment script instances.
      *
-     * @param pendingScriptsFolders
-     *            Required
-     * @param extensionName
-     *            Required
+     * @param pendingScriptsFolders Required
+     * @param extensionName         Required
      * @return Never null
      */
     private List<DeploymentScript> getDeploymentScripts(final List<File> pendingScriptsFolders, final String extensionName, final Process process) {

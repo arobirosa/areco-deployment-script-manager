@@ -26,8 +26,7 @@ public interface ScriptExecutionDao {
     /**
      * It returns all the scripts which were executed and then don't need to be executed again.
      *
-     * @param extensionName
-     *            Required.
+     * @param extensionName Required.
      * @return Never null
      */
     List<ScriptExecutionModel> getSuccessfullyExecutedScripts(String extensionName);

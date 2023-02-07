@@ -25,7 +25,6 @@ import java.io.File;
  * Its subclasses create the step which only require one single file.
  *
  * @author arobirosa
- *
  */
 public abstract class AbstractSingleFileScriptStepFactory implements DeploymentScriptStepFactory {
     private static final Logger LOG = Logger.getLogger(AbstractSingleFileScriptStepFactory.class);

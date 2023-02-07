@@ -31,7 +31,6 @@ import java.util.Set;
  * It defines special properties of the deployment scripts like where they are allowed to run.
  *
  * @author arobirosa
- *
  */
 // Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
@@ -99,8 +98,7 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
     /**
      * Determines of the current environment is in the given list of names.
      *
-     * @param deploymentEnvironmentNames
-     *            Required
+     * @param deploymentEnvironmentNames Required
      * @return true if the current environment is present.
      */
     private boolean isCurrentEnvironmentIn(final Set<String> deploymentEnvironmentNames) {
@@ -119,8 +117,7 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
     /**
      * Sets the allowed tenants.
      *
-     * @param allowedTenants
-     *            Required
+     * @param allowedTenants Required
      */
     public void setAllowedTenants(final Set<Tenant> allowedTenants) {
         this.allowedTenants = allowedTenants;
@@ -137,7 +134,6 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
 
     /**
      * Setter of the environments
-     *
      */
     public void setAllowedDeploymentEnvironmentNames(final Set<String> allowedDeploymentEnvironmentNames) {
         this.allowedDeploymentEnvironmentNames = allowedDeploymentEnvironmentNames;

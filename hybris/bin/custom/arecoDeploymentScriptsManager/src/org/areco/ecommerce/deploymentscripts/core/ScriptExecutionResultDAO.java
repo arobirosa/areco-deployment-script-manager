@@ -21,7 +21,6 @@ import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
  * It manages the script execution result instances which aren't a Hybris Enumeration because their have behavior.
  *
  * @author arobirosa
- *
  */
 public interface ScriptExecutionResultDAO {
 

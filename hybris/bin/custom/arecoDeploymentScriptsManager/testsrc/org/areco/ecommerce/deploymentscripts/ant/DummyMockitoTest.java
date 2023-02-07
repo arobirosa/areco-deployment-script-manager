@@ -21,7 +21,6 @@ import org.junit.Test;
 
 /**
  * @author arobirosa
- *
  */
 @UnitTest
 public class DummyMockitoTest {

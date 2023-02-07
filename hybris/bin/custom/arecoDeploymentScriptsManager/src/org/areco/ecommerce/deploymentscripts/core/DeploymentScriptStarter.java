@@ -31,7 +31,6 @@ import org.springframework.stereotype.Service;
  * It triggers the execution of the deployment scripts.
  *
  * @author arobirosa
- *
  */
 @Service
 @Scope("tenant")
@@ -60,8 +59,7 @@ public class DeploymentScriptStarter {
     }
 
     /**
-     * @param wasThereAnError
-     *            the wasThereAnError to set
+     * @param wasThereAnError the wasThereAnError to set
      */
     private void setWasThereAnError(final boolean wasThereAnError) {
         this.wasThereAnError = wasThereAnError;
@@ -106,8 +104,7 @@ public class DeploymentScriptStarter {
     /**
      * It receibes a SystemSetupContext and it converts it to a UpdatingSystemExtensionContext used by {@link DeploymentScriptService}
      *
-     * @param hybrisContext
-     *            Required
+     * @param hybrisContext Required
      * @return SystemSetupContext Never null.
      */
     private UpdatingSystemExtensionContext getUpdatingContext(final SystemSetupContext hybrisContext) {
@@ -121,11 +118,8 @@ public class DeploymentScriptStarter {
     /**
      * Runs the all the pending deployment scripts using the given context.
      *
-     * @param context
-     *            Required.
-     * @param runInitScripts
-     *            Required.
-     *
+     * @param context        Required.
+     * @param runInitScripts Required.
      * @return true if there was an error.
      */
 
@@ -142,7 +136,6 @@ public class DeploymentScriptStarter {
 
     /**
      * It removes any previous error. It is usually call during the initialization and the update process by the core extension.
-     *
      */
     public void clearErrorFlag() {
         this.setWasThereAnError(false);
@@ -202,8 +195,7 @@ public class DeploymentScriptStarter {
     /**
      * This method is only called once during the initialization of the core extension. It runs all the INIT deployment scripts sequentially.
      *
-     * @param hybrisContext
-     *            Required. Describes the current update system process.
+     * @param hybrisContext Required. Describes the current update system process.
      */
     @java.lang.SuppressWarnings("unused") // This method is called by Hybris to start the init scripts
     @SystemSetup(type = SystemSetup.Type.ALL, process = SystemSetup.Process.INIT, extension = CoreConstants.EXTENSIONNAME)

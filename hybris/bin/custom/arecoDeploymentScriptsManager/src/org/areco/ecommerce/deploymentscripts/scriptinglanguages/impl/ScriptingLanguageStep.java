@@ -28,7 +28,6 @@ import org.springframework.stereotype.Component;
  * It represents a groovy script.
  *
  * @author arobirosa
- *
  */
 @Component
 // Every time the step factory is called, it creates a new instance.

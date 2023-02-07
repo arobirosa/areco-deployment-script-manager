@@ -24,7 +24,6 @@ import java.util.Locale;
  * It creates steps which run groovy scripts.
  *
  * @author arobirosa
- *
  */
 // The configuration of this bean is in the spring application context.
 public abstract class GroovyScriptStepFactory extends AbstractSingleFileScriptStepFactory {

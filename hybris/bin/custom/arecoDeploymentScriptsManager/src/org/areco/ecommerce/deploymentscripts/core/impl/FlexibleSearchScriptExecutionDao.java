@@ -69,7 +69,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
         queryParams.put(ScriptExecutionModel.EXTENSIONNAME, extensionName);
 
         if (LOG.isTraceEnabled()) {
-            LOG.trace("Executing the query: '" + queryBuilder.toString() + "' with the parameters " + queryParams);
+            LOG.trace("Executing the query: '" + queryBuilder + "' with the parameters " + queryParams);
         }
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
@@ -96,7 +96,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
         final Map<String, Object> queryParams = new ConcurrentHashMap<>();
         if (LOG.isTraceEnabled()) {
-            LOG.trace("Executing the query: '" + queryBuilder.toString() + "'.");
+            LOG.trace("Executing the query: '" + queryBuilder + "'.");
         }
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
         query.setCount(1); // The first range must have one element.

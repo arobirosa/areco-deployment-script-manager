@@ -21,7 +21,6 @@ import de.hybris.platform.core.Tenant;
  * It find out how many tenants are in the environment and checks if the integration tests are run in a single tenant system.
  *
  * @author arobirosa
- *
  */
 public interface TenantDetector {
     /**
@@ -42,8 +41,7 @@ public interface TenantDetector {
     /**
      * Returns the tenant with the given ID.
      *
-     * @param anID
-     *            Required
+     * @param anID Required
      * @return null if the tenant wasn't found
      */
     Tenant getTenantByID(String anID);

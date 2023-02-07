@@ -26,7 +26,6 @@ import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
  * It represents the extension being update or initialize during the update system process. It is an immutable object.
  *
  * @author arobirosa
- *
  */
 public class UpdatingSystemExtensionContext {
     private static final Logger LOG = Logger.getLogger(UpdatingSystemExtensionContext.class);
@@ -43,12 +42,9 @@ public class UpdatingSystemExtensionContext {
     /**
      * Default constructor of this class.
      *
-     * @param pExtensionName
-     *            Required
-     * @param pProcess
-     *            Required
-     * @param pJspContext
-     *            Optional
+     * @param pExtensionName Required
+     * @param pProcess       Required
+     * @param pJspContext    Optional
      */
     public UpdatingSystemExtensionContext(final String pExtensionName, final SystemSetup.Process pProcess, final JspContext pJspContext) {
         ServicesUtil.validateParameterNotNullStandardMessage("pExtensionName", pExtensionName);
@@ -61,10 +57,8 @@ public class UpdatingSystemExtensionContext {
     /**
      * Simplified constructor.
      *
-     * @param pExtensionName
-     *            Required
-     * @param pProcess
-     *            Required
+     * @param pExtensionName Required
+     * @param pProcess       Required
      */
     public UpdatingSystemExtensionContext(final String pExtensionName, final SystemSetup.Process pProcess) {
         this(pExtensionName, pProcess, null);
@@ -116,20 +110,14 @@ public class UpdatingSystemExtensionContext {
         }
         final UpdatingSystemExtensionContext other = (UpdatingSystemExtensionContext) obj;
         if (this.extensionName == null) {
-            if (other.extensionName != null) {
-                return false;
-            }
-        } else if (!this.extensionName.equals(other.extensionName)) {
-            return false;
-        }
-        return true;
+            return other.extensionName == null;
+        } else return this.extensionName.equals(other.extensionName);
     }
 
     /**
      * It logs the result of the execution of the deployment script.
      *
-     * @param scriptExecution
-     *            Required
+     * @param scriptExecution Required
      */
     public void logScriptExecutionResult(final ScriptExecutionModel scriptExecution) {
         ServicesUtil.validateParameterNotNullStandardMessage("scriptExecution", scriptExecution);

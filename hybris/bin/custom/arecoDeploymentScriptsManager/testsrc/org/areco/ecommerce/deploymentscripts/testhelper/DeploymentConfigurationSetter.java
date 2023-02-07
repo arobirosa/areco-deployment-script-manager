@@ -30,7 +30,6 @@ import org.springframework.stereotype.Component;
  * It modifies the configuration of the properties during a test and restore them at the end of it.
  *
  * @author arobirosa
- *
  */
 @Component
 @Scope("tenant")
@@ -60,12 +59,9 @@ public class DeploymentConfigurationSetter {
     /**
      * Save the current configuration and sets the folders to the given values.
      *
-     * @param testResourcesFolder
-     *            Mandatory
-     * @param testUpdateScriptsFolder
-     *            Mandatory
-     * @param testInitScriptsFolder
-     *            Mandatory
+     * @param testResourcesFolder     Mandatory
+     * @param testUpdateScriptsFolder Mandatory
+     * @param testInitScriptsFolder   Mandatory
      */
 
     public void setTestFolders(final String testResourcesFolder, final String testUpdateScriptsFolder, final String testInitScriptsFolder) {
@@ -82,10 +78,8 @@ public class DeploymentConfigurationSetter {
     /**
      * Save the current configuration and sets the folders to the given values.
      *
-     * @param testResourcesFolder
-     *            Mandatory
-     * @param testUpdateScriptsFolder
-     *            Mandatory
+     * @param testResourcesFolder     Mandatory
+     * @param testUpdateScriptsFolder Mandatory
      */
     public void setTestFolders(final String testResourcesFolder, final String testUpdateScriptsFolder) {
         setTestFolders(testResourcesFolder, testUpdateScriptsFolder, NO_INIT_SCRIPTS_FOLDER);
@@ -124,8 +118,7 @@ public class DeploymentConfigurationSetter {
     /**
      * Sets the name of the current environment.
      *
-     * @param currentEnvironmentName
-     *            Can be null.
+     * @param currentEnvironmentName Can be null.
      */
     public void setEnvironment(final String currentEnvironmentName) {
         setConfigurationAndLog(FlexibleSearchDeploymentEnvironmentDAO.CURRENT_ENVIRONMENT_CONF, currentEnvironmentName);
@@ -134,8 +127,7 @@ public class DeploymentConfigurationSetter {
     /**
      * Sets the code of the impex locale.
      *
-     * @param impexLocaleCode
-     *            Required
+     * @param impexLocaleCode Required
      */
     public void setImpexLocaleCode(final String impexLocaleCode) {
         setConfigurationAndLog(LocalizedImpexImportService.IMPEX_LOCALE_CONF, impexLocaleCode);

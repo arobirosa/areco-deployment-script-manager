@@ -37,7 +37,7 @@ public class DelegatingScriptingLanguageExecutionService implements ScriptingLan
     public void executeScript(final File scriptFile) throws ScriptingLanguageExecutionException {
         Objects.requireNonNull(scriptFile);
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Running the script file '" + scriptFile.toPath().toString());
+            LOG.debug("Running the script file '" + scriptFile.toPath());
         }
 
         checkSuccessfulResult(runScript(scriptFile));

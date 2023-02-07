@@ -20,14 +20,12 @@ package org.areco.ecommerce.deploymentscripts.core;
  * implemented using the Jalo Layer.
  *
  * @author arobirosa
- *
  */
 public interface InitialConfigurationImporter {
     /**
      * It imports the initial objects if the haven't been imported yet. It throws an exception is there was an error.
      *
-     * @param context
-     *            Required
+     * @param context Required
      */
     void importConfigurationIfRequired(UpdatingSystemExtensionContext context);
 }

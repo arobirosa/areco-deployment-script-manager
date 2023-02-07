@@ -34,7 +34,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * Default implementation which looks for the instances using flexible search.
  *
  * @author arobirosa
- *
  */
 @Scope("tenant")
 @Repository("flexibleSearchScriptExecutionResultDao")

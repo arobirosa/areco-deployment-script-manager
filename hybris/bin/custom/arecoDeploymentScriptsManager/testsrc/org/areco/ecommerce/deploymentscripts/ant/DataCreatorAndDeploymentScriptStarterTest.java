@@ -38,7 +38,6 @@ import static org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScr
  * transaction, because we need transactions, this test only works in single tenant environments.
  *
  * @author arobirosa
- *
  */
 @IntegrationTest
 public class DataCreatorAndDeploymentScriptStarterTest extends AbstractWithConfigurationRestorationTest {
