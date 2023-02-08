@@ -26,6 +26,9 @@
     <context:component-scan base-package="org.areco.ecommerce.deploymentscripts"
                             scope-resolver="de.hybris.platform.spring.IgnoreTenantScopeMetadataResolver" />
 
+    <bean id="scriptExecutionFirstFailedCronjobLogFileAttributeHandler"
+          class="org.areco.ecommerce.deploymentscripts.model.ScriptExecutionFirstFailedCronjobLogFileAttributeHandler" />
+
     <bean id="impexImportStepFactory"
           class="org.areco.ecommerce.deploymentscripts.impex.ImpexImportStepFactory"
           scope="tenant">

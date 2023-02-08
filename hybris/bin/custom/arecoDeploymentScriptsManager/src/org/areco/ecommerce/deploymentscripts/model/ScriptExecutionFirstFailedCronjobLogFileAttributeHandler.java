@@ -1,10 +1,13 @@
 package org.areco.ecommerce.deploymentscripts.model;
 
+import de.hybris.platform.core.model.ItemModel;
 import de.hybris.platform.cronjob.model.LogFileModel;
 import de.hybris.platform.servicelayer.model.attribute.DynamicAttributeHandler;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
@@ -29,6 +32,7 @@ public class ScriptExecutionFirstFailedCronjobLogFileAttributeHandler implements
     public LogFileModel get(ScriptExecutionModel model) {
         if (nonNull(model) && nonNull(model.getFirstFailedCronjob()) && CollectionUtils.isNotEmpty(model.getFirstFailedCronjob().getLogFiles())) {
             final List<LogFileModel> logFiles = new ArrayList<>(model.getFirstFailedCronjob().getLogFiles());
+            Collections.sort(logFiles, Comparator.comparing(ItemModel::getModifiedtime));
             return logFiles.get(logFiles.size() - 1);
         }
         return null;
