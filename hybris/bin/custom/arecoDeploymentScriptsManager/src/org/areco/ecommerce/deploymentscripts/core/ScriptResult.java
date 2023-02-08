@@ -25,20 +25,20 @@ import java.util.Objects;
  */
 public class ScriptResult {
 
-    private ScriptExecutionResultModel status;
+    private final ScriptExecutionResultModel status;
 
     private CronJobModel cronJob;
 
     private Throwable exception;
 
     @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The given parameters aren't modified")
-    public ScriptResult(ScriptExecutionResultModel status) {
+    public ScriptResult(final ScriptExecutionResultModel status) {
         Objects.requireNonNull(status, "The parameter status is null");
         this.status = status;
     }
 
     @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The given parameters aren't modified")
-    public ScriptResult(ScriptExecutionResultModel status, CronJobModel cronJob, Throwable exception) {
+    public ScriptResult(final ScriptExecutionResultModel status, final CronJobModel cronJob, final Throwable exception) {
         Objects.requireNonNull(status, "The parameter status is null in the constructor with status, cronjob and exception");
         this.status = status;
         this.cronJob = cronJob;

@@ -111,7 +111,9 @@ public class UpdatingSystemExtensionContext {
         final UpdatingSystemExtensionContext other = (UpdatingSystemExtensionContext) obj;
         if (this.extensionName == null) {
             return other.extensionName == null;
-        } else return this.extensionName.equals(other.extensionName);
+        } else {
+            return this.extensionName.equals(other.extensionName);
+        }
     }
 
     /**

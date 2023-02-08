@@ -19,7 +19,11 @@ import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.model.ModelService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.areco.ecommerce.deploymentscripts.core.*;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
+import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
+import org.areco.ecommerce.deploymentscripts.core.ScriptResult;
+import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
 import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.slf4j.Logger;
@@ -98,7 +102,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
         context.logScriptExecutionResult(scriptExecution);
     }
 
-    public String getCauseShortStackTrace(Throwable exception) {
+    public String getCauseShortStackTrace(final Throwable exception) {
         if (isNull(exception)) {
             return null;
         }
@@ -114,7 +118,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
         return output;
     }
 
-    private String getCauseFullStackTrace(Throwable exception) {
+    private String getCauseFullStackTrace(final Throwable exception) {
         final StringWriter stringWriter = new StringWriter();
         final PrintWriter printWriter = new PrintWriter(stringWriter);
         if (exception.getCause() == null) {

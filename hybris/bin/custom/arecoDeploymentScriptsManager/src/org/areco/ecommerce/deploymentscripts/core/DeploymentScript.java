@@ -84,7 +84,7 @@ public class DeploymentScript {
         for (final DeploymentScriptStep aStep : this.getOrderedSteps()) {
             final ScriptStepResult stepResult = aStep.run();
             if (!stepResult.isSuccessful()) {
-                LOG.error("There was an error running {}: {}", aStep.getId(), nonNull(stepResult.getException()) ? stepResult.getException().getLocalizedMessage() : null);
+                LOG.error("There was an error running {}: {}", aStep.getId(), nonNull(stepResult.getException()) ? stepResult.getException().getLocalizedMessage() : "NOT EXCEPTION");
                 return new ScriptResult(scriptExecutionResultDAO.getErrorResult(), stepResult.getCronJob(), stepResult.getException());
             }
         }
@@ -192,7 +192,9 @@ public class DeploymentScript {
         }
         if (this.name == null) {
             return other.name == null;
-        } else return this.name.equals(other.name);
+        } else {
+            return this.name.equals(other.name);
+        }
     }
 
     /*

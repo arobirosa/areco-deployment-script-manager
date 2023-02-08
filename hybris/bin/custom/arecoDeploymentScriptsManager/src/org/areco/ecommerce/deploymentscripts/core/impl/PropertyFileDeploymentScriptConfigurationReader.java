@@ -31,7 +31,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * It reads the configuration contained in a property file with the extension conf in the folder of the script.
@@ -112,7 +117,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
     private Set<String> getAllowedDeploymentEnvironments(final Properties properties) {
         final String environmentsList = properties.getProperty(RUN_ONLY_ON_ENVIRONMENTS_PROPERTY);
         if (environmentsList == null) {
-            return null;
+            return Collections.emptySet();
         }
         return new HashSet(Arrays.asList(environmentsList.split(VALUES_SEPARATOR)));
     }
@@ -120,7 +125,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
     private Set<Tenant> getAllowedTenants(final Properties properties) {
         final String tenantList = properties.getProperty(RUN_ONLY_ON_TENANTS_PROPERTY);
         if (tenantList == null) {
-            return null;
+            return Collections.emptySet();
         }
         return convertTenants(tenantList);
     }

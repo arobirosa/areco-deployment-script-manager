@@ -78,7 +78,7 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
                 this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
         MediaModel result = findMediaOnlineCatalog("ArecosSyncCataloguesImpexTest",
                 "Online", "testMedia");
-        Assert.assertNotNull(result);
+        Assert.assertNotNull("The result is null", result);
     }
 
     protected DeploymentScriptResultAsserter getDeploymentScriptResultAsserter() {

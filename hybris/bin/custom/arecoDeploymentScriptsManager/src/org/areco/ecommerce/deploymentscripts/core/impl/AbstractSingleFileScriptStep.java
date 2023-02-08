@@ -19,6 +19,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -103,7 +104,9 @@ public abstract class AbstractSingleFileScriptStep implements DeploymentScriptSt
         final AbstractSingleFileScriptStep other = (AbstractSingleFileScriptStep) obj;
         if (this.scriptFile == null) {
             return other.scriptFile == null;
-        } else return this.scriptFile.equals(other.scriptFile);
+        } else {
+            return this.scriptFile.equals(other.scriptFile);
+        }
     }
 
 }

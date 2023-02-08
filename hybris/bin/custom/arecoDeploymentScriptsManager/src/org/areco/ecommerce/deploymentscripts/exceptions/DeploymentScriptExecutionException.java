@@ -15,9 +15,6 @@
  */
 package org.areco.ecommerce.deploymentscripts.exceptions;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * This is a checked exception because the caller has to manage it. It usually means setting the execution of the deployment script to some error state.
  *
@@ -25,17 +22,13 @@ import org.slf4j.LoggerFactory;
  */
 public class DeploymentScriptExecutionException extends Exception {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DeploymentScriptExecutionException.class);
-
-
-
     /**
      * Default constructor with a message and a cause for the factory
      *
      * @param message
      * @param cause
      */
-    DeploymentScriptExecutionException(final String message, final Throwable cause) {
+    public DeploymentScriptExecutionException(final String message, final Throwable cause) {
         // package-private access used by the factory
         super(message, cause);
     }
@@ -45,7 +38,7 @@ public class DeploymentScriptExecutionException extends Exception {
      *
      * @param message
      */
-    DeploymentScriptExecutionException(final String message) {
+    public DeploymentScriptExecutionException(final String message) {
         // package-private access used by the factory
         super(message);
     }

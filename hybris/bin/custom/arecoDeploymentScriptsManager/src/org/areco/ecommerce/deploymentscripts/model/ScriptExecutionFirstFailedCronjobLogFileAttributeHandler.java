@@ -29,7 +29,7 @@ import static java.util.Objects.nonNull;
  */
 public class ScriptExecutionFirstFailedCronjobLogFileAttributeHandler implements DynamicAttributeHandler<LogFileModel, ScriptExecutionModel> {
     @Override
-    public LogFileModel get(ScriptExecutionModel model) {
+    public LogFileModel get(final ScriptExecutionModel model) {
         if (nonNull(model) && nonNull(model.getFirstFailedCronjob()) && CollectionUtils.isNotEmpty(model.getFirstFailedCronjob().getLogFiles())) {
             final List<LogFileModel> logFiles = new ArrayList<>(model.getFirstFailedCronjob().getLogFiles());
             Collections.sort(logFiles, Comparator.comparing(ItemModel::getModifiedtime));
@@ -39,7 +39,7 @@ public class ScriptExecutionFirstFailedCronjobLogFileAttributeHandler implements
     }
 
     @Override
-    public void set(ScriptExecutionModel model, LogFileModel logFileModel) {
+    public void set(final ScriptExecutionModel model, final LogFileModel logFileModel) {
         throw new UnsupportedOperationException("The log files of the cronjob cannot be modified");
     }
 }

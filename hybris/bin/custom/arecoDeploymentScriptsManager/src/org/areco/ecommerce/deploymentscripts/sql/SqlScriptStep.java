@@ -57,7 +57,7 @@ public class SqlScriptStep extends AbstractSingleFileScriptStep {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Running the SQL Statement: '" + sqlStatement + "'.");
         }
-        int rows = -1;
+        final int rows;
 
         try {
             rows = this.sqlScriptService.runDeleteOrUpdateStatement(sqlStatement);

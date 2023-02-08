@@ -26,18 +26,18 @@ public class ScriptStepResult {
 
     private Throwable exception;
 
-    public ScriptStepResult(boolean successful) {
+    public ScriptStepResult(final boolean successful) {
         this(successful, null);
     }
 
     @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The given parameters aren't modified")
-    public ScriptStepResult(Throwable exception) {
+    public ScriptStepResult(final Throwable exception) {
         this.successful = false;
         this.exception = exception;
     }
 
     @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The given parameters aren't modified")
-    public ScriptStepResult(boolean successful, CronJobModel cronJob) {
+    public ScriptStepResult(final boolean successful, final CronJobModel cronJob) {
         this.successful = successful;
         this.cronJob = cronJob;
     }
