@@ -84,8 +84,8 @@ public class DeploymentScript {
         for (final DeploymentScriptStep aStep : this.getOrderedSteps()) {
             final ScriptStepResult stepResult = aStep.run();
             if (!stepResult.isSuccessful()) {
-                LOG.error("There was an error running {}: {}", aStep.getId(), nonNull(stepResult.getException()) ?
-                        stepResult.getException().getLocalizedMessage() : "NOT EXCEPTION");
+                LOG.error("There was an error running {}: {}", aStep.getId(), nonNull(stepResult.getException())
+                        ? stepResult.getException().getLocalizedMessage() : "NOT EXCEPTION");
                 return new ScriptResult(scriptExecutionResultDAO.getErrorResult(), stepResult.getCronJob(), stepResult.getException());
             }
         }
