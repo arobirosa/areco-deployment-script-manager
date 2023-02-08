@@ -15,6 +15,7 @@
  */
 package org.areco.ecommerce.deploymentscripts.impex.impl;
 
+import de.hybris.platform.cronjob.enums.JobLogLevel;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.impex.ImportConfig;
 import de.hybris.platform.servicelayer.impex.ImportResult;
@@ -24,6 +25,7 @@ import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.lang.LocaleUtils;
 import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
+import org.areco.ecommerce.deploymentscripts.core.ScriptStepResult;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportException;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,22 +60,23 @@ public class LocalizedImpexImportService implements ImpexImportService {
      * { @InheritDoc }
      */
     @Override
-    public void importImpexFile(final File impexFile) throws ImpexImportException {
+    public ScriptStepResult importImpexFile(final File impexFile) throws ImpexImportException {
         ServicesUtil.validateParameterNotNullStandardMessage("impexFile", impexFile);
         try (InputStream inputStream = Files.newInputStream(Paths.get(impexFile.toURI()))) {
-            importImpexFile(inputStream);
+            return importImpexFile(inputStream);
         } catch (final FileNotFoundException | NoSuchFileException e) {
-            throw new ImpexImportException("Unable to find the file " + impexFile, e);
+            return new ScriptStepResult(new ImpexImportException("Unable to find the file " + impexFile, e));
         } catch (final UnsupportedEncodingException e) {
-            throw new ImpexImportException("The file " + impexFile + " must use the UTF-8 encoding.", e);
+            return new ScriptStepResult(new ImpexImportException("The file " + impexFile + " must use the UTF-8 encoding.", e));
         } catch (final IOException e) {
-            throw new ImpexImportException("There was an IO exception opening the file " + impexFile + ": " + e.getMessage(), e);
+            return new ScriptStepResult(new ImpexImportException("There was an IO exception opening the file " + impexFile + ": " + e.getMessage(), e));
         }
     }
 
-    private void importImpexFile(final InputStream inputStream) throws ImpexImportException {
+    private ScriptStepResult importImpexFile(final InputStream inputStream) throws ImpexImportException {
         final ImportConfig importConfig = new ImportConfig();
         importConfig.setScript(new StreamBasedImpExResource(inputStream, DeploymentScript.DEFAULT_FILE_ENCODING));
+        importConfig.setDistributedImpexLogLevel(JobLogLevel.DEBUG);
         final String localeCode = this.configurationService.getConfiguration().getString(IMPEX_LOCALE_CONF);
         if (LOG.isDebugEnabled()) {
             LOG.debug("Code of the impex locale: '" + localeCode + "'.");
@@ -84,10 +87,6 @@ public class LocalizedImpexImportService implements ImpexImportService {
         importConfig.setEnableCodeExecution(true);
 
         final ImportResult importResult = this.importService.importData(importConfig);
-        if (importResult.isSuccessful()) {
-            return;
-        } else {
-            throw new ImpexImportException("The import of the impex file finished with errors. ");
-        }
+        return new ScriptStepResult(importResult.isSuccessful(), importResult.getCronJob());
     }
 }

@@ -19,10 +19,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStep;
-import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
-import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionExceptionFactory;
-
-import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 
@@ -32,9 +28,6 @@ import java.io.IOException;
  * @author arobirosa
  */
 public abstract class AbstractSingleFileScriptStep implements DeploymentScriptStep {
-
-    @Resource
-    private DeploymentScriptExecutionExceptionFactory deploymentScriptExecutionExceptionFactory;
 
     private File scriptFile;
 
@@ -46,17 +39,10 @@ public abstract class AbstractSingleFileScriptStep implements DeploymentScriptSt
         return this.scriptFile.getName();
     }
 
-    protected String loadFileContent() throws DeploymentScriptExecutionException {
-        final String sqlStatement;
-        try {
-            sqlStatement = FileUtils.readFileToString(this.getScriptFile(), DeploymentScript.DEFAULT_FILE_ENCODING);
-        } catch (final IOException e) {
-            throw this.deploymentScriptExecutionExceptionFactory.newWith(
-                    "There was an error while reading the contents of the SQL Script " + this.getId() + ':'
-                            + e.getLocalizedMessage(), e);
-        }
+    protected String loadFileContent() throws IOException {
+        final String sqlStatement = FileUtils.readFileToString(this.getScriptFile(), DeploymentScript.DEFAULT_FILE_ENCODING);
         if (StringUtils.isBlank(sqlStatement)) {
-            throw this.deploymentScriptExecutionExceptionFactory.newWith("The file " + this.getScriptFile() + " is empty.");
+            throw new IllegalStateException("The file " + this.getScriptFile() + " is empty.");
         }
         return sqlStatement;
     }
@@ -67,10 +53,6 @@ public abstract class AbstractSingleFileScriptStep implements DeploymentScriptSt
 
     public void setScriptFile(final File scriptFile) {
         this.scriptFile = scriptFile;
-    }
-
-    protected DeploymentScriptExecutionExceptionFactory getDeploymentScriptExecutionExceptionFactory() {
-        return this.deploymentScriptExecutionExceptionFactory;
     }
 
     /*

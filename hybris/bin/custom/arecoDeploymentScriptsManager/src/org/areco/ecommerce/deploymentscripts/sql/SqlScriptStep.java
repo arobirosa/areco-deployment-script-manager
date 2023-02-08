@@ -16,12 +16,13 @@
 package org.areco.ecommerce.deploymentscripts.sql;
 
 import org.apache.log4j.Logger;
+import org.areco.ecommerce.deploymentscripts.core.ScriptStepResult;
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStep;
-import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -42,12 +43,17 @@ public class SqlScriptStep extends AbstractSingleFileScriptStep {
      * { @InheritDoc }
      */
     @Override
-    public void run() throws DeploymentScriptExecutionException {
-        final String sqlStatement = loadFileContent();
-        executeStatement(sqlStatement);
+    public ScriptStepResult run() {
+        final String sqlStatement;
+        try {
+            sqlStatement = loadFileContent();
+        } catch (IOException | IllegalStateException e) {
+            return new ScriptStepResult(e);
+        }
+        return executeStatement(sqlStatement);
     }
 
-    private void executeStatement(final String sqlStatement) throws DeploymentScriptExecutionException {
+    private ScriptStepResult executeStatement(final String sqlStatement) {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Running the SQL Statement: '" + sqlStatement + "'.");
         }
@@ -56,13 +62,11 @@ public class SqlScriptStep extends AbstractSingleFileScriptStep {
         try {
             rows = this.sqlScriptService.runDeleteOrUpdateStatement(sqlStatement);
         } catch (final SQLException e) {
-            throw this.getDeploymentScriptExecutionExceptionFactory()
-                    .newWith(
-                            "There was an error while running the SQL Script " + this.getId() + ':' + e.getLocalizedMessage(),
-                            e);
+            return new ScriptStepResult(e);
         }
         if (LOG.isDebugEnabled()) {
             LOG.debug("The SQL Script was executed successfully. " + rows + " rows were affected.");
         }
+        return new ScriptStepResult(true);
     }
 }

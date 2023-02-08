@@ -75,6 +75,16 @@
                     <modifiers optional="false" initial="true"/>
                     <persistence type="property"/>
                 </attribute>
+                <attribute qualifier="firstFailedCronjob" type="CronJob">
+                    <description>First import cronjob which failed when running the scripts included in this areco script </description>
+                    <modifiers />
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="firstFailedCronjobLogFile" type="CronJob">
+                    <description>Log file of the first import cronjob which failed</description>
+                    <modifiers write="false" />
+                    <persistence type="dynamic" attributeHandler="scriptExecutionFirstFailedCronjobLogFileAttributeHandler"/>
+                </attribute>
                 <attribute qualifier="fullStacktrace" type="java.lang.String">
                     <description>Stacktrace if the script was unsuccessful.</description>
                     <persistence type="property">

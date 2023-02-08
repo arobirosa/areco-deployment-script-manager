@@ -61,12 +61,4 @@
           scope="tenant">
         <lookup-method name="newDeploymentScript" bean="deploymentScript" />
     </bean>
-
-    <!-- Because this class uses bean autowiring and we want a new instance every time we use it, the scope is prototype. -->
-    <bean id="deploymentScriptExecutionException"
-          class="org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException"
-          scope="prototype" />
-
-    <bean id="deploymentScriptExecutionExceptionFactory"
-          class="org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionExceptionFactory" />
 </beans>

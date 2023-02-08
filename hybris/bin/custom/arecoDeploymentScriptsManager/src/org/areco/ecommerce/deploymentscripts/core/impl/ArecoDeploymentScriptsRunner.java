@@ -15,24 +15,25 @@
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
+import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.model.ModelService;
-import org.apache.log4j.Logger;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
-import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
+import org.areco.ecommerce.deploymentscripts.core.*;
 import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
-import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionExceptionFactory;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
-import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 /**
  * Default script runner.
@@ -43,10 +44,12 @@ import java.util.List;
 @Scope("tenant")
 public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
 
-    private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptsRunner.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ArecoDeploymentScriptsRunner.class);
+
+    private static final String MAXIMUM_CAUSE_STACK_TRACE_CONF_KEY = "deploymentscripts.stacktrace.maximumlength";
 
     @Resource
-    private DeploymentScriptExecutionExceptionFactory deploymentScriptExecutionExceptionFactory;
+    private ConfigurationService configurationService;
 
     @Autowired
     private ModelService modelService;
@@ -70,22 +73,20 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
             final ScriptExecutionModel scriptExecution = this.scriptConverter.convert(aScript);
 
             try {
-                final ScriptExecutionResultModel scriptResult = aScript.run();
-                if (scriptResult == null) {
-                    throw this.deploymentScriptExecutionExceptionFactory.newWith(
-                            "No script execution result was returned. Please check if the database contains all the "
-                                    + "ScriptExecutionResultModel required by the Areco deployment manager");
-                }
-                scriptExecution.setResult(scriptResult);
+                final ScriptResult scriptResult = aScript.run();
+                scriptExecution.setResult(scriptResult.getStatus());
+                scriptExecution.setFirstFailedCronjob(scriptResult.getCronJob());
+                scriptExecution.setFullStacktrace(getCauseShortStackTrace(scriptResult.getException()));
             } catch (final DeploymentScriptExecutionException e) {
                 LOG.error("There was an error running " + aScript.getLongName() + ':' + e.getLocalizedMessage(), e);
 
                 scriptExecution.setResult(this.scriptExecutionResultDao.getErrorResult());
-                scriptExecution.setFullStacktrace(e.getCauseShortStackTrace());
-                this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
-                return true; // We stop after the first error.
+                scriptExecution.setFullStacktrace(getCauseShortStackTrace(e));
             }
             this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
+            if (this.scriptExecutionResultDao.getErrorResult().equals(scriptExecution.getResult())) {
+                return true; // We stop after the first error.
+            }
         }
         return false; // Everything when successfully
     }
@@ -93,5 +94,33 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
     private void saveAndLogScriptExecution(final UpdatingSystemExtensionContext context, final ScriptExecutionModel scriptExecution) {
         this.modelService.save(scriptExecution);
         context.logScriptExecutionResult(scriptExecution);
+    }
+
+    public String getCauseShortStackTrace(Throwable exception) {
+        if (isNull(exception)) {
+            return null;
+        }
+        String output = this.getCauseFullStackTrace(exception);
+        final int maximumLength = this.configurationService.getConfiguration()
+                .getInt(MAXIMUM_CAUSE_STACK_TRACE_CONF_KEY, 0);
+        if (maximumLength > 0 && output.length() > maximumLength) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Returning the first {} bytes of the stack trace", maximumLength);
+            }
+            output = output.substring(0, maximumLength - 1);
+        }
+        return output;
+    }
+
+    private String getCauseFullStackTrace(Throwable exception) {
+        final StringWriter stringWriter = new StringWriter();
+        final PrintWriter printWriter = new PrintWriter(stringWriter);
+        if (exception.getCause() == null) {
+            exception.printStackTrace(printWriter);
+        } else {
+            exception.getCause()
+                    .printStackTrace(printWriter);
+        }
+        return stringWriter.toString();
     }
 }

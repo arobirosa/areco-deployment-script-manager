@@ -15,13 +15,8 @@
  */
 package org.areco.ecommerce.deploymentscripts.exceptions;
 
-import de.hybris.platform.servicelayer.config.ConfigurationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.annotation.Resource;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 /**
  * This is a checked exception because the caller has to manage it. It usually means setting the execution of the deployment script to some error state.
@@ -32,10 +27,7 @@ public class DeploymentScriptExecutionException extends Exception {
 
     private static final Logger LOG = LoggerFactory.getLogger(DeploymentScriptExecutionException.class);
 
-    private static final String MAXIMUM_CAUSE_STACK_TRACE_CONF_KEY = "deploymentscripts.stacktrace.maximumlength";
 
-    @Resource
-    private ConfigurationService configurationService;
 
     /**
      * Default constructor with a message and a cause for the factory
@@ -56,30 +48,5 @@ public class DeploymentScriptExecutionException extends Exception {
     DeploymentScriptExecutionException(final String message) {
         // package-private access used by the factory
         super(message);
-    }
-
-    public String getCauseShortStackTrace() {
-        String output = this.getCauseFullStackTrace();
-        final int maximumLength = this.configurationService.getConfiguration()
-                .getInt(MAXIMUM_CAUSE_STACK_TRACE_CONF_KEY, 0);
-        if (maximumLength > 0 && output.length() > maximumLength) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Returning the first {} bytes of the stack trace", maximumLength);
-            }
-            output = output.substring(0, maximumLength - 1);
-        }
-        return output;
-    }
-
-    private String getCauseFullStackTrace() {
-        final StringWriter stringWriter = new StringWriter();
-        final PrintWriter printWriter = new PrintWriter(stringWriter);
-        if (this.getCause() == null) {
-            this.printStackTrace(printWriter);
-        } else {
-            this.getCause()
-                    .printStackTrace(printWriter);
-        }
-        return stringWriter.toString();
     }
 }

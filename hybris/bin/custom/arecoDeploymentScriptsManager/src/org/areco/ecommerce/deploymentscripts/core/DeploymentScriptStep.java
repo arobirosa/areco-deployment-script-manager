@@ -35,5 +35,5 @@ public interface DeploymentScriptStep {
      *
      * @throws DeploymentScriptExecutionException
      */
-    void run() throws DeploymentScriptExecutionException;
+    ScriptStepResult run() throws DeploymentScriptExecutionException;
 }

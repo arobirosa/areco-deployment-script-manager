@@ -15,6 +15,8 @@
  */
 package org.areco.ecommerce.deploymentscripts.impex;
 
+import org.areco.ecommerce.deploymentscripts.core.ScriptStepResult;
+
 import java.io.File;
 
 /**
@@ -24,10 +26,11 @@ import java.io.File;
  */
 public interface ImpexImportService {
     /**
-     * Imports the given file and returns an importResult. It throws an exception if there was an error and the caller has to manage it.
+     * Imports the given file and returns an importResult. It results a step result with an exception if there was an error
      *
      * @param impexFile Required
+     * @return Never null.
      * @throws ImpexImportException If any error during the import process
      */
-    void importImpexFile(File impexFile) throws ImpexImportException;
+    ScriptStepResult importImpexFile(File impexFile) throws ImpexImportException;
 }

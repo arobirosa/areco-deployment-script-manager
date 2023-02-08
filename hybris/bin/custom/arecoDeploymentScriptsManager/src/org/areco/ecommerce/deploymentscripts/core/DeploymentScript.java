@@ -15,16 +15,19 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
 import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Objects.nonNull;
 
 /**
  * Represents each folder containing the deployment script.
@@ -35,7 +38,7 @@ import java.util.List;
 @Scope("prototype")
 @Component
 public class DeploymentScript {
-    private static final Logger LOG = Logger.getLogger(DeploymentScript.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeploymentScript.class);
 
     @Autowired
     private ScriptExecutionResultDAO scriptExecutionResultDAO;
@@ -60,28 +63,33 @@ public class DeploymentScript {
      *
      * @throws DeploymentScriptExecutionException
      */
-    public ScriptExecutionResultModel run() throws DeploymentScriptExecutionException {
+    public ScriptResult run() throws DeploymentScriptExecutionException {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Running " + this.getLongName() + " - Start");
         }
-        final ScriptExecutionResultModel configurationContraintsCheckResult = this.getConfiguration().reasonToIgnoreExecutionOnThisServer();
-        if (configurationContraintsCheckResult != null) {
-            return configurationContraintsCheckResult;
+        final ScriptExecutionResultModel configurationConstraintsCheckResult = this.getConfiguration().reasonToIgnoreExecutionOnThisServer();
+        if (configurationConstraintsCheckResult != null) {
+            return new ScriptResult(configurationConstraintsCheckResult);
         }
 
         if (this.getOrderedSteps().isEmpty()) {
-            throw new IllegalStateException("The deployment script " + this.getName() + " doesn't have any impex, sql or beanshell files.");
+            return new ScriptResult(this.scriptExecutionResultDAO.getErrorResult(), null,
+                    new IllegalStateException("The deployment script " + this.getName() + " doesn't have any impex, sql or beanshell files."));
         }
         for (final DeploymentScriptStep aStep : this.getOrderedSteps()) {
-            aStep.run();
+            final ScriptStepResult stepResult = aStep.run();
+            if (!stepResult.isSuccessful()) {
+                LOG.error("There was an error running {}: {}", aStep.getId(), nonNull(stepResult.getException()) ? stepResult.getException().getLocalizedMessage() : null);
+                return new ScriptResult(scriptExecutionResultDAO.getErrorResult(), stepResult.getCronJob(), stepResult.getException());
+            }
         }
         if (LOG.isDebugEnabled()) {
             LOG.debug("Running " + this.getLongName() + " - Ended successfully");
         }
         if (this.getConfiguration().runsMultipleTimes()) {
-            return this.scriptExecutionResultDAO.getSuccessMultipleRunsResult();
+            return new ScriptResult(this.scriptExecutionResultDAO.getSuccessMultipleRunsResult());
         } else {
-            return this.scriptExecutionResultDAO.getSuccessResult();
+            return new ScriptResult(this.scriptExecutionResultDAO.getSuccessResult());
         }
 
     }
