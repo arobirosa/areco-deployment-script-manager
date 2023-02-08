@@ -80,7 +80,7 @@
                     <modifiers />
                     <persistence type="property"/>
                 </attribute>
-                <attribute qualifier="firstFailedCronjobLogFile" type="CronJob">
+                <attribute qualifier="firstFailedCronjobLogFile" type="LogFile">
                     <description>Log file of the first import cronjob which failed</description>
                     <modifiers write="false" />
                     <persistence type="dynamic" attributeHandler="scriptExecutionFirstFailedCronjobLogFileAttributeHandler"/>
