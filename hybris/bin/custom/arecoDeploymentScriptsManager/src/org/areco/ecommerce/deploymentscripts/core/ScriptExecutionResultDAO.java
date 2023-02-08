@@ -16,6 +16,7 @@
 package org.areco.ecommerce.deploymentscripts.core;
 
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
+import org.springframework.lang.NonNull;
 
 /**
  * It manages the script execution result instances which aren't a Hybris Enumeration because their have behavior.
@@ -29,6 +30,7 @@ public interface ScriptExecutionResultDAO {
      *
      * @return ScriptExecutionResultModel Never null.
      */
+    @NonNull
     ScriptExecutionResultModel getErrorResult();
 
     /**

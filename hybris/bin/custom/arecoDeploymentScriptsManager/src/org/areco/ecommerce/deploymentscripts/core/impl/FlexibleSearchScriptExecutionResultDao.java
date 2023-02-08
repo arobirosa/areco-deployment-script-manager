@@ -25,6 +25,7 @@ import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 import java.util.Map;
@@ -115,6 +116,7 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
         return this.getResult(SUCCESS_MULTIPLE_RUNS);
     }
 
+    @NonNull
     private ScriptExecutionResultModel getResult(final String aCode) {
         final ScriptExecutionResultModel aResult = this.getResultsByCode().get(aCode);
         if (aResult == null) {

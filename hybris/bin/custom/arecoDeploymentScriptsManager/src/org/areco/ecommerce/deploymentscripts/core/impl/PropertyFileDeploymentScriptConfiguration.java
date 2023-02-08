@@ -17,6 +17,8 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.Tenant;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.apache.commons.collections4.CollectionUtils;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfiguration;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
@@ -25,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -73,14 +76,14 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
     }
 
     private boolean isAllowedInThisDeploymentEnvironment() {
-        if (this.getAllowedDeploymentEnvironmentNames() == null || this.getAllowedDeploymentEnvironmentNames().isEmpty()) {
+        if (CollectionUtils.isEmpty(this.getAllowedDeploymentEnvironmentNames())) {
             return true;
         }
         return this.isCurrentEnvironmentIn(this.getAllowedDeploymentEnvironmentNames());
     }
 
     private boolean isAllowedInThisTenant() {
-        if (this.getAllowedTenants() == null || this.getAllowedTenants().isEmpty()) {
+        if (CollectionUtils.isEmpty(this.getAllowedTenants())) {
             return true;
         }
         return this.getAllowedTenants().contains(this.getCurrentTenant());
@@ -111,7 +114,7 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
      * @return Never null.
      */
     public Set<Tenant> getAllowedTenants() {
-        return this.allowedTenants;
+        return this.allowedTenants == null ? Collections.emptySet() : Collections.unmodifiableSet(this.allowedTenants);
     }
 
     /**
@@ -119,6 +122,7 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
      *
      * @param allowedTenants Required
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The given parameters aren't modified")
     public void setAllowedTenants(final Set<Tenant> allowedTenants) {
         this.allowedTenants = allowedTenants;
     }
@@ -129,12 +133,13 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
      * @return Never null
      */
     public Set<String> getAllowedDeploymentEnvironmentNames() {
-        return this.allowedDeploymentEnvironmentNames;
+        return this.allowedDeploymentEnvironmentNames == null ? Collections.emptySet() : Collections.unmodifiableSet(this.allowedDeploymentEnvironmentNames);
     }
 
     /**
      * Setter of the environments
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The given parameters aren't modified")
     public void setAllowedDeploymentEnvironmentNames(final Set<String> allowedDeploymentEnvironmentNames) {
         this.allowedDeploymentEnvironmentNames = allowedDeploymentEnvironmentNames;
     }

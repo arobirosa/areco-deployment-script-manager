@@ -1,6 +1,7 @@
 package org.areco.ecommerce.deploymentscripts.core;
 
 import de.hybris.platform.cronjob.model.CronJobModel;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Copyright 2023 Antonio Robirosa
@@ -29,11 +30,13 @@ public class ScriptStepResult {
         this(successful, null);
     }
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The given parameters aren't modified")
     public ScriptStepResult(Throwable exception) {
         this.successful = false;
         this.exception = exception;
     }
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The given parameters aren't modified")
     public ScriptStepResult(boolean successful, CronJobModel cronJob) {
         this.successful = successful;
         this.cronJob = cronJob;
@@ -43,10 +46,12 @@ public class ScriptStepResult {
         return successful;
     }
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The calling code don't change the given model")
     public CronJobModel getCronJob() {
         return cronJob;
     }
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "The calling code don't change the given exception")
     public Throwable getException() {
         return exception;
     }

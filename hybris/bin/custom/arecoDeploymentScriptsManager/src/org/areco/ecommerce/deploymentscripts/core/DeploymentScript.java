@@ -15,6 +15,7 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
 import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
@@ -22,9 +23,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static java.util.Objects.nonNull;
@@ -61,8 +64,10 @@ public class DeploymentScript {
     /**
      * Does the actual job.
      *
+     * @return Result of execution. Never null.
      * @throws DeploymentScriptExecutionException
      */
+    @NonNull
     public ScriptResult run() throws DeploymentScriptExecutionException {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Running " + this.getLongName() + " - Start");
@@ -139,12 +144,13 @@ public class DeploymentScript {
         if (this.orderedSteps == null) {
             this.orderedSteps = new ArrayList<>();
         }
-        return this.orderedSteps;
+        return Collections.unmodifiableList(this.orderedSteps);
     }
 
     /**
      * @param orderedSteps the orderedSteps to set
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The given parameters aren't modified")
     public void setOrderedSteps(final List<DeploymentScriptStep> orderedSteps) {
         this.orderedSteps = orderedSteps;
     }

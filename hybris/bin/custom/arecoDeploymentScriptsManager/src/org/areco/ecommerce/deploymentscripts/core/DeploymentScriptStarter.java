@@ -91,10 +91,10 @@ public class DeploymentScriptStarter {
     @java.lang.SuppressWarnings({"PMD.AvoidCatchingGenericException", "PMD.AvoidCatchingNPE"})
     // We catch the null pointer exception to give hints about what is misconfigured
     private SystemSetup.Type getConfiguredCreateDataStep() {
-        final String typeCode = this.configurationService.getConfiguration().getString(CREATE_DATA_TYPE_CONF);
+        final String typeCode = this.configurationService.getConfiguration().getString(CREATE_DATA_TYPE_CONF, "ESSENTIAL");
         try {
             return SystemSetup.Type.valueOf(typeCode);
-        } catch (IllegalArgumentException | NullPointerException e) {
+        } catch (IllegalArgumentException e) {
             throw new ConfigurationException(
                     String.format("Unable to find the create data step with code '%s'. Please check the configuration of %s", typeCode, CREATE_DATA_TYPE_CONF),
                     e);

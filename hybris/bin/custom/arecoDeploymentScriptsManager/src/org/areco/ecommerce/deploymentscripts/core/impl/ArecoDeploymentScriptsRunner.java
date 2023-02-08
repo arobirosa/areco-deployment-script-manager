@@ -18,6 +18,7 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.model.ModelService;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.areco.ecommerce.deploymentscripts.core.*;
 import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
@@ -68,6 +69,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
      * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner#run(java.util.List)
      */
     @Override
+    @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", justification = "The DAO and the script run method never return null")
     public boolean run(final UpdatingSystemExtensionContext updatingSystemContext, final List<DeploymentScript> scriptsToBeRun) {
         for (final DeploymentScript aScript : scriptsToBeRun) {
             final ScriptExecutionModel scriptExecution = this.scriptConverter.convert(aScript);
