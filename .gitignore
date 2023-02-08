@@ -75,3 +75,4 @@ integration_tests_with_ant/docker-volumes/
 .idea/consolestorage/
 .idea/sonarlint/
 .idea/dataSources*
+.idea/ant.xml
