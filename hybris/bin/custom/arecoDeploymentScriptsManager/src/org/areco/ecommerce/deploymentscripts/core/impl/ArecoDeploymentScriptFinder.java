@@ -190,7 +190,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
                 final DeploymentScriptStep newStep = aStepFactory.create(impexFile);
                 if (newStep != null) {
                     steps.add(newStep);
-                    break; // After the a step is created for a file, we ignore the next factories.
+                    break; // After a step is created for a file, we ignore the next factories.
                 }
             }
 
