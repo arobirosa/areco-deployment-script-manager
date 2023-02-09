@@ -1,0 +1,101 @@
+<project name="ant_qa_jacoco" default="jacoco" basedir=".">
+    <property name="dir_jacoco_home" value="${dir_qa}/jacoco-0.8.8"/>
+    <property name="dir_jacoco_donwload_url"
+              value="https://repo1.maven.org/maven2/org/jacoco/jacoco/0.8.8/jacoco-0.8.8.zip"/>
+    <property name="dir_jacoco_donwload_file" value="${dir_qa}/jacoco.zip"/>
+
+    <!-- Hybris finds the jacoco datafile in the root directory. -->
+    <property name="datafile_jacoco" value="${dir_platform}/jacoco.exec"/>
+
+    <fileset dir="${dir_hybris_bin}" id="fileset_bin_instrumentation">
+        <include name="custom/*/classes/"/>
+        <include name="custom/*/web/webroot/WEB-INF/classes/"/>
+        <exclude name="**/jalo/*.class"/> <!-- Jalo layer -->
+        <exclude name="**/Generated*.class"/> <!-- Generated Classes (Jalo and hmc) -->
+        <exclude name="**/*Constants.class"/> <!-- Generated Classes (constants) -->
+    </fileset>
+
+    <target name="jacoco" depends="jacoco.install, build, qa_clean" description="Runs jacoco">
+        <!-- Step 1: Import JaCoCo Ant tasks -->
+        <taskdef resource="org/jacoco/ant/antlib.xml">
+            <classpath>
+                <fileset dir="${dir_jacoco_home}/lib/">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+        </taskdef>
+
+        <echo message="Running all tests of the org.areco package"/>
+
+        <!-- Step 2: Wrap test execution with the JaCoCo coverage task -->
+        <coverage destfile="${datafile_jacoco}">
+            <!-- Run the tests using another process.
+                Hybris runs the tests using the currently running JVM. jacoco saves the data when the JVM exits
+                and there is no way to run them on another JVM in another process.-->
+            
+            <exec dir="${dir_platform}" executable="ant" failonerror="true" failifexecutionfails="true" osfamily="unix"
+                  outputproperty="alltests_output">
+                <arg line="alltests"/>
+                <arg line="-Dtestclasses.packages=org.areco.*"/>
+            </exec>
+            <exec dir="${dir_platform}" executable="ant.bat" failonerror="true" failifexecutionfails="true"
+                  osfamily="windows" outputproperty="alltests_output">
+                <arg line="alltests"/>
+                <arg line="-Dtestclasses.packages=org.areco.*"/>
+            </exec>
+
+            <!-- As we can't access the ant properties of the subprocess, we check against a string value -->
+            <condition property="alltests_failed">
+                <contains string="${alltests_output}" substring="JUNITTESTS FAILED"/>
+            </condition>
+            <fail if="alltests_failed" message="Some tests failed. Please see ./hybris/log/junit/index.html"/>
+        </coverage>
+
+        <!-- Step 3: Create coverage report -->
+        <report>
+            <!--
+             This task needs the collected execution data and ...
+            -->
+            <executiondata>
+                <file file="${datafile_jacoco}"/>
+            </executiondata>
+            <!-- the class files and optional source files ... -->
+            <structure name="JaCoCo Ant Example">
+                <classfiles>
+                    <fileset dir="${fileset_bin_instrumentation}"/>
+                </classfiles>
+                <sourcefiles encoding="UTF-8">
+                    <fileset dir="${src.dir}"/>
+                </sourcefiles>
+            </structure>
+            <html destdir="${dir_qa_reports}/jacoco"/>
+        </report>
+    </target>
+
+    <!--
+            <jacoco-check  datafile="${datafile_jacoco}" haltonfailure="false" failureproperty="jacocofailed"
+                totallinerate="70">
+            </jacoco-check>
+
+            <! Low line coverage must break the build after we cleaned up the mess. >
+
+    <fail if="jacocofailed" message="The code coverage is less than the limit" />
+</target>
+-->
+    <target name="jacoco.check.installation">
+        <available property="jacoco.available"
+                   file="${dir_jacoco_home}"
+                   type="dir"/>
+    </target>
+
+    <target name="jacoco.install" description="Downloads and installs jacoco"
+            unless="jacoco.available"
+            depends="jacoco.check.installation">
+        <get src="${dir_jacoco_donwload_url}"
+             dest="${dir_jacoco_donwload_file}"
+             verbose="true"
+             usetimestamp="true"/>
+        <unzip src="${dir_jacoco_donwload_file}" dest="${dir_jacoco_home}" failOnEmptyArchive="true"/>
+        <delete file="${dir_jacoco_donwload_file}"/>
+    </target>
+</project>
