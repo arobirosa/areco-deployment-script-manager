@@ -106,7 +106,8 @@ public class DeploymentScript {
             LOG.debug("Registering this thread as non-suspendable");
         }
         RevertibleUpdate revertibleInfo = null;
-        final OperationInfo operationInfo = OperationInfo.builder().withTenant(this.tenantService.getCurrentTenantId()).withStatusInfo("Running the areco deployment scripts non suspendable...").asNotSuspendableOperation().build();
+        final OperationInfo operationInfo = OperationInfo.builder().withTenant(this.tenantService.getCurrentTenantId())
+                .withStatusInfo("Running the areco deployment scripts non suspendable...").asNotSuspendableOperation().build();
 
         try {
             RegistrableThread.registerThread(operationInfo);
