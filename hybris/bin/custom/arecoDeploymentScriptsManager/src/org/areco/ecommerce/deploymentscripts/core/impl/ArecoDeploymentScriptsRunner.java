@@ -15,13 +15,9 @@
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
-import de.hybris.platform.core.threadregistry.OperationInfo;
-import de.hybris.platform.core.threadregistry.RegistrableThread;
-import de.hybris.platform.core.threadregistry.RevertibleUpdate;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.model.ModelService;
-import de.hybris.platform.servicelayer.tenant.TenantService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
@@ -64,9 +60,6 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
     private ModelService modelService;
 
     @Autowired
-    private TenantService tenantService;
-
-    @Autowired
     // We inject by name because Spring can't see the generic parameters.
     @Qualifier("deploymentScript2ExecutionConverter")
     private Converter<DeploymentScript, ScriptExecutionModel> scriptConverter;
@@ -82,18 +75,6 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
     @Override
     @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", justification = "The DAO and the script run method never return null")
     public boolean run(final UpdatingSystemExtensionContext updatingSystemContext, final List<DeploymentScript> scriptsToBeRun) {
-
-        RevertibleUpdate revertibleInfo = null;
-        try {
-            revertibleInfo = registerNonSuspendableThread();
-            return runNonSuspendableActions(updatingSystemContext, scriptsToBeRun);
-        } finally {
-            this.revertOperationInfo(revertibleInfo);
-        }
-    }
-
-    protected boolean runNonSuspendableActions(final UpdatingSystemExtensionContext updatingSystemContext,
-                                               final List<DeploymentScript> scriptsToBeRun) {
         for (final DeploymentScript aScript : scriptsToBeRun) {
             final ScriptExecutionModel scriptExecution = this.scriptConverter.convert(aScript);
 
@@ -114,38 +95,6 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
             }
         }
         return false; // Everything when successfully
-    }
-
-
-    protected RevertibleUpdate registerNonSuspendableThread() {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Registering this thread as non-suspendable");
-        }
-        RevertibleUpdate revertibleInfo = null;
-        final OperationInfo operationInfo = OperationInfo.builder().withTenant(this.tenantService.getCurrentTenantId()).withStatusInfo("Running the areco deployment scripts non suspendable...").asNotSuspendableOperation().build();
-
-        try {
-            RegistrableThread.registerThread(operationInfo);
-        } catch (final IllegalStateException e) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Updating the operation because has already been registered. Updating operation info...", e);
-            }
-            revertibleInfo = OperationInfo.updateThread(operationInfo);
-        }
-
-        return revertibleInfo;
-    }
-
-    protected void revertOperationInfo(final RevertibleUpdate revertibleInfo) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Unregistering this thread as non-suspendable");
-        }
-        if (revertibleInfo == null) {
-            RegistrableThread.unregisterThread();
-        } else {
-            revertibleInfo.revert();
-        }
-
     }
 
     private void saveAndLogScriptExecution(final UpdatingSystemExtensionContext context, final ScriptExecutionModel scriptExecution) {

@@ -37,4 +37,11 @@ public interface DeploymentScriptConfiguration {
      * @return
      */
     boolean runsMultipleTimes();
+
+    /**
+     * Returns if this script executes for many seconds. If yes, the runner will wait until the execution is finished for many minutes.
+     *
+     * @return
+     */
+    boolean hasLongExecution();
 }

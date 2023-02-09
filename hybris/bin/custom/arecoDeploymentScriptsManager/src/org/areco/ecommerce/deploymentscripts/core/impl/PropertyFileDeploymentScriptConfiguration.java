@@ -54,6 +54,8 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
 
     private boolean runMultipleTimes = false;
 
+    private boolean hasLongExecution = false;
+
     /**
      * Checks if this script is allowed to run in this server.
      *
@@ -73,6 +75,15 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
     @Override
     public boolean runsMultipleTimes() {
         return this.isRunMultipleTimes();
+    }
+
+    @Override
+    public boolean hasLongExecution() {
+        return this.hasLongExecution;
+    }
+
+    public void setHasLongExecution(final boolean hasLongExecution) {
+        this.hasLongExecution = hasLongExecution;
     }
 
     private boolean isAllowedInThisDeploymentEnvironment() {

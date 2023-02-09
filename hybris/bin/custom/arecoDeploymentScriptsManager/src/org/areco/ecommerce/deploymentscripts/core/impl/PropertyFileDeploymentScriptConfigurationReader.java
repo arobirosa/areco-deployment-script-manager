@@ -60,6 +60,10 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
      */
     private static final String RUN_MULTIPLE_TIMES_PROPERTY = "runmultipletimes";
     /**
+     * Flag indicating if the deployment script runs once or multiple times
+     */
+    private static final String HAS_LONG_EXECUTION_PROPERTY = "hasLongExecution";
+    /**
      * Separator of tenant and environment names.
      */
     private static final String VALUES_SEPARATOR = ",";
@@ -106,7 +110,13 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
         newConfiguration.setAllowedTenants(tenants);
         newConfiguration.setAllowedDeploymentEnvironmentNames(environmentNames);
         newConfiguration.setRunMultipleTimes(getRunMultipleTimes(properties));
+        newConfiguration.setHasLongExecution(hasLongExecution(properties));
         return newConfiguration;
+    }
+
+    private boolean hasLongExecution(final Properties properties) {
+        final String flagValue = properties.getProperty(HAS_LONG_EXECUTION_PROPERTY);
+        return BooleanUtils.toBoolean(flagValue);
     }
 
     private boolean getRunMultipleTimes(final Properties properties) {

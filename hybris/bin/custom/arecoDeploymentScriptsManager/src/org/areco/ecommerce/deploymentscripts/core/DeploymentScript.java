@@ -15,6 +15,10 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
+import de.hybris.platform.core.threadregistry.OperationInfo;
+import de.hybris.platform.core.threadregistry.RegistrableThread;
+import de.hybris.platform.core.threadregistry.RevertibleUpdate;
+import de.hybris.platform.servicelayer.tenant.TenantService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
 import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
@@ -45,6 +49,9 @@ public class DeploymentScript {
 
     @Autowired
     private ScriptExecutionResultDAO scriptExecutionResultDAO;
+
+    @Autowired
+    private TenantService tenantService;
 
     /**
      * This is the encoding used by the scripts.
@@ -77,6 +84,55 @@ public class DeploymentScript {
             return new ScriptResult(configurationConstraintsCheckResult);
         }
 
+        if (this.getConfiguration().hasLongExecution()) {
+            return runOrderedStepsInNonSuspendableThread();
+        } else {
+            return runOrderedSteps();
+        }
+    }
+
+    private ScriptResult runOrderedStepsInNonSuspendableThread() throws DeploymentScriptExecutionException {
+        RevertibleUpdate revertibleInfo = null;
+        try {
+            revertibleInfo = registerNonSuspendableThread();
+            return runOrderedSteps();
+        } finally {
+            this.revertOperationInfo(revertibleInfo);
+        }
+    }
+
+    protected RevertibleUpdate registerNonSuspendableThread() {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Registering this thread as non-suspendable");
+        }
+        RevertibleUpdate revertibleInfo = null;
+        final OperationInfo operationInfo = OperationInfo.builder().withTenant(this.tenantService.getCurrentTenantId()).withStatusInfo("Running the areco deployment scripts non suspendable...").asNotSuspendableOperation().build();
+
+        try {
+            RegistrableThread.registerThread(operationInfo);
+        } catch (final IllegalStateException e) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Updating the operation because has already been registered. Updating operation info...", e);
+            }
+            revertibleInfo = OperationInfo.updateThread(operationInfo);
+        }
+
+        return revertibleInfo;
+    }
+
+    protected void revertOperationInfo(final RevertibleUpdate revertibleInfo) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Unregistering this thread as non-suspendable");
+        }
+        if (revertibleInfo == null) {
+            RegistrableThread.unregisterThread();
+        } else {
+            revertibleInfo.revert();
+        }
+
+    }
+
+    private ScriptResult runOrderedSteps() throws DeploymentScriptExecutionException {
         if (this.getOrderedSteps().isEmpty()) {
             return new ScriptResult(this.scriptExecutionResultDAO.getErrorResult(), null,
                     new IllegalStateException("The deployment script " + this.getName() + " doesn't have any impex, sql or beanshell files."));
@@ -97,7 +153,6 @@ public class DeploymentScript {
         } else {
             return new ScriptResult(this.scriptExecutionResultDAO.getSuccessResult());
         }
-
     }
 
     /**

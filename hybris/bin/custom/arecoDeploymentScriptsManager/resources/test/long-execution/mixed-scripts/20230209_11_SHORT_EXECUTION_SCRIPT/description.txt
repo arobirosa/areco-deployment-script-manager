@@ -1,0 +1,1 @@
+There is no need to use a configuration file if the deployment script runs fast
