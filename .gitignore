@@ -76,3 +76,4 @@ integration_tests_with_ant/docker-volumes/
 .idea/sonarlint/
 .idea/dataSources*
 .idea/ant.xml
+hybris/bin/.scannerwork/
