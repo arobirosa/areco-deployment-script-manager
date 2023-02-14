@@ -7,7 +7,7 @@
 		xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
 		xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch"
 >
-	<context type="ScriptExecution" component="listviewactions" merge-by="type" principal="deploymentmanagerrole">
+	<context type="ScriptExecution" component="listviewactions" merge-by="type">
 		<y:actions>
 			<!-- The common group is overwritten to remove the create action. merge-mode="remove" isn't working -->
 			<y:group qualifier="common">
@@ -18,7 +18,7 @@
 		</y:actions>
 	</context>
 
-	<context type="DeploymentEnvironment" component="listviewactions" merge-by="type" principal="deploymentmanagerrole">
+	<context type="DeploymentEnvironment" component="listviewactions" merge-by="type" >
 		<y:actions>
 			<!-- The common group is overwritten to remove the create action. merge-mode="remove" isn't working -->
 			<y:group qualifier="common">
@@ -28,7 +28,7 @@
 		</y:actions>
 	</context>
 
-	<context component="explorer-tree" merge-by="module" parent="auto" principal="deploymentmanagerrole">
+	<context component="explorer-tree" merge-by="module" parent="auto" >
 		<explorer-tree:explorer-tree>
 			<explorer-tree:navigation-node id="hmc_treenode_system">
 				<explorer-tree:navigation-node id="hmc.arecoDeploymentScriptsManagergroup">
@@ -38,13 +38,13 @@
 			</explorer-tree:navigation-node>
 		</explorer-tree:explorer-tree>
 	</context>
-	<context merge-by="type" type="DeploymentEnvironment" component="listview" principal="deploymentmanagerrole">
+	<context merge-by="type" type="DeploymentEnvironment" component="listview" >
 		<list-view:list-view>
 			<list-view:column qualifier="name"/>
 			<list-view:column qualifier="description"/>
 		</list-view:list-view>
 	</context>
-	<context merge-by="type" type="ScriptExecution" component="listview" principal="deploymentmanagerrole">
+	<context merge-by="type" type="ScriptExecution" component="listview" >
 		<list-view:list-view>
 			<list-view:column qualifier="creationtime"/>
 			<list-view:column qualifier="extensionName"/>
@@ -53,13 +53,13 @@
 			<list-view:column qualifier="phase"/>
 		</list-view:list-view>
 	</context>
-	<context merge-by="type" type="ScriptExecutionResult" component="listview" principal="deploymentmanagerrole">
+	<context merge-by="type" type="ScriptExecutionResult" component="listview" >
 		<list-view:list-view>
 			<list-view:column qualifier="name"/>
 			<list-view:column qualifier="description"/>
 		</list-view:list-view>
 	</context>
-	<context merge-by="type" type="ScriptExecution" component="editor-area" principal="deploymentmanagerrole">
+	<context merge-by="type" type="ScriptExecution" component="editor-area" >
 		<editorArea:editorArea name="">
 			<editorArea:essentials>
 				<editorArea:essentialSection name="hmc.essential">
@@ -84,7 +84,7 @@
 			</editorArea:tab>
 		</editorArea:editorArea>
 	</context>
-	<context merge-by="type" type="DeploymentEnvironment" component="editor-area" principal="deploymentmanagerrole">
+	<context merge-by="type" type="DeploymentEnvironment" component="editor-area" >
 		<editorArea:editorArea name="">
 			<editorArea:tab name="hmc.common">
 				<editorArea:section name="hmc.section.common">
@@ -94,7 +94,7 @@
 			</editorArea:tab>
 		</editorArea:editorArea>
 	</context>
-	<context merge-by="type" type="ScriptExecutionResult" component="editor-area" principal="deploymentmanagerrole">
+	<context merge-by="type" type="ScriptExecutionResult" component="editor-area" >
 		<editorArea:editorArea name="">
 			<editorArea:essentials>
 				<editorArea:essentialSection name="hmc.essential">
@@ -109,7 +109,7 @@
 			</editorArea:tab>
 		</editorArea:editorArea>
 	</context>
-	<context merge-by="type" type="DeploymentEnvironment" component="advanced-search" principal="deploymentmanagerrole">
+	<context merge-by="type" type="DeploymentEnvironment" component="advanced-search" >
 		<advanced-search:advanced-search>
 			<advanced-search:field-list>
 				<advanced-search:field name="name" selected="true"/>
@@ -117,7 +117,7 @@
 			</advanced-search:field-list>
 		</advanced-search:advanced-search>
 	</context>
-	<context merge-by="type" type="ScriptExecution" component="advanced-search" principal="deploymentmanagerrole">
+	<context merge-by="type" type="ScriptExecution" component="advanced-search" >
 		<advanced-search:advanced-search>
 			<advanced-search:field-list>
 				<advanced-search:field name="extensionName" selected="true"/>
@@ -127,7 +127,7 @@
 			</advanced-search:field-list>
 		</advanced-search:advanced-search>
 	</context>
-	<context merge-by="type" type="ScriptExecutionResult" component="advanced-search" principal="deploymentmanagerrole">
+	<context merge-by="type" type="ScriptExecutionResult" component="advanced-search" >
 		<advanced-search:advanced-search>
 			<advanced-search:field-list>
 				<advanced-search:field name="description" selected="true"/>
@@ -135,33 +135,33 @@
 			</advanced-search:field-list>
 		</advanced-search:advanced-search>
 	</context>
-	<context merge-by="type" type="DeploymentEnvironment" component="simple-search" principal="deploymentmanagerrole">
+	<context merge-by="type" type="DeploymentEnvironment" component="simple-search" >
 		<simple-search:simple-search>
 			<simple-search:field name="name"/>
 			<simple-search:sort-field asc="false" name="name"/>
 		</simple-search:simple-search>
 	</context>
-	<context merge-by="type" type="ScriptExecutionResult" component="simple-search" principal="deploymentmanagerrole">
+	<context merge-by="type" type="ScriptExecutionResult" component="simple-search" >
 		<simple-search:simple-search>
 			<simple-search:field name="name"/>
 			<simple-search:sort-field asc="false" name="name"/>
 		</simple-search:simple-search>
 	</context>
-	<context type="DeploymentEnvironment" component="base" merge-by="type" principal="deploymentmanagerrole">
+	<context type="DeploymentEnvironment" component="base" merge-by="type" >
 		<y:base>
 			<y:labels>
 				<y:label>name</y:label>
 			</y:labels>
 		</y:base>
 	</context>
-	<context type="ScriptExecution" component="base" merge-by="type" principal="deploymentmanagerrole">
+	<context type="ScriptExecution" component="base" merge-by="type" >
 		<y:base>
 			<y:labels>
 				<y:label>extensionName+ ' ' +scriptName</y:label>
 			</y:labels>
 		</y:base>
 	</context>
-	<context type="ScriptExecutionResult" component="base" merge-by="type" principal="deploymentmanagerrole">
+	<context type="ScriptExecutionResult" component="base" merge-by="type" >
 		<y:base>
 			<y:labels>
 				<y:label>name</y:label>
