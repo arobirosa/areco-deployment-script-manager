@@ -95,7 +95,7 @@
                     <fileset dir="${reportdir.jacoco}/classdump/">
                         <include name="**/org/areco/**/*.class"/>
                         <exclude name="**/*Test.class"/>
-                        <exclude name="**/org/areco/core/model/**"/>
+                        <exclude name="**/org/areco/ecommerce/deploymentscripts/model/**"/>
                         <exclude name="**/*$*"/>
                         <exclude name="**/test/**"/>
                         <exclude name="**/*Test.*"/>
@@ -120,20 +120,15 @@
 
             <html destdir="${reportdir.jacoco}"/>
             <xml destfile="${reportdir.jacoco}/jacoco.xml"/>
+            <check>
+                <rule>
+                    <limit counter="LINE" value="COVEREDRATIO" minimum="75%"/>
+                </rule>
+            </check>
         </jacoco:report>
 
     </target>
-
-    <!--
-            <jacoco-check  datafile="${datafile_jacoco}" haltonfailure="false" failureproperty="jacocofailed"
-                totallinerate="70">
-            </jacoco-check>
-
-            <! Low line coverage must break the build after we cleaned up the mess. >
-
-    <fail if="jacocofailed" message="The code coverage is less than the limit" />
-</target>
--->
+    
     <target name="jacoco.check.installation">
         <available property="jacoco.available"
                    file="${dir_jacoco_home}"
