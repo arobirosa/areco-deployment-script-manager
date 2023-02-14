@@ -15,11 +15,12 @@
  */
 package org.areco.ecommerce.deploymentscripts.scriptinglanguages.impl;
 
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.ScriptStepResult;
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStep;
 import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageExecutionException;
 import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageExecutionService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -34,7 +35,7 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class ScriptingLanguageStep extends AbstractSingleFileScriptStep {
 
-    private static final Logger LOG = Logger.getLogger(ScriptingLanguageStep.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ScriptingLanguageStep.class);
 
     @Autowired
     private ScriptingLanguageExecutionService scriptingLanguageExecutionService;

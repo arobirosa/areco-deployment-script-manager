@@ -19,8 +19,9 @@ import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import de.hybris.platform.util.JspContext;
 import de.hybris.platform.util.localization.Localization;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * It represents the extension being update or initialize during the update system process. It is an immutable object.
@@ -28,7 +29,7 @@ import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
  * @author arobirosa
  */
 public class UpdatingSystemExtensionContext {
-    private static final Logger LOG = Logger.getLogger(UpdatingSystemExtensionContext.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UpdatingSystemExtensionContext.class);
 
     private final String extensionName;
 

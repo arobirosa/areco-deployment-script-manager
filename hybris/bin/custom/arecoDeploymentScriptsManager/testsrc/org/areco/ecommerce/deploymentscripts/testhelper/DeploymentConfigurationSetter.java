@@ -18,10 +18,11 @@ package org.areco.ecommerce.deploymentscripts.testhelper;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.configuration.Configuration;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchDeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.impex.impl.LocalizedImpexImportService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -37,7 +38,7 @@ public class DeploymentConfigurationSetter {
     /*
      * Logger of this class.
      */
-    private static final Logger LOG = Logger.getLogger(DeploymentConfigurationSetter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeploymentConfigurationSetter.class);
 
     private static final String NO_INIT_SCRIPTS_FOLDER = "no-init-scripts";
 

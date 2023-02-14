@@ -21,7 +21,6 @@ import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetup.Process;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder;
@@ -30,6 +29,8 @@ import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStepFactory;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
@@ -48,7 +49,7 @@ import java.util.Locale;
 // The configuration of this bean is in the spring application context.
 @SuppressWarnings("PMD") // The import of all the classes from the core package is correct
 public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFinder {
-    private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptFinder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ArecoDeploymentScriptFinder.class);
 
     public static final String UPDATE_SCRIPTS_FOLDER_CONF = "deploymentscripts.update.folder";
 

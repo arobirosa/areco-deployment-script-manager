@@ -15,9 +15,10 @@
  */
 package org.areco.ecommerce.deploymentscripts.sql;
 
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.ScriptStepResult;
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStep;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -34,7 +35,7 @@ import java.sql.SQLException;
 // Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
 public class SqlScriptStep extends AbstractSingleFileScriptStep {
-    private static final Logger LOG = Logger.getLogger(SqlScriptStep.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SqlScriptStep.class);
 
     @Autowired
     private SqlScriptService sqlScriptService;

@@ -15,8 +15,9 @@ package org.areco.ecommerce.deploymentscripts.jalo;
 
 import de.hybris.platform.core.Registry;
 import de.hybris.platform.util.JspContext;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public class ArecoDeploymentScriptsManagerManager extends GeneratedArecoDeployme
     /**
      * Edit the local|project.properties to change logging behavior (properties 'log4j.*').
      */
-    private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptsManagerManager.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ArecoDeploymentScriptsManagerManager.class.getName());
 
     /*
      * Some important tips for development:

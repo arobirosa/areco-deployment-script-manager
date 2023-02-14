@@ -22,12 +22,13 @@ import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.junit.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -50,7 +51,7 @@ import java.util.regex.Pattern;
 @Scope("tenant")
 public final class DeploymentScriptResultAsserter {
 
-    private static final Logger LOG = Logger.getLogger(DeploymentScriptResultAsserter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeploymentScriptResultAsserter.class);
 
     @Resource
     private FlexibleSearchService flexibleSearchService;

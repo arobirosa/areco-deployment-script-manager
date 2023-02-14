@@ -23,8 +23,9 @@ import de.hybris.platform.jalo.extension.Extension;
 import de.hybris.platform.jalo.extension.ExtensionManager;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.util.JspContext;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -53,7 +54,7 @@ public class DataCreatorAndDeploymentScriptsStarter {
 
     private static final String JUNIT_TENANT_CREATEESSENTIALDATA_CONF = "deploymentscripts.init.junittenant.createessentialdata";
 
-    private static final Logger LOG = Logger.getLogger(DataCreatorAndDeploymentScriptsStarter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DataCreatorAndDeploymentScriptsStarter.class);
 
     @Autowired
     private ExtensionHelper extensionHelper;

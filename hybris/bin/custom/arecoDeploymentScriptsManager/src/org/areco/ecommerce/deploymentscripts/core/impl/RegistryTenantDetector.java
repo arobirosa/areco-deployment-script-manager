@@ -18,10 +18,11 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.Tenant;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
 import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
 import org.fest.util.Collections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +35,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RegistryTenantDetector implements TenantDetector {
 
-    private static final Logger LOG = Logger.getLogger(RegistryTenantDetector.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RegistryTenantDetector.class);
 
     /**
      * In systems with only one tenant where were initialize with "ant clean all yunitinit yunit", the current tenant is the junit tenant. It is unfortunately

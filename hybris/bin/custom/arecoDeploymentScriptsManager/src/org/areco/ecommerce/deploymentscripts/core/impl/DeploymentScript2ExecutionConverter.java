@@ -19,9 +19,10 @@ import de.hybris.platform.servicelayer.dto.converter.ConversionException;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -34,7 +35,7 @@ import org.springframework.stereotype.Component;
 @Scope("tenant")
 @Component("deploymentScript2ExecutionConverter")
 public class DeploymentScript2ExecutionConverter implements Converter<DeploymentScript, ScriptExecutionModel> {
-    private static final Logger LOG = Logger.getLogger(DeploymentScript2ExecutionConverter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeploymentScript2ExecutionConverter.class);
 
     @Autowired
     private ModelService modelService;

@@ -18,11 +18,12 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -40,7 +41,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Scope("tenant")
 public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
-    private static final Logger LOG = Logger.getLogger(FlexibleSearchScriptExecutionDao.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FlexibleSearchScriptExecutionDao.class);
 
     @Autowired
     private FlexibleSearchService flexibleSearchService;

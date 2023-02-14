@@ -8,7 +8,6 @@ import de.hybris.platform.servicelayer.ServicelayerTest;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
@@ -18,6 +17,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 
@@ -30,7 +31,7 @@ import javax.annotation.Resource;
 @IntegrationTest
 public class SyncCatalogIntegrationTest extends ServicelayerTest {
     private static final String RESOURCES_FOLDER = "/resources/test";
-    private static final Logger LOG = Logger.getLogger(AbstractWithConfigurationRestorationTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractWithConfigurationRestorationTest.class);
 
     @Resource
     private FlexibleSearchService flexibleSearchService;

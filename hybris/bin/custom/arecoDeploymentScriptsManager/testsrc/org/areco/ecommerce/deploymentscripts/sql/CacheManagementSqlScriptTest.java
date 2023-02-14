@@ -22,7 +22,6 @@ import de.hybris.platform.testframework.RunListeners;
 import de.hybris.platform.testframework.runlistener.LogRunListener;
 import de.hybris.platform.testframework.runlistener.PlatformRunListener;
 import de.hybris.platform.tx.Transaction;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.jalo.DeploymentEnvironment;
 import org.areco.ecommerce.deploymentscripts.model.DeploymentEnvironmentModel;
@@ -31,6 +30,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -49,7 +50,7 @@ import java.util.Set;
         {LogRunListener.class, PlatformRunListener.class})
 public class CacheManagementSqlScriptTest {
 
-    private static final Logger LOG = Logger.getLogger(CacheManagementSqlScriptTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CacheManagementSqlScriptTest.class);
 
     private static final String DUMMY_ENVIRONMENT_NAME = "DUMMY_ENVIRONMENT";
     private static final String DUMMY_ENVIRONMENT_DESCRIPTION = "Please remove this environment. It was used for an integration test.";

@@ -21,8 +21,9 @@ import de.hybris.platform.core.initialization.SystemSetupContext;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.exceptions.ConfigurationException;
 import edu.umd.cs.findbugs.annotations.SuppressWarnings;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ import org.springframework.stereotype.Service;
 public class DeploymentScriptStarter {
     public static final String CREATE_DATA_TYPE_CONF = "deploymentscripts.createdata.type";
 
-    private static final Logger LOG = Logger.getLogger(DeploymentScriptStarter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeploymentScriptStarter.class);
 
     @Autowired
     private DeploymentScriptService deploymentScriptService;
@@ -83,8 +84,9 @@ public class DeploymentScriptStarter {
             }
             this.runDeploymentScripts(context, false);
         } else {
-            Logger.getLogger(this.getClass())
-                    .trace(String.format("Not running the deployment update scripts because were are in the %s data creation.", hybrisContext.getType()));
+            if (LOG.isTraceEnabled()) {
+                LOG.trace(String.format("Not running the deployment update scripts because were are in the %s data creation.", hybrisContext.getType()));
+            }
         }
     }
 
@@ -206,8 +208,10 @@ public class DeploymentScriptStarter {
             }
             this.runAllPendingScriptsInAllExtensions(true);
         } else {
-            Logger.getLogger(this.getClass())
-                    .trace(String.format("Not running the init deployment scripts because were are in the %s data creation.", hybrisContext.getType()));
+            if (LOG.isTraceEnabled()) {
+                LOG.trace(String.format("Not running the init deployment scripts because were are in the %s data creation.", hybrisContext.getType()));
+            }
+
         }
     }
 

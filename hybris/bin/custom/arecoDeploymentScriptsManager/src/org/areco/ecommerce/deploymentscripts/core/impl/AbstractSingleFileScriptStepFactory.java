@@ -16,8 +16,9 @@
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStepFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -27,7 +28,7 @@ import java.io.File;
  * @author arobirosa
  */
 public abstract class AbstractSingleFileScriptStepFactory implements DeploymentScriptStepFactory {
-    private static final Logger LOG = Logger.getLogger(AbstractSingleFileScriptStepFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractSingleFileScriptStepFactory.class);
 
     /*
      * (non-Javadoc)

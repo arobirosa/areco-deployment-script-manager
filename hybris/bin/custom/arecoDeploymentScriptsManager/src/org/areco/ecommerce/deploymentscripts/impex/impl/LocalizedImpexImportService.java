@@ -23,16 +23,21 @@ import de.hybris.platform.servicelayer.impex.ImportService;
 import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.lang.LocaleUtils;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.ScriptStepResult;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportException;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
@@ -48,7 +53,7 @@ public class LocalizedImpexImportService implements ImpexImportService {
 
     public static final String IMPEX_LOCALE_CONF = "deploymentscripts.impex.locale";
 
-    private static final Logger LOG = Logger.getLogger(LocalizedImpexImportService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(LocalizedImpexImportService.class);
 
     @Autowired
     private ConfigurationService configurationService;

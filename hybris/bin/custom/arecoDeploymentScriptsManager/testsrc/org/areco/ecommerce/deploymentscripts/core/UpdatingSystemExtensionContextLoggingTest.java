@@ -21,11 +21,12 @@ import de.hybris.platform.core.initialization.SystemSetupContext;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.util.JspContext;
 import de.hybris.platform.util.localization.Localization;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.mock.web.MockJspWriter;
 
 import javax.annotation.Resource;
@@ -43,7 +44,7 @@ public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfi
     /*
      * Logger of this class.
      */
-    private static final Logger LOG = Logger.getLogger(UpdatingSystemExtensionContextLoggingTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UpdatingSystemExtensionContextLoggingTest.class);
 
     private static final String DEPLOYMENT_SCRIPT_NAME = "20150126_TICKET_USE_BEANSHELL_TO_RELOAD_CMS_CONF";
 

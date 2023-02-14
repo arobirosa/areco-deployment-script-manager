@@ -21,10 +21,11 @@ import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.model.DeploymentEnvironmentModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -47,7 +48,7 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
             "Please set in the file local.properties the name of the current deployemnt environment." + " The property "
                     + CURRENT_ENVIRONMENT_CONF + " is empty.";
 
-    private static final Logger LOG = Logger.getLogger(FlexibleSearchDeploymentEnvironmentDAO.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FlexibleSearchDeploymentEnvironmentDAO.class);
 
     @Autowired
     private FlexibleSearchService flexibleSearchService;

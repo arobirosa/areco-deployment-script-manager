@@ -19,11 +19,12 @@ import de.hybris.platform.core.Tenant;
 import de.hybris.platform.servicelayer.tenant.MockTenant;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
 import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
@@ -46,7 +47,7 @@ import java.util.Set;
 // The configuration of this bean is in the spring application context.
 public abstract class PropertyFileDeploymentScriptConfigurationReader implements DeploymentScriptConfigurationReader {
 
-    private static final Logger LOG = Logger.getLogger(PropertyFileDeploymentScriptConfigurationReader.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PropertyFileDeploymentScriptConfigurationReader.class);
     /**
      * Allowed environments
      */
