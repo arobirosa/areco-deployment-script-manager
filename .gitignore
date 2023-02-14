@@ -63,7 +63,7 @@ qa/pmd-bin*
 qa/checkstyle-*
 !qa/checkstyle-simple.xsl
 
-qa/cobertura-*
+qa/jacoco-*
 
 velocity.log
 qa/cobertura.zip

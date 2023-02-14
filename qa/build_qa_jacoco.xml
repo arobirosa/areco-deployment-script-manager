@@ -1,0 +1,122 @@
+<project name="ant_qa_jacoco" default="jacoco" basedir="." xmlns:jacoco="antlib:org.jacoco.ant">
+    <property name="dir_jacoco_home" value="${dir_qa}/jacoco-0.8.8"/>
+    <property name="dir_jacoco_donwload_url"
+              value="https://repo1.maven.org/maven2/org/jacoco/jacoco/0.8.8/jacoco-0.8.8.zip"/>
+    <property name="dir_jacoco_donwload_file" value="${dir_qa}/jacoco.zip"/>
+
+    <target name="jacoco" depends="jacoco.install, build, qa_clean" description="Runs jacoco">
+        <!-- Step 1: Import JaCoCo Ant tasks -->
+        <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+            <classpath>
+                <fileset dir="${dir_jacoco_home}/lib/">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+        </taskdef>
+
+        <property name="reportdir.junit" location="${dir_platform}/../../log/junit/"/>
+        <property name="reportdir.jacoco" location="${dir_platform}/../../log/jacoco/"/>
+
+        <echo message="Running all tests of the org.areco package"/>
+
+        <mkdir dir="${reportdir.jacoco}"/>
+        <delete file="${reportdir.jacoco}/jacocoWeb.exec" failonerror="false"/>
+        <delete file="${reportdir.jacoco}/jacocoNoWeb.exec" failonerror="false"/>
+        <delete file="${reportdir.jacoco}/jacoco.exec" failonerror="false"/>
+        <delete file="${reportdir.junit}/TESTS-TestSuites.xml" failonerror="false"/>
+
+        <delete dir="${reportdir.jacoco}/classdump/" failonerror="false"/>
+        <mkdir dir="${reportdir.jacoco}/classdump/"/>
+
+        <jacoco:agent property="agentvmparam"
+                      append="true"
+                      output="file"
+                      destfile="${reportdir.jacoco}/jacoco.exec"
+                      classdumpdir="${reportdir.jacoco}/classdump/"/>
+        <ant dir="${dir_platform}" target="alltests" inheritrefs="false">
+            <property name="standalone.javaoptions" value="${agentvmparam}"/>
+            <property name="testclasses.packages" value="org.areco.*"/>
+        </ant>
+
+        <!-- As we can't access the ant properties of the subprocess, we check against a string value -->
+        <exec dir="${basedir}" executable="grep" failonerror="false" failifexecutionfails="true" osfamily="unix"
+              outputproperty="alltests_output">
+            <arg line="--fixed-strings"/>
+            <arg line="--count"/>
+            <arg line="100.00%"/>
+            <arg line="${reportdir.junit}/overview-summary.html"/>
+        </exec>
+
+        <condition property="alltests_failed">
+            <not>
+                <contains string="${alltests_output}" substring="1"/>
+            </not>
+        </condition>
+        <fail if="alltests_failed" message="Some tests failed. Please see ./hybris/log/junit/index.html"/>
+
+        <move file="${reportdir.jacoco}/jacoco.exec" tofile="${reportdir.jacoco}/jacocoNoWeb.exec"/>
+
+        <jacoco:merge destfile="${reportdir.jacoco}/jacoco.exec">
+            <fileset dir="${reportdir.jacoco}" includes="*.exec"/>
+        </jacoco:merge>
+
+        <jacoco:report>
+            <executiondata>
+                <file file="${reportdir.jacoco}/jacoco.exec"/>
+            </executiondata>
+            <structure name="Hybris">
+                <classfiles>
+                    <fileset dir="${reportdir.jacoco}/classdump/">
+                        <include name="**/org/areco/**/*.class"/>
+                        <exclude name="**/*Test.class"/>
+                        <exclude name="**/org/areco/ecommerce/deploymentscripts/model/**"/>
+                        <exclude name="**/*$*"/>
+                        <exclude name="**/test/**"/>
+                        <exclude name="**/*Test.*"/>
+                        <exclude name="de/hybris/platform/**"/>
+                        <exclude name="**/jalo/*"/>
+                        <exclude name="**/constants/*"/>
+                        <exclude name="**/*Standalone.*"/>
+                        <exclude name="**/*Context.*"/>
+                        <include name="**/*EmailContext.*.class"/>
+                        <exclude name="**/*Exception.*"/>
+                        <exclude name="**/net/**"/>
+                        <exclude name="**/WEB-INF/**"/>
+                        <exclude name="**/eclipsebin/**"/>
+                    </fileset>
+                </classfiles>
+                <sourcefiles>
+                    <fileset dir="${dir_hybris_bin}/custom">
+                        <include name="**/*.java"/>
+                    </fileset>
+                </sourcefiles>
+            </structure>
+
+            <html destdir="${reportdir.jacoco}"/>
+            <xml destfile="${reportdir.jacoco}/jacoco.xml"/>
+            <check>
+                <rule>
+                    <limit counter="LINE" value="COVEREDRATIO" minimum="75%"/>
+                </rule>
+            </check>
+        </jacoco:report>
+
+    </target>
+    
+    <target name="jacoco.check.installation">
+        <available property="jacoco.available"
+                   file="${dir_jacoco_home}"
+                   type="dir"/>
+    </target>
+
+    <target name="jacoco.install" description="Downloads and installs jacoco"
+            unless="jacoco.available"
+            depends="jacoco.check.installation">
+        <get src="${dir_jacoco_donwload_url}"
+             dest="${dir_jacoco_donwload_file}"
+             verbose="true"
+             usetimestamp="true"/>
+        <unzip src="${dir_jacoco_donwload_file}" dest="${dir_jacoco_home}" failOnEmptyArchive="true"/>
+        <delete file="${dir_jacoco_donwload_file}"/>
+    </target>
+</project>
