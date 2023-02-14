@@ -4,17 +4,6 @@
               value="https://repo1.maven.org/maven2/org/jacoco/jacoco/0.8.8/jacoco-0.8.8.zip"/>
     <property name="dir_jacoco_donwload_file" value="${dir_qa}/jacoco.zip"/>
 
-    <!-- Hybris finds the jacoco datafile in the root directory. -->
-    <property name="datafile_jacoco" value="${dir_platform}/jacoco.exec"/>
-
-    <fileset dir="${dir_hybris_bin}" id="fileset_bin_instrumentation">
-        <include name="custom/*/classes/"/>
-        <include name="custom/*/web/webroot/WEB-INF/classes/"/>
-        <exclude name="**/jalo/*.class"/> <!-- Jalo layer -->
-        <exclude name="**/Generated*.class"/> <!-- Generated Classes (Jalo and hmc) -->
-        <exclude name="**/*Constants.class"/> <!-- Generated Classes (constants) -->
-    </fileset>
-
     <target name="jacoco" depends="jacoco.install, build, qa_clean" description="Runs jacoco">
         <!-- Step 1: Import JaCoCo Ant tasks -->
         <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
@@ -38,9 +27,6 @@
 
         <delete dir="${reportdir.jacoco}/classdump/" failonerror="false"/>
         <mkdir dir="${reportdir.jacoco}/classdump/"/>
-
-        <delete dir="${reportdir.junit}/reportNoWeb/" failonerror="false"/>
-        <mkdir dir="${reportdir.junit}/reportNoWeb/"/>
 
         <jacoco:agent property="agentvmparam"
                       append="true"
@@ -68,19 +54,7 @@
         </condition>
         <fail if="alltests_failed" message="Some tests failed. Please see ./hybris/log/junit/index.html"/>
 
-        <move file="${reportdir.junit}/TESTS-TestSuites.xml" tofile="${reportdir.junit}/reportNoWeb/TESTS-noWeb.xml"/>
         <move file="${reportdir.jacoco}/jacoco.exec" tofile="${reportdir.jacoco}/jacocoNoWeb.exec"/>
-
-        <move file="${reportdir.junit}/all-tests.html" todir="${reportdir.junit}/reportNoWeb"/>
-        <move file="${reportdir.junit}/allclasses-frame.html" todir="${reportdir.junit}/reportNoWeb"/>
-        <move file="${reportdir.junit}/alltests-errors.html" todir="${reportdir.junit}/reportNoWeb"/>
-        <move file="${reportdir.junit}/alltests-fails.html" todir="${reportdir.junit}/reportNoWeb"/>
-        <move file="${reportdir.junit}/alltests-skipped.html" todir="${reportdir.junit}/reportNoWeb"/>
-        <move file="${reportdir.junit}/org" todir="${reportdir.junit}/reportNoWeb"/>
-        <move file="${reportdir.junit}/index.html" todir="${reportdir.junit}/reportNoWeb"/>
-        <move file="${reportdir.junit}/overview-frame.html" todir="${reportdir.junit}/reportNoWeb"/>
-        <move file="${reportdir.junit}/overview-summary.html" todir="${reportdir.junit}/reportNoWeb"/>
-        <move file="${reportdir.junit}/stylesheet.css" todir="${reportdir.junit}/reportNoWeb"/>
 
         <jacoco:merge destfile="${reportdir.jacoco}/jacoco.exec">
             <fileset dir="${reportdir.jacoco}" includes="*.exec"/>
