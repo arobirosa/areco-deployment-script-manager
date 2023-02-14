@@ -49,7 +49,7 @@
                       classdumpdir="${reportdir.jacoco}/classdump/"/>
         <ant dir="${dir_platform}" target="alltests" inheritrefs="false">
             <property name="standalone.javaoptions" value="${agentvmparam}"/>
-            <property name="testclasses.packages" value="org.areco.ecommerce.deploymentscripts.scriptinglanguages.*"/>
+            <property name="testclasses.packages" value="org.areco.*"/>
         </ant>
 
         <!-- As we can't access the ant properties of the subprocess, we check against a string value -->
@@ -66,7 +66,7 @@
                 <contains string="${alltests_output}" substring="1"/>
             </not>
         </condition>
-        <fail if="alltests_failed" message="Some tests failed. Please see ./hybris/log/junit/index.html Grep's output: ${alltests_output}"/>
+        <fail if="alltests_failed" message="Some tests failed. Please see ./hybris/log/junit/index.html"/>
 
         <move file="${reportdir.junit}/TESTS-TestSuites.xml" tofile="${reportdir.junit}/reportNoWeb/TESTS-noWeb.xml"/>
         <move file="${reportdir.jacoco}/jacoco.exec" tofile="${reportdir.jacoco}/jacocoNoWeb.exec"/>
