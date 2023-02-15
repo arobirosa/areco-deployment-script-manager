@@ -39,6 +39,7 @@ public class EssentialDataCreationDetector {
     /**
      * This method must be triggered during the creation of the essential data.
      */
+    @SuppressWarnings("unused")
     @SystemSetup(type = SystemSetup.Type.ESSENTIAL, process = SystemSetup.Process.ALL)
     public void createDummyEssentialData() {
         if (LOG.isDebugEnabled()) {
@@ -59,6 +60,7 @@ public class EssentialDataCreationDetector {
     /**
      * This method must be triggered during the creation of the project data.
      */
+    @SuppressWarnings("unused")
     @SystemSetup(type = SystemSetup.Type.PROJECT, process = SystemSetup.Process.ALL)
     public void createDummyProjectData() {
         if (LOG.isDebugEnabled()) {

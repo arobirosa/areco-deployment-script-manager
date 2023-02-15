@@ -24,7 +24,6 @@ import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.core.ScriptResult;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
-import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,17 +77,10 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
         for (final DeploymentScript aScript : scriptsToBeRun) {
             final ScriptExecutionModel scriptExecution = this.scriptConverter.convert(aScript);
 
-            try {
-                final ScriptResult scriptResult = aScript.run();
-                scriptExecution.setResult(scriptResult.getStatus());
-                scriptExecution.setFirstFailedCronjob(scriptResult.getCronJob());
-                scriptExecution.setFullStacktrace(getCauseShortStackTrace(scriptResult.getException()));
-            } catch (final DeploymentScriptExecutionException e) {
-                LOG.error("There was an error running {}:{}", aScript.getLongName(), e.getLocalizedMessage(), e);
-
-                scriptExecution.setResult(this.scriptExecutionResultDao.getErrorResult());
-                scriptExecution.setFullStacktrace(getCauseShortStackTrace(e));
-            }
+            final ScriptResult scriptResult = aScript.run();
+            scriptExecution.setResult(scriptResult.getStatus());
+            scriptExecution.setFirstFailedCronjob(scriptResult.getCronJob());
+            scriptExecution.setFullStacktrace(getCauseShortStackTrace(scriptResult.getException()));
             this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
             if (this.scriptExecutionResultDao.getErrorResult().equals(scriptExecution.getResult())) {
                 return true; // We stop after the first error.

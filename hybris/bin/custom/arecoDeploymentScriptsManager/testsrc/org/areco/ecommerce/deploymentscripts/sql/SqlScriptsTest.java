@@ -25,7 +25,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import javax.annotation.Resource;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -59,9 +58,8 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
     }
 
     private void assertSqlScript(final String scriptFolder, final String scriptName, final boolean expectedSuccessfulScript) {
-        final String resourcesLocation = RESOURCES_FOLDER;
 
-        this.getDeploymentConfigurationSetter().setTestFolders(resourcesLocation, scriptFolder);
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, scriptFolder);
         this.antDeploymentScriptsStarter.runPendingScripts();
         if (expectedSuccessfulScript) {
             deploymentScriptResultAsserter.assertSuccessfulResult(scriptName);
@@ -88,7 +86,7 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
      */
 
     @Test
-    public void testScriptsWithInsert() throws SQLException {
+    public void testScriptsWithInsert() {
         assertSqlScript("insert", "20141004_SQL_SCRIPT_INSERT", true);
         //Because the changes of an sql script cannot be seen inside an integration test, we can't check if the database was affected.
     }
@@ -99,7 +97,7 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
     }
 
     @Test
-    public void testScriptsWithCreateTable() throws SQLException {
+    public void testScriptsWithCreateTable() {
         assertSqlScript("ddl", "20141004_SQL_SCRIPT_CREATE_TABLE", true);
     }
 }

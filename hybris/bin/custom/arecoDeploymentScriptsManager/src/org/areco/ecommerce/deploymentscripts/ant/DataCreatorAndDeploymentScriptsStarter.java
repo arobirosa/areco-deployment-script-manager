@@ -69,7 +69,7 @@ public class DataCreatorAndDeploymentScriptsStarter {
      * Creates the essential and project data. This triggers the runs of the deployment scripts in the junit tenant.
      */
     public void runInJunitTenant() {
-        if (!this.extensionHelper.isDeploymentManagerExtensionTurnedOn()
+        if (this.extensionHelper.isDeploymentManagerExtensionTurnedOff()
                 || !Boolean.parseBoolean(this.configurationService.getConfiguration().getString(JUNIT_TENANT_CREATEESSENTIALDATA_CONF))) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("The essential and project data won't be created and the deployment scripts won't be run.");
@@ -126,7 +126,6 @@ public class DataCreatorAndDeploymentScriptsStarter {
         final JspWriter out = new MockJspWriter(new StringWriter());
         final MockHttpServletRequest request = new MockHttpServletRequest();
         final HttpServletResponse response = new MockHttpServletResponse();
-        final JspContext jspc = new JspContext(out, request, response);
-        return jspc;
+        return new JspContext(out, request, response);
     }
 }

@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -42,8 +43,8 @@ import java.util.List;
 public class ArecoDeploymentScriptService implements DeploymentScriptService {
     private static final Logger LOG = LoggerFactory.getLogger(ArecoDeploymentScriptService.class);
 
-    @Autowired
-    private DeploymentScriptFinder finder;
+    @Resource
+    private DeploymentScriptFinder arecoDeploymentScriptFinder;
 
     @Autowired
     private DeploymentScriptRunner runner;
@@ -66,7 +67,7 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
     @Override
     public boolean runDeploymentScripts(final UpdatingSystemExtensionContext context, final boolean runInitScripts) {
         ServicesUtil.validateParameterNotNullStandardMessage("context", context);
-        if (!this.extensionHelper.isDeploymentManagerExtensionTurnedOn()) {
+        if (this.extensionHelper.isDeploymentManagerExtensionTurnedOff()) {
             return false;
         }
         this.initialConfigurationImporter.importConfigurationIfRequired(context);
@@ -74,7 +75,7 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Looking for pending update scripts in the extension {}", context.getExtensionName());
         }
-        final List<DeploymentScript> scriptsToBeRun = this.finder.getPendingScripts(context.getExtensionName(), context.getProcess(), runInitScripts);
+        final List<DeploymentScript> scriptsToBeRun = this.arecoDeploymentScriptFinder.getPendingScripts(context.getExtensionName(), context.getProcess(), runInitScripts);
         if (scriptsToBeRun.isEmpty()) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("There aren't any pending {} deployment scripts in the extension {}", runInitScripts ? "INIT" : "UPDATE", context.getExtensionName());
@@ -98,7 +99,7 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
      */
     @Override
     public boolean wasLastScriptSuccessful() {
-        if (!this.extensionHelper.isDeploymentManagerExtensionTurnedOn()) {
+        if (this.extensionHelper.isDeploymentManagerExtensionTurnedOff()) {
             return true;
         }
         return this.scriptExecutionDao.wasLastScriptSuccessful();

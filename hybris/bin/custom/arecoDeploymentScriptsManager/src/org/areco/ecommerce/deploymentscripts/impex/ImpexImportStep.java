@@ -45,10 +45,6 @@ public class ImpexImportStep extends AbstractSingleFileScriptStep {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Running the step {}", this.getId());
         }
-        try {
-            return this.impexImportService.importImpexFile(this.getScriptFile());
-        } catch (final ImpexImportException cause) {
-            return new ScriptStepResult(cause);
-        }
+        return this.impexImportService.importImpexFile(this.getScriptFile());
     }
 }

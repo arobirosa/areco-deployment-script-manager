@@ -67,13 +67,13 @@ public class ExtensionHelper {
      *
      * @return boolean
      */
-    public boolean isDeploymentManagerExtensionTurnedOn() {
+    public boolean isDeploymentManagerExtensionTurnedOff() {
 
         final boolean isActive = Registry.getCurrentTenant().getTenantSpecificExtensionNames()
                 .contains(ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
         if (LOG.isInfoEnabled()) {
             LOG.info("Is the Areco Deployment Manager extension turned on in the tenant {}:{}", Registry.getCurrentTenant(), isActive);
         }
-        return isActive;
+        return !isActive;
     }
 }

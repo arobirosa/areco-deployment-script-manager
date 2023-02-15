@@ -72,14 +72,13 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
             normalizedEnvironmentNames.add(givenEnvironmentName.trim().toUpperCase(Locale.getDefault()));
         }
 
-        final StringBuilder queryBuilder = new StringBuilder(76);
-        queryBuilder.append("SELECT {r.").append(DeploymentEnvironmentModel.PK).append("}")
-                .append(" FROM {").append(DeploymentEnvironmentModel._TYPECODE)
-                .append(" as r ").append("} ")
-                .append(" WHERE ").append(" UPPER({").append(DeploymentEnvironmentModel.NAME).append("}) ").append(" IN ").append('(')
-                .append('?').append(DeploymentEnvironmentModel.NAME).append(')');
+        final String queryBuilder = "SELECT {r." + DeploymentEnvironmentModel.PK + "}" +
+                " FROM {" + DeploymentEnvironmentModel._TYPECODE +
+                " as r " + "} " +
+                " WHERE " + " UPPER({" + DeploymentEnvironmentModel.NAME + "}) " + " IN " + '(' +
+                '?' + DeploymentEnvironmentModel.NAME + ')';
 
-        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder);
         query.addQueryParameter(DeploymentEnvironmentModel.NAME, normalizedEnvironmentNames);
         final SearchResult<DeploymentEnvironmentModel> searchResult = this.flexibleSearchService.search(query);
         if (environmentNames.size() != searchResult.getCount()) {

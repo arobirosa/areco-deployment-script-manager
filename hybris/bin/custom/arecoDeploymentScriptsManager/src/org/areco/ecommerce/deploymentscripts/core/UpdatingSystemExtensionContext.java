@@ -79,15 +79,13 @@ public class UpdatingSystemExtensionContext {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder(70);
-        builder.append("UpdatingSystemExtensionContext [extensionName=");
-        builder.append(this.extensionName);
-        builder.append(", process=");
-        builder.append(this.process);
-        builder.append(", jspContext=");
-        builder.append(this.jspContext);
-        builder.append("]");
-        return builder.toString();
+        return "UpdatingSystemExtensionContext [extensionName=" +
+                this.extensionName +
+                ", process=" +
+                this.process +
+                ", jspContext=" +
+                this.jspContext +
+                "]";
     }
 
     @Override

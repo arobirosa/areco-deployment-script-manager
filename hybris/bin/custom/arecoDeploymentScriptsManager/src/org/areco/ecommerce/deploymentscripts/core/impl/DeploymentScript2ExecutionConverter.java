@@ -45,6 +45,7 @@ public class DeploymentScript2ExecutionConverter implements Converter<Deployment
      *
      * @see de.hybris.platform.servicelayer.dto.converter.Converter#convert(java.lang.Object)
      */
+    @SuppressWarnings("NullableProblems")
     @Override
     public ScriptExecutionModel convert(final DeploymentScript source) throws ConversionException {
         return this.convert(source, this.modelService.create(ScriptExecutionModel.class));

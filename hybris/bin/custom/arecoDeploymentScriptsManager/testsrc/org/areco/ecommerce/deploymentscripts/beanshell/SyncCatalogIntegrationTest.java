@@ -7,7 +7,6 @@ import de.hybris.platform.core.model.media.MediaModel;
 import de.hybris.platform.servicelayer.ServicelayerTest;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
-import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentConfigurationSetter;
@@ -76,8 +75,8 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
         Assert.assertFalse("There were errors", wereThereErrors);
         getDeploymentScriptResultAsserter().assertResult("14112018_Ticket49",
                 this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
-        final MediaModel result = findMediaOnlineCatalog("ArecosSyncCataloguesImpexTest",
-                "Online", "testMedia");
+        final MediaModel result = findMediaOnlineCatalog(
+        );
         Assert.assertNotNull("The result is null", result);
     }
 
@@ -89,9 +88,7 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
         return flexibleSearchScriptExecutionResultDao;
     }
 
-    private MediaModel findMediaOnlineCatalog(final String catalogId, final String catalogVersionName, final String mediaCode) {
-        ServicesUtil.validateParameterNotNull(catalogId, "catalog Id must not be null");
-        ServicesUtil.validateParameterNotNull(catalogVersionName, "catalog Id must not be null");
+    private MediaModel findMediaOnlineCatalog() {
 
         final StringBuilder sql = new StringBuilder(122);
 
@@ -111,9 +108,9 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
         sql.append("} = ?").append(MediaModel.CODE);
 
         final FlexibleSearchQuery flexibleSearchQuery = new FlexibleSearchQuery(sql);
-        flexibleSearchQuery.addQueryParameter(CatalogModel.ID, catalogId);
-        flexibleSearchQuery.addQueryParameter(CatalogVersionModel.VERSION, catalogVersionName);
-        flexibleSearchQuery.addQueryParameter(MediaModel.CODE, mediaCode);
+        flexibleSearchQuery.addQueryParameter(CatalogModel.ID, "ArecosSyncCataloguesImpexTest");
+        flexibleSearchQuery.addQueryParameter(CatalogVersionModel.VERSION, "Online");
+        flexibleSearchQuery.addQueryParameter(MediaModel.CODE, "testMedia");
         return flexibleSearchService.searchUnique(flexibleSearchQuery);
     }
 }

@@ -106,7 +106,7 @@ public class CacheManagementSqlScriptTest {
                 jaloDummyEnvironment.getDescription());
     }
 
-    private DeploymentEnvironmentModel createDummyEnvironment() {
+    private void createDummyEnvironment() {
         final DeploymentEnvironmentModel dummyEnvironment = modelService.create(DeploymentEnvironmentModel.class);
         dummyEnvironment.setName(DUMMY_ENVIRONMENT_NAME);
         dummyEnvironment.setDescription(DUMMY_ENVIRONMENT_DESCRIPTION);
@@ -114,7 +114,6 @@ public class CacheManagementSqlScriptTest {
         if (LOG.isDebugEnabled()) {
             LOG.debug("The deployment environment {} was saved.", dummyEnvironment);
         }
-        return dummyEnvironment;
     }
 
     @After

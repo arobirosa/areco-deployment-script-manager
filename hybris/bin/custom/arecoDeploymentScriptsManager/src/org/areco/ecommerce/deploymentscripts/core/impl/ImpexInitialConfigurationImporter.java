@@ -17,7 +17,6 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.bootstrap.config.ConfigUtil;
 import de.hybris.bootstrap.config.ExtensionInfo;
-import de.hybris.platform.servicelayer.exceptions.ConfigurationException;
 import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
 import de.hybris.platform.servicelayer.i18n.CommonI18NService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
@@ -25,7 +24,6 @@ import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsMan
 import org.areco.ecommerce.deploymentscripts.core.InitialConfigurationImporter;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
-import org.areco.ecommerce.deploymentscripts.impex.ImpexImportException;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
 import org.slf4j.Logger;
@@ -111,12 +109,7 @@ public class ImpexInitialConfigurationImporter implements InitialConfigurationIm
         final ExtensionInfo extension = ConfigUtil.getPlatformConfig(ArecoDeploymentScriptService.class).getExtensionInfo(
                 ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
         final File configurationFile = new File(extension.getExtensionDirectory() + RESOURCES_FOLDER, initialConfigurationFileGerman);
-        try {
-            this.impexImportService.importImpexFile(configurationFile);
-        } catch (final ImpexImportException cause) {
-            throw new ConfigurationException(
-                    "There was an error importing the initial configuration of the extension stored in " + configurationFile, cause);
-        }
+        this.impexImportService.importImpexFile(configurationFile);
     }
 
 }

@@ -45,6 +45,7 @@ public class ArecoDeploymentScriptsManagerManager extends GeneratedArecoDeployme
      *
      * @return the current instance of this manager
      */
+    @SuppressWarnings("unused")
     public static ArecoDeploymentScriptsManagerManager getInstance() {
         return (ArecoDeploymentScriptsManagerManager) Registry.getCurrentTenant().getJaloConnection().getExtensionManager()
                 .getExtension(ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);

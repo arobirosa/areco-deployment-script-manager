@@ -91,6 +91,7 @@ public class TenantConversionInScriptConfigurationTest {
 
     private void assertTenantConversion(final String expectedTenantID, final String deploymentScriptNameD) throws URISyntaxException {
         final URL scriptUrl = Thread.currentThread().getContextClassLoader().getResource(DEPLOYMENT_SCRIPTS_FOLDER + deploymentScriptNameD);
+        //noinspection ConstantConditions
         final PropertyFileDeploymentScriptConfiguration actualConfiguration = configurationReader.loadConfiguration(new File(scriptUrl.toURI()));
         Assert.assertEquals("The must be one tenant", 1, actualConfiguration.getAllowedTenants().size());
         Assert.assertEquals("The tenant has the wrong ID", expectedTenantID, actualConfiguration.getAllowedTenants().iterator().next().getTenantID());

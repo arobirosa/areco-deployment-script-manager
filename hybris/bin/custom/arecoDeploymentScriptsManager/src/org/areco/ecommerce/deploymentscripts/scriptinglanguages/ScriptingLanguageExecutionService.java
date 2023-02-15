@@ -28,7 +28,6 @@ public interface ScriptingLanguageExecutionService {
      * Runs the given script file. The extension indicates what language it is
      *
      * @param scriptFile Required
-     * @return
      */
 
     void executeScript(File scriptFile) throws ScriptingLanguageExecutionException;

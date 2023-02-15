@@ -32,7 +32,7 @@ public class DelegatingScriptingLanguageExecutionService implements ScriptingLan
      * It executes and compiles the given script.
      *
      * @param scriptFile Required
-     * @throws ScriptingLanguageExecutionException
+     * @throws ScriptingLanguageExecutionException If there was an error running the script
      */
     @Override
     public void executeScript(final File scriptFile) throws ScriptingLanguageExecutionException {
