@@ -48,7 +48,7 @@ public class ScriptingLanguageStep extends AbstractSingleFileScriptStep {
     @Override
     public ScriptStepResult run() {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Running the script " + this.getId());
+            LOG.debug("Running the script {}", this.getId());
         }
         try {
             this.scriptingLanguageExecutionService.executeScript(this.getScriptFile());

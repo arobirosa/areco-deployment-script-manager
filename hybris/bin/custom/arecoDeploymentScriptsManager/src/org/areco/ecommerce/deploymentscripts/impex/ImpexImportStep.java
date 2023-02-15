@@ -43,7 +43,7 @@ public class ImpexImportStep extends AbstractSingleFileScriptStep {
     @Override
     public ScriptStepResult run() {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Running the step " + this.getId());
+            LOG.debug("Running the step {}", this.getId());
         }
         try {
             return this.impexImportService.importImpexFile(this.getScriptFile());

@@ -19,12 +19,10 @@ import de.hybris.bootstrap.annotations.UnitTest;
 import de.hybris.platform.servicelayer.tenant.MockTenant;
 import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -58,11 +56,6 @@ public class TenantConversionInScriptConfigurationTest {
 
     @Mock
     private TenantDetector tenantDetector;
-
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     public void testJunitTenantInSingleTenantEnvironment() throws URISyntaxException {

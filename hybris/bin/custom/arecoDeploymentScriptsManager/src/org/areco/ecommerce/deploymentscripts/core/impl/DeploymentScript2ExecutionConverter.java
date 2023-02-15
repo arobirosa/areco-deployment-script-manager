@@ -60,7 +60,7 @@ public class DeploymentScript2ExecutionConverter implements Converter<Deployment
         ServicesUtil.validateParameterNotNullStandardMessage("source", source);
         ServicesUtil.validateParameterNotNullStandardMessage("execution", execution);
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Creating an script execution model from the deployment script " + source);
+            LOG.debug("Creating an script execution model from the deployment script {}", source);
         }
         execution.setExtensionName(source.getExtensionName());
         execution.setScriptName(source.getName());

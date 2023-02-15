@@ -74,20 +74,20 @@ public class JaloSqlScriptService implements SqlScriptService {
     // CHECKSTYLE.ON
     private int runStatementOnDatabase(final String translatedStatement) throws SQLException {
 
-        try (Connection aConnection = getConnection(); PreparedStatement prepareStatement = aConnection.prepareStatement(translatedStatement)) {
+        try (final Connection aConnection = getConnection(); final PreparedStatement prepareStatement = aConnection.prepareStatement(translatedStatement)) {
             return prepareStatement.executeUpdate();
         }
     }
 
     private String translateTablePrefix(final String aStatement) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("SQL Statement before the translation: <" + aStatement + ">");
+            LOG.debug("SQL Statement before the translation: <{}>", aStatement);
         }
         final Pattern tablePrefixPattern = Pattern.compile("\\{table_prefix\\}", Pattern.CASE_INSENSITIVE);
         final String returnedStatement = tablePrefixPattern.matcher(aStatement)
                 .replaceAll(Registry.getCurrentTenant().getDataSource().getTablePrefix());
         if (LOG.isDebugEnabled()) {
-            LOG.debug("SQL Statement after the translation: <" + returnedStatement + ">");
+            LOG.debug("SQL Statement after the translation: <{}>", returnedStatement);
         }
         return returnedStatement;
     }

@@ -88,7 +88,7 @@ public final class DeploymentScriptResultAsserter {
      */
     private ScriptExecutionModel getDeploymentScriptExecution(final String deploymentScriptName) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Getting the execution of the script " + deploymentScriptName);
+            LOG.debug("Getting the execution of the script {}", deploymentScriptName);
         }
         final List<ScriptExecutionModel> foundExecutions = getAllDeploymentScriptExecutions(deploymentScriptName);
         if (CollectionUtils.isEmpty(foundExecutions)) {
@@ -120,7 +120,7 @@ public final class DeploymentScriptResultAsserter {
         queryParams.put(ScriptExecutionModel.SCRIPTNAME, deploymentScriptName);
 
         if (LOG.isTraceEnabled()) {
-            LOG.trace("Executing the query: '" + queryBuilder + "' with the parameters " + queryParams);
+            LOG.trace("Executing the query: '{}' with the parameters {}", queryBuilder, queryParams);
         }
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
@@ -135,14 +135,14 @@ public final class DeploymentScriptResultAsserter {
         queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
                 .append(" as es ").append(" } ");
 
-        LOG.trace("Executing the query: '" + queryBuilder);
+        LOG.trace("Executing the query: '{}", queryBuilder);
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
 
         final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
-        LOG.trace("Number of executions: " + result.getCount());
+        LOG.trace("Number of executions: {}", result.getCount());
         for (final ScriptExecutionModel anExecution : result.getResult()) {
-            LOG.trace("Executed '" + anExecution.getScriptName() + "'");
+            LOG.trace("Executed '{}'", anExecution.getScriptName());
         }
     }
 
@@ -177,7 +177,7 @@ public final class DeploymentScriptResultAsserter {
         assertErrorResult(deploymentScriptName);
 
         final String loadedPattern;
-        try (InputStream expectedPatternStream = DeploymentScriptResultAsserter.class.getResourceAsStream(pathFileExpectedStacktracePattern)) {
+        try (final InputStream expectedPatternStream = DeploymentScriptResultAsserter.class.getResourceAsStream(pathFileExpectedStacktracePattern)) {
             Assert.assertNotNull("The file " + pathFileExpectedStacktracePattern + " with the expected stacktrace wasn't found", expectedPatternStream);
 
             loadedPattern = IOUtils.toString(expectedPatternStream, Charset.forName(DeploymentScript.DEFAULT_FILE_ENCODING)).

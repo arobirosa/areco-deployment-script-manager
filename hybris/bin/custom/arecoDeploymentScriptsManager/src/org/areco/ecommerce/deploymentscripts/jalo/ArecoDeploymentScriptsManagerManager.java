@@ -65,10 +65,11 @@ public class ArecoDeploymentScriptsManagerManager extends GeneratedArecoDeployme
      * Use this method to do some basic work only ONCE in the lifetime of a tenant resp. "deployment". This method is called after manager creation (for example
      * within startup of a tenant). Note that if you have more than one tenant you have a manager instance for each tenant.
      */
+    @SuppressWarnings("deprecation")
     @Override
     public void init() {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("init() of ArecoDeploymentScriptsManagerManager called. " + getTenant().getTenantID());
+            LOG.debug("init() of ArecoDeploymentScriptsManagerManager called. {}", getTenant().getTenantID());
         }
     }
 
@@ -76,10 +77,11 @@ public class ArecoDeploymentScriptsManagerManager extends GeneratedArecoDeployme
      * Use this method as a callback when the manager instance is being destroyed (this happens before system initialization, at redeployment or if you shutdown
      * your VM). Note that if you have more than one tenant you have a manager instance for each tenant.
      */
+    @SuppressWarnings("deprecation")
     @Override
     public void destroy() {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("destroy() of ArecoDeploymentScriptsManagerManager called, current tenant: " + getTenant().getTenantID());
+            LOG.debug("destroy() of ArecoDeploymentScriptsManagerManager called, current tenant: {}", getTenant().getTenantID());
         }
     }
 

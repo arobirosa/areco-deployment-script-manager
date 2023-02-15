@@ -72,7 +72,7 @@ public class ExtensionHelper {
         final boolean isActive = Registry.getCurrentTenant().getTenantSpecificExtensionNames()
                 .contains(ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
         if (LOG.isInfoEnabled()) {
-            LOG.info("Is the Areco Deployment Manager extension turned on in the tenant " + Registry.getCurrentTenant() + ':' + isActive);
+            LOG.info("Is the Areco Deployment Manager extension turned on in the tenant {}:{}", Registry.getCurrentTenant(), isActive);
         }
         return isActive;
     }

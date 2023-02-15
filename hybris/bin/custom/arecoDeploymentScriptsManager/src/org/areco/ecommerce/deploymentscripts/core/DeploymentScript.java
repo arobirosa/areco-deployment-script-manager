@@ -77,7 +77,7 @@ public class DeploymentScript {
     @NonNull
     public ScriptResult run() throws DeploymentScriptExecutionException {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Running " + this.getLongName() + " - Start");
+            LOG.debug("Running {} - Start", this.getLongName());
         }
         final ScriptExecutionResultModel configurationConstraintsCheckResult = this.getConfiguration().reasonToIgnoreExecutionOnThisServer();
         if (configurationConstraintsCheckResult != null) {
@@ -147,7 +147,7 @@ public class DeploymentScript {
             }
         }
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Running " + this.getLongName() + " - Ended successfully");
+            LOG.debug("Running {} - Ended successfully", this.getLongName());
         }
         if (this.getConfiguration().runsMultipleTimes()) {
             return new ScriptResult(this.scriptExecutionResultDAO.getSuccessMultipleRunsResult());

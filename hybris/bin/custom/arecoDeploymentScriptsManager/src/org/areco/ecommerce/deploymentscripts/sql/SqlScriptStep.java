@@ -48,7 +48,7 @@ public class SqlScriptStep extends AbstractSingleFileScriptStep {
         final String sqlStatement;
         try {
             sqlStatement = loadFileContent();
-        } catch (IOException | IllegalStateException e) {
+        } catch (final IOException | IllegalStateException e) {
             return new ScriptStepResult(e);
         }
         return executeStatement(sqlStatement);
@@ -56,7 +56,7 @@ public class SqlScriptStep extends AbstractSingleFileScriptStep {
 
     private ScriptStepResult executeStatement(final String sqlStatement) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Running the SQL Statement: '" + sqlStatement + "'.");
+            LOG.debug("Running the SQL Statement: '{}'.", sqlStatement);
         }
         final int rows;
 
@@ -66,7 +66,7 @@ public class SqlScriptStep extends AbstractSingleFileScriptStep {
             return new ScriptStepResult(e);
         }
         if (LOG.isDebugEnabled()) {
-            LOG.debug("The SQL Script was executed successfully. " + rows + " rows were affected.");
+            LOG.debug("The SQL Script was executed successfully. {} rows were affected.", rows);
         }
         return new ScriptStepResult(true);
     }

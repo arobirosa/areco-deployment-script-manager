@@ -46,7 +46,7 @@ public class RegistryTenantDetector implements TenantDetector {
     @Override
     public boolean areWeInATestSystemWithOneSingleTenant() {
         if (LOG.isTraceEnabled()) {
-            LOG.trace("IDs of the slave tenants: " + Collections.format(Registry.getMasterTenant().getSlaveTenantIDs()));
+            LOG.trace("IDs of the slave tenants: {}", Collections.format(Registry.getMasterTenant().getSlaveTenantIDs()));
         }
         return !(Registry.getMasterTenant().getSlaveTenantIDs().contains(
                 ArecoDeploymentScriptsManagerConstants.JUNIT_TENANT_ID));

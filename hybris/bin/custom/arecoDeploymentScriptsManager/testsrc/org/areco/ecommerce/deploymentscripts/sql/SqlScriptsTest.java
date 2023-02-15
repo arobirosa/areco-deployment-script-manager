@@ -59,7 +59,7 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
     }
 
     private void assertSqlScript(final String scriptFolder, final String scriptName, final boolean expectedSuccessfulScript) {
-        String resourcesLocation = RESOURCES_FOLDER;
+        final String resourcesLocation = RESOURCES_FOLDER;
 
         this.getDeploymentConfigurationSetter().setTestFolders(resourcesLocation, scriptFolder);
         this.antDeploymentScriptsStarter.runPendingScripts();
@@ -79,7 +79,7 @@ public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {
     @Test
     public void testScriptsWithDelete() {
         assertSqlScript("delete", "20141004_SQL_SCRIPT_DELETE", true);
-        List<TaxModel> foundTaxes = taxDao.findTaxesByCode(DUMMY_TAX_CODE);
+        final List<TaxModel> foundTaxes = taxDao.findTaxesByCode(DUMMY_TAX_CODE);
         Assert.assertEquals("The dummy tax wasn't removed", 0, foundTaxes.size());
     }
 

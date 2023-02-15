@@ -67,7 +67,7 @@ public class LocalizedImpexImportService implements ImpexImportService {
     @Override
     public ScriptStepResult importImpexFile(final File impexFile) throws ImpexImportException {
         ServicesUtil.validateParameterNotNullStandardMessage("impexFile", impexFile);
-        try (InputStream inputStream = Files.newInputStream(Paths.get(impexFile.toURI()))) {
+        try (final InputStream inputStream = Files.newInputStream(Paths.get(impexFile.toURI()))) {
             return importImpexFile(inputStream);
         } catch (final FileNotFoundException | NoSuchFileException e) {
             return new ScriptStepResult(new ImpexImportException("Unable to find the file " + impexFile, e));
@@ -84,7 +84,7 @@ public class LocalizedImpexImportService implements ImpexImportService {
         importConfig.setDistributedImpexLogLevel(JobLogLevel.DEBUG);
         final String localeCode = this.configurationService.getConfiguration().getString(IMPEX_LOCALE_CONF);
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Code of the impex locale: '" + localeCode + "'.");
+            LOG.debug("Code of the impex locale: '{}'.", localeCode);
         }
         if (localeCode != null && !localeCode.isEmpty()) {
             importConfig.setLocale(LocaleUtils.toLocale(localeCode));

@@ -84,7 +84,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
                 scriptExecution.setFirstFailedCronjob(scriptResult.getCronJob());
                 scriptExecution.setFullStacktrace(getCauseShortStackTrace(scriptResult.getException()));
             } catch (final DeploymentScriptExecutionException e) {
-                LOG.error("There was an error running " + aScript.getLongName() + ':' + e.getLocalizedMessage(), e);
+                LOG.error("There was an error running {}:{}", aScript.getLongName(), e.getLocalizedMessage(), e);
 
                 scriptExecution.setResult(this.scriptExecutionResultDao.getErrorResult());
                 scriptExecution.setFullStacktrace(getCauseShortStackTrace(e));

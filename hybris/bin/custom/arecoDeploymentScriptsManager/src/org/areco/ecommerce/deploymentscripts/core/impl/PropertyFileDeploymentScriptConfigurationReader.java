@@ -83,7 +83,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
     @Override
     public PropertyFileDeploymentScriptConfiguration loadConfiguration(final File deploymentScriptFolder) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Reading configuration from the directory " + deploymentScriptFolder);
+            LOG.debug("Reading configuration from the directory {}", deploymentScriptFolder);
         }
         ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptFolder", deploymentScriptFolder);
         if (!deploymentScriptFolder.exists()) {
@@ -100,7 +100,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
     private PropertyFileDeploymentScriptConfiguration createConfigurationFrom(final File configurationFile) {
         final Properties properties = new Properties();
 
-        try (InputStream configurationFileStream = Files.newInputStream(Paths.get(configurationFile.toURI()))) {
+        try (final InputStream configurationFileStream = Files.newInputStream(Paths.get(configurationFile.toURI()))) {
             properties.load(configurationFileStream);
         } catch (final IOException e) {
             throw new DeploymentScriptConfigurationException(e);
@@ -130,7 +130,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
         if (environmentsList == null) {
             return Collections.emptySet();
         }
-        return new HashSet(Arrays.asList(environmentsList.split(VALUES_SEPARATOR)));
+        return new HashSet<>(Arrays.asList(environmentsList.split(VALUES_SEPARATOR)));
     }
 
     private Set<Tenant> getAllowedTenants(final Properties properties) {
@@ -169,7 +169,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
         final File[] configurationFiles = deploymentScriptFolder.listFiles(
                 pathname -> pathname.getName().toLowerCase(Locale.getDefault()).endsWith(PROPERTY_FILE_EXTENSION_CONF));
         if (LOG.isTraceEnabled()) {
-            LOG.trace("Found configuration files: " + Arrays.toString(configurationFiles));
+            LOG.trace("Found configuration files: {}", Arrays.toString(configurationFiles));
         }
         if (configurationFiles == null || configurationFiles.length == 0) {
             return null;

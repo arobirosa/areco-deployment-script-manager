@@ -127,7 +127,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
         final File deploymentScriptFolder = new File(extension.getExtensionDirectory()
                 + this.configurationService.getConfiguration().getString(RESOURCES_FOLDER_CONF), scriptsFolderName);
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Looking for scripts in '" + deploymentScriptFolder.getAbsolutePath() + '\'');
+            LOG.debug("Looking for scripts in '{}'", deploymentScriptFolder.getAbsolutePath());
         }
         if (!deploymentScriptFolder.exists()) {
             return new File[0];
@@ -166,7 +166,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
         newScript.setOrderedSteps(orderedSteps);
         newScript.setConfiguration(this.configurationReader.loadConfiguration(deploymentScriptFolder));
         if (LOG.isTraceEnabled()) {
-            LOG.trace("Current Hybris process: " + process);
+            LOG.trace("Current Hybris process: {}", process);
         }
         if (SystemSetup.Process.INIT.equals(process)) {
             newScript.setPhase(SystemPhase.INITIALIZATION);

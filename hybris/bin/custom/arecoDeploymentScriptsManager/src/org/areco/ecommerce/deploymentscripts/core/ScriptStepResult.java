@@ -20,7 +20,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public class ScriptStepResult {
 
-    private boolean successful;
+    private final boolean successful;
 
     private CronJobModel cronJob;
 

@@ -23,7 +23,6 @@ import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.lang.StringUtils;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.model.DeploymentEnvironmentModel;
-import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +61,7 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
     @Override
     public Set<DeploymentEnvironmentModel> loadEnvironments(final Set<String> environmentNames) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Loading the environments: " + environmentNames);
+            LOG.debug("Loading the environments: {}", environmentNames);
         }
         ServicesUtil.validateParameterNotNullStandardMessage("environmentNames", environmentNames);
         if (environmentNames.isEmpty()) {
@@ -82,11 +81,11 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
         query.addQueryParameter(DeploymentEnvironmentModel.NAME, normalizedEnvironmentNames);
-        final SearchResult<ScriptExecutionResultModel> searchResult = this.flexibleSearchService.search(query);
+        final SearchResult<DeploymentEnvironmentModel> searchResult = this.flexibleSearchService.search(query);
         if (environmentNames.size() != searchResult.getCount()) {
             throw new IllegalStateException("Some environments don't exist. Please check that these names are valid: " + environmentNames);
         }
-        return new HashSet(searchResult.getResult());
+        return new HashSet<>(searchResult.getResult());
     }
 
     /**

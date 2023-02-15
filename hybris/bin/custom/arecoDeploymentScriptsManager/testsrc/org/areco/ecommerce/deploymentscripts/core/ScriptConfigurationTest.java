@@ -119,7 +119,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
             this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment");
             this.getDeploymentConfigurationSetter().setEnvironment(""); // We cannot set a null value.
             this.getDeploymentScriptStarter().runAllPendingScripts();
-        } catch (IllegalStateException e) {
+        } catch (final IllegalStateException e) {
             Assert.assertEquals("The exception has the wrong error message",
                     FlexibleSearchDeploymentEnvironmentDAO.UNCONFIGURATED_CURRENT_ENVIRONMENT_ERROR_MESSAGE, e.getMessage());
             return;
@@ -133,7 +133,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
             this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment");
             this.getDeploymentConfigurationSetter().setEnvironment("                "); // We cannot set a null value.
             this.getDeploymentScriptStarter().runAllPendingScripts();
-        } catch (IllegalStateException e) {
+        } catch (final IllegalStateException e) {
             Assert.assertEquals("The exception has the wrong error message",
                     FlexibleSearchDeploymentEnvironmentDAO.UNCONFIGURATED_CURRENT_ENVIRONMENT_ERROR_MESSAGE, e.getMessage());
             return;

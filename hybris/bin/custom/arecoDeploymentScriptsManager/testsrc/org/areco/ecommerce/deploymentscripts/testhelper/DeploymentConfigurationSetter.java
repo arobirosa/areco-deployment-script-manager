@@ -135,7 +135,7 @@ public class DeploymentConfigurationSetter {
     }
 
     private void setConfigurationAndLog(final String key, final String value) {
-        LOG.debug("Setting the configuration key '" + key + "' with the value '" + value + "'");
+        LOG.debug("Setting the configuration key '{}' with the value '{}'", key, value);
         this.getConfiguration().setProperty(key, value);
     }
 }

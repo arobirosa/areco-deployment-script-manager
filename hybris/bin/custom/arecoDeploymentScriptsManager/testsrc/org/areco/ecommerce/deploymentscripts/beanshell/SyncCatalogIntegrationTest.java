@@ -8,7 +8,6 @@ import de.hybris.platform.servicelayer.ServicelayerTest;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentConfigurationSetter;
@@ -31,7 +30,7 @@ import javax.annotation.Resource;
 @IntegrationTest
 public class SyncCatalogIntegrationTest extends ServicelayerTest {
     private static final String RESOURCES_FOLDER = "/resources/test";
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractWithConfigurationRestorationTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SyncCatalogIntegrationTest.class);
 
     @Resource
     private FlexibleSearchService flexibleSearchService;
@@ -77,7 +76,7 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
         Assert.assertFalse("There were errors", wereThereErrors);
         getDeploymentScriptResultAsserter().assertResult("14112018_Ticket49",
                 this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
-        MediaModel result = findMediaOnlineCatalog("ArecosSyncCataloguesImpexTest",
+        final MediaModel result = findMediaOnlineCatalog("ArecosSyncCataloguesImpexTest",
                 "Online", "testMedia");
         Assert.assertNotNull("The result is null", result);
     }
@@ -111,7 +110,7 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
         sql.append(" } WHERE {m.").append(MediaModel.CODE);
         sql.append("} = ?").append(MediaModel.CODE);
 
-        FlexibleSearchQuery flexibleSearchQuery = new FlexibleSearchQuery(sql);
+        final FlexibleSearchQuery flexibleSearchQuery = new FlexibleSearchQuery(sql);
         flexibleSearchQuery.addQueryParameter(CatalogModel.ID, catalogId);
         flexibleSearchQuery.addQueryParameter(CatalogVersionModel.VERSION, catalogVersionName);
         flexibleSearchQuery.addQueryParameter(MediaModel.CODE, mediaCode);

@@ -38,14 +38,14 @@ public abstract class AbstractSingleFileScriptStepFactory implements DeploymentS
     @Override
     public AbstractSingleFileScriptStep create(final File aFile) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Trying to create a single file script step from the file " + aFile);
+            LOG.debug("Trying to create a single file script step from the file {}", aFile);
         }
         ServicesUtil.validateParameterNotNullStandardMessage("aFile", aFile);
         if (canCreateStepWith(aFile)) {
             final AbstractSingleFileScriptStep aStep = this.createStep();
             aStep.setScriptFile(aFile);
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Created step: " + aStep);
+                LOG.debug("Created step: {}", aStep);
             }
             return aStep;
         } else {
