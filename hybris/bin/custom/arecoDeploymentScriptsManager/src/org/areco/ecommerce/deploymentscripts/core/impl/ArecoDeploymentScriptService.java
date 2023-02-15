@@ -75,7 +75,8 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Looking for pending update scripts in the extension {}", context.getExtensionName());
         }
-        final List<DeploymentScript> scriptsToBeRun = this.arecoDeploymentScriptFinder.getPendingScripts(context.getExtensionName(), context.getProcess(), runInitScripts);
+        final List<DeploymentScript> scriptsToBeRun = this.arecoDeploymentScriptFinder.getPendingScripts(
+                context.getExtensionName(), context.getProcess(), runInitScripts);
         if (scriptsToBeRun.isEmpty()) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("There aren't any pending {} deployment scripts in the extension {}", runInitScripts ? "INIT" : "UPDATE", context.getExtensionName());

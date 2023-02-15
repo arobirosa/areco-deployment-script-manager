@@ -259,17 +259,17 @@ public class DeploymentScript {
      */
     @Override
     public String toString() {
-        return "DeploymentScript [name=" +
-                this.name +
-                ", extensionName=" +
-                this.extensionName +
-                ", orderedSteps=" +
-                this.orderedSteps +
-                ", phase=" +
-                this.phase +
-                ", configuration=" +
-                this.configuration +
-                "]";
+        return "DeploymentScript [name="
+                + this.name
+                + ", extensionName="
+                + this.extensionName
+                + " , orderedSteps="
+                + this.orderedSteps
+                + ", phase="
+                + this.phase
+                + ", configuration="
+                + this.configuration
+                + "]";
     }
 
     /**

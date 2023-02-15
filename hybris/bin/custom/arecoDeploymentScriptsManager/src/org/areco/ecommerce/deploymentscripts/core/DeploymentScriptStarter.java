@@ -128,7 +128,8 @@ public class DeploymentScriptStarter {
     public boolean runDeploymentScripts(final UpdatingSystemExtensionContext context, final boolean runInitScripts) {
         if (this.isWasThereAnError()) {
             if (LOG.isDebugEnabled()) {
-                LOG.debug("There was an error running the deployment scripts of the previous extensions. Due to this the deployment scripts of the extension {} will be ignored.", context.getExtensionName());
+                LOG.debug("There was an error running the deployment scripts of the previous extensions. "
+                        + "Due to this the deployment scripts of the extension {} will be ignored.", context.getExtensionName());
             }
             return true;
         }

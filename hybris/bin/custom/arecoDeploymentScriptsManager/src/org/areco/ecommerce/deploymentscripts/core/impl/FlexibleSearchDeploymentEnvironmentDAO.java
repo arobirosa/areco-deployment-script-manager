@@ -72,11 +72,11 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
             normalizedEnvironmentNames.add(givenEnvironmentName.trim().toUpperCase(Locale.getDefault()));
         }
 
-        final String queryBuilder = "SELECT {r." + DeploymentEnvironmentModel.PK + "}" +
-                " FROM {" + DeploymentEnvironmentModel._TYPECODE +
-                " as r " + "} " +
-                " WHERE " + " UPPER({" + DeploymentEnvironmentModel.NAME + "}) " + " IN " + '(' +
-                '?' + DeploymentEnvironmentModel.NAME + ')';
+        final String queryBuilder = "SELECT {r." + DeploymentEnvironmentModel.PK + "}"
+                + " FROM {" + DeploymentEnvironmentModel._TYPECODE
+                + " as r " + "} " + " WHERE "
+                + " UPPER({" + DeploymentEnvironmentModel.NAME + "}) " + " IN "
+                + '(' + '?' + DeploymentEnvironmentModel.NAME + ')';
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder);
         query.addQueryParameter(DeploymentEnvironmentModel.NAME, normalizedEnvironmentNames);

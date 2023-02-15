@@ -63,11 +63,7 @@ public abstract class AbstractSingleFileScriptStep implements DeploymentScriptSt
      */
     @Override
     public String toString() {
-        return this.getClass()
-                .getSimpleName() +
-                " [scriptFile=" +
-                this.scriptFile +
-                "]";
+        return this.getClass().getSimpleName() + " [scriptFile=" + this.scriptFile + "]";
     }
 
     /*

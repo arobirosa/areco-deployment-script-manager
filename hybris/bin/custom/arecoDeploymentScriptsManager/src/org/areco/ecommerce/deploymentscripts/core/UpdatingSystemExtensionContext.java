@@ -79,13 +79,13 @@ public class UpdatingSystemExtensionContext {
 
     @Override
     public String toString() {
-        return "UpdatingSystemExtensionContext [extensionName=" +
-                this.extensionName +
-                ", process=" +
-                this.process +
-                ", jspContext=" +
-                this.jspContext +
-                "]";
+        return "UpdatingSystemExtensionContext [extensionName="
+                + this.extensionName
+                + ", process="
+                + this.process
+                + ", jspContext="
+                + this.jspContext
+                + "]";
     }
 
     @Override

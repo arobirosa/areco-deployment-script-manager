@@ -133,8 +133,8 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
         }
         final Map<String, ScriptExecutionResultModel> instances = new ConcurrentHashMap<>();
 
-        final String queryBuilder = "SELECT {r." + ScriptExecutionResultModel.PK + "}" + " FROM {" + ScriptExecutionResultModel._TYPECODE +
-                " as r " + "} ";
+        final String queryBuilder = "SELECT {r." + ScriptExecutionResultModel.PK + "}" + " FROM {" + ScriptExecutionResultModel._TYPECODE
+                + " as r " + "} ";
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder);
         final SearchResult<ScriptExecutionResultModel> searchResult = this.flexibleSearchService.search(query);
