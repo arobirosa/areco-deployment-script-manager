@@ -6,7 +6,6 @@ import de.hybris.platform.servicelayer.model.attribute.DynamicAttributeHandler;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -19,7 +18,7 @@ import static java.util.Objects.nonNull;
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
+ * <a href="http://www.apache.org/licenses/LICENSE-2.0">...</a>
  * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,7 +31,7 @@ public class ScriptExecutionFirstFailedCronjobLogFileAttributeHandler implements
     public LogFileModel get(final ScriptExecutionModel model) {
         if (nonNull(model) && nonNull(model.getFirstFailedCronjob()) && CollectionUtils.isNotEmpty(model.getFirstFailedCronjob().getLogFiles())) {
             final List<LogFileModel> logFiles = new ArrayList<>(model.getFirstFailedCronjob().getLogFiles());
-            Collections.sort(logFiles, Comparator.comparing(ItemModel::getModifiedtime));
+            logFiles.sort(Comparator.comparing(ItemModel::getModifiedtime));
             return logFiles.get(logFiles.size() - 1);
         }
         return null;

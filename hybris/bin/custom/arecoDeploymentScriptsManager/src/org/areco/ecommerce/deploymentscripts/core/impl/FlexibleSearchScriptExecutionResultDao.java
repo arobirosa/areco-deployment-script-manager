@@ -20,9 +20,10 @@ import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.servicelayer.type.TypeService;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
@@ -39,7 +40,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Scope("tenant")
 @Repository("flexibleSearchScriptExecutionResultDao")
 public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionResultDAO {
-    private static final Logger LOG = Logger.getLogger(FlexibleSearchScriptExecutionResultDao.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FlexibleSearchScriptExecutionResultDao.class);
 
     private static final String SUCCESS = "SUCCESS";
 
@@ -96,6 +97,7 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
      * { @InheritDoc }
      */
     @Override
+    @NonNull
     public ScriptExecutionResultModel getErrorResult() {
         return this.getResult(ERROR);
     }
@@ -131,11 +133,10 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
         }
         final Map<String, ScriptExecutionResultModel> instances = new ConcurrentHashMap<>();
 
-        final StringBuilder queryBuilder = new StringBuilder(26);
-        queryBuilder.append("SELECT {r.").append(ScriptExecutionResultModel.PK).append("}").append(" FROM {").append(ScriptExecutionResultModel._TYPECODE)
-                .append(" as r ").append("} ");
+        final String queryBuilder = "SELECT {r." + ScriptExecutionResultModel.PK + "}" + " FROM {" + ScriptExecutionResultModel._TYPECODE
+                + " as r " + "} ";
 
-        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder);
         final SearchResult<ScriptExecutionResultModel> searchResult = this.flexibleSearchService.search(query);
         if (searchResult.getCount() > 0) {
             for (final ScriptExecutionResultModel aResult : searchResult.getResult()) {

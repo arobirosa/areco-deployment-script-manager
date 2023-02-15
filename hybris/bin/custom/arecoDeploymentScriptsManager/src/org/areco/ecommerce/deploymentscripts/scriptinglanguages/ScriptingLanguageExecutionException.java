@@ -25,8 +25,8 @@ public class ScriptingLanguageExecutionException extends Exception {
     /**
      * Default constructor with a message and a cause
      *
-     * @param message
-     * @param cause
+     * @param message Required
+     * @param cause   Can be null
      */
     public ScriptingLanguageExecutionException(final String message, final Throwable cause) {
         super(message, cause);
@@ -35,7 +35,7 @@ public class ScriptingLanguageExecutionException extends Exception {
     /**
      * Constructor with a message.
      *
-     * @param message
+     * @param message Required
      */
     public ScriptingLanguageExecutionException(final String message) {
         super(message);
@@ -44,7 +44,7 @@ public class ScriptingLanguageExecutionException extends Exception {
     /**
      * Constructor with a cause
      *
-     * @param cause
+     * @param cause Required
      */
     public ScriptingLanguageExecutionException(final Throwable cause) {
         super(cause);

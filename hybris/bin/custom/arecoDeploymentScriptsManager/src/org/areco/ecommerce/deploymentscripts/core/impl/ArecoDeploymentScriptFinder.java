@@ -21,7 +21,6 @@ import de.hybris.platform.core.initialization.SystemSetup;
 import de.hybris.platform.core.initialization.SystemSetup.Process;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder;
@@ -30,12 +29,14 @@ import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStepFactory;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -48,7 +49,7 @@ import java.util.Locale;
 // The configuration of this bean is in the spring application context.
 @SuppressWarnings("PMD") // The import of all the classes from the core package is correct
 public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFinder {
-    private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptFinder.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ArecoDeploymentScriptFinder.class);
 
     public static final String UPDATE_SCRIPTS_FOLDER_CONF = "deploymentscripts.update.folder";
 
@@ -62,8 +63,8 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
     @Autowired
     private List<DeploymentScriptStepFactory> stepFactories;
 
-    @Autowired
-    private DeploymentScriptConfigurationReader configurationReader;
+    @Resource
+    private DeploymentScriptConfigurationReader propertyFileDeploymentScriptConfigurationReader;
 
     @Autowired
     private ConfigurationService configurationService;
@@ -100,7 +101,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
      * @param files Required
      */
     private void sortFilesCaseInsensitive(final List<File> files) {
-        Collections.sort(files, Comparator.comparing(f -> f.getName().toLowerCase(Locale.getDefault())));
+        files.sort(Comparator.comparing(f -> f.getName().toLowerCase(Locale.getDefault())));
     }
 
     private List<String> getAlreadyExecutedScripts(final String extensionName) {
@@ -126,12 +127,12 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
         final File deploymentScriptFolder = new File(extension.getExtensionDirectory()
                 + this.configurationService.getConfiguration().getString(RESOURCES_FOLDER_CONF), scriptsFolderName);
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Looking for scripts in '" + deploymentScriptFolder.getAbsolutePath() + '\'');
+            LOG.debug("Looking for scripts in '{}'", deploymentScriptFolder.getAbsolutePath());
         }
         if (!deploymentScriptFolder.exists()) {
             return new File[0];
         }
-        return deploymentScriptFolder.listFiles(pathname -> pathname.isDirectory());
+        return deploymentScriptFolder.listFiles(File::isDirectory);
     }
 
     /**
@@ -163,9 +164,9 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
         newScript.setName(deploymentScriptFolder.getName());
         newScript.setExtensionName(extensionName);
         newScript.setOrderedSteps(orderedSteps);
-        newScript.setConfiguration(this.configurationReader.loadConfiguration(deploymentScriptFolder));
+        newScript.setConfiguration(this.propertyFileDeploymentScriptConfigurationReader.loadConfiguration(deploymentScriptFolder));
         if (LOG.isTraceEnabled()) {
-            LOG.trace("Current Hybris process: " + process);
+            LOG.trace("Current Hybris process: {}", process);
         }
         if (SystemSetup.Process.INIT.equals(process)) {
             newScript.setPhase(SystemPhase.INITIALIZATION);
@@ -178,7 +179,7 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
 
     private List<DeploymentScriptStep> createOrderedSteps(final File scriptFolder) {
         final List<DeploymentScriptStep> steps = new ArrayList<>();
-        File[] foundFiles = scriptFolder.listFiles(pathname -> pathname.isFile());
+        File[] foundFiles = scriptFolder.listFiles(File::isFile);
         if (foundFiles == null) {
             foundFiles = new File[]{};
         }

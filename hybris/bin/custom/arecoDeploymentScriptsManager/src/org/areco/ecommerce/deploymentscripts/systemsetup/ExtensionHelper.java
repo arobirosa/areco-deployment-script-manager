@@ -18,9 +18,10 @@ package org.areco.ecommerce.deploymentscripts.systemsetup;
 import de.hybris.platform.constants.CoreConstants;
 import de.hybris.platform.core.Registry;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +38,7 @@ import java.util.List;
 @Component
 public class ExtensionHelper {
 
-    private static final Logger LOG = Logger.getLogger(ExtensionHelper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ExtensionHelper.class);
 
     /**
      * Returns a boolean indicating if the current extension is the first one which is run during an update running system.
@@ -66,13 +67,13 @@ public class ExtensionHelper {
      *
      * @return boolean
      */
-    public boolean isDeploymentManagerExtensionTurnedOn() {
+    public boolean isDeploymentManagerExtensionTurnedOff() {
 
         final boolean isActive = Registry.getCurrentTenant().getTenantSpecificExtensionNames()
                 .contains(ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
         if (LOG.isInfoEnabled()) {
-            LOG.info("Is the Areco Deployment Manager extension turned on in the tenant " + Registry.getCurrentTenant() + ':' + isActive);
+            LOG.info("Is the Areco Deployment Manager extension turned on in the tenant {}:{}", Registry.getCurrentTenant(), isActive);
         }
-        return isActive;
+        return !isActive;
     }
 }

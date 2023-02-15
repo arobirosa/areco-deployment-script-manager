@@ -1,4 +1,3 @@
-import org.apache.log4j.Logger
-
-Logger.getLogger(this.getClass()).error("The short running script has finished")
+import org.slf4j.LoggerFactory;
+LoggerFactory.getLogger(this.getClass()).error("The short running script has finished")
 return "OK"

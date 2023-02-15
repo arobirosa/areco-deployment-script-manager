@@ -92,7 +92,7 @@ public class DataCreatorAndDeploymentScriptStarterTest extends AbstractWithConfi
         final List<TaxModel> foundTaxes = this.taxDao.findTaxesByCode("dummyRunOrderTax");
         Assert.assertFalse("The test tax don't exist", foundTaxes.isEmpty());
         Assert.assertEquals("Many test taxes exist", 1, foundTaxes.size());
-        Assert.assertEquals("The tax wasn't updated", 19d, foundTaxes.get(0).getValue().doubleValue(), 0d);
+        Assert.assertEquals("The tax wasn't updated", 19d, foundTaxes.get(0).getValue(), 0d);
     }
 
 

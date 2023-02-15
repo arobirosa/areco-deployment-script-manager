@@ -17,18 +17,17 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.bootstrap.config.ConfigUtil;
 import de.hybris.bootstrap.config.ExtensionInfo;
-import de.hybris.platform.servicelayer.exceptions.ConfigurationException;
 import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
 import de.hybris.platform.servicelayer.i18n.CommonI18NService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
 import org.areco.ecommerce.deploymentscripts.core.InitialConfigurationImporter;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
-import org.areco.ecommerce.deploymentscripts.impex.ImpexImportException;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -44,7 +43,7 @@ import java.io.File;
 @Service
 public class ImpexInitialConfigurationImporter implements InitialConfigurationImporter {
 
-    private static final Logger LOG = Logger.getLogger(ImpexInitialConfigurationImporter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ImpexInitialConfigurationImporter.class);
 
     private static final String RESOURCES_FOLDER = "/resources";
 
@@ -110,12 +109,7 @@ public class ImpexInitialConfigurationImporter implements InitialConfigurationIm
         final ExtensionInfo extension = ConfigUtil.getPlatformConfig(ArecoDeploymentScriptService.class).getExtensionInfo(
                 ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
         final File configurationFile = new File(extension.getExtensionDirectory() + RESOURCES_FOLDER, initialConfigurationFileGerman);
-        try {
-            this.impexImportService.importImpexFile(configurationFile);
-        } catch (final ImpexImportException cause) {
-            throw new ConfigurationException(
-                    "There was an error importing the initial configuration of the extension stored in " + configurationFile, cause);
-        }
+        this.impexImportService.importImpexFile(configurationFile);
     }
 
 }

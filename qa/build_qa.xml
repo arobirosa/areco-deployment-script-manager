@@ -51,7 +51,7 @@
 		<include name="modules/**/classes/**/*.class"/>
 	</fileset>
 	
-	<target name="qa" depends="qa_clean, spotbugs, pmd, checkstyle, jacoco" description="Runs Spotbugs, PMD, Checkstyle and Jacoco" />
+	<target name="qa" depends="qa_clean, spotbugs, jacoco, pmd, checkstyle" description="Runs Spotbugs, PMD, Checkstyle and Jacoco" />
 	
 	<target name="qa_clean" description="Cleans the directory with the QA reports">
 		<delete dir="${dir_qa_reports}"/>

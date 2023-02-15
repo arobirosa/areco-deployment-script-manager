@@ -19,6 +19,7 @@
 	  <exclude name="OnlyOneReturn" /> <!-- A method may have many exit points as long as the code is readable -->
 	  <exclude name="CallSuperInConstructor"/> <!-- Explicit calls to super constructors are accepted -->
 	  <exclude name="LocalVariableCouldBeFinal"/> <!-- The compiler already sets these variables to final if their value isn't changed -->
+	  <exclude name="UnnecessaryModifier" /> <!-- To add final to resource variables show what the compiler does and it is easier to understand -->
   </rule>
   
   <!-- Good practices to avoid imperative programming. The limits require tweaking. -->

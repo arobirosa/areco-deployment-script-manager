@@ -34,14 +34,14 @@ public interface DeploymentScriptConfiguration {
     /**
      * Returns if this script runs once or multiple times by every essential or project data creation step
      *
-     * @return
+     * @return true if this areco must be executed multiple times
      */
     boolean runsMultipleTimes();
 
     /**
      * Returns if this script executes for many seconds. If yes, the runner will wait until the execution is finished for many minutes.
      *
-     * @return
+     * @return true if this areco must run for longer than 30 seconds
      */
     boolean hasLongExecution();
 }

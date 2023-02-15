@@ -17,12 +17,13 @@ package org.areco.ecommerce.deploymentscripts.core;
 
 import de.hybris.bootstrap.annotations.IntegrationTest;
 import de.hybris.platform.servicelayer.ServicelayerTransactionalTest;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentConfigurationSetter;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 
@@ -37,7 +38,7 @@ public abstract class AbstractWithConfigurationRestorationTest extends Servicela
     /*
      * Logger of this class.
      */
-    private static final Logger LOG = Logger.getLogger(AbstractWithConfigurationRestorationTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractWithConfigurationRestorationTest.class);
 
     @Resource
     private DeploymentScriptResultAsserter deploymentScriptResultAsserter;

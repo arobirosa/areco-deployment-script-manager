@@ -21,7 +21,6 @@ import de.hybris.platform.core.threadregistry.RevertibleUpdate;
 import de.hybris.platform.servicelayer.tenant.TenantService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
-import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,12 +71,11 @@ public class DeploymentScript {
      * Does the actual job.
      *
      * @return Result of execution. Never null.
-     * @throws DeploymentScriptExecutionException
      */
     @NonNull
-    public ScriptResult run() throws DeploymentScriptExecutionException {
+    public ScriptResult run() {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Running " + this.getLongName() + " - Start");
+            LOG.debug("Running {} - Start", this.getLongName());
         }
         final ScriptExecutionResultModel configurationConstraintsCheckResult = this.getConfiguration().reasonToIgnoreExecutionOnThisServer();
         if (configurationConstraintsCheckResult != null) {
@@ -91,7 +89,7 @@ public class DeploymentScript {
         }
     }
 
-    private ScriptResult runOrderedStepsInNonSuspendableThread() throws DeploymentScriptExecutionException {
+    private ScriptResult runOrderedStepsInNonSuspendableThread() {
         RevertibleUpdate revertibleInfo = null;
         try {
             revertibleInfo = registerNonSuspendableThread();
@@ -133,7 +131,7 @@ public class DeploymentScript {
 
     }
 
-    private ScriptResult runOrderedSteps() throws DeploymentScriptExecutionException {
+    private ScriptResult runOrderedSteps() {
         if (this.getOrderedSteps().isEmpty()) {
             return new ScriptResult(this.scriptExecutionResultDAO.getErrorResult(), null,
                     new IllegalStateException("The deployment script " + this.getName() + " doesn't have any impex, sql or beanshell files."));
@@ -147,7 +145,7 @@ public class DeploymentScript {
             }
         }
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Running " + this.getLongName() + " - Ended successfully");
+            LOG.debug("Running {} - Ended successfully", this.getLongName());
         }
         if (this.getConfiguration().runsMultipleTimes()) {
             return new ScriptResult(this.scriptExecutionResultDAO.getSuccessMultipleRunsResult());
@@ -261,19 +259,17 @@ public class DeploymentScript {
      */
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder(79);
-        builder.append("DeploymentScript [name=");
-        builder.append(this.name);
-        builder.append(", extensionName=");
-        builder.append(this.extensionName);
-        builder.append(", orderedSteps=");
-        builder.append(this.orderedSteps);
-        builder.append(", phase=");
-        builder.append(this.phase);
-        builder.append(", configuration=");
-        builder.append(this.configuration);
-        builder.append("]");
-        return builder.toString();
+        return "DeploymentScript [name="
+                + this.name
+                + ", extensionName="
+                + this.extensionName
+                + " , orderedSteps="
+                + this.orderedSteps
+                + ", phase="
+                + this.phase
+                + ", configuration="
+                + this.configuration
+                + "]";
     }
 
     /**

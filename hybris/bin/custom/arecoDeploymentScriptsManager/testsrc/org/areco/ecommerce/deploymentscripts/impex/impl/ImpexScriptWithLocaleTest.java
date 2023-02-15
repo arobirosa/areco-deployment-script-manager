@@ -59,7 +59,7 @@ public class ImpexScriptWithLocaleTest extends AbstractWithConfigurationRestorat
         deploymentScriptResultAsserter.assertSuccessfulResult("20141003_DUMMY_TAX");
         final List<TaxModel> foundTaxes = this.taxDao.findTaxesByCode(taxCode);
         Assert.assertEquals("There must be one tax", 1, foundTaxes.size());
-        Assert.assertEquals("The imported value of the tax is wrong", expectedTaxValue, foundTaxes.iterator().next().getValue().doubleValue(), 0.001d);
+        Assert.assertEquals("The imported value of the tax is wrong", expectedTaxValue, foundTaxes.iterator().next().getValue(), 0.001d);
     }
 
     @Test

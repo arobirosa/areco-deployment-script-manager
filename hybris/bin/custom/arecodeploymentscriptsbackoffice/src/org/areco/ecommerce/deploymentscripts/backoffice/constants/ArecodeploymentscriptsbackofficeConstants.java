@@ -18,6 +18,7 @@ package org.areco.ecommerce.deploymentscripts.backoffice.constants;
 /**
  * Global class for all Ybackoffice constants. You can add global constants for your extension into this class.
  */
+@SuppressWarnings("deprecation")
 public final class ArecodeploymentscriptsbackofficeConstants extends GeneratedArecodeploymentscriptsbackofficeConstants {
     public static final String EXTENSIONNAME = "arecodeploymentscriptsbackoffice";
 

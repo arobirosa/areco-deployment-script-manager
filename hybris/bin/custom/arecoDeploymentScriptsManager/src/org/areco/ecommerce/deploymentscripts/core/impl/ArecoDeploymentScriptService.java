@@ -16,7 +16,6 @@
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.platform.servicelayer.util.ServicesUtil;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
@@ -25,10 +24,13 @@ import org.areco.ecommerce.deploymentscripts.core.InitialConfigurationImporter;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -39,10 +41,10 @@ import java.util.List;
 @Service
 @Scope("tenant")
 public class ArecoDeploymentScriptService implements DeploymentScriptService {
-    private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ArecoDeploymentScriptService.class);
 
-    @Autowired
-    private DeploymentScriptFinder finder;
+    @Resource
+    private DeploymentScriptFinder arecoDeploymentScriptFinder;
 
     @Autowired
     private DeploymentScriptRunner runner;
@@ -65,28 +67,28 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
     @Override
     public boolean runDeploymentScripts(final UpdatingSystemExtensionContext context, final boolean runInitScripts) {
         ServicesUtil.validateParameterNotNullStandardMessage("context", context);
-        if (!this.extensionHelper.isDeploymentManagerExtensionTurnedOn()) {
+        if (this.extensionHelper.isDeploymentManagerExtensionTurnedOff()) {
             return false;
         }
         this.initialConfigurationImporter.importConfigurationIfRequired(context);
 
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Looking for pending update scripts in the extension " + context.getExtensionName());
+            LOG.debug("Looking for pending update scripts in the extension {}", context.getExtensionName());
         }
-        final List<DeploymentScript> scriptsToBeRun = this.finder.getPendingScripts(context.getExtensionName(), context.getProcess(), runInitScripts);
+        final List<DeploymentScript> scriptsToBeRun = this.arecoDeploymentScriptFinder.getPendingScripts(
+                context.getExtensionName(), context.getProcess(), runInitScripts);
         if (scriptsToBeRun.isEmpty()) {
             if (LOG.isDebugEnabled()) {
-                LOG.debug("There aren't any pending " + (runInitScripts ? "INIT" : "UPDATE") + " deployment scripts in the extension "
-                        + context.getExtensionName());
+                LOG.debug("There aren't any pending {} deployment scripts in the extension {}", runInitScripts ? "INIT" : "UPDATE", context.getExtensionName());
             }
             return false;
         }
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Running update scripts of the extension " + context.getExtensionName());
+            LOG.debug("Running update scripts of the extension {}", context.getExtensionName());
         }
         final boolean wasThereAnError = this.runner.run(context, scriptsToBeRun);
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Finished running update scripts of the extension " + context.getExtensionName());
+            LOG.debug("Finished running update scripts of the extension {}", context.getExtensionName());
         }
         return wasThereAnError;
     }
@@ -98,7 +100,7 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
      */
     @Override
     public boolean wasLastScriptSuccessful() {
-        if (!this.extensionHelper.isDeploymentManagerExtensionTurnedOn()) {
+        if (this.extensionHelper.isDeploymentManagerExtensionTurnedOff()) {
             return true;
         }
         return this.scriptExecutionDao.wasLastScriptSuccessful();

@@ -15,9 +15,10 @@
  */
 package org.areco.ecommerce.deploymentscripts.sql;
 
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.ScriptStepResult;
 import org.areco.ecommerce.deploymentscripts.core.impl.AbstractSingleFileScriptStep;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -34,7 +35,7 @@ import java.sql.SQLException;
 // Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
 public class SqlScriptStep extends AbstractSingleFileScriptStep {
-    private static final Logger LOG = Logger.getLogger(SqlScriptStep.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SqlScriptStep.class);
 
     @Autowired
     private SqlScriptService sqlScriptService;
@@ -47,7 +48,7 @@ public class SqlScriptStep extends AbstractSingleFileScriptStep {
         final String sqlStatement;
         try {
             sqlStatement = loadFileContent();
-        } catch (IOException | IllegalStateException e) {
+        } catch (final IOException | IllegalStateException e) {
             return new ScriptStepResult(e);
         }
         return executeStatement(sqlStatement);
@@ -55,7 +56,7 @@ public class SqlScriptStep extends AbstractSingleFileScriptStep {
 
     private ScriptStepResult executeStatement(final String sqlStatement) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Running the SQL Statement: '" + sqlStatement + "'.");
+            LOG.debug("Running the SQL Statement: '{}'.", sqlStatement);
         }
         final int rows;
 
@@ -65,7 +66,7 @@ public class SqlScriptStep extends AbstractSingleFileScriptStep {
             return new ScriptStepResult(e);
         }
         if (LOG.isDebugEnabled()) {
-            LOG.debug("The SQL Script was executed successfully. " + rows + " rows were affected.");
+            LOG.debug("The SQL Script was executed successfully. {} rows were affected.", rows);
         }
         return new ScriptStepResult(true);
     }

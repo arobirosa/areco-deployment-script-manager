@@ -21,10 +21,10 @@ import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.model.DeploymentEnvironmentModel;
-import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -47,7 +47,7 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
             "Please set in the file local.properties the name of the current deployemnt environment." + " The property "
                     + CURRENT_ENVIRONMENT_CONF + " is empty.";
 
-    private static final Logger LOG = Logger.getLogger(FlexibleSearchDeploymentEnvironmentDAO.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FlexibleSearchDeploymentEnvironmentDAO.class);
 
     @Autowired
     private FlexibleSearchService flexibleSearchService;
@@ -61,7 +61,7 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
     @Override
     public Set<DeploymentEnvironmentModel> loadEnvironments(final Set<String> environmentNames) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Loading the environments: " + environmentNames);
+            LOG.debug("Loading the environments: {}", environmentNames);
         }
         ServicesUtil.validateParameterNotNullStandardMessage("environmentNames", environmentNames);
         if (environmentNames.isEmpty()) {
@@ -72,20 +72,19 @@ public class FlexibleSearchDeploymentEnvironmentDAO implements DeploymentEnviron
             normalizedEnvironmentNames.add(givenEnvironmentName.trim().toUpperCase(Locale.getDefault()));
         }
 
-        final StringBuilder queryBuilder = new StringBuilder(76);
-        queryBuilder.append("SELECT {r.").append(DeploymentEnvironmentModel.PK).append("}")
-                .append(" FROM {").append(DeploymentEnvironmentModel._TYPECODE)
-                .append(" as r ").append("} ")
-                .append(" WHERE ").append(" UPPER({").append(DeploymentEnvironmentModel.NAME).append("}) ").append(" IN ").append('(')
-                .append('?').append(DeploymentEnvironmentModel.NAME).append(')');
+        final String queryBuilder = "SELECT {r." + DeploymentEnvironmentModel.PK + "}"
+                + " FROM {" + DeploymentEnvironmentModel._TYPECODE
+                + " as r " + "} " + " WHERE "
+                + " UPPER({" + DeploymentEnvironmentModel.NAME + "}) " + " IN "
+                + '(' + '?' + DeploymentEnvironmentModel.NAME + ')';
 
-        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder);
         query.addQueryParameter(DeploymentEnvironmentModel.NAME, normalizedEnvironmentNames);
-        final SearchResult<ScriptExecutionResultModel> searchResult = this.flexibleSearchService.search(query);
+        final SearchResult<DeploymentEnvironmentModel> searchResult = this.flexibleSearchService.search(query);
         if (environmentNames.size() != searchResult.getCount()) {
             throw new IllegalStateException("Some environments don't exist. Please check that these names are valid: " + environmentNames);
         }
-        return new HashSet(searchResult.getResult());
+        return new HashSet<>(searchResult.getResult());
     }
 
     /**

@@ -23,8 +23,9 @@ import de.hybris.platform.jalo.extension.Extension;
 import de.hybris.platform.jalo.extension.ExtensionManager;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.util.JspContext;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -53,7 +54,7 @@ public class DataCreatorAndDeploymentScriptsStarter {
 
     private static final String JUNIT_TENANT_CREATEESSENTIALDATA_CONF = "deploymentscripts.init.junittenant.createessentialdata";
 
-    private static final Logger LOG = Logger.getLogger(DataCreatorAndDeploymentScriptsStarter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DataCreatorAndDeploymentScriptsStarter.class);
 
     @Autowired
     private ExtensionHelper extensionHelper;
@@ -68,7 +69,7 @@ public class DataCreatorAndDeploymentScriptsStarter {
      * Creates the essential and project data. This triggers the runs of the deployment scripts in the junit tenant.
      */
     public void runInJunitTenant() {
-        if (!this.extensionHelper.isDeploymentManagerExtensionTurnedOn()
+        if (this.extensionHelper.isDeploymentManagerExtensionTurnedOff()
                 || !Boolean.parseBoolean(this.configurationService.getConfiguration().getString(JUNIT_TENANT_CREATEESSENTIALDATA_CONF))) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("The essential and project data won't be created and the deployment scripts won't be run.");
@@ -101,7 +102,7 @@ public class DataCreatorAndDeploymentScriptsStarter {
         return true; // All went ok.
     }
 
-    @SuppressWarnings({"deprecation", "PMD.SignatureDeclareThrowsException"})
+    @SuppressWarnings({"deprecation", "PMD.SignatureDeclareThrowsException", "unchecked"})
     // The caller of this method must handle any exception, because this class is called by ant, which doesn't
     // show the complete stack trace.
     private void createDataForAllExtensions(final SystemSetup.Type aCreationDataType) throws Exception {
@@ -125,7 +126,6 @@ public class DataCreatorAndDeploymentScriptsStarter {
         final JspWriter out = new MockJspWriter(new StringWriter());
         final MockHttpServletRequest request = new MockHttpServletRequest();
         final HttpServletResponse response = new MockHttpServletResponse();
-        final JspContext jspc = new JspContext(out, request, response);
-        return jspc;
+        return new JspContext(out, request, response);
     }
 }

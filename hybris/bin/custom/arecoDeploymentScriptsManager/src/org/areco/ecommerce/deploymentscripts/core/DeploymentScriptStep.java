@@ -15,8 +15,6 @@
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
-import org.areco.ecommerce.deploymentscripts.exceptions.DeploymentScriptExecutionException;
-
 /**
  * Represent one and only one step of a deployment script.
  *
@@ -32,8 +30,6 @@ public interface DeploymentScriptStep {
 
     /**
      * Does the actual job.
-     *
-     * @throws DeploymentScriptExecutionException
      */
-    ScriptStepResult run() throws DeploymentScriptExecutionException;
+    ScriptStepResult run();
 }

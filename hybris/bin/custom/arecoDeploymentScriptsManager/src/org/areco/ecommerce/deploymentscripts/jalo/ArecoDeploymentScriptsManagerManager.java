@@ -15,8 +15,9 @@ package org.areco.ecommerce.deploymentscripts.jalo;
 
 import de.hybris.platform.core.Registry;
 import de.hybris.platform.util.JspContext;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public class ArecoDeploymentScriptsManagerManager extends GeneratedArecoDeployme
     /**
      * Edit the local|project.properties to change logging behavior (properties 'log4j.*').
      */
-    private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptsManagerManager.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ArecoDeploymentScriptsManagerManager.class.getName());
 
     /*
      * Some important tips for development:
@@ -44,6 +45,7 @@ public class ArecoDeploymentScriptsManagerManager extends GeneratedArecoDeployme
      *
      * @return the current instance of this manager
      */
+    @SuppressWarnings("unused")
     public static ArecoDeploymentScriptsManagerManager getInstance() {
         return (ArecoDeploymentScriptsManagerManager) Registry.getCurrentTenant().getJaloConnection().getExtensionManager()
                 .getExtension(ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
@@ -64,10 +66,11 @@ public class ArecoDeploymentScriptsManagerManager extends GeneratedArecoDeployme
      * Use this method to do some basic work only ONCE in the lifetime of a tenant resp. "deployment". This method is called after manager creation (for example
      * within startup of a tenant). Note that if you have more than one tenant you have a manager instance for each tenant.
      */
+    @SuppressWarnings("deprecation")
     @Override
     public void init() {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("init() of ArecoDeploymentScriptsManagerManager called. " + getTenant().getTenantID());
+            LOG.debug("init() of ArecoDeploymentScriptsManagerManager called. {}", getTenant().getTenantID());
         }
     }
 
@@ -75,10 +78,11 @@ public class ArecoDeploymentScriptsManagerManager extends GeneratedArecoDeployme
      * Use this method as a callback when the manager instance is being destroyed (this happens before system initialization, at redeployment or if you shutdown
      * your VM). Note that if you have more than one tenant you have a manager instance for each tenant.
      */
+    @SuppressWarnings("deprecation")
     @Override
     public void destroy() {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("destroy() of ArecoDeploymentScriptsManagerManager called, current tenant: " + getTenant().getTenantID());
+            LOG.debug("destroy() of ArecoDeploymentScriptsManagerManager called, current tenant: {}", getTenant().getTenantID());
         }
     }
 
