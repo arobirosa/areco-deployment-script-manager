@@ -43,6 +43,7 @@ import java.util.Collections;
  * Due to this, no deployment scripts are run.
  * <p>
  * TODO This class uses Jalo and a workaround to trigger the essential data creation. We must find a cleaner way to do this.
+ * TODO Because this class uses jalo, it is difficult to test
  *
  * @author arobirosa
  */
@@ -53,6 +54,7 @@ import java.util.Collections;
 public class DataCreatorAndDeploymentScriptsStarter {
 
     private static final String JUNIT_TENANT_CREATEESSENTIALDATA_CONF = "deploymentscripts.init.junittenant.createessentialdata";
+    private static final String JUNIT_TENANT_CREATEPROJECTDATA_CONF = "deploymentscripts.init.junittenant.createprojectdata";
 
     private static final Logger LOG = LoggerFactory.getLogger(DataCreatorAndDeploymentScriptsStarter.class);
 
@@ -69,18 +71,21 @@ public class DataCreatorAndDeploymentScriptsStarter {
      * Creates the essential and project data. This triggers the runs of the deployment scripts in the junit tenant.
      */
     public void runInJunitTenant() {
-        if (this.extensionHelper.isDeploymentManagerExtensionTurnedOff()
-                || !Boolean.parseBoolean(this.configurationService.getConfiguration().getString(JUNIT_TENANT_CREATEESSENTIALDATA_CONF))) {
+        if (this.extensionHelper.isDeploymentManagerExtensionTurnedOff()) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("The essential and project data won't be created and the deployment scripts won't be run.");
             }
             return;
         }
-        if (createDataAndLogErrors(SystemSetup.Type.ESSENTIAL)) {
+        boolean success = true;
+        if (Boolean.parseBoolean(this.configurationService.getConfiguration().getString(JUNIT_TENANT_CREATEESSENTIALDATA_CONF))) {
+            success = createDataAndLogErrors(SystemSetup.Type.ESSENTIAL);
+        }
+        if (success && Boolean.parseBoolean(this.configurationService.getConfiguration().getString(JUNIT_TENANT_CREATEPROJECTDATA_CONF))) {
             createDataAndLogErrors(SystemSetup.Type.PROJECT);
         }
-
     }
+
 
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     // We catch all exceptions because this method is called by ant.
