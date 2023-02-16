@@ -15,6 +15,8 @@
  */
 package org.areco.ecommerce.deploymentscripts.ant;
 
+import de.hybris.platform.servicelayer.session.SessionExecutionBody;
+import de.hybris.platform.servicelayer.session.SessionService;
 import de.hybris.platform.servicelayer.user.UserService;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter;
 import org.slf4j.Logger;
@@ -42,6 +44,9 @@ public class AntDeploymentScriptsStarter {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private SessionService sessionService;
+
     /**
      * Run any deployment script which wasn't run yet. The method is called by the ant script.
      *
@@ -51,9 +56,13 @@ public class AntDeploymentScriptsStarter {
         if (LOG.isInfoEnabled()) {
             LOG.info("Running any pending UPDATE deployment scripts.");
         }
-        this.userService.setCurrentUser(this.userService.getAdminUser());
+        final boolean wasThereAnError = sessionService.executeInLocalView(new SessionExecutionBody() {
+            @Override
+            public Object execute() {
+                return deploymentScriptStarter.runAllPendingScripts();
+            }
+        }, userService.getAdminUser());
 
-        final boolean wasThereAnError = this.deploymentScriptStarter.runAllPendingScripts();
         if (wasThereAnError) {
             LOG.error("There was an error running the deployment scripts. Please check the console.");
             return 1; // Error

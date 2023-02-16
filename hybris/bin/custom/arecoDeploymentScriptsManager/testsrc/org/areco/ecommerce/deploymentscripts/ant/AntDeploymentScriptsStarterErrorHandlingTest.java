@@ -16,6 +16,7 @@
 package org.areco.ecommerce.deploymentscripts.ant;
 
 import de.hybris.bootstrap.annotations.IntegrationTest;
+import de.hybris.platform.servicelayer.user.UserService;
 import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
 import org.junit.Assert;
@@ -41,6 +42,9 @@ public class AntDeploymentScriptsStarterErrorHandlingTest extends AbstractWithCo
     @Resource
     private AntDeploymentScriptsStarter antDeploymentScriptsStarter;
 
+    @Resource
+    private UserService userService;
+
     @Test
     public void testNoPendingScripts() {
         this.assertReturnValue("no-scripts", true);
@@ -56,6 +60,16 @@ public class AntDeploymentScriptsStarterErrorHandlingTest extends AbstractWithCo
     public void testScriptWithoutError() {
         this.assertReturnValue("script-without-error", true);
         this.deploymentScriptResultAsserter.assertSuccessfulResult("20141003_PENDING_SCRIPT");
+    }
+
+    @Test
+    public void testScriptWhichRequiresAdmin() {
+        Assert.assertEquals("The user before running the scripts must be anonymous", userService.getAnonymousUser(), userService.getCurrentUser());
+        
+        this.assertReturnValue("script-requiring-admin", true);
+        this.deploymentScriptResultAsserter.assertSuccessfulResult("20230216_18_REQUIRES_ADMIN");
+
+        Assert.assertEquals("The user after running the scripts must be anonymous", userService.getAnonymousUser(), userService.getCurrentUser());
     }
 
     private void assertReturnValue(final String scriptFolder, final boolean expectedWereScriptsSuccessful) {
