@@ -22,12 +22,13 @@ import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.junit.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -50,7 +51,7 @@ import java.util.regex.Pattern;
 @Scope("tenant")
 public final class DeploymentScriptResultAsserter {
 
-    private static final Logger LOG = Logger.getLogger(DeploymentScriptResultAsserter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeploymentScriptResultAsserter.class);
 
     @Resource
     private FlexibleSearchService flexibleSearchService;
@@ -87,7 +88,7 @@ public final class DeploymentScriptResultAsserter {
      */
     private ScriptExecutionModel getDeploymentScriptExecution(final String deploymentScriptName) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Getting the execution of the script " + deploymentScriptName);
+            LOG.debug("Getting the execution of the script {}", deploymentScriptName);
         }
         final List<ScriptExecutionModel> foundExecutions = getAllDeploymentScriptExecutions(deploymentScriptName);
         if (CollectionUtils.isEmpty(foundExecutions)) {
@@ -119,7 +120,7 @@ public final class DeploymentScriptResultAsserter {
         queryParams.put(ScriptExecutionModel.SCRIPTNAME, deploymentScriptName);
 
         if (LOG.isTraceEnabled()) {
-            LOG.trace("Executing the query: '" + queryBuilder + "' with the parameters " + queryParams);
+            LOG.trace("Executing the query: '{}' with the parameters {}", queryBuilder, queryParams);
         }
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
@@ -134,14 +135,14 @@ public final class DeploymentScriptResultAsserter {
         queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
                 .append(" as es ").append(" } ");
 
-        LOG.trace("Executing the query: '" + queryBuilder);
+        LOG.trace("Executing the query: '{}", queryBuilder);
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
 
         final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
-        LOG.trace("Number of executions: " + result.getCount());
+        LOG.trace("Number of executions: {}", result.getCount());
         for (final ScriptExecutionModel anExecution : result.getResult()) {
-            LOG.trace("Executed '" + anExecution.getScriptName() + "'");
+            LOG.trace("Executed '{}'", anExecution.getScriptName());
         }
     }
 
@@ -176,7 +177,7 @@ public final class DeploymentScriptResultAsserter {
         assertErrorResult(deploymentScriptName);
 
         final String loadedPattern;
-        try (InputStream expectedPatternStream = DeploymentScriptResultAsserter.class.getResourceAsStream(pathFileExpectedStacktracePattern)) {
+        try (final InputStream expectedPatternStream = DeploymentScriptResultAsserter.class.getResourceAsStream(pathFileExpectedStacktracePattern)) {
             Assert.assertNotNull("The file " + pathFileExpectedStacktracePattern + " with the expected stacktrace wasn't found", expectedPatternStream);
 
             loadedPattern = IOUtils.toString(expectedPatternStream, Charset.forName(DeploymentScript.DEFAULT_FILE_ENCODING)).

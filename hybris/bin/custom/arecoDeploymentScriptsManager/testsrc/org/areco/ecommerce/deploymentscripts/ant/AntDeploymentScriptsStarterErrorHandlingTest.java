@@ -65,7 +65,7 @@ public class AntDeploymentScriptsStarterErrorHandlingTest extends AbstractWithCo
         if (expectedWereScriptsSuccessful) {
             Assert.assertEquals("There were errors", 0, returnValueScripts);
         } else {
-            Assert.assertNotSame("There were no errors", Integer.valueOf(0), Integer.valueOf(returnValueScripts));
+            Assert.assertNotSame("There were no errors", 0, returnValueScripts);
         }
         final boolean wereScriptsSuccessful = this.antDeploymentScriptsStarter.wasLastScriptSuccessful();
         Assert.assertEquals("The result of the check after the scripts were run is wrong", expectedWereScriptsSuccessful, wereScriptsSuccessful);

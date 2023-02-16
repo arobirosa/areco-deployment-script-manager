@@ -30,7 +30,6 @@ public interface ImpexImportService {
      *
      * @param impexFile Required
      * @return Never null.
-     * @throws ImpexImportException If any error during the import process
      */
-    ScriptStepResult importImpexFile(File impexFile) throws ImpexImportException;
+    ScriptStepResult importImpexFile(File impexFile);
 }

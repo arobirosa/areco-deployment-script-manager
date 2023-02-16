@@ -13,11 +13,27 @@
       <option name="REPORT_VARIABLES" value="true" />
       <option name="REPORT_PARAMETERS" value="true" />
     </inspection_tool>
-    <inspection_tool class="LoggerInitializedWithForeignClass" enabled="true" level="WARNING" enabled_by_default="true">
+    <inspection_tool class="LogStatementGuardedByLogCondition" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="LoggerInitializedWithForeignClass" enabled="true" level="ERROR" enabled_by_default="true">
       <option name="loggerFactoryMethodName" value="getLogger,getLogger,getLog,getLogger" />
     </inspection_tool>
-    <inspection_tool class="NonStaticFinalLogger" enabled="true" level="WARNING" enabled_by_default="true">
+    <inspection_tool class="LoggingConditionDisagreesWithLogStatement" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="NonStaticFinalLogger" enabled="true" level="ERROR" enabled_by_default="true">
       <option name="loggerClassName" value="java.util.logging.Logger,org.slf4j.Logger,org.apache.commons.logging.Log,org.apache.log4j.Logger,org.apache.logging.log4j.Logger" />
+    </inspection_tool>
+    <inspection_tool class="PlaceholderCountMatchesArgumentCount" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="StringConcatenationArgumentToLogCall" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="unused" enabled="true" level="WARNING" enabled_by_default="true" checkParameterExcludingHierarchy="false">
+      <option name="LOCAL_VARIABLE" value="true" />
+      <option name="FIELD" value="true" />
+      <option name="METHOD" value="true" />
+      <option name="CLASS" value="false" />
+      <option name="PARAMETER" value="true" />
+      <option name="REPORT_PARAMETER_FOR_PUBLIC_METHODS" value="true" />
+      <option name="ADD_MAINS_TO_ENTRIES" value="true" />
+      <option name="ADD_APPLET_TO_ENTRIES" value="true" />
+      <option name="ADD_SERVLET_TO_ENTRIES" value="true" />
+      <option name="ADD_NONJAVA_TO_ENTRIES" value="true" />
     </inspection_tool>
   </profile>
 </component>

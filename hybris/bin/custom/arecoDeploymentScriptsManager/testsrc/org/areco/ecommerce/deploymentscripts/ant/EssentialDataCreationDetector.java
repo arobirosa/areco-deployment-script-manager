@@ -16,7 +16,8 @@
 package org.areco.ecommerce.deploymentscripts.ant;
 
 import de.hybris.platform.core.initialization.SystemSetup;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +31,7 @@ import org.springframework.stereotype.Component;
 @Component
 @SystemSetup(extension = "ALL_EXTENSIONS")
 public class EssentialDataCreationDetector {
-    private static final Logger LOG = Logger.getLogger(EssentialDataCreationDetector.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EssentialDataCreationDetector.class);
 
     private boolean wasEssentialDataCreated = false;
     private boolean wasProjectDataCreated = false;
@@ -38,6 +39,7 @@ public class EssentialDataCreationDetector {
     /**
      * This method must be triggered during the creation of the essential data.
      */
+    @SuppressWarnings("unused")
     @SystemSetup(type = SystemSetup.Type.ESSENTIAL, process = SystemSetup.Process.ALL)
     public void createDummyEssentialData() {
         if (LOG.isDebugEnabled()) {
@@ -58,6 +60,7 @@ public class EssentialDataCreationDetector {
     /**
      * This method must be triggered during the creation of the project data.
      */
+    @SuppressWarnings("unused")
     @SystemSetup(type = SystemSetup.Type.PROJECT, process = SystemSetup.Process.ALL)
     public void createDummyProjectData() {
         if (LOG.isDebugEnabled()) {

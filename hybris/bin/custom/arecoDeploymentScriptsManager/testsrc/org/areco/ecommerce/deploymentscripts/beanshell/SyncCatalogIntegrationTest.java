@@ -7,9 +7,6 @@ import de.hybris.platform.core.model.media.MediaModel;
 import de.hybris.platform.servicelayer.ServicelayerTest;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
-import de.hybris.platform.servicelayer.util.ServicesUtil;
-import org.apache.log4j.Logger;
-import org.areco.ecommerce.deploymentscripts.core.AbstractWithConfigurationRestorationTest;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentConfigurationSetter;
@@ -18,6 +15,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 
@@ -30,7 +29,7 @@ import javax.annotation.Resource;
 @IntegrationTest
 public class SyncCatalogIntegrationTest extends ServicelayerTest {
     private static final String RESOURCES_FOLDER = "/resources/test";
-    private static final Logger LOG = Logger.getLogger(AbstractWithConfigurationRestorationTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SyncCatalogIntegrationTest.class);
 
     @Resource
     private FlexibleSearchService flexibleSearchService;
@@ -76,8 +75,8 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
         Assert.assertFalse("There were errors", wereThereErrors);
         getDeploymentScriptResultAsserter().assertResult("14112018_Ticket49",
                 this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
-        MediaModel result = findMediaOnlineCatalog("ArecosSyncCataloguesImpexTest",
-                "Online", "testMedia");
+        final MediaModel result = findMediaOnlineCatalog(
+        );
         Assert.assertNotNull("The result is null", result);
     }
 
@@ -89,9 +88,7 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
         return flexibleSearchScriptExecutionResultDao;
     }
 
-    private MediaModel findMediaOnlineCatalog(final String catalogId, final String catalogVersionName, final String mediaCode) {
-        ServicesUtil.validateParameterNotNull(catalogId, "catalog Id must not be null");
-        ServicesUtil.validateParameterNotNull(catalogVersionName, "catalog Id must not be null");
+    private MediaModel findMediaOnlineCatalog() {
 
         final StringBuilder sql = new StringBuilder(122);
 
@@ -110,10 +107,10 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
         sql.append(" } WHERE {m.").append(MediaModel.CODE);
         sql.append("} = ?").append(MediaModel.CODE);
 
-        FlexibleSearchQuery flexibleSearchQuery = new FlexibleSearchQuery(sql);
-        flexibleSearchQuery.addQueryParameter(CatalogModel.ID, catalogId);
-        flexibleSearchQuery.addQueryParameter(CatalogVersionModel.VERSION, catalogVersionName);
-        flexibleSearchQuery.addQueryParameter(MediaModel.CODE, mediaCode);
+        final FlexibleSearchQuery flexibleSearchQuery = new FlexibleSearchQuery(sql);
+        flexibleSearchQuery.addQueryParameter(CatalogModel.ID, "ArecosSyncCataloguesImpexTest");
+        flexibleSearchQuery.addQueryParameter(CatalogVersionModel.VERSION, "Online");
+        flexibleSearchQuery.addQueryParameter(MediaModel.CODE, "testMedia");
         return flexibleSearchService.searchUnique(flexibleSearchQuery);
     }
 }

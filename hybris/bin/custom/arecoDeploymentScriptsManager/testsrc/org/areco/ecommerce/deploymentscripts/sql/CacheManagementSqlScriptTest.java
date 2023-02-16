@@ -22,7 +22,6 @@ import de.hybris.platform.testframework.RunListeners;
 import de.hybris.platform.testframework.runlistener.LogRunListener;
 import de.hybris.platform.testframework.runlistener.PlatformRunListener;
 import de.hybris.platform.tx.Transaction;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.jalo.DeploymentEnvironment;
 import org.areco.ecommerce.deploymentscripts.model.DeploymentEnvironmentModel;
@@ -31,6 +30,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -49,7 +50,7 @@ import java.util.Set;
         {LogRunListener.class, PlatformRunListener.class})
 public class CacheManagementSqlScriptTest {
 
-    private static final Logger LOG = Logger.getLogger(CacheManagementSqlScriptTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CacheManagementSqlScriptTest.class);
 
     private static final String DUMMY_ENVIRONMENT_NAME = "DUMMY_ENVIRONMENT";
     private static final String DUMMY_ENVIRONMENT_DESCRIPTION = "Please remove this environment. It was used for an integration test.";
@@ -87,7 +88,7 @@ public class CacheManagementSqlScriptTest {
     private void updateDescriptionWithSQLScript() throws SQLException {
         // There is only one row in junit_arenvironmentlp with the name of the environment.
         // Due to this there isn't any need to filter the language.
-        int numberOfAffectedRows = jaloSqlScriptService.runDeleteOrUpdateStatement(
+        final int numberOfAffectedRows = jaloSqlScriptService.runDeleteOrUpdateStatement(
                 "update {table_prefix}arenvironmentlp"
                         + " set p_description = '" + DUMMY_ENVIRONMENT_DESCRIPTION + UPDATED_SUBFIX + "'"
                         + " where itempk = (select e.pk "
@@ -97,7 +98,7 @@ public class CacheManagementSqlScriptTest {
     }
 
     private void assertUpdatedEnvironment() {
-        Set<DeploymentEnvironmentModel> dummyEnvironments = this.flexibleSearchDeploymentEnvironmentDAO.loadEnvironments(this.dummyEnvironmentsNames);
+        final Set<DeploymentEnvironmentModel> dummyEnvironments = this.flexibleSearchDeploymentEnvironmentDAO.loadEnvironments(this.dummyEnvironmentsNames);
         Assert.assertEquals("There must be only one dummy environment", 1, dummyEnvironments.size());
         //Models cached the values of their attributes, so we need to get the jalo item, for this to work.
         final DeploymentEnvironment jaloDummyEnvironment = modelService.getSource(dummyEnvironments.iterator().next());
@@ -105,15 +106,14 @@ public class CacheManagementSqlScriptTest {
                 jaloDummyEnvironment.getDescription());
     }
 
-    private DeploymentEnvironmentModel createDummyEnvironment() {
-        DeploymentEnvironmentModel dummyEnvironment = modelService.create(DeploymentEnvironmentModel.class);
+    private void createDummyEnvironment() {
+        final DeploymentEnvironmentModel dummyEnvironment = modelService.create(DeploymentEnvironmentModel.class);
         dummyEnvironment.setName(DUMMY_ENVIRONMENT_NAME);
         dummyEnvironment.setDescription(DUMMY_ENVIRONMENT_DESCRIPTION);
         modelService.save(dummyEnvironment);
         if (LOG.isDebugEnabled()) {
-            LOG.debug("The deployment environment " + dummyEnvironment + " was saved.");
+            LOG.debug("The deployment environment {} was saved.", dummyEnvironment);
         }
-        return dummyEnvironment;
     }
 
     @After
@@ -123,16 +123,14 @@ public class CacheManagementSqlScriptTest {
 
     private void removeDummyDeploymentEnvironment() {
         try {
-            for (DeploymentEnvironmentModel anEnvironment : this.flexibleSearchDeploymentEnvironmentDAO
+            for (final DeploymentEnvironmentModel anEnvironment : this.flexibleSearchDeploymentEnvironmentDAO
                     .loadEnvironments(this.dummyEnvironmentsNames)) {
                 if (LOG.isDebugEnabled()) {
-                    LOG.debug("Removing the dummy environment with name "
-                            + anEnvironment.getName() + " and description <"
-                            + anEnvironment.getDescription() + ">");
+                    LOG.debug("Removing the dummy environment with name {} and description <{}>", anEnvironment.getName(), anEnvironment.getDescription());
                 }
                 this.modelService.remove(anEnvironment);
             }
-        } catch (IllegalStateException e) {
+        } catch (final IllegalStateException e) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("The dummy environment wasn't found.", e);
             }

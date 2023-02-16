@@ -18,11 +18,12 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -40,7 +41,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Scope("tenant")
 public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
-    private static final Logger LOG = Logger.getLogger(FlexibleSearchScriptExecutionDao.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FlexibleSearchScriptExecutionDao.class);
 
     @Autowired
     private FlexibleSearchService flexibleSearchService;
@@ -54,7 +55,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
     @Override
     public List<ScriptExecutionModel> getSuccessfullyExecutedScripts(final String extensionName) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Getting the executed scripts of the extension " + extensionName);
+            LOG.debug("Getting the executed scripts of the extension {}", extensionName);
         }
         final StringBuilder queryBuilder = new StringBuilder(84);
 
@@ -69,7 +70,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
         queryParams.put(ScriptExecutionModel.EXTENSIONNAME, extensionName);
 
         if (LOG.isTraceEnabled()) {
-            LOG.trace("Executing the query: '" + queryBuilder + "' with the parameters " + queryParams);
+            LOG.trace("Executing the query: '{}' with the parameters {}", queryBuilder, queryParams);
         }
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
@@ -96,7 +97,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
         final Map<String, Object> queryParams = new ConcurrentHashMap<>();
         if (LOG.isTraceEnabled()) {
-            LOG.trace("Executing the query: '" + queryBuilder + "'.");
+            LOG.trace("Executing the query: '{}'.", queryBuilder);
         }
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
         query.setCount(1); // The first range must have one element.
@@ -112,7 +113,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
         final ScriptExecutionModel lastScript = result.getResult().iterator().next();
         final boolean hadErrors = this.flexibleSearchScriptExecutionResultDao.getErrorResult().equals(lastScript.getResult());
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Had the last script errors? " + hadErrors);
+            LOG.debug("Had the last script errors? {}", hadErrors);
         }
         return !hadErrors;
     }

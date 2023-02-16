@@ -63,13 +63,7 @@ public abstract class AbstractSingleFileScriptStep implements DeploymentScriptSt
      */
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass()
-                .getSimpleName());
-        builder.append(" [scriptFile=");
-        builder.append(this.scriptFile);
-        builder.append("]");
-        return builder.toString();
+        return this.getClass().getSimpleName() + " [scriptFile=" + this.scriptFile + "]";
     }
 
     /*

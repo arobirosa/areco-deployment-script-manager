@@ -21,8 +21,9 @@ import de.hybris.platform.core.initialization.SystemSetupContext;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.exceptions.ConfigurationException;
 import edu.umd.cs.findbugs.annotations.SuppressWarnings;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ import org.springframework.stereotype.Service;
 public class DeploymentScriptStarter {
     public static final String CREATE_DATA_TYPE_CONF = "deploymentscripts.createdata.type";
 
-    private static final Logger LOG = Logger.getLogger(DeploymentScriptStarter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeploymentScriptStarter.class);
 
     @Autowired
     private DeploymentScriptService deploymentScriptService;
@@ -83,8 +84,9 @@ public class DeploymentScriptStarter {
             }
             this.runDeploymentScripts(context, false);
         } else {
-            Logger.getLogger(this.getClass())
-                    .trace(String.format("Not running the deployment update scripts because were are in the %s data creation.", hybrisContext.getType()));
+            if (LOG.isTraceEnabled()) {
+                LOG.trace(String.format("Not running the deployment update scripts because were are in the %s data creation.", hybrisContext.getType()));
+            }
         }
     }
 
@@ -94,7 +96,7 @@ public class DeploymentScriptStarter {
         final String typeCode = this.configurationService.getConfiguration().getString(CREATE_DATA_TYPE_CONF, "ESSENTIAL");
         try {
             return SystemSetup.Type.valueOf(typeCode);
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             throw new ConfigurationException(
                     String.format("Unable to find the create data step with code '%s'. Please check the configuration of %s", typeCode, CREATE_DATA_TYPE_CONF),
                     e);
@@ -127,7 +129,7 @@ public class DeploymentScriptStarter {
         if (this.isWasThereAnError()) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("There was an error running the deployment scripts of the previous extensions. "
-                        + "Due to this the deployment scripts of the extension " + context.getExtensionName() + " will be ignored.");
+                        + "Due to this the deployment scripts of the extension {} will be ignored.", context.getExtensionName());
             }
             return true;
         }
@@ -148,7 +150,7 @@ public class DeploymentScriptStarter {
     // This method must catch any error in the execution of the deployment scripts.
     private boolean runDeploymentScriptsAndHandleErrors(final UpdatingSystemExtensionContext context, final boolean runInitScripts) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Running the deployment scripts of the extension: " + context.getExtensionName());
+            LOG.debug("Running the deployment scripts of the extension: {}", context.getExtensionName());
         }
 
         try {
@@ -158,7 +160,7 @@ public class DeploymentScriptStarter {
         } catch (final RuntimeException re) {
             this.setWasThereAnError(true);
             // We improve the error logging in case of a runtime exception.
-            LOG.error("There was an error running the deployment scripts: " + re.getLocalizedMessage(), re);
+            LOG.error("There was an error running the deployment scripts: {}", re.getLocalizedMessage(), re);
             throw re;
         }
     }
@@ -178,7 +180,7 @@ public class DeploymentScriptStarter {
 
     private boolean runAllPendingScriptsInAllExtensions(final boolean runInitScripts) {
         if (LOG.isInfoEnabled()) {
-            LOG.info("Running all deployment scripts. RunInitScripts? " + runInitScripts);
+            LOG.info("Running all deployment scripts. RunInitScripts? {}", runInitScripts);
         }
         this.clearErrorFlag();
         for (final String extensionName : this.extensionHelper.getExtensionNames()) {
@@ -206,8 +208,10 @@ public class DeploymentScriptStarter {
             }
             this.runAllPendingScriptsInAllExtensions(true);
         } else {
-            Logger.getLogger(this.getClass())
-                    .trace(String.format("Not running the init deployment scripts because were are in the %s data creation.", hybrisContext.getType()));
+            if (LOG.isTraceEnabled()) {
+                LOG.trace(String.format("Not running the init deployment scripts because were are in the %s data creation.", hybrisContext.getType()));
+            }
+
         }
     }
 

@@ -19,11 +19,12 @@ import de.hybris.platform.core.Tenant;
 import de.hybris.platform.servicelayer.tenant.MockTenant;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfigurationReader;
 import org.areco.ecommerce.deploymentscripts.core.TenantDetector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
@@ -46,7 +47,7 @@ import java.util.Set;
 // The configuration of this bean is in the spring application context.
 public abstract class PropertyFileDeploymentScriptConfigurationReader implements DeploymentScriptConfigurationReader {
 
-    private static final Logger LOG = Logger.getLogger(PropertyFileDeploymentScriptConfigurationReader.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PropertyFileDeploymentScriptConfigurationReader.class);
     /**
      * Allowed environments
      */
@@ -82,7 +83,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
     @Override
     public PropertyFileDeploymentScriptConfiguration loadConfiguration(final File deploymentScriptFolder) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Reading configuration from the directory " + deploymentScriptFolder);
+            LOG.debug("Reading configuration from the directory {}", deploymentScriptFolder);
         }
         ServicesUtil.validateParameterNotNullStandardMessage("deploymentScriptFolder", deploymentScriptFolder);
         if (!deploymentScriptFolder.exists()) {
@@ -99,7 +100,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
     private PropertyFileDeploymentScriptConfiguration createConfigurationFrom(final File configurationFile) {
         final Properties properties = new Properties();
 
-        try (InputStream configurationFileStream = Files.newInputStream(Paths.get(configurationFile.toURI()))) {
+        try (final InputStream configurationFileStream = Files.newInputStream(Paths.get(configurationFile.toURI()))) {
             properties.load(configurationFileStream);
         } catch (final IOException e) {
             throw new DeploymentScriptConfigurationException(e);
@@ -129,7 +130,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
         if (environmentsList == null) {
             return Collections.emptySet();
         }
-        return new HashSet(Arrays.asList(environmentsList.split(VALUES_SEPARATOR)));
+        return new HashSet<>(Arrays.asList(environmentsList.split(VALUES_SEPARATOR)));
     }
 
     private Set<Tenant> getAllowedTenants(final Properties properties) {
@@ -168,7 +169,7 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
         final File[] configurationFiles = deploymentScriptFolder.listFiles(
                 pathname -> pathname.getName().toLowerCase(Locale.getDefault()).endsWith(PROPERTY_FILE_EXTENSION_CONF));
         if (LOG.isTraceEnabled()) {
-            LOG.trace("Found configuration files: " + Arrays.toString(configurationFiles));
+            LOG.trace("Found configuration files: {}", Arrays.toString(configurationFiles));
         }
         if (configurationFiles == null || configurationFiles.length == 0) {
             return null;

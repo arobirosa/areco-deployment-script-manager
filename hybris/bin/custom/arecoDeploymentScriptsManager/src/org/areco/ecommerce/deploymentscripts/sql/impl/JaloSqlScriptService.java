@@ -17,8 +17,9 @@ package org.areco.ecommerce.deploymentscripts.sql.impl;
 
 import de.hybris.platform.core.Registry;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.sql.SqlScriptService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,7 @@ import java.util.regex.Pattern;
 @Scope("tenant")
 public class JaloSqlScriptService implements SqlScriptService {
 
-    private static final Logger LOG = Logger.getLogger(JaloSqlScriptService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JaloSqlScriptService.class);
 
     // CHECKSTYLE.OFF: This annotation generates a long line.
     @edu.umd.cs.findbugs.annotations.SuppressWarnings(
@@ -73,20 +74,20 @@ public class JaloSqlScriptService implements SqlScriptService {
     // CHECKSTYLE.ON
     private int runStatementOnDatabase(final String translatedStatement) throws SQLException {
 
-        try (Connection aConnection = getConnection(); PreparedStatement prepareStatement = aConnection.prepareStatement(translatedStatement)) {
+        try (final Connection aConnection = getConnection(); final PreparedStatement prepareStatement = aConnection.prepareStatement(translatedStatement)) {
             return prepareStatement.executeUpdate();
         }
     }
 
     private String translateTablePrefix(final String aStatement) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("SQL Statement before the translation: <" + aStatement + ">");
+            LOG.debug("SQL Statement before the translation: <{}>", aStatement);
         }
         final Pattern tablePrefixPattern = Pattern.compile("\\{table_prefix\\}", Pattern.CASE_INSENSITIVE);
         final String returnedStatement = tablePrefixPattern.matcher(aStatement)
                 .replaceAll(Registry.getCurrentTenant().getDataSource().getTablePrefix());
         if (LOG.isDebugEnabled()) {
-            LOG.debug("SQL Statement after the translation: <" + returnedStatement + ">");
+            LOG.debug("SQL Statement after the translation: <{}>", returnedStatement);
         }
         return returnedStatement;
     }

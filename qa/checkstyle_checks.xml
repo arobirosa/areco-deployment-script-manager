@@ -69,7 +69,7 @@ This checkstyle configuration is based on the coding conventions from Sun.
         <!-- Modifier Checks                                    -->
         <!-- See https://checkstyle.org/config_modifiers.html -->
         <module name="ModifierOrder"/>
-        <module name="RedundantModifier"/>
+        <!--module name="RedundantModifier"/ PMD already checks this -->
 
         <!-- Checks for blocks. You know, those {}'s         -->
         <!-- See https://checkstyle.org/config_blocks.html -->

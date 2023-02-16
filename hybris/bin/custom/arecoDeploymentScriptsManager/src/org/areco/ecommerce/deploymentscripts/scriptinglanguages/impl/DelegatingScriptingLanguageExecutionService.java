@@ -2,9 +2,10 @@ package org.areco.ecommerce.deploymentscripts.scriptinglanguages.impl;
 
 import de.hybris.platform.scripting.engine.ScriptExecutable;
 import de.hybris.platform.scripting.engine.ScriptingLanguagesService;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageExecutionException;
 import org.areco.ecommerce.deploymentscripts.scriptinglanguages.ScriptingLanguageExecutionService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -24,20 +25,20 @@ public class DelegatingScriptingLanguageExecutionService implements ScriptingLan
     @Autowired
     private ScriptingLanguagesService scriptingLanguagesService;
 
-    private static final Logger LOG = Logger.getLogger(DelegatingScriptingLanguageExecutionService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DelegatingScriptingLanguageExecutionService.class);
     private static final String OK_RETURN_VALUE = "OK";
 
     /**
      * It executes and compiles the given script.
      *
      * @param scriptFile Required
-     * @throws ScriptingLanguageExecutionException
+     * @throws ScriptingLanguageExecutionException If there was an error running the script
      */
     @Override
     public void executeScript(final File scriptFile) throws ScriptingLanguageExecutionException {
         Objects.requireNonNull(scriptFile);
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Running the script file '" + scriptFile.toPath());
+            LOG.debug("Running the script file '{}", scriptFile.toPath());
         }
 
         checkSuccessfulResult(runScript(scriptFile));

@@ -18,8 +18,9 @@ package org.areco.ecommerce.deploymentscripts.ant;
 import de.hybris.platform.servicelayer.session.SessionExecutionBody;
 import de.hybris.platform.servicelayer.session.SessionService;
 import de.hybris.platform.servicelayer.user.UserService;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ import org.springframework.stereotype.Service;
 @Service("antDeploymentScriptsStarter")
 @Scope("tenant")
 public class AntDeploymentScriptsStarter {
-    private static final Logger LOG = Logger.getLogger(AntDeploymentScriptsStarter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AntDeploymentScriptsStarter.class);
 
     @Autowired
     private DeploymentScriptStarter deploymentScriptStarter;

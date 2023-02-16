@@ -30,7 +30,7 @@ public interface SqlScriptService {
      *
      * @param aStatement Required
      * @return Number of affected rows.
-     * @throws SQLException
+     * @throws SQLException If there was an error executing the SQL statement
      */
     int runDeleteOrUpdateStatement(String aStatement) throws SQLException;
 }
