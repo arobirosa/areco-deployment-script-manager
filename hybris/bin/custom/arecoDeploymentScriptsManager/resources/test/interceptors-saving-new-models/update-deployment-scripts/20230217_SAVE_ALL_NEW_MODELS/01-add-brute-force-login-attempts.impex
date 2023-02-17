@@ -1,4 +1,0 @@
-INSERT_UPDATE BruteForceLoginAttempts; uid[unique = true]; attempts;
-                               ; testArecoManager   ; 1 ;
-
-
