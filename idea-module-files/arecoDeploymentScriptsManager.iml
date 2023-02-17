@@ -36,6 +36,7 @@
           <file>file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/project.properties</file>
           <file>file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/resources/arecoDeploymentScriptsManager-spring.xml</file>
           <file>file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/web/webroot/WEB-INF/arecoDeploymentScriptsManager-web-spring.xml</file>
+          <file>file://$MODULE_DIR$/../hybris/bin/custom/arecoDeploymentScriptsManager/resources/arecoDeploymentScriptsManager-spring-test.xml</file>
         </fileset>
       </configuration>
     </facet>
