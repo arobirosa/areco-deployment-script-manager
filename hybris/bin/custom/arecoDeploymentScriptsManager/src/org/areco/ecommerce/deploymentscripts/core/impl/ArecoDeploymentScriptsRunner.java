@@ -102,7 +102,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
     }
 
     private ScriptExecutionModel findOrCreateExecution(final DeploymentScript aScript) {
-        final ScriptExecutionModel lastExecution = flexibleSearchScriptExecutionDao.getLastExecution(aScript.getExtensionName(), aScript.getName());
+        final ScriptExecutionModel lastExecution = flexibleSearchScriptExecutionDao.getLastErrorOrPendingExecution(aScript.getExtensionName(), aScript.getName());
         if (nonNull(lastExecution)) {
             return lastExecution;
         }

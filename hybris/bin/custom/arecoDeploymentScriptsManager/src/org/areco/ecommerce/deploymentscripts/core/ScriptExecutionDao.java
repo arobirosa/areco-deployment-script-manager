@@ -45,5 +45,5 @@ public interface ScriptExecutionDao {
      * @param name          Required
      * @return null if no execution was found
      */
-    ScriptExecutionModel getLastExecution(String extensionName, String name);
+    ScriptExecutionModel getLastErrorOrPendingExecution(String extensionName, String name);
 }

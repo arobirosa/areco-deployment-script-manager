@@ -30,9 +30,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static java.util.Objects.isNull;
 
 /**
  * Default implementation of the dao.
@@ -50,6 +53,8 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
     @Autowired
     private ScriptExecutionResultDAO scriptExecutionResultDAO;
+
+    private List<ScriptExecutionResultModel> errorAndWillBeExecutedResults;
 
     /*
      * { @InheritDoc }
@@ -94,16 +99,18 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
         final StringBuilder queryBuilder = new StringBuilder(36);
 
         // The creation time is unreliable because on fast machines two items can have the same creation time.
-        queryBuilder.append("SELECT {").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
+        queryBuilder.append("SELECT {e.").append(ScriptExecutionModel.PK).append("}")
+                .append(" FROM {").append(ScriptExecutionModel._TYPECODE)
+                .append(" as e} WHERE {e.").append(ScriptExecutionModel.RESULT).append("} <> ?").append("willBeExecutedResult")
                 .append("} ORDER BY {pk} DESC");
 
-        final Map<String, Object> queryParams = new ConcurrentHashMap<>();
         if (LOG.isTraceEnabled()) {
             LOG.trace("Executing the query: '{}'.", queryBuilder);
         }
-        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
         query.setCount(1); // The first range must have one element.
         query.setNeedTotal(false);
+        query.addQueryParameter("willBeExecutedResult", scriptExecutionResultDAO.getWillBeExecuted());
 
         final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
         if (result.getCount() == 0) {
@@ -121,7 +128,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
     }
 
     @Override
-    public ScriptExecutionModel getLastExecution(final String extensionName, final String scriptName) {
+    public ScriptExecutionModel getLastErrorOrPendingExecution(final String extensionName, final String scriptName) {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Looking for the last execution of the script from extension {} with the name {}", extensionName, scriptName);
         }
@@ -136,8 +143,9 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
         // The creation time is unreliable because on fast machines two items can have the same creation time.
         queryBuilder.append("SELECT {e.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
-                .append("as e} WHERE {e.").append(ScriptExecutionModel.EXTENSIONNAME).append("} ?").append(ScriptExecutionModel.EXTENSIONNAME)
-                .append("as e} WHERE {e.").append(ScriptExecutionModel.SCRIPTNAME).append("} ?").append(ScriptExecutionModel.SCRIPTNAME)
+                .append(" as e} WHERE {e.").append(ScriptExecutionModel.EXTENSIONNAME).append("} ?").append(ScriptExecutionModel.EXTENSIONNAME)
+                .append("} AND {e.").append(ScriptExecutionModel.SCRIPTNAME).append("} ?").append(ScriptExecutionModel.SCRIPTNAME)
+                .append("} AND {e.").append(ScriptExecutionModel.RESULT).append("} NOT IN ?").append("unsuccessfulResults")
                 .append("} ORDER BY {pk} DESC");
 
         if (LOG.isTraceEnabled()) {
@@ -148,6 +156,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
         query.setNeedTotal(false);
         query.addQueryParameter(ScriptExecutionModel.EXTENSIONNAME, extensionName);
         query.addQueryParameter(ScriptExecutionModel.SCRIPTNAME, scriptName);
+        query.addQueryParameter("unsuccessfulResults", getErrorAndWillBeExecutedResults());
 
         final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
         if (result.getCount() == 0) {
@@ -157,5 +166,12 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
             return null;
         }
         return result.getResult().iterator().next();
+    }
+
+    private List<ScriptExecutionResultModel> getErrorAndWillBeExecutedResults() {
+        if (isNull(this.errorAndWillBeExecutedResults)) {
+            this.errorAndWillBeExecutedResults = Arrays.asList(scriptExecutionResultDAO.getErrorResult(), scriptExecutionResultDAO.getWillBeExecuted());
+        }
+        return this.errorAndWillBeExecutedResults;
     }
 }
