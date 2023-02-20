@@ -98,7 +98,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
     }
 
     private List<Pair<DeploymentScript, ScriptExecutionModel>> createExecutionsOfScriptsWhichWillBeRun(final List<DeploymentScript> scriptsToBeRun) {
-        return scriptsToBeRun.stream().map(s -> new ImmutablePair(s, findOrCreateExecution(s))).collect(Collectors.toList());
+        return scriptsToBeRun.stream().map(s -> new ImmutablePair<>(s, findOrCreateExecution(s))).collect(Collectors.toList());
     }
 
     private ScriptExecutionModel findOrCreateExecution(final DeploymentScript aScript) {

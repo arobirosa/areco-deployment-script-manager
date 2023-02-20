@@ -40,6 +40,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 /**
  * Default implementation of the deployment script finder.
@@ -110,6 +111,11 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
             alreadyExecutedScripts.add(alreadyExecutedScript.getScriptName());
         }
         return alreadyExecutedScripts;
+    }
+
+    @Override
+    public List<String> getExistingScriptDirectoryNames(final String extensionName, final boolean runInitScripts) {
+        return Arrays.stream(this.getExistingScripts(extensionName, runInitScripts)).sequential().map(f -> f.getName()).collect(Collectors.toList());
     }
 
     private File[] getExistingScripts(final String extensionName, final boolean runInitScripts) {

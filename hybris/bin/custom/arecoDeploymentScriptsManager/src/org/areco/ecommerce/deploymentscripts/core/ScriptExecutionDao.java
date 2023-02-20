@@ -39,11 +39,20 @@ public interface ScriptExecutionDao {
     boolean wasLastScriptSuccessful();
 
     /**
-     * Looks for the last execution of the given deployment script.
+     * Looks for the last execution of the given deployment script which failed or has status 'will be executed'
      *
      * @param extensionName Required
      * @param name          Required
      * @return null if no execution was found
      */
     ScriptExecutionModel getLastErrorOrPendingExecution(String extensionName, String name);
+
+
+    /**
+     * Looks for failed or will-be-executed executions for the given extension
+     *
+     * @param extensionName Required
+     * @return Script executions with most recent first
+     */
+    List<ScriptExecutionModel> findErrorOrPendingExecutionsOnMostRecentOrder(String extensionName);
 }

@@ -30,6 +30,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,7 @@ import static java.util.Objects.isNull;
 public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(FlexibleSearchScriptExecutionDao.class);
+    private static final int MAXIMUM_NUMBER_OF_EXECUTIONS_TO_RETURN = 100;
 
     @Resource
     private FlexibleSearchService flexibleSearchService;
@@ -156,7 +158,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
         query.setNeedTotal(false);
         query.addQueryParameter(ScriptExecutionModel.EXTENSIONNAME, extensionName);
         query.addQueryParameter(ScriptExecutionModel.SCRIPTNAME, scriptName);
-        query.addQueryParameter("unsuccessfulResults", getErrorAndWillBeExecutedResults());
+        query.addQueryParameter("unsuccessfulResults", getErrorAndRemovedOnDiskAndWillBeExecutedResults());
 
         final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
         if (result.getCount() == 0) {
@@ -168,9 +170,46 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
         return result.getResult().iterator().next();
     }
 
+    @Override
+    public List<ScriptExecutionModel> findErrorOrPendingExecutionsOnMostRecentOrder(final String extensionName) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Finding the script executions with errors or which will be executed from extension {}", extensionName);
+        }
+        if (StringUtils.isBlank(extensionName)) {
+            throw new IllegalArgumentException("The parameter extensionName is blank");
+        }
+        final StringBuilder queryBuilder = new StringBuilder(36);
+
+        // The creation time is unreliable because on fast machines two items can have the same creation time.
+        queryBuilder.append("SELECT {e.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
+                .append(" as e} WHERE {e.").append(ScriptExecutionModel.EXTENSIONNAME).append("} ?").append(ScriptExecutionModel.EXTENSIONNAME)
+                .append("} AND {e.").append(ScriptExecutionModel.RESULT).append("} IN ?").append("errorOrPendingResults")
+                .append("} ORDER BY {pk} DESC");
+
+        if (LOG.isTraceEnabled()) {
+            LOG.trace("Executing the query: '{}'.", queryBuilder);
+        }
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
+        query.setCount(MAXIMUM_NUMBER_OF_EXECUTIONS_TO_RETURN);
+        query.setNeedTotal(false);
+        query.addQueryParameter(ScriptExecutionModel.EXTENSIONNAME, extensionName);
+        query.addQueryParameter("errorOrPendingResults", getErrorAndWillBeExecutedResults());
+
+        final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
+        // Required line for the casting
+        return result.getResult();
+    }
+
     private List<ScriptExecutionResultModel> getErrorAndWillBeExecutedResults() {
+        final ArrayList<ScriptExecutionResultModel> results = new ArrayList<>(this.getErrorAndRemovedOnDiskAndWillBeExecutedResults());
+        results.remove(scriptExecutionResultDAO.getIgnoredRemovedOnDisk());
+        return results;
+    }
+
+    private List<ScriptExecutionResultModel> getErrorAndRemovedOnDiskAndWillBeExecutedResults() {
         if (isNull(this.errorAndWillBeExecutedResults)) {
-            this.errorAndWillBeExecutedResults = Arrays.asList(scriptExecutionResultDAO.getErrorResult(), scriptExecutionResultDAO.getWillBeExecuted());
+            this.errorAndWillBeExecutedResults = Arrays.asList(scriptExecutionResultDAO.getErrorResult(),
+                    scriptExecutionResultDAO.getWillBeExecuted(), scriptExecutionResultDAO.getIgnoredRemovedOnDisk());
         }
         return this.errorAndWillBeExecutedResults;
     }

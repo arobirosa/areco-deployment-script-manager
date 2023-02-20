@@ -36,4 +36,13 @@ public interface DeploymentScriptFinder {
      */
     List<DeploymentScript> getPendingScripts(String extensionName, Process process, boolean runInitScripts);
 
+    /**
+     * Returns the list of names of deployment script directories which exists in the extension. Old and new executed scripts
+     * are returned.
+     *
+     * @param extensionName  Required
+     * @param runInitScripts Required. Do we run the init or the update scripts.
+     * @return Never null
+     */
+    List<String> getExistingScriptDirectoryNames(String extensionName, boolean runInitScripts);
 }
