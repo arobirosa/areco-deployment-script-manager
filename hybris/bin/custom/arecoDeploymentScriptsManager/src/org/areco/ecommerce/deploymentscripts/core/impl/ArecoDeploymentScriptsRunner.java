@@ -19,16 +19,17 @@ import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.model.ModelService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.core.ScriptResult;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +37,11 @@ import javax.annotation.Resource;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 /**
  * Default script runner.
@@ -55,16 +59,17 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
     @Resource
     private ConfigurationService configurationService;
 
-    @Autowired
+    @Resource
     private ModelService modelService;
 
-    @Autowired
-    // We inject by name because Spring can't see the generic parameters.
-    @Qualifier("deploymentScript2ExecutionConverter")
-    private Converter<DeploymentScript, ScriptExecutionModel> scriptConverter;
+    @Resource
+    private Converter<DeploymentScript, ScriptExecutionModel> deploymentScript2ExecutionConverter;
 
-    @Autowired
+    @Resource
     private ScriptExecutionResultDAO scriptExecutionResultDao;
+
+    @Resource
+    private ScriptExecutionDao flexibleSearchScriptExecutionDao;
 
     /*
      * (non-Javadoc)
@@ -74,19 +79,36 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
     @Override
     @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", justification = "The DAO and the script run method never return null")
     public boolean run(final UpdatingSystemExtensionContext updatingSystemContext, final List<DeploymentScript> scriptsToBeRun) {
-        for (final DeploymentScript aScript : scriptsToBeRun) {
-            final ScriptExecutionModel scriptExecution = this.scriptConverter.convert(aScript);
+        final List<Pair<DeploymentScript, ScriptExecutionModel>> scriptsToBeRunWithExecutions = createExecutionsOfScriptsWhichWillBeRun(scriptsToBeRun);
+        // A new loop is started to be sure that all executions are saved at this point
 
-            final ScriptResult scriptResult = aScript.run();
-            scriptExecution.setResult(scriptResult.getStatus());
-            scriptExecution.setFirstFailedCronjob(scriptResult.getCronJob());
-            scriptExecution.setFullStacktrace(getCauseShortStackTrace(scriptResult.getException()));
-            this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
-            if (this.scriptExecutionResultDao.getErrorResult().equals(scriptExecution.getResult())) {
+        for (final Pair<DeploymentScript, ScriptExecutionModel> scriptWithExecutionPair : scriptsToBeRunWithExecutions) {
+            Objects.requireNonNull(scriptWithExecutionPair.getValue(), "The script execution is missing");
+
+            final ScriptResult scriptResult = scriptWithExecutionPair.getKey().run();
+            scriptWithExecutionPair.getValue().setResult(scriptResult.getStatus());
+            scriptWithExecutionPair.getValue().setFirstFailedCronjob(scriptResult.getCronJob());
+            scriptWithExecutionPair.getValue().setFullStacktrace(getCauseShortStackTrace(scriptResult.getException()));
+            this.saveAndLogScriptExecution(updatingSystemContext, scriptWithExecutionPair.getValue());
+            if (this.scriptExecutionResultDao.getErrorResult().equals(scriptWithExecutionPair.getValue().getResult())) {
                 return true; // We stop after the first error.
             }
         }
         return false; // Everything when successfully
+    }
+
+    private List<Pair<DeploymentScript, ScriptExecutionModel>> createExecutionsOfScriptsWhichWillBeRun(final List<DeploymentScript> scriptsToBeRun) {
+        return scriptsToBeRun.stream().map(s -> new ImmutablePair(s, findOrCreateExecution(s))).collect(Collectors.toList());
+    }
+
+    private ScriptExecutionModel findOrCreateExecution(final DeploymentScript aScript) {
+        final ScriptExecutionModel lastExecution = flexibleSearchScriptExecutionDao.getLastExecution(aScript.getExtensionName(), aScript.getName());
+        if (nonNull(lastExecution)) {
+            return lastExecution;
+        }
+        final ScriptExecutionModel newExecution = this.deploymentScript2ExecutionConverter.convert(aScript);
+        modelService.save(newExecution);
+        return newExecution;
     }
 
     private void saveAndLogScriptExecution(final UpdatingSystemExtensionContext context, final ScriptExecutionModel scriptExecution) {

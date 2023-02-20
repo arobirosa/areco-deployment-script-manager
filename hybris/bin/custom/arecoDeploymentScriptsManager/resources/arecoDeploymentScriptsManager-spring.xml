@@ -59,6 +59,9 @@
         <lookup-method name="createConfiguration" bean="propertyFileDeploymentScriptConfiguration" />
     </bean>
 
+    <alias name="flexibleSearchScriptExecutionResultDao" alias="scriptExecutionResultDAO" />
+    <bean id="flexibleSearchScriptExecutionResultDao" class="org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchScriptExecutionResultDao" />
+
     <bean id="arecoDeploymentScriptFinder"
           class="org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptFinder"
           scope="tenant">

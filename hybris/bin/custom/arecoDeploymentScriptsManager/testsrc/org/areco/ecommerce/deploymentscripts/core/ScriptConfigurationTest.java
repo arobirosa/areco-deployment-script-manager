@@ -36,7 +36,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "dev-only");
         this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         runAndAssertNoErrors();
-        getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_DEV_CRONJOBS", this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+        getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_DEV_CRONJOBS", this.getScriptExecutionResultDAO().getSuccessResult());
     }
 
     private void runAndAssertNoErrors() {
@@ -49,7 +49,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_TEST_CRONJOBS",
-                this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+                this.getScriptExecutionResultDAO().getSuccessResult());
     }
 
     @Test
@@ -58,7 +58,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_PROD_CRONJOBS",
-                this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherEnvironmentResult());
+                this.getScriptExecutionResultDAO().getIgnoredOtherEnvironmentResult());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_PROD_CRONJOBS",
-                this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherTenantResult());
+                this.getScriptExecutionResultDAO().getIgnoredOtherTenantResult());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_TEST_CRONJOBS",
-                this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherTenantResult());
+                this.getScriptExecutionResultDAO().getIgnoredOtherTenantResult());
     }
 
     @Test(expected = DeploymentScriptConfigurationException.class)
@@ -110,7 +110,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setEnvironment("QA_WEBSERVICE");
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_02_TICKET_ADD_QA_CRONJOBS",
-                this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+                this.getScriptExecutionResultDAO().getSuccessResult());
     }
 
     @Test

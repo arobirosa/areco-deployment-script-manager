@@ -34,7 +34,7 @@ public class MixedCaseEnvironmentNamesTest extends AbstractWithConfigurationRest
         this.getDeploymentConfigurationSetter().setEnvironment("DEV");
         final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
         Assert.assertFalse("There were errors", wereThereErrors);
-        getDeploymentScriptResultAsserter().assertResult("20150801_TICKET_DEV_CRONJOBS", this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+        getDeploymentScriptResultAsserter().assertResult("20150801_TICKET_DEV_CRONJOBS", this.getScriptExecutionResultDAO().getSuccessResult());
     }
 
     @Test
@@ -43,6 +43,6 @@ public class MixedCaseEnvironmentNamesTest extends AbstractWithConfigurationRest
         this.getDeploymentConfigurationSetter().setEnvironment("DEV");
         final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
         Assert.assertFalse("There were errors", wereThereErrors);
-        getDeploymentScriptResultAsserter().assertResult("20150801_TICKET_DEV_CRONJOBS", this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+        getDeploymentScriptResultAsserter().assertResult("20150801_TICKET_DEV_CRONJOBS", this.getScriptExecutionResultDAO().getSuccessResult());
     }
 }

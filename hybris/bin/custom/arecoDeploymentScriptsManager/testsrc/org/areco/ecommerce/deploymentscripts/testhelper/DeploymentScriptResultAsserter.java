@@ -57,7 +57,7 @@ public final class DeploymentScriptResultAsserter {
     private FlexibleSearchService flexibleSearchService;
 
     @Resource
-    private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
+    private ScriptExecutionResultDAO scriptExecutionResultDAO;
 
     /**
      * It checks is the given deployment script has the expected result.
@@ -153,7 +153,7 @@ public final class DeploymentScriptResultAsserter {
      */
     public void assertSuccessfulResult(final String deploymentScriptName) {
         isScriptNameParameterValid(deploymentScriptName);
-        this.assertResult(deploymentScriptName, this.flexibleSearchScriptExecutionResultDao.getSuccessResult());
+        this.assertResult(deploymentScriptName, this.scriptExecutionResultDAO.getSuccessResult());
     }
 
     /**
@@ -163,7 +163,7 @@ public final class DeploymentScriptResultAsserter {
      */
     public void assertErrorResult(final String deploymentScriptName) {
         isScriptNameParameterValid(deploymentScriptName);
-        this.assertResult(deploymentScriptName, this.flexibleSearchScriptExecutionResultDao.getErrorResult());
+        this.assertResult(deploymentScriptName, this.scriptExecutionResultDAO.getErrorResult());
     }
 
     /**
@@ -185,7 +185,7 @@ public final class DeploymentScriptResultAsserter {
         }
 
         final Pattern compiledStacktracePattern = Pattern.compile(loadedPattern, Pattern.DOTALL);
-        final ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, this.flexibleSearchScriptExecutionResultDao.getErrorResult());
+        final ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, this.scriptExecutionResultDAO.getErrorResult());
 
         final Matcher stacktraceMatcher = compiledStacktracePattern.matcher(executionOfTheScript.getFullStacktrace());
 

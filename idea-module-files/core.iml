@@ -107,6 +107,7 @@
         <SOURCES>
           <root url="jar://$USER_HOME$/.ideaLibSources/spring-core-5.3.19-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ideaLibSources/mockito-core-3.10.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ideaLibSources/spring-context-5.3.19-sources.jar!/" />
         </SOURCES>
         <jarDirectory url="file://$MODULE_DIR$/../hybris/bin/platform/ext/core/lib" recursive="true" />
       </library>

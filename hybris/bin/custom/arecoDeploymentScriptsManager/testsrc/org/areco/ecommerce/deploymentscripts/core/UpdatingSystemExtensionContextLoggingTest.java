@@ -63,7 +63,7 @@ public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfi
     public void testHacLogging() {
         final String expectedMessage = Localization.getLocalizedString("updatingsystemextensioncontext.loggingformat", new String[]
                 {DEPLOYMENT_SCRIPT_NAME,
-                        this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult().getDescription()}) + "<br/>";
+                        this.getScriptExecutionResultDAO().getSuccessResult().getDescription()}) + "<br/>";
 
         final SystemSetupContext hybrisContext = new SystemSetupContext(null, getConfiguredCreateDataStep(),
                 SystemSetup.Process.UPDATE, ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
@@ -72,7 +72,7 @@ public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfi
         this.getDeploymentScriptStarter().runUpdateDeploymentScripts(hybrisContext);
 
         this.getDeploymentScriptResultAsserter().assertResult(DEPLOYMENT_SCRIPT_NAME,
-                this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+                this.getScriptExecutionResultDAO().getSuccessResult());
 
         final StringBuffer loggingBuffer = loggingCollector.getBuffer();
         Assert.assertTrue("Something must have been logged.", loggingBuffer.length() > 0);

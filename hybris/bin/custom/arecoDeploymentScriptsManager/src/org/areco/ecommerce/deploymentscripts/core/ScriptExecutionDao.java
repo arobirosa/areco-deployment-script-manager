@@ -38,4 +38,12 @@ public interface ScriptExecutionDao {
      */
     boolean wasLastScriptSuccessful();
 
+    /**
+     * Looks for the last execution of the given deployment script.
+     *
+     * @param extensionName Required
+     * @param name          Required
+     * @return null if no execution was found
+     */
+    ScriptExecutionModel getLastExecution(String extensionName, String name);
 }

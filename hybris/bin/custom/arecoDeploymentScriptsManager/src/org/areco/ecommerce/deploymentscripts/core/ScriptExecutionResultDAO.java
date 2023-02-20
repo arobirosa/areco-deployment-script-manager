@@ -73,4 +73,17 @@ public interface ScriptExecutionResultDAO {
      */
     void initialize();
 
+    /**
+     * Returns the instance which represents the ignored result because the deployment script's files were removed on the disk.
+     *
+     * @return ScriptExecutionResultModel Never null.
+     */
+    ScriptExecutionResultModel getIgnoredRemovedOnDisk();
+
+    /**
+     * Returns the instance which represents the result when the deployment script are enqueued for execution.
+     *
+     * @return ScriptExecutionResultModel Never null.
+     */
+    ScriptExecutionResultModel getWillBeExecuted();
 }

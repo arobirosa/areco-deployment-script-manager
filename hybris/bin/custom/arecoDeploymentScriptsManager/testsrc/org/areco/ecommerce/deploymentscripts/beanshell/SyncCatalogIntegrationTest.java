@@ -40,7 +40,7 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
     @Resource
     private DeploymentScriptStarter deploymentScriptStarter;
     @Resource
-    private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
+    private ScriptExecutionResultDAO scriptExecutionResultDAO;
 
     @Before
     public void saveOldFolders() {
@@ -74,7 +74,7 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
         final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
         Assert.assertFalse("There were errors", wereThereErrors);
         getDeploymentScriptResultAsserter().assertResult("14112018_Ticket49",
-                this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+                this.getScriptExecutionResultDAO().getSuccessResult());
         final MediaModel result = findMediaOnlineCatalog(
         );
         Assert.assertNotNull("The result is null", result);
@@ -84,8 +84,8 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
         return deploymentScriptResultAsserter;
     }
 
-    protected ScriptExecutionResultDAO getFlexibleSearchScriptExecutionResultDao() {
-        return flexibleSearchScriptExecutionResultDao;
+    protected ScriptExecutionResultDAO getScriptExecutionResultDAO() {
+        return scriptExecutionResultDAO;
     }
 
     private MediaModel findMediaOnlineCatalog() {

@@ -16,6 +16,16 @@ INSERT ScriptExecutionResult;name[unique=true];canBeRunnedAgain[forceWrite=true]
                             ;SUCCESS_MULTIPLE_RUNS;true;"Success (multiple runs)";
 #% endif:
 
+#% if: de.hybris.platform.core.Registry.getApplicationContext().getBean(de.hybris.platform.servicelayer.search.FlexibleSearchService.class).search("SELECT {r.PK} FROM {ScriptExecutionResult as r} WHERE {r.name} = 'WILL_BE_EXECUTED'").getCount() == 0;
+INSERT ScriptExecutionResult;name[unique=true];canBeRunnedAgain[forceWrite=true];description[lang=en];
+                            ;WILL_BE_EXECUTED;true;"Will be executed";
+#% endif:
+
+#% if: de.hybris.platform.core.Registry.getApplicationContext().getBean(de.hybris.platform.servicelayer.search.FlexibleSearchService.class).search("SELECT {r.PK} FROM {ScriptExecutionResult as r} WHERE {r.name} = 'IGNORED_REMOVED_ON_DISK'").getCount() == 0;
+INSERT ScriptExecutionResult;name[unique=true];canBeRunnedAgain[forceWrite=true];description[lang=en];
+                            ;IGNORED_REMOVED_ON_DISK;true;"Ignored: Removed on disk";
+#% endif:
+
 #% if: de.hybris.platform.core.Registry.getApplicationContext().getBean(de.hybris.platform.servicelayer.search.FlexibleSearchService.class).search("SELECT {e.PK} FROM {DeploymentEnvironment as e} ").getCount() == 0;
 # These are the out-of-box environments. They may be changed using a deployment script.
 INSERT DeploymentEnvironment;name[unique=true];description[lang=en];

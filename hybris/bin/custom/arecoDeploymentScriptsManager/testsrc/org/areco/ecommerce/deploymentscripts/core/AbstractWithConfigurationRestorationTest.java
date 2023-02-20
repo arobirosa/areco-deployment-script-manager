@@ -46,7 +46,7 @@ public abstract class AbstractWithConfigurationRestorationTest extends Servicela
     private DeploymentScriptStarter deploymentScriptStarter;
 
     @Resource
-    private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
+    private ScriptExecutionResultDAO scriptExecutionResultDAO;
 
     @Resource
     private DeploymentConfigurationSetter deploymentConfigurationSetter;
@@ -88,7 +88,7 @@ public abstract class AbstractWithConfigurationRestorationTest extends Servicela
         return this.deploymentScriptStarter;
     }
 
-    protected ScriptExecutionResultDAO getFlexibleSearchScriptExecutionResultDao() {
-        return this.flexibleSearchScriptExecutionResultDao;
+    protected ScriptExecutionResultDAO getScriptExecutionResultDAO() {
+        return this.scriptExecutionResultDAO;
     }
 }

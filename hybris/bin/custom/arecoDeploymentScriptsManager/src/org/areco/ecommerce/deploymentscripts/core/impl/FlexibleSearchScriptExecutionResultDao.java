@@ -25,9 +25,7 @@ import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -37,8 +35,6 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author arobirosa
  */
-@Scope("tenant")
-@Repository("flexibleSearchScriptExecutionResultDao")
 public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionResultDAO {
     private static final Logger LOG = LoggerFactory.getLogger(FlexibleSearchScriptExecutionResultDao.class);
 
@@ -52,7 +48,11 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 
     private static final String IGNORED_NOT_FOR_THIS_TENANT = "IGNORED_NOT_FOR_THIS_TENANT";
 
-    private static final int NUMBER_OF_RESULT_INSTANCES = 5;
+    private static final String IGNORED_REMOVED_ON_DISK = "IGNORED_REMOVED_ON_DISK";
+
+    private static final String WILL_BE_EXECUTED = "WILL_BE_EXECUTED";
+
+    private static final int NUMBER_OF_RESULT_INSTANCES = 7;
 
     private Map<String, ScriptExecutionResultModel> resultsByCode;
 
@@ -169,4 +169,19 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
         return this.getResult(IGNORED_NOT_FOR_THIS_TENANT);
     }
 
+    /*
+     * { @InheritDoc }
+     */
+    @Override
+    public ScriptExecutionResultModel getIgnoredRemovedOnDisk() {
+        return this.getResult(IGNORED_REMOVED_ON_DISK);
+    }
+
+    /*
+     * { @InheritDoc }
+     */
+    @Override
+    public ScriptExecutionResultModel getWillBeExecuted() {
+        return this.getResult(WILL_BE_EXECUTED);
+    }
 }

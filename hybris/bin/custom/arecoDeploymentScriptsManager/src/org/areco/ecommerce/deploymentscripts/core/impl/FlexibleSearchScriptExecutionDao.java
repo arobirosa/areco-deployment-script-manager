@@ -18,6 +18,7 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
+import org.apache.commons.lang3.StringUtils;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
@@ -28,6 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -43,11 +45,11 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(FlexibleSearchScriptExecutionDao.class);
 
-    @Autowired
+    @Resource
     private FlexibleSearchService flexibleSearchService;
 
     @Autowired
-    private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
+    private ScriptExecutionResultDAO scriptExecutionResultDAO;
 
     /*
      * { @InheritDoc }
@@ -111,10 +113,49 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
             return true;
         }
         final ScriptExecutionModel lastScript = result.getResult().iterator().next();
-        final boolean hadErrors = this.flexibleSearchScriptExecutionResultDao.getErrorResult().equals(lastScript.getResult());
+        final boolean hadErrors = this.scriptExecutionResultDAO.getErrorResult().equals(lastScript.getResult());
         if (LOG.isDebugEnabled()) {
             LOG.debug("Had the last script errors? {}", hadErrors);
         }
         return !hadErrors;
+    }
+
+    @Override
+    public ScriptExecutionModel getLastExecution(final String extensionName, final String scriptName) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Looking for the last execution of the script from extension {} with the name {}", extensionName, scriptName);
+        }
+        if (StringUtils.isBlank(extensionName)) {
+            throw new IllegalArgumentException("The parameter extensionName is blank");
+        }
+        if (StringUtils.isBlank(scriptName)) {
+            throw new IllegalArgumentException("The parameter scriptName is blank");
+        }
+
+        final StringBuilder queryBuilder = new StringBuilder(36);
+
+        // The creation time is unreliable because on fast machines two items can have the same creation time.
+        queryBuilder.append("SELECT {e.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
+                .append("as e} WHERE {e.").append(ScriptExecutionModel.EXTENSIONNAME).append("} ?").append(ScriptExecutionModel.EXTENSIONNAME)
+                .append("as e} WHERE {e.").append(ScriptExecutionModel.SCRIPTNAME).append("} ?").append(ScriptExecutionModel.SCRIPTNAME)
+                .append("} ORDER BY {pk} DESC");
+
+        if (LOG.isTraceEnabled()) {
+            LOG.trace("Executing the query: '{}'.", queryBuilder);
+        }
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
+        query.setCount(1); // The first range must have one element.
+        query.setNeedTotal(false);
+        query.addQueryParameter(ScriptExecutionModel.EXTENSIONNAME, extensionName);
+        query.addQueryParameter(ScriptExecutionModel.SCRIPTNAME, scriptName);
+
+        final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
+        if (result.getCount() == 0) {
+            if (LOG.isTraceEnabled()) {
+                LOG.trace("No script was run. Returning null.");
+            }
+            return null;
+        }
+        return result.getResult().iterator().next();
     }
 }
