@@ -23,7 +23,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.junit.Assert;
@@ -57,7 +57,7 @@ public final class DeploymentScriptResultAsserter {
     private FlexibleSearchService flexibleSearchService;
 
     @Resource
-    private ScriptExecutionResultDAO scriptExecutionResultDAO;
+    private ScriptExecutionResultDao scriptExecutionResultDao;
 
     /**
      * It checks is the given deployment script has the expected result.
@@ -153,7 +153,7 @@ public final class DeploymentScriptResultAsserter {
      */
     public void assertSuccessfulResult(final String deploymentScriptName) {
         isScriptNameParameterValid(deploymentScriptName);
-        this.assertResult(deploymentScriptName, this.scriptExecutionResultDAO.getSuccessResult());
+        this.assertResult(deploymentScriptName, this.scriptExecutionResultDao.getSuccessResult());
     }
 
     /**
@@ -163,7 +163,7 @@ public final class DeploymentScriptResultAsserter {
      */
     public void assertErrorResult(final String deploymentScriptName) {
         isScriptNameParameterValid(deploymentScriptName);
-        this.assertResult(deploymentScriptName, this.scriptExecutionResultDAO.getErrorResult());
+        this.assertResult(deploymentScriptName, this.scriptExecutionResultDao.getErrorResult());
     }
 
     /**
@@ -185,7 +185,7 @@ public final class DeploymentScriptResultAsserter {
         }
 
         final Pattern compiledStacktracePattern = Pattern.compile(loadedPattern, Pattern.DOTALL);
-        final ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, this.scriptExecutionResultDAO.getErrorResult());
+        final ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, this.scriptExecutionResultDao.getErrorResult());
 
         final Matcher stacktraceMatcher = compiledStacktracePattern.matcher(executionOfTheScript.getFullStacktrace());
 

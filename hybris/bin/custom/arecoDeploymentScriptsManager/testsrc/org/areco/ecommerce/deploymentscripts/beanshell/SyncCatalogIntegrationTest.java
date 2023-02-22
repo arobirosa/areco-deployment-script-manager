@@ -8,7 +8,7 @@ import de.hybris.platform.servicelayer.ServicelayerTest;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentConfigurationSetter;
 import org.areco.ecommerce.deploymentscripts.testhelper.DeploymentScriptResultAsserter;
 import org.junit.After;
@@ -40,7 +40,7 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
     @Resource
     private DeploymentScriptStarter deploymentScriptStarter;
     @Resource
-    private ScriptExecutionResultDAO scriptExecutionResultDAO;
+    private ScriptExecutionResultDao scriptExecutionResultDao;
 
     @Before
     public void saveOldFolders() {
@@ -74,7 +74,7 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
         final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
         Assert.assertFalse("There were errors", wereThereErrors);
         getDeploymentScriptResultAsserter().assertResult("14112018_Ticket49",
-                this.getScriptExecutionResultDAO().getSuccessResult());
+                this.getScriptExecutionResultDao().getSuccessResult());
         final MediaModel result = findMediaOnlineCatalog(
         );
         Assert.assertNotNull("The result is null", result);
@@ -84,8 +84,8 @@ public class SyncCatalogIntegrationTest extends ServicelayerTest {
         return deploymentScriptResultAsserter;
     }
 
-    protected ScriptExecutionResultDAO getScriptExecutionResultDAO() {
-        return scriptExecutionResultDAO;
+    protected ScriptExecutionResultDao getScriptExecutionResultDao() {
+        return scriptExecutionResultDao;
     }
 
     private MediaModel findMediaOnlineCatalog() {

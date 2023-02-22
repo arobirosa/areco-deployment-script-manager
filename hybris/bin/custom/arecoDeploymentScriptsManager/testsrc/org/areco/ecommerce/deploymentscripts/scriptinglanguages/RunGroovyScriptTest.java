@@ -35,7 +35,7 @@ public class RunGroovyScriptTest extends AbstractWithConfigurationRestorationTes
         this.getDeploymentConfigurationSetter().setEnvironment("DEV");
         final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
         Assert.assertFalse("There were errors", wereThereErrors);
-        getDeploymentScriptResultAsserter().assertResult("2015902_TICKET_GROOVY", this.getScriptExecutionResultDAO().getSuccessResult());
+        getDeploymentScriptResultAsserter().assertResult("2015902_TICKET_GROOVY", this.getScriptExecutionResultDao().getSuccessResult());
     }
 
     @Test

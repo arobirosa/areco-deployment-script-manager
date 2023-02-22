@@ -24,14 +24,12 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
 import org.areco.ecommerce.deploymentscripts.core.ScriptResult;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.PrintWriter;
@@ -48,8 +46,6 @@ import static java.util.Objects.nonNull;
  *
  * @author arobirosa
  */
-@Service
-@Scope("tenant")
 public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArecoDeploymentScriptsRunner.class);
@@ -66,7 +62,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
     private Converter<DeploymentScript, ScriptExecutionModel> deploymentScript2ExecutionConverter;
 
     @Resource
-    private ScriptExecutionResultDAO scriptExecutionResultDao;
+    private ScriptExecutionResultDao scriptExecutionResultDao;
 
     @Resource
     private ScriptExecutionDao flexibleSearchScriptExecutionDao;

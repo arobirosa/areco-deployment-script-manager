@@ -23,14 +23,12 @@ import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptService;
 import org.areco.ecommerce.deploymentscripts.core.InitialConfigurationImporter;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -40,16 +38,14 @@ import java.util.List;
  *
  * @author arobirosa
  */
-@Service
-@Scope("tenant")
 public class ArecoDeploymentScriptService implements DeploymentScriptService {
     private static final Logger LOG = LoggerFactory.getLogger(ArecoDeploymentScriptService.class);
 
     @Resource
-    private DeploymentScriptFinder arecoDeploymentScriptFinder;
+    private DeploymentScriptFinder deploymentScriptFinder;
 
     @Resource
-    private DeploymentScriptRunner runner;
+    private DeploymentScriptRunner deploymentScriptRunner;
 
     @Resource
     private InitialConfigurationImporter initialConfigurationImporter;
@@ -58,7 +54,7 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
     private ScriptExecutionDao scriptExecutionDao;
 
     @Resource
-    private ScriptExecutionResultDAO scriptExecutionResultDAO;
+    private ScriptExecutionResultDao scriptExecutionResultDao;
 
     @Resource
     private ExtensionHelper extensionHelper;
@@ -83,7 +79,7 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Looking for pending update scripts in the extension {}", context.getExtensionName());
         }
-        final List<DeploymentScript> scriptsToBeRun = this.arecoDeploymentScriptFinder.getPendingScripts(
+        final List<DeploymentScript> scriptsToBeRun = this.deploymentScriptFinder.getPendingScripts(
                 context.getExtensionName(), context.getProcess(), runInitScripts);
         boolean wasThereAnError = false;
         if (scriptsToBeRun.isEmpty()) {
@@ -94,7 +90,7 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Running update scripts of the extension {}", context.getExtensionName());
             }
-            wasThereAnError = this.runner.run(context, scriptsToBeRun);
+            wasThereAnError = this.deploymentScriptRunner.run(context, scriptsToBeRun);
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Finished running update scripts of the extension {}", context.getExtensionName());
             }
@@ -109,16 +105,16 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Looking for update scripts which were removed on disk in the extension {}", extensionName);
         }
-        final List<String> existingUpdateScriptDirectories = arecoDeploymentScriptFinder.getExistingScriptDirectoryNames(extensionName, false);
+        final List<String> existingUpdateScriptDirectories = deploymentScriptFinder.getExistingScriptDirectoryNames(extensionName, false);
         for (final ScriptExecutionModel pendingExecution : scriptExecutionDao.findErrorOrPendingExecutionsOnMostRecentOrder(extensionName)) {
             if (!existingUpdateScriptDirectories.contains(pendingExecution.getScriptName())) {
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("Setting {} as removed on disk", pendingExecution.getScriptName());
                 }
-                pendingExecution.setResult(scriptExecutionResultDAO.getIgnoredRemovedOnDisk());
+                pendingExecution.setResult(scriptExecutionResultDao.getIgnoredRemovedOnDisk());
                 this.modelService.save(pendingExecution);
             }
-            if (scriptExecutionResultDAO.getErrorResult().equals(pendingExecution.getResult())) {
+            if (scriptExecutionResultDao.getErrorResult().equals(pendingExecution.getResult())) {
                 // Keep the most recent execution with an error of a deployment script which exists on disk.
                 if (LOG.isDebugEnabled()) {
                     LOG.debug("Leaving the failed execution of {} untouched", pendingExecution.getScriptName());

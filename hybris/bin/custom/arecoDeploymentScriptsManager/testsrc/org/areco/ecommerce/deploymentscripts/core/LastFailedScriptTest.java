@@ -52,7 +52,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
         // Then
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
         deploymentScriptResultAsserter.assertErrorResult("20150513_PENDING_SCRIPT_WRONG");
-        deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDAO().getWillBeExecuted());
+        deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDao().getWillBeExecuted());
         Assert.assertFalse("The last script must fail", arecoDeploymentScriptService.wasLastScriptSuccessful());
     }
 
@@ -63,7 +63,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
         antDeploymentScriptsStarter.runPendingScripts();
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
         deploymentScriptResultAsserter.assertErrorResult("20150513_PENDING_SCRIPT_WRONG");
-        deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDAO().getWillBeExecuted());
+        deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDao().getWillBeExecuted());
         Assert.assertFalse("The last script must fail", arecoDeploymentScriptService.wasLastScriptSuccessful());
         // Change the script directory. Now 20150513_PENDING_SCRIPT_WRONG don't exist on Disk
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "with-removed-error-script-on-disk");
@@ -73,7 +73,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
 
         // Then
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
-        deploymentScriptResultAsserter.assertResult("20150513_PENDING_SCRIPT_WRONG", getScriptExecutionResultDAO().getIgnoredRemovedOnDisk());
+        deploymentScriptResultAsserter.assertResult("20150513_PENDING_SCRIPT_WRONG", getScriptExecutionResultDao().getIgnoredRemovedOnDisk());
         deploymentScriptResultAsserter.assertSuccessfulResult("20230220_WILL_BE_EXECUTED");
         Assert.assertTrue("The last script must succeed", arecoDeploymentScriptService.wasLastScriptSuccessful());
     }
@@ -85,14 +85,14 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
         antDeploymentScriptsStarter.runPendingScripts();
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
         deploymentScriptResultAsserter.assertErrorResult("20150513_PENDING_SCRIPT_WRONG");
-        deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDAO().getWillBeExecuted());
+        deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDao().getWillBeExecuted());
         Assert.assertFalse("The last script must fail", arecoDeploymentScriptService.wasLastScriptSuccessful());
 
         // Change the script directory. Now 20150513_PENDING_SCRIPT_WRONG don't exist on Disk
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "with-removed-error-script-on-disk");
         antDeploymentScriptsStarter.runPendingScripts();
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
-        deploymentScriptResultAsserter.assertResult("20150513_PENDING_SCRIPT_WRONG", getScriptExecutionResultDAO().getIgnoredRemovedOnDisk());
+        deploymentScriptResultAsserter.assertResult("20150513_PENDING_SCRIPT_WRONG", getScriptExecutionResultDao().getIgnoredRemovedOnDisk());
         deploymentScriptResultAsserter.assertSuccessfulResult("20230220_WILL_BE_EXECUTED");
         Assert.assertTrue("The last script must succeed", arecoDeploymentScriptService.wasLastScriptSuccessful());
 
@@ -114,7 +114,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
         antDeploymentScriptsStarter.runPendingScripts();
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
         deploymentScriptResultAsserter.assertErrorResult("20150513_PENDING_SCRIPT_WRONG");
-        deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDAO().getWillBeExecuted());
+        deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDao().getWillBeExecuted());
         Assert.assertFalse("The last script must fail", arecoDeploymentScriptService.wasLastScriptSuccessful());
         // Change the script directory. Now 20150513_PENDING_SCRIPT_WRONG don't exist on Disk
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "with-removed-will-be-executed-script-on-disk");
@@ -125,7 +125,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
         // Then
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
         deploymentScriptResultAsserter.assertSuccessfulResult("20150513_PENDING_SCRIPT_WRONG");
-        deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDAO().getIgnoredRemovedOnDisk());
+        deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDao().getIgnoredRemovedOnDisk());
         Assert.assertTrue("The last script must succeed", arecoDeploymentScriptService.wasLastScriptSuccessful());
     }
 
@@ -136,7 +136,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
         antDeploymentScriptsStarter.runPendingScripts();
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
         deploymentScriptResultAsserter.assertErrorResult("20150513_PENDING_SCRIPT_WRONG");
-        deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDAO().getWillBeExecuted());
+        deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDao().getWillBeExecuted());
         Assert.assertFalse("The last script must fail", arecoDeploymentScriptService.wasLastScriptSuccessful());
         // Change the script directory. Now 20150513_PENDING_SCRIPT_WRONG don't exist on Disk
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "with-removed-failed-and-will-be-executed-script-on-disk");
@@ -146,8 +146,8 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
 
         // Then
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
-        deploymentScriptResultAsserter.assertResult("20150513_PENDING_SCRIPT_WRONG", getScriptExecutionResultDAO().getIgnoredRemovedOnDisk());
-        deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDAO().getIgnoredRemovedOnDisk());
+        deploymentScriptResultAsserter.assertResult("20150513_PENDING_SCRIPT_WRONG", getScriptExecutionResultDao().getIgnoredRemovedOnDisk());
+        deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDao().getIgnoredRemovedOnDisk());
         Assert.assertTrue("The last script must succeed", arecoDeploymentScriptService.wasLastScriptSuccessful());
     }
 }

@@ -59,9 +59,22 @@
         <lookup-method name="createConfiguration" bean="propertyFileDeploymentScriptConfiguration" />
     </bean>
 
-    <alias name="flexibleSearchScriptExecutionResultDao" alias="scriptExecutionResultDAO" />
+    <alias name="arecoDeploymentScriptsRunner" alias="deploymentScriptRunner" />
+    <bean id="arecoDeploymentScriptsRunner" class="org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptsRunner" />
+
+    <alias name="arecoDeploymentScriptService" alias="deploymentScriptService" />
+    <bean id="arecoDeploymentScriptService" class="org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptService" />
+
+    <alias name="flexibleSearchScriptExecutionResultDao" alias="scriptExecutionResultDao" />
     <bean id="flexibleSearchScriptExecutionResultDao" class="org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchScriptExecutionResultDao" />
 
+    <alias name="impexInitialConfigurationImporter" alias="initialConfigurationImporter" />
+    <bean id="impexInitialConfigurationImporter" class="org.areco.ecommerce.deploymentscripts.core.impl.ImpexInitialConfigurationImporter" />
+    
+    <alias name="flexibleSearchScriptExecutionDao" alias="scriptExecutionDao" />
+    <bean id="flexibleSearchScriptExecutionDao" class="org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchScriptExecutionDao" />
+
+    <alias name="arecoDeploymentScriptFinder" alias="deploymentScriptFinder" />
     <bean id="arecoDeploymentScriptFinder"
           class="org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptFinder"
           scope="tenant">

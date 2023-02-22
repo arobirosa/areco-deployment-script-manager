@@ -22,16 +22,15 @@ import de.hybris.platform.servicelayer.i18n.CommonI18NService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
 import org.areco.ecommerce.deploymentscripts.core.InitialConfigurationImporter;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.File;
 
 /**
@@ -39,8 +38,6 @@ import java.io.File;
  *
  * @author arobirosa
  */
-@Scope("tenant")
-@Service
 public class ImpexInitialConfigurationImporter implements InitialConfigurationImporter {
 
     private static final Logger LOG = LoggerFactory.getLogger(ImpexInitialConfigurationImporter.class);
@@ -51,8 +48,8 @@ public class ImpexInitialConfigurationImporter implements InitialConfigurationIm
 
     private static final String INITIAL_CONFIGURATION_FILE_GERMAN = "initial-configuration-de.impex";
 
-    @Autowired
-    private ScriptExecutionResultDAO scriptExecutionResultDAO;
+    @Resource
+    private ScriptExecutionResultDao scriptExecutionResultDao;
 
     @Autowired
     private ImpexImportService impexImportService;
@@ -75,7 +72,7 @@ public class ImpexInitialConfigurationImporter implements InitialConfigurationIm
             }
             return;
         }
-        if (this.scriptExecutionResultDAO.theInitialResultsWereImported()) {
+        if (this.scriptExecutionResultDao.theInitialResultsWereImported()) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("The initial configuration was already imported.");
             }
@@ -98,7 +95,7 @@ public class ImpexInitialConfigurationImporter implements InitialConfigurationIm
         }
 
         // Reload of the results.
-        this.scriptExecutionResultDAO.initialize();
+        this.scriptExecutionResultDao.initialize();
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("The initial configuration was successfully imported.");

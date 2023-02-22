@@ -23,7 +23,7 @@ import org.springframework.lang.NonNull;
  *
  * @author arobirosa
  */
-public interface ScriptExecutionResultDAO {
+public interface ScriptExecutionResultDao {
 
     /**
      * Returns the instance which represents an error.

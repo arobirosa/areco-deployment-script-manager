@@ -20,7 +20,7 @@ import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +43,7 @@ public class DeploymentScript2ExecutionConverter implements Converter<Deployment
     private ModelService modelService;
 
     @Resource
-    private ScriptExecutionResultDAO scriptExecutionResultDAO;
+    private ScriptExecutionResultDao scriptExecutionResultDao;
 
     /*
      * (non-Javadoc)
@@ -70,7 +70,7 @@ public class DeploymentScript2ExecutionConverter implements Converter<Deployment
         }
         execution.setExtensionName(source.getExtensionName());
         execution.setScriptName(source.getName());
-        execution.setResult(scriptExecutionResultDAO.getWillBeExecuted());
+        execution.setResult(scriptExecutionResultDao.getWillBeExecuted());
         execution.setPhase(source.getPhase());
 
         return execution;

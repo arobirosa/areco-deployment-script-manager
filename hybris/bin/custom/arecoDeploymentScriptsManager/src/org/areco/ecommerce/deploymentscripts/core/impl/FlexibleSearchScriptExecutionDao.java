@@ -20,14 +20,12 @@ import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import org.apache.commons.lang3.StringUtils;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -43,8 +41,6 @@ import static java.util.Objects.isNull;
  *
  * @author arobirosa
  */
-@Repository
-@Scope("tenant")
 public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(FlexibleSearchScriptExecutionDao.class);
@@ -54,7 +50,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
     private FlexibleSearchService flexibleSearchService;
 
     @Autowired
-    private ScriptExecutionResultDAO scriptExecutionResultDAO;
+    private ScriptExecutionResultDao scriptExecutionResultDao;
 
     private List<ScriptExecutionResultModel> errorAndWillBeExecutedResults;
 
@@ -112,7 +108,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
         query.setCount(1); // The first range must have one element.
         query.setNeedTotal(false);
-        query.addQueryParameter("willBeExecutedResult", scriptExecutionResultDAO.getWillBeExecuted());
+        query.addQueryParameter("willBeExecutedResult", scriptExecutionResultDao.getWillBeExecuted());
 
         final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
         if (result.getCount() == 0) {
@@ -122,7 +118,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
             return true;
         }
         final ScriptExecutionModel lastScript = result.getResult().iterator().next();
-        final boolean hadErrors = this.scriptExecutionResultDAO.getErrorResult().equals(lastScript.getResult());
+        final boolean hadErrors = this.scriptExecutionResultDao.getErrorResult().equals(lastScript.getResult());
         if (LOG.isDebugEnabled()) {
             LOG.debug("Had the last script errors? {}", hadErrors);
         }
@@ -202,14 +198,14 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
     private List<ScriptExecutionResultModel> getErrorAndWillBeExecutedResults() {
         final ArrayList<ScriptExecutionResultModel> results = new ArrayList<>(this.getErrorAndRemovedOnDiskAndWillBeExecutedResults());
-        results.remove(scriptExecutionResultDAO.getIgnoredRemovedOnDisk());
+        results.remove(scriptExecutionResultDao.getIgnoredRemovedOnDisk());
         return results;
     }
 
     private List<ScriptExecutionResultModel> getErrorAndRemovedOnDiskAndWillBeExecutedResults() {
         if (isNull(this.errorAndWillBeExecutedResults)) {
-            this.errorAndWillBeExecutedResults = Arrays.asList(scriptExecutionResultDAO.getErrorResult(),
-                    scriptExecutionResultDAO.getWillBeExecuted(), scriptExecutionResultDAO.getIgnoredRemovedOnDisk());
+            this.errorAndWillBeExecutedResults = Arrays.asList(scriptExecutionResultDao.getErrorResult(),
+                    scriptExecutionResultDao.getWillBeExecuted(), scriptExecutionResultDao.getIgnoredRemovedOnDisk());
         }
         return this.errorAndWillBeExecutedResults;
     }

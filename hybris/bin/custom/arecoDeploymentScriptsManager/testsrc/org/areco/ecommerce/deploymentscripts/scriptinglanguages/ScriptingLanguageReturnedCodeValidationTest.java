@@ -22,7 +22,7 @@ public class ScriptingLanguageReturnedCodeValidationTest extends AbstractWithCon
         final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
         Assert.assertFalse("There were errors", wereThereErrors);
         getDeploymentScriptResultAsserter()
-                .assertResult("20190807_54_GROOVY_RETURN_OK", this.getScriptExecutionResultDAO().getSuccessResult());
+                .assertResult("20190807_54_GROOVY_RETURN_OK", this.getScriptExecutionResultDao().getSuccessResult());
     }
 
     @Test
