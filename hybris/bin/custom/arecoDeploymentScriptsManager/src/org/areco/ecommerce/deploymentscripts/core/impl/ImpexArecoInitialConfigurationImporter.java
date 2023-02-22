@@ -21,7 +21,7 @@ import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
 import de.hybris.platform.servicelayer.i18n.CommonI18NService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScriptsManagerConstants;
-import org.areco.ecommerce.deploymentscripts.core.InitialConfigurationImporter;
+import org.areco.ecommerce.deploymentscripts.core.ArecoInitialConfigurationImporter;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
 import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
@@ -38,9 +38,9 @@ import java.io.File;
  *
  * @author arobirosa
  */
-public class ImpexInitialConfigurationImporter implements InitialConfigurationImporter {
+public class ImpexArecoInitialConfigurationImporter implements ArecoInitialConfigurationImporter {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ImpexInitialConfigurationImporter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ImpexArecoInitialConfigurationImporter.class);
 
     private static final String RESOURCES_FOLDER = "/resources";
 

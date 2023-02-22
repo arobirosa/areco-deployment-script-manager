@@ -17,11 +17,11 @@ package org.areco.ecommerce.deploymentscripts.core.impl;
 
 import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
+import org.areco.ecommerce.deploymentscripts.core.ArecoInitialConfigurationImporter;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptService;
-import org.areco.ecommerce.deploymentscripts.core.InitialConfigurationImporter;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
@@ -48,7 +48,7 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
     private DeploymentScriptRunner deploymentScriptRunner;
 
     @Resource
-    private InitialConfigurationImporter initialConfigurationImporter;
+    private ArecoInitialConfigurationImporter arecoInitialConfigurationImporter;
 
     @Resource
     private ScriptExecutionDao scriptExecutionDao;
@@ -74,7 +74,7 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
         if (this.extensionHelper.isDeploymentManagerExtensionTurnedOff()) {
             return false;
         }
-        this.initialConfigurationImporter.importConfigurationIfRequired(context);
+        this.arecoInitialConfigurationImporter.importConfigurationIfRequired(context);
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("Looking for pending update scripts in the extension {}", context.getExtensionName());

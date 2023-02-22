@@ -21,7 +21,7 @@ package org.areco.ecommerce.deploymentscripts.core;
  *
  * @author arobirosa
  */
-public interface InitialConfigurationImporter {
+public interface ArecoInitialConfigurationImporter {
     /**
      * It imports the initial objects if the haven't been imported yet. It throws an exception is there was an error.
      *
