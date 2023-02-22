@@ -23,7 +23,7 @@ import java.util.Locale;
 /**
  * Creates a new impexDeploymentScriptStep if the given file is a impex script.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 // The configuration of this bean is in the spring application context.
 public abstract class ImpexImportStepFactory extends AbstractSingleFileScriptStepFactory {

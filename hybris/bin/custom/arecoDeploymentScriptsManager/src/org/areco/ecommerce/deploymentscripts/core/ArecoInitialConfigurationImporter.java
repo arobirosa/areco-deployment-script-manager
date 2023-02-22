@@ -19,7 +19,7 @@ package org.areco.ecommerce.deploymentscripts.core;
  * It is responsible for the import of the objects required by the extension. We don't use the ImpexManager automated import of impex scripts because it is
  * implemented using the Jalo Layer.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public interface ArecoInitialConfigurationImporter {
     /**

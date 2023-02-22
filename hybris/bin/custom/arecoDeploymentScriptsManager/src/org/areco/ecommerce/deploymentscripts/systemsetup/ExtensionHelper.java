@@ -32,7 +32,7 @@ import java.util.List;
  * <p/>
  * TODO Find a clear responsibility for this class.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @Scope("tenant")
 @Component

@@ -33,7 +33,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Default implementation which looks for the instances using flexible search.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionResultDao {
     private static final Logger LOG = LoggerFactory.getLogger(FlexibleSearchScriptExecutionResultDao.class);

@@ -42,7 +42,7 @@ import java.util.Set;
 /**
  * It reads the configuration contained in a property file with the extension conf in the folder of the script.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 // The configuration of this bean is in the spring application context.
 public abstract class PropertyFileDeploymentScriptConfigurationReader implements DeploymentScriptConfigurationReader {

@@ -24,7 +24,7 @@ import javax.annotation.Resource;
  * It checks that the groovy scripts are working correctly.
  * The class can not synchronize with transaction, hence no transactions will be performed
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @IntegrationTest
 public class SyncCatalogIntegrationTest extends ServicelayerTest {

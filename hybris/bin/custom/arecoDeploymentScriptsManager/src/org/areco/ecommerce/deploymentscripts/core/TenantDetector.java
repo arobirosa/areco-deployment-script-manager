@@ -20,7 +20,7 @@ import de.hybris.platform.core.Tenant;
 /**
  * It find out how many tenants are in the environment and checks if the integration tests are run in a single tenant system.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public interface TenantDetector {
     /**

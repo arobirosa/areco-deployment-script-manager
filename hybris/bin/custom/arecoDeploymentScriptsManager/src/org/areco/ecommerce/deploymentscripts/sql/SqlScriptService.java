@@ -20,7 +20,7 @@ import java.sql.SQLException;
 /**
  * It runs raw SQL code.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public interface SqlScriptService {
     /**

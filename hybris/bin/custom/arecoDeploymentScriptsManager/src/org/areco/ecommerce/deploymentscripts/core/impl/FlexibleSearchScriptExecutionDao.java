@@ -37,7 +37,7 @@ import static java.util.Objects.isNull;
 /**
  * Default implementation of the dao.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals") // Without constants the query is easier to read
 public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {

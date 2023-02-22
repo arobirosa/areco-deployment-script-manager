@@ -28,7 +28,7 @@ import javax.annotation.Resource;
  * It checks if the detection of the failure of the last script is working correctly.
  * <p/>
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @IntegrationTest
 @SuppressWarnings("PMD.AvoidDuplicateLiterals") // Without constants the query is easier to read

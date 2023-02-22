@@ -30,7 +30,7 @@ import javax.annotation.Resource;
 /**
  * It restores the configuration of the manager, for example, the folders after the test.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @IntegrationTest
 @Ignore

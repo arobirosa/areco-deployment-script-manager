@@ -24,7 +24,7 @@ import org.junit.Test;
  * It checks if the beanshell service handles the returned codes from the script correctly.
  * <p>
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @IntegrationTest
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert") //This test asserts using the asserter class

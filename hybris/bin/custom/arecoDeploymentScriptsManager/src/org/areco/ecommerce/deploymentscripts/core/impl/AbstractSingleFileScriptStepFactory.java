@@ -25,7 +25,7 @@ import java.io.File;
 /**
  * Its subclasses create the step which only require one single file.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public abstract class AbstractSingleFileScriptStepFactory implements DeploymentScriptStepFactory {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSingleFileScriptStepFactory.class);

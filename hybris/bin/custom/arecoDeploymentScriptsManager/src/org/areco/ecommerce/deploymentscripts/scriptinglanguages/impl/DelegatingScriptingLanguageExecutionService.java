@@ -32,7 +32,7 @@ import java.util.Objects;
 /**
  * This implementation delegates the execution on Hybris' services
  * <p>
- * * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @Service
 @Scope("tenant")

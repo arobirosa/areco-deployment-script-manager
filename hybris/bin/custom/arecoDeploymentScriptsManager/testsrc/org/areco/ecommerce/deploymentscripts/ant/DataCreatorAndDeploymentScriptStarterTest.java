@@ -37,7 +37,7 @@ import static org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScr
  * It checks if the essentialDataCreator triggers the essential data creation and runs the scripts. Hybris cannot change the tenant when we are inside a
  * transaction, because we need transactions, this test only works in single tenant environments.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @IntegrationTest
 public class DataCreatorAndDeploymentScriptStarterTest extends AbstractWithConfigurationRestorationTest {

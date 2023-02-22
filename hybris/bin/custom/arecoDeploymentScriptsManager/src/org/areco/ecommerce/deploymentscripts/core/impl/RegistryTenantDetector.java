@@ -29,7 +29,7 @@ import org.springframework.stereotype.Component;
 /**
  * It uses the Hybris registry to find out how many tenants are in this environment.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @Scope("tenant")
 @Component

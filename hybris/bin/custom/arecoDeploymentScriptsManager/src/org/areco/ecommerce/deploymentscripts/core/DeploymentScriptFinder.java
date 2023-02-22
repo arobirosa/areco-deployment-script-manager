@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * It looks for the deployment scripts.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public interface DeploymentScriptFinder {
 

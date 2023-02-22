@@ -38,7 +38,7 @@ import static java.util.Objects.nonNull;
 /**
  * Represents each folder containing the deployment script.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 // Every time the step factory is called, it creates a new instance.
 @Scope("prototype")

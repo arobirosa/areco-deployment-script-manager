@@ -44,7 +44,7 @@ import java.util.Set;
  * Because of this jalo items are used in this test.
  * <p/>
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @RunWith(HybrisJUnit4ClassRunner.class)
 @RunListeners(

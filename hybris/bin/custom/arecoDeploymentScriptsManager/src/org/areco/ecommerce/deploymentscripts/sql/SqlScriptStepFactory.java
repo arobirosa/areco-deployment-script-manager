@@ -23,7 +23,7 @@ import java.util.Locale;
 /**
  * Creates a new sql step if the given file is a sql7 script.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 // The configuration of this bean is in the spring application context.
 public abstract class SqlScriptStepFactory extends AbstractSingleFileScriptStepFactory {

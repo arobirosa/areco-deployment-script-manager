@@ -20,7 +20,7 @@ import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 /**
  * It represents the definition of the properties of a deployment script
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public interface DeploymentScriptConfiguration {
 

@@ -26,7 +26,7 @@ import java.io.IOException;
 /**
  * It represents a step which only uses one single file.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public abstract class AbstractSingleFileScriptStep implements DeploymentScriptStep {
 

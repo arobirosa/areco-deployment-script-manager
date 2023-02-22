@@ -18,7 +18,7 @@ package org.areco.ecommerce.deploymentscripts.core;
 /**
  * Represent one and only one step of a deployment script.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public interface DeploymentScriptStep {
     /**

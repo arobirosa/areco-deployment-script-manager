@@ -24,7 +24,7 @@ import java.io.IOException;
 /**
  * It checks that the script configuration including the contraints are working correctly.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @IntegrationTest
 @SuppressWarnings("PMD.TooManyMethods") //It a test with many cases

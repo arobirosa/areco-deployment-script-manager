@@ -33,7 +33,7 @@ import java.io.InputStream;
 /**
  * It checks if impex scripts with medias are correctly imported.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public class ImportMediaTest extends AbstractWithConfigurationRestorationTest {
     private static final String RESOURCES_FOLDER = "/resources/test";

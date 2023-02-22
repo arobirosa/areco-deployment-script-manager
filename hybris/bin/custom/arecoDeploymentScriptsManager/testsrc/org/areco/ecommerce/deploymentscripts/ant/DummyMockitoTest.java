@@ -20,7 +20,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @UnitTest
 public class DummyMockitoTest {

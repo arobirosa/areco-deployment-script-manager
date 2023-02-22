@@ -36,7 +36,7 @@ import static org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScr
 /**
  * It checks that the script configuration reader is handling correctly the conversion of the tenants.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @UnitTest
 public class TenantConversionInScriptConfigurationTest {

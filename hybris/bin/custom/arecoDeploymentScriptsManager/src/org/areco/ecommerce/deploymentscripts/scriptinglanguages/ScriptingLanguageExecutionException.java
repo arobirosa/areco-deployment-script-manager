@@ -18,7 +18,7 @@ package org.areco.ecommerce.deploymentscripts.scriptinglanguages;
 /**
  * There was an error while running BeanShell code. The caller has to manage this exception.
  *
- * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public class ScriptingLanguageExecutionException extends Exception {
 
