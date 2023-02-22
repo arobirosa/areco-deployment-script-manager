@@ -31,8 +31,6 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.Objects.isNull;
 
@@ -70,15 +68,13 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
                 .append(ScriptExecutionResultModel.CANBERUNNEDAGAIN).append("} = ?").append(ScriptExecutionResultModel.CANBERUNNEDAGAIN).append(" } ")
                 .append("WHERE ").append(" {es.").append(ScriptExecutionModel.EXTENSIONNAME).append("} = ?").append(ScriptExecutionModel.EXTENSIONNAME);
 
-        final Map<String, Object> queryParams = new ConcurrentHashMap<>();
-        queryParams.put(ScriptExecutionResultModel.CANBERUNNEDAGAIN, Boolean.FALSE);
-        queryParams.put(ScriptExecutionModel.EXTENSIONNAME, extensionName);
-
         if (LOG.isTraceEnabled()) {
-            LOG.trace("Executing the query: '{}' with the parameters {}", queryBuilder, queryParams);
+            LOG.trace("Executing the query: '{}'", queryBuilder);
         }
 
-        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
+        final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
+        query.addQueryParameter(ScriptExecutionResultModel.CANBERUNNEDAGAIN, Boolean.FALSE);
+        query.addQueryParameter(ScriptExecutionModel.EXTENSIONNAME, extensionName);
 
         final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
         return result.getResult();
@@ -100,7 +96,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
         queryBuilder.append("SELECT {e.").append(ScriptExecutionModel.PK).append("}")
                 .append(" FROM {").append(ScriptExecutionModel._TYPECODE)
                 .append(" as e} WHERE {e.").append(ScriptExecutionModel.RESULT).append("} <> ?").append("willBeExecutedResult")
-                .append("} ORDER BY {pk} DESC");
+                .append(" ORDER BY {pk} DESC");
 
         if (LOG.isTraceEnabled()) {
             LOG.trace("Executing the query: '{}'.", queryBuilder);
@@ -141,10 +137,10 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
         // The creation time is unreliable because on fast machines two items can have the same creation time.
         queryBuilder.append("SELECT {e.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
-                .append(" as e} WHERE {e.").append(ScriptExecutionModel.EXTENSIONNAME).append("} ?").append(ScriptExecutionModel.EXTENSIONNAME)
-                .append("} AND {e.").append(ScriptExecutionModel.SCRIPTNAME).append("} ?").append(ScriptExecutionModel.SCRIPTNAME)
-                .append("} AND {e.").append(ScriptExecutionModel.RESULT).append("} NOT IN ?").append("unsuccessfulResults")
-                .append("} ORDER BY {pk} DESC");
+                .append(" as e} WHERE {e.").append(ScriptExecutionModel.EXTENSIONNAME).append("} = ?").append(ScriptExecutionModel.EXTENSIONNAME)
+                .append(" AND {e.").append(ScriptExecutionModel.SCRIPTNAME).append("} = ?").append(ScriptExecutionModel.SCRIPTNAME)
+                .append(" AND {e.").append(ScriptExecutionModel.RESULT).append("} NOT IN (?").append("unsuccessfulResults")
+                .append(") ORDER BY {pk} DESC");
 
         if (LOG.isTraceEnabled()) {
             LOG.trace("Executing the query: '{}'.", queryBuilder);
@@ -178,9 +174,9 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
         // The creation time is unreliable because on fast machines two items can have the same creation time.
         queryBuilder.append("SELECT {e.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
-                .append(" as e} WHERE {e.").append(ScriptExecutionModel.EXTENSIONNAME).append("} ?").append(ScriptExecutionModel.EXTENSIONNAME)
-                .append("} AND {e.").append(ScriptExecutionModel.RESULT).append("} IN ?").append("errorOrPendingResults")
-                .append("} ORDER BY {pk} DESC");
+                .append(" as e} WHERE {e.").append(ScriptExecutionModel.EXTENSIONNAME).append("} = ?").append(ScriptExecutionModel.EXTENSIONNAME)
+                .append(" AND {e.").append(ScriptExecutionModel.RESULT).append("} IN (?").append("errorOrPendingResults")
+                .append(") ORDER BY {pk} DESC");
 
         if (LOG.isTraceEnabled()) {
             LOG.trace("Executing the query: '{}'.", queryBuilder);
