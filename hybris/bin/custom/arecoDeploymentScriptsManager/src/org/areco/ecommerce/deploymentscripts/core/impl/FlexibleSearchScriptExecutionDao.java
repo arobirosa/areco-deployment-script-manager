@@ -39,6 +39,7 @@ import static java.util.Objects.isNull;
  *
  * @author arobirosa
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals") // Without constants the query is easier to read
 public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
 
     private static final Logger LOG = LoggerFactory.getLogger(FlexibleSearchScriptExecutionDao.class);
@@ -90,7 +91,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Checking if the last deployment script was successful");
         }
-        final StringBuilder queryBuilder = new StringBuilder(36);
+        final StringBuilder queryBuilder = new StringBuilder(79);
 
         // The creation time is unreliable because on fast machines two items can have the same creation time.
         queryBuilder.append("SELECT {e.").append(ScriptExecutionModel.PK).append("}")
@@ -133,7 +134,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
             throw new IllegalArgumentException("The parameter scriptName is blank");
         }
 
-        final StringBuilder queryBuilder = new StringBuilder(36);
+        final StringBuilder queryBuilder = new StringBuilder(106);
 
         // The creation time is unreliable because on fast machines two items can have the same creation time.
         queryBuilder.append("SELECT {e.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
@@ -170,7 +171,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
         if (StringUtils.isBlank(extensionName)) {
             throw new IllegalArgumentException("The parameter extensionName is blank");
         }
-        final StringBuilder queryBuilder = new StringBuilder(36);
+        final StringBuilder queryBuilder = new StringBuilder(95);
 
         // The creation time is unreliable because on fast machines two items can have the same creation time.
         queryBuilder.append("SELECT {e.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)

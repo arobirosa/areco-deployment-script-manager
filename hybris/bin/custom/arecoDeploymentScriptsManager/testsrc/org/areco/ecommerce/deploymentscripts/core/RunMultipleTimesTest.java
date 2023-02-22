@@ -25,7 +25,7 @@ import org.junit.Test;
  * @author arobirosa
  */
 @IntegrationTest
-@SuppressWarnings({"PMD.TooManyMethods", "PMD.JUnitTestsShouldIncludeAssert"})
+@SuppressWarnings({"PMD.TooManyMethods", "PMD.JUnitTestsShouldIncludeAssert", "PMD.AvoidDuplicateLiterals"})
 //It a test with many cases. The assert statements are inside a private method.
 public class RunMultipleTimesTest extends AbstractWithConfigurationRestorationTest {
     private static final String RESOURCES_FOLDER = "/resources/test/run-multiple-times";

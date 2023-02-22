@@ -15,6 +15,7 @@ import javax.annotation.Resource;
  * Created by arobirosa on 12.05.15.
  */
 @IntegrationTest
+@SuppressWarnings("PMD.AvoidDuplicateLiterals") // Without constants the query is easier to read
 public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTest {
     private static final String RESOURCES_FOLDER = "/resources/test/last-failed-script-test";
 
