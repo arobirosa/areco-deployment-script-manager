@@ -22,7 +22,7 @@ import java.io.File;
 /**
  * This service is responsible for importing the impex files of the deployment scripts.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public interface ImpexImportService {
     /**

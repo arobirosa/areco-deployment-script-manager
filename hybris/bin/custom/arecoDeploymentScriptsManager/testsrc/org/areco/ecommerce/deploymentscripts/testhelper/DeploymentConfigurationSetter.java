@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component;
 /**
  * It modifies the configuration of the properties during a test and restore them at the end of it.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @Component
 @Scope("tenant")

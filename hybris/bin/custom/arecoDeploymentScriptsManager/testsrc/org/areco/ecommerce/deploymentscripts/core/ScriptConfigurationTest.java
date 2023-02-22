@@ -23,7 +23,7 @@ import org.junit.Test;
 /**
  * It checks that the script configuration including the contraints are working correctly.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @IntegrationTest
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.JUnitTestsShouldIncludeAssert"})
@@ -36,7 +36,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "dev-only");
         this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         runAndAssertNoErrors();
-        getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_DEV_CRONJOBS", this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+        getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_DEV_CRONJOBS", this.getScriptExecutionResultDao().getSuccessResult());
     }
 
     private void runAndAssertNoErrors() {
@@ -49,7 +49,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_TEST_CRONJOBS",
-                this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+                this.getScriptExecutionResultDao().getSuccessResult());
     }
 
     @Test
@@ -58,7 +58,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_PROD_CRONJOBS",
-                this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherEnvironmentResult());
+                this.getScriptExecutionResultDao().getIgnoredOtherEnvironmentResult());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_PROD_CRONJOBS",
-                this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherTenantResult());
+                this.getScriptExecutionResultDao().getIgnoredOtherTenantResult());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_TEST_CRONJOBS",
-                this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherTenantResult());
+                this.getScriptExecutionResultDao().getIgnoredOtherTenantResult());
     }
 
     @Test(expected = DeploymentScriptConfigurationException.class)
@@ -110,7 +110,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setEnvironment("QA_WEBSERVICE");
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_02_TICKET_ADD_QA_CRONJOBS",
-                this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+                this.getScriptExecutionResultDao().getSuccessResult());
     }
 
     @Test

@@ -31,7 +31,7 @@ import org.springframework.stereotype.Service;
 /**
  * It triggers the execution of the deployment scripts.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @Service
 @Scope("tenant")

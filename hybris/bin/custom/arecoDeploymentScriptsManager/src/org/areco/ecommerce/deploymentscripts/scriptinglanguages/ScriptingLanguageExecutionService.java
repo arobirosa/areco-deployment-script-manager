@@ -20,7 +20,7 @@ import java.io.File;
 /**
  * Executes the script files.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public interface ScriptingLanguageExecutionService {
 

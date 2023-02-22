@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.commons.collections4.CollectionUtils;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfiguration;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -33,14 +33,14 @@ import java.util.Set;
 /**
  * It defines special properties of the deployment scripts like where they are allowed to run.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 // Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
 @Component
 public class PropertyFileDeploymentScriptConfiguration implements DeploymentScriptConfiguration {
     @Autowired
-    private ScriptExecutionResultDAO scriptExecutionResultDAO;
+    private ScriptExecutionResultDao scriptExecutionResultDao;
 
     @Autowired
     private DeploymentEnvironmentDAO deploymentEnvironmentDAO;
@@ -64,10 +64,10 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
     @Override
     public ScriptExecutionResultModel reasonToIgnoreExecutionOnThisServer() {
         if (!this.isAllowedInThisTenant()) {
-            return this.scriptExecutionResultDAO.getIgnoredOtherTenantResult();
+            return this.scriptExecutionResultDao.getIgnoredOtherTenantResult();
         }
         if (!this.isAllowedInThisDeploymentEnvironment()) {
-            return this.scriptExecutionResultDAO.getIgnoredOtherEnvironmentResult();
+            return this.scriptExecutionResultDao.getIgnoredOtherEnvironmentResult();
         }
         return null; // We can run this script
     }

@@ -43,7 +43,8 @@ import java.util.Set;
  * WARNING: Models cache the values of their attributes and the method modelService.refresh(model) doesn't work inside an integration test.
  * Because of this jalo items are used in this test.
  * <p/>
- * Created by arobirosa on 24.01.15.
+ *
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @RunWith(HybrisJUnit4ClassRunner.class)
 @RunListeners(

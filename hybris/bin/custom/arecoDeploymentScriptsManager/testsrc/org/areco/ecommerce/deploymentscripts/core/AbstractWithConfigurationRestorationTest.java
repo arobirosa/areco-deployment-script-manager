@@ -30,7 +30,7 @@ import javax.annotation.Resource;
 /**
  * It restores the configuration of the manager, for example, the folders after the test.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @IntegrationTest
 @Ignore
@@ -46,7 +46,7 @@ public abstract class AbstractWithConfigurationRestorationTest extends Servicela
     private DeploymentScriptStarter deploymentScriptStarter;
 
     @Resource
-    private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
+    private ScriptExecutionResultDao scriptExecutionResultDao;
 
     @Resource
     private DeploymentConfigurationSetter deploymentConfigurationSetter;
@@ -88,7 +88,7 @@ public abstract class AbstractWithConfigurationRestorationTest extends Servicela
         return this.deploymentScriptStarter;
     }
 
-    protected ScriptExecutionResultDAO getFlexibleSearchScriptExecutionResultDao() {
-        return this.flexibleSearchScriptExecutionResultDao;
+    protected ScriptExecutionResultDao getScriptExecutionResultDao() {
+        return this.scriptExecutionResultDao;
     }
 }

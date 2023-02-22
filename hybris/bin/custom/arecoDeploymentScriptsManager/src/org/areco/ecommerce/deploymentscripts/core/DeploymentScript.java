@@ -24,11 +24,11 @@ import org.areco.ecommerce.deploymentscripts.enums.SystemPhase;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +38,7 @@ import static java.util.Objects.nonNull;
 /**
  * Represents each folder containing the deployment script.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 // Every time the step factory is called, it creates a new instance.
 @Scope("prototype")
@@ -46,10 +46,10 @@ import static java.util.Objects.nonNull;
 public class DeploymentScript {
     private static final Logger LOG = LoggerFactory.getLogger(DeploymentScript.class);
 
-    @Autowired
-    private ScriptExecutionResultDAO scriptExecutionResultDAO;
+    @Resource
+    private ScriptExecutionResultDao scriptExecutionResultDao;
 
-    @Autowired
+    @Resource
     private TenantService tenantService;
 
     /**
@@ -133,7 +133,7 @@ public class DeploymentScript {
 
     private ScriptResult runOrderedSteps() {
         if (this.getOrderedSteps().isEmpty()) {
-            return new ScriptResult(this.scriptExecutionResultDAO.getErrorResult(), null,
+            return new ScriptResult(this.scriptExecutionResultDao.getErrorResult(), null,
                     new IllegalStateException("The deployment script " + this.getName() + " doesn't have any impex, sql or beanshell files."));
         }
         for (final DeploymentScriptStep aStep : this.getOrderedSteps()) {
@@ -141,16 +141,16 @@ public class DeploymentScript {
             if (!stepResult.isSuccessful()) {
                 LOG.error("There was an error running {}: {}", aStep.getId(), nonNull(stepResult.getException())
                         ? stepResult.getException().getLocalizedMessage() : "NOT EXCEPTION");
-                return new ScriptResult(scriptExecutionResultDAO.getErrorResult(), stepResult.getCronJob(), stepResult.getException());
+                return new ScriptResult(scriptExecutionResultDao.getErrorResult(), stepResult.getCronJob(), stepResult.getException());
             }
         }
         if (LOG.isDebugEnabled()) {
             LOG.debug("Running {} - Ended successfully", this.getLongName());
         }
         if (this.getConfiguration().runsMultipleTimes()) {
-            return new ScriptResult(this.scriptExecutionResultDAO.getSuccessMultipleRunsResult());
+            return new ScriptResult(this.scriptExecutionResultDao.getSuccessMultipleRunsResult());
         } else {
-            return new ScriptResult(this.scriptExecutionResultDAO.getSuccessResult());
+            return new ScriptResult(this.scriptExecutionResultDao.getSuccessResult());
         }
     }
 

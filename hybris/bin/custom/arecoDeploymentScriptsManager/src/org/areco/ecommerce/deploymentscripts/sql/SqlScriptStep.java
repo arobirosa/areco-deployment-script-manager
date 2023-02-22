@@ -29,7 +29,7 @@ import java.sql.SQLException;
 /**
  * Represents an SQL script.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @Component
 // Every time the step factory is called, it creates a new instance.

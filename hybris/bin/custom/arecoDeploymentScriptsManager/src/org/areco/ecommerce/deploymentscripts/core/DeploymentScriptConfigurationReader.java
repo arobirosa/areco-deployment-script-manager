@@ -20,7 +20,7 @@ import java.io.File;
 /**
  * It is responsible for loading the configuration of the deployment script.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public interface DeploymentScriptConfigurationReader {
     /**

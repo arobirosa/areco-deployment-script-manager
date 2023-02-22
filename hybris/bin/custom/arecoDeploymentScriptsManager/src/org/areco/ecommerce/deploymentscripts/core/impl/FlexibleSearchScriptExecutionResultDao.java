@@ -20,14 +20,12 @@ import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.servicelayer.type.TypeService;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,11 +33,9 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Default implementation which looks for the instances using flexible search.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
-@Scope("tenant")
-@Repository("flexibleSearchScriptExecutionResultDao")
-public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionResultDAO {
+public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionResultDao {
     private static final Logger LOG = LoggerFactory.getLogger(FlexibleSearchScriptExecutionResultDao.class);
 
     private static final String SUCCESS = "SUCCESS";
@@ -52,7 +48,11 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
 
     private static final String IGNORED_NOT_FOR_THIS_TENANT = "IGNORED_NOT_FOR_THIS_TENANT";
 
-    private static final int NUMBER_OF_RESULT_INSTANCES = 5;
+    private static final String IGNORED_REMOVED_ON_DISK = "IGNORED_REMOVED_ON_DISK";
+
+    private static final String WILL_BE_EXECUTED = "WILL_BE_EXECUTED";
+
+    private static final int NUMBER_OF_RESULT_INSTANCES = 7;
 
     private Map<String, ScriptExecutionResultModel> resultsByCode;
 
@@ -169,4 +169,19 @@ public class FlexibleSearchScriptExecutionResultDao implements ScriptExecutionRe
         return this.getResult(IGNORED_NOT_FOR_THIS_TENANT);
     }
 
+    /*
+     * { @InheritDoc }
+     */
+    @Override
+    public ScriptExecutionResultModel getIgnoredRemovedOnDisk() {
+        return this.getResult(IGNORED_REMOVED_ON_DISK);
+    }
+
+    /*
+     * { @InheritDoc }
+     */
+    @Override
+    public ScriptExecutionResultModel getWillBeExecuted() {
+        return this.getResult(WILL_BE_EXECUTED);
+    }
 }

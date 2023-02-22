@@ -20,25 +20,30 @@ import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * It takes a deployment script and returns an unsaved ScriptExecutionModel.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @Scope("tenant")
 @Component("deploymentScript2ExecutionConverter")
 public class DeploymentScript2ExecutionConverter implements Converter<DeploymentScript, ScriptExecutionModel> {
     private static final Logger LOG = LoggerFactory.getLogger(DeploymentScript2ExecutionConverter.class);
 
-    @Autowired
+    @Resource
     private ModelService modelService;
+
+    @Resource
+    private ScriptExecutionResultDao scriptExecutionResultDao;
 
     /*
      * (non-Javadoc)
@@ -65,7 +70,7 @@ public class DeploymentScript2ExecutionConverter implements Converter<Deployment
         }
         execution.setExtensionName(source.getExtensionName());
         execution.setScriptName(source.getName());
-        execution.setResult(null); // The caller must set the result before saving the execution.
+        execution.setResult(scriptExecutionResultDao.getWillBeExecuted());
         execution.setPhase(source.getPhase());
 
         return execution;

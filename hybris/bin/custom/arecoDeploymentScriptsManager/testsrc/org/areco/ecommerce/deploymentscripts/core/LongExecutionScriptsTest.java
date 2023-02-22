@@ -22,7 +22,7 @@ import org.junit.Test;
 /**
  * It checks that run multiple time flag of the script configuration is working correctly.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @IntegrationTest
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.JUnitTestsShouldIncludeAssert"})
@@ -37,7 +37,7 @@ public class LongExecutionScriptsTest extends AbstractWithConfigurationRestorati
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "long");
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter()
-                .assertResult(LONG_EXECUTION_SCRIPT, this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+                .assertResult(LONG_EXECUTION_SCRIPT, this.getScriptExecutionResultDao().getSuccessResult());
         getDeploymentScriptResultAsserter().assertNumberOfResults(LONG_EXECUTION_SCRIPT, 1);
     }
 
@@ -46,7 +46,7 @@ public class LongExecutionScriptsTest extends AbstractWithConfigurationRestorati
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "long-with-error");
         getDeploymentScriptStarter().runAllPendingScripts();
         getDeploymentScriptResultAsserter()
-                .assertResult("20230209_11_LONG_EXECUTION_SCRIPT_ERROR", this.getFlexibleSearchScriptExecutionResultDao().getErrorResult());
+                .assertResult("20230209_11_LONG_EXECUTION_SCRIPT_ERROR", this.getScriptExecutionResultDao().getErrorResult());
     }
 
     @Test
@@ -54,8 +54,8 @@ public class LongExecutionScriptsTest extends AbstractWithConfigurationRestorati
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "mixed-scripts");
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter()
-                .assertResult(LONG_EXECUTION_SCRIPT, this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
-        getDeploymentScriptResultAsserter().assertResult(SHORT_EXECUTION_SCRIPT, this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+                .assertResult(LONG_EXECUTION_SCRIPT, this.getScriptExecutionResultDao().getSuccessResult());
+        getDeploymentScriptResultAsserter().assertResult(SHORT_EXECUTION_SCRIPT, this.getScriptExecutionResultDao().getSuccessResult());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class LongExecutionScriptsTest extends AbstractWithConfigurationRestorati
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "short");
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter()
-                .assertResult(SHORT_EXECUTION_SCRIPT, this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+                .assertResult(SHORT_EXECUTION_SCRIPT, this.getScriptExecutionResultDao().getSuccessResult());
         getDeploymentScriptResultAsserter().assertNumberOfResults(SHORT_EXECUTION_SCRIPT, 1);
     }
     

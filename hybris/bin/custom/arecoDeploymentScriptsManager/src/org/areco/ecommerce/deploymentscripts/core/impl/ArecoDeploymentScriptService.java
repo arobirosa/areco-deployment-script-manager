@@ -15,20 +15,20 @@
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
+import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
+import org.areco.ecommerce.deploymentscripts.core.ArecoInitialConfigurationImporter;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptService;
-import org.areco.ecommerce.deploymentscripts.core.InitialConfigurationImporter;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
+import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -36,27 +36,31 @@ import java.util.List;
 /**
  * Default implementation of the deployment script service.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
-@Service
-@Scope("tenant")
 public class ArecoDeploymentScriptService implements DeploymentScriptService {
     private static final Logger LOG = LoggerFactory.getLogger(ArecoDeploymentScriptService.class);
 
     @Resource
-    private DeploymentScriptFinder arecoDeploymentScriptFinder;
+    private DeploymentScriptFinder deploymentScriptFinder;
 
-    @Autowired
-    private DeploymentScriptRunner runner;
+    @Resource
+    private DeploymentScriptRunner deploymentScriptRunner;
 
-    @Autowired
-    private InitialConfigurationImporter initialConfigurationImporter;
+    @Resource
+    private ArecoInitialConfigurationImporter arecoInitialConfigurationImporter;
 
-    @Autowired
+    @Resource
     private ScriptExecutionDao scriptExecutionDao;
 
-    @Autowired
+    @Resource
+    private ScriptExecutionResultDao scriptExecutionResultDao;
+
+    @Resource
     private ExtensionHelper extensionHelper;
+
+    @Resource
+    private ModelService modelService;
 
     /*
      * (non-Javadoc)
@@ -70,27 +74,54 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
         if (this.extensionHelper.isDeploymentManagerExtensionTurnedOff()) {
             return false;
         }
-        this.initialConfigurationImporter.importConfigurationIfRequired(context);
+        this.arecoInitialConfigurationImporter.importConfigurationIfRequired(context);
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("Looking for pending update scripts in the extension {}", context.getExtensionName());
         }
-        final List<DeploymentScript> scriptsToBeRun = this.arecoDeploymentScriptFinder.getPendingScripts(
+        final List<DeploymentScript> scriptsToBeRun = this.deploymentScriptFinder.getPendingScripts(
                 context.getExtensionName(), context.getProcess(), runInitScripts);
+        boolean wasThereAnError = false;
         if (scriptsToBeRun.isEmpty()) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("There aren't any pending {} deployment scripts in the extension {}", runInitScripts ? "INIT" : "UPDATE", context.getExtensionName());
             }
-            return false;
+        } else {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Running update scripts of the extension {}", context.getExtensionName());
+            }
+            wasThereAnError = this.deploymentScriptRunner.run(context, scriptsToBeRun);
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Finished running update scripts of the extension {}", context.getExtensionName());
+            }
         }
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Running update scripts of the extension {}", context.getExtensionName());
-        }
-        final boolean wasThereAnError = this.runner.run(context, scriptsToBeRun);
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Finished running update scripts of the extension {}", context.getExtensionName());
+        if (!runInitScripts) {
+            updateExecutionsOfScriptRemovedOnDisk(context.getExtensionName());
         }
         return wasThereAnError;
+    }
+
+    private void updateExecutionsOfScriptRemovedOnDisk(final String extensionName) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Looking for update scripts which were removed on disk in the extension {}", extensionName);
+        }
+        final List<String> existingUpdateScriptDirectories = deploymentScriptFinder.getExistingScriptDirectoryNames(extensionName, false);
+        for (final ScriptExecutionModel pendingExecution : scriptExecutionDao.findErrorOrPendingExecutionsOnMostRecentOrder(extensionName)) {
+            if (!existingUpdateScriptDirectories.contains(pendingExecution.getScriptName())) {
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Setting {} as removed on disk", pendingExecution.getScriptName());
+                }
+                pendingExecution.setResult(scriptExecutionResultDao.getIgnoredRemovedOnDisk());
+                this.modelService.save(pendingExecution);
+            }
+            if (scriptExecutionResultDao.getErrorResult().equals(pendingExecution.getResult())) {
+                // Keep the most recent execution with an error of a deployment script which exists on disk.
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Leaving the failed execution of {} untouched", pendingExecution.getScriptName());
+                }
+                return;
+            }
+        }
     }
 
     /**

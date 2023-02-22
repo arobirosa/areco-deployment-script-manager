@@ -21,9 +21,9 @@ import org.springframework.lang.NonNull;
 /**
  * It manages the script execution result instances which aren't a Hybris Enumeration because their have behavior.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
-public interface ScriptExecutionResultDAO {
+public interface ScriptExecutionResultDao {
 
     /**
      * Returns the instance which represents an error.
@@ -73,4 +73,17 @@ public interface ScriptExecutionResultDAO {
      */
     void initialize();
 
+    /**
+     * Returns the instance which represents the ignored result because the deployment script's files were removed on the disk.
+     *
+     * @return ScriptExecutionResultModel Never null.
+     */
+    ScriptExecutionResultModel getIgnoredRemovedOnDisk();
+
+    /**
+     * Returns the instance which represents the result when the deployment script are enqueued for execution.
+     *
+     * @return ScriptExecutionResultModel Never null.
+     */
+    ScriptExecutionResultModel getWillBeExecuted();
 }

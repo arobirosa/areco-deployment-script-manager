@@ -23,7 +23,7 @@ import org.junit.Test;
 /**
  * It checks that the groovy scripts are working correctly.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @IntegrationTest
 public class RunGroovyScriptTest extends AbstractWithConfigurationRestorationTest {
@@ -35,7 +35,7 @@ public class RunGroovyScriptTest extends AbstractWithConfigurationRestorationTes
         this.getDeploymentConfigurationSetter().setEnvironment("DEV");
         final boolean wereThereErrors = this.getDeploymentScriptStarter().runAllPendingScripts();
         Assert.assertFalse("There were errors", wereThereErrors);
-        getDeploymentScriptResultAsserter().assertResult("2015902_TICKET_GROOVY", this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+        getDeploymentScriptResultAsserter().assertResult("2015902_TICKET_GROOVY", this.getScriptExecutionResultDao().getSuccessResult());
     }
 
     @Test

@@ -19,7 +19,7 @@ package org.areco.ecommerce.deploymentscripts.impex;
  * It informs that caller that an error happened during an impex script step. This is a checked exception because the caller has to manage it.
  * It don't inherit from hybris' exception hierarchy because it must be only used inside the Areco deployment manager extension.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public class ImpexImportException extends Exception {
 

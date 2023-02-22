@@ -30,7 +30,7 @@ import java.util.Locale;
 /**
  * It checks if impex scripts with different locales are correctly imported.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 // PMD doesn't see the assert in the private methods.
 @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")

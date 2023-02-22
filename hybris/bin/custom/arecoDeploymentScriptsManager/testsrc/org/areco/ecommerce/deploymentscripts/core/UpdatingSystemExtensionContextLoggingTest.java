@@ -37,7 +37,7 @@ import static org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter
 /**
  * It checks that the result of the execution of the scripts is log in HAC.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @IntegrationTest
 public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfigurationRestorationTest {
@@ -63,7 +63,7 @@ public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfi
     public void testHacLogging() {
         final String expectedMessage = Localization.getLocalizedString("updatingsystemextensioncontext.loggingformat", new String[]
                 {DEPLOYMENT_SCRIPT_NAME,
-                        this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult().getDescription()}) + "<br/>";
+                        this.getScriptExecutionResultDao().getSuccessResult().getDescription()}) + "<br/>";
 
         final SystemSetupContext hybrisContext = new SystemSetupContext(null, getConfiguredCreateDataStep(),
                 SystemSetup.Process.UPDATE, ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
@@ -72,7 +72,7 @@ public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfi
         this.getDeploymentScriptStarter().runUpdateDeploymentScripts(hybrisContext);
 
         this.getDeploymentScriptResultAsserter().assertResult(DEPLOYMENT_SCRIPT_NAME,
-                this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+                this.getScriptExecutionResultDao().getSuccessResult());
 
         final StringBuffer loggingBuffer = loggingCollector.getBuffer();
         Assert.assertTrue("Something must have been logged.", loggingBuffer.length() > 0);

@@ -18,7 +18,7 @@ package org.areco.ecommerce.deploymentscripts.core;
 /**
  * Describes the contract of the core service.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public interface DeploymentScriptService {
     /**

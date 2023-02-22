@@ -40,11 +40,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 /**
  * Default implementation of the deployment script finder.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 // The configuration of this bean is in the spring application context.
 @SuppressWarnings("PMD") // The import of all the classes from the core package is correct
@@ -110,6 +111,11 @@ public abstract class ArecoDeploymentScriptFinder implements DeploymentScriptFin
             alreadyExecutedScripts.add(alreadyExecutedScript.getScriptName());
         }
         return alreadyExecutedScripts;
+    }
+
+    @Override
+    public List<String> getExistingScriptDirectoryNames(final String extensionName, final boolean runInitScripts) {
+        return Arrays.stream(this.getExistingScripts(extensionName, runInitScripts)).sequential().map(f -> f.getName()).collect(Collectors.toList());
     }
 
     private File[] getExistingScripts(final String extensionName, final boolean runInitScripts) {

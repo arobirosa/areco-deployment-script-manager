@@ -20,7 +20,7 @@ import java.io.File;
 /**
  * It contains the contract definition of the step factories.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 public interface DeploymentScriptStepFactory {
     /**

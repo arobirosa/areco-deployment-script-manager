@@ -45,7 +45,7 @@ import java.util.Collections;
  * TODO This class uses Jalo and a workaround to trigger the essential data creation. We must find a cleaner way to do this.
  * TODO Because this class uses jalo, it is difficult to test
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @Service("dataCreatorAndDeploymentScriptsStarter")
 @Scope("tenant")
