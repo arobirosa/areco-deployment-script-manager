@@ -47,9 +47,20 @@ public class RunMultipleTimesTest extends AbstractWithConfigurationRestorationTe
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "multiple-times-error");
         getDeploymentScriptStarter().runAllPendingScripts();
         getDeploymentScriptResultAsserter()
-                .assertResult("20200410_4_RUN_MULTIPLE_TIMES_ERROR", this.getScriptExecutionResultDao().getErrorResult());
+                .assertErrorResult("20200410_4_RUN_MULTIPLE_TIMES_ERROR");
         getDeploymentScriptStarter().runAllPendingScripts();
-        getDeploymentScriptResultAsserter().assertNumberOfResults("20200410_4_RUN_MULTIPLE_TIMES_ERROR", 2);
+        getDeploymentScriptResultAsserter().assertErrorResult("20200410_4_RUN_MULTIPLE_TIMES_ERROR");
+    }
+
+    @Test
+    public void testRunMultipleTimesScriptWithErrorWhichIsCorrected() {
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "multiple-times-error");
+        getDeploymentScriptStarter().runAllPendingScripts();
+        getDeploymentScriptResultAsserter()
+                .assertErrorResult("20200410_4_RUN_MULTIPLE_TIMES_ERROR");
+        this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "multiple-times-error-corrected");
+        getDeploymentScriptStarter().runAllPendingScripts();
+        getDeploymentScriptResultAsserter().assertResult("20200410_4_RUN_MULTIPLE_TIMES_ERROR", getScriptExecutionResultDao().getSuccessMultipleRunsResult());
     }
 
     @Test
