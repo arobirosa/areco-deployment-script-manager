@@ -139,7 +139,7 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
         queryBuilder.append("SELECT {e.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
                 .append(" as e} WHERE {e.").append(ScriptExecutionModel.EXTENSIONNAME).append("} = ?").append(ScriptExecutionModel.EXTENSIONNAME)
                 .append(" AND {e.").append(ScriptExecutionModel.SCRIPTNAME).append("} = ?").append(ScriptExecutionModel.SCRIPTNAME)
-                .append(" AND {e.").append(ScriptExecutionModel.RESULT).append("} NOT IN (?").append("unsuccessfulResults")
+                .append(" AND {e.").append(ScriptExecutionModel.RESULT).append("} IN (?").append("unsuccessfulResults")
                 .append(") ORDER BY {pk} DESC");
 
         if (LOG.isTraceEnabled()) {
