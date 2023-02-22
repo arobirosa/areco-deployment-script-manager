@@ -22,7 +22,7 @@ import java.util.Set;
 /**
  * It manages the instances of the deployment environments.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 public interface DeploymentEnvironmentDAO {
     /**

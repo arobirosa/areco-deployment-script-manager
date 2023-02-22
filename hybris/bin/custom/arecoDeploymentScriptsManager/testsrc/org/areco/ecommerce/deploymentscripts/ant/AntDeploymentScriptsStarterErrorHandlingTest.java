@@ -27,7 +27,7 @@ import javax.annotation.Resource;
 /**
  * It checks if the antDeploymentScriptStarter stops the build if there is an error running a deployment script.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 @IntegrationTest
 // PMD doesn't see the assert in the private methods.

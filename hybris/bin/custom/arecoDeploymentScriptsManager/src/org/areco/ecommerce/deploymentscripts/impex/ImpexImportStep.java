@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 /**
  * Represents a step of the deployment script were an impex file is imported.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 @Component
 // Every time the step factory is called, it creates a new instance.

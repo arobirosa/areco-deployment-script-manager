@@ -45,7 +45,7 @@ import java.util.regex.Pattern;
 /**
  * This DAO provides services to the tests.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 @Component
 @Scope("tenant")

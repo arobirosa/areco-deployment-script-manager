@@ -23,7 +23,7 @@ import java.util.Locale;
 /**
  * It creates steps which run Beanshell scripts.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 // The configuration of this bean is in the spring application context.
 public abstract class BeanShellScriptStepFactory extends AbstractSingleFileScriptStepFactory {

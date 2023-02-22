@@ -23,7 +23,7 @@ import org.junit.Test;
 /**
  * It checks that the script configuration including the contraints are working correctly.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 @IntegrationTest
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.JUnitTestsShouldIncludeAssert"})

@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
  * <p/>
  * TODO Find a way to execute SQL without using Jalo.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 @Service
 @Scope("tenant")

@@ -37,7 +37,7 @@ import static org.areco.ecommerce.deploymentscripts.core.DeploymentScriptStarter
 /**
  * It checks that the result of the execution of the scripts is log in HAC.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 @IntegrationTest
 public class UpdatingSystemExtensionContextLoggingTest extends AbstractWithConfigurationRestorationTest {

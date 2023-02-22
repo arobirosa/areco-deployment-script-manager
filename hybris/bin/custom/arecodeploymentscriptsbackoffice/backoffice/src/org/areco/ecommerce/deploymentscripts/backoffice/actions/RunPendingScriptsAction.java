@@ -27,7 +27,7 @@ import javax.annotation.Resource;
 /**
  * This backoffice action runs all deployment scripts which weren't run on the current database.
  *
- * Created by arobirosa on 28.04.17.
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 public class RunPendingScriptsAction extends DefaultActionRenderer<String, String> implements CockpitAction<String, String> {
   @Resource

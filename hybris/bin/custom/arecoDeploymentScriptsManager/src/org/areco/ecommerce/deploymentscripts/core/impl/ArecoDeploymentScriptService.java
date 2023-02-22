@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * Default implementation of the deployment script service.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 public class ArecoDeploymentScriptService implements DeploymentScriptService {
     private static final Logger LOG = LoggerFactory.getLogger(ArecoDeploymentScriptService.class);

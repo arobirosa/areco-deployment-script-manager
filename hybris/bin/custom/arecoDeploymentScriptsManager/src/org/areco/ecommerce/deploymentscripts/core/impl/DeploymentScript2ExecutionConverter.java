@@ -32,7 +32,7 @@ import javax.annotation.Resource;
 /**
  * It takes a deployment script and returns an unsaved ScriptExecutionModel.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 @Scope("tenant")
 @Component("deploymentScript2ExecutionConverter")

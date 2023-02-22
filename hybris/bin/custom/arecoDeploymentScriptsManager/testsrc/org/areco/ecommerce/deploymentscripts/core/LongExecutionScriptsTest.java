@@ -22,7 +22,7 @@ import org.junit.Test;
 /**
  * It checks that run multiple time flag of the script configuration is working correctly.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 @IntegrationTest
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.JUnitTestsShouldIncludeAssert"})

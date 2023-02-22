@@ -44,7 +44,7 @@ import static java.util.Objects.nonNull;
 /**
  * Default script runner.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
 

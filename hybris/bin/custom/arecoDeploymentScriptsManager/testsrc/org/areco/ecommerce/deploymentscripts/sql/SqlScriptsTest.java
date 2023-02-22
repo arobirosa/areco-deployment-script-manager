@@ -33,7 +33,7 @@ import java.util.List;
  * WARNING: Models cache the values of their attributes and the method modelService.refresh(model) doesn't work inside an integration test.
  * Because of this jalo items are used in this test.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 @IntegrationTest
 public class SqlScriptsTest extends AbstractWithConfigurationRestorationTest {

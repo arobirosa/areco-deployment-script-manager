@@ -31,7 +31,7 @@ import org.springframework.stereotype.Service;
  * WARNING: The pending scripts must not require changes of the Hybris Type System. You would have to run them during the Update Running System process if this
  * is the case.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 @Service("antDeploymentScriptsStarter")
 @Scope("tenant")

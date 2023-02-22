@@ -45,7 +45,7 @@ import java.util.stream.Collectors;
 /**
  * Default implementation of the deployment script finder.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 // The configuration of this bean is in the spring application context.
 @SuppressWarnings("PMD") // The import of all the classes from the core package is correct

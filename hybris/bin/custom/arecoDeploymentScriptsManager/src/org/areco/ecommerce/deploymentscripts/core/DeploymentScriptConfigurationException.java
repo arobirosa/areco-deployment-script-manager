@@ -18,7 +18,7 @@ package org.areco.ecommerce.deploymentscripts.core;
 /**
  * Represents any error related to the configuration of the scripts. It usually doesn't have to be managed.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 public class DeploymentScriptConfigurationException extends RuntimeException {
 

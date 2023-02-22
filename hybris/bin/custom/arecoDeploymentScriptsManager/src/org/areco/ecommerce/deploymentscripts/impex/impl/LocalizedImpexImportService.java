@@ -42,7 +42,7 @@ import java.nio.file.Paths;
 /**
  * This default implementation uses the impex importer. It allows the configuration of the locale.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 @Scope("tenant")
 @Service

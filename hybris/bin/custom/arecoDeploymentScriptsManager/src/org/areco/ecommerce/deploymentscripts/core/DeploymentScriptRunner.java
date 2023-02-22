@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * It executes the deployment scripts.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 public interface DeploymentScriptRunner {
 

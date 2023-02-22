@@ -36,7 +36,7 @@ import java.io.File;
 /**
  * This implementation uses an impex script to create the initial objects.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 public class ImpexArecoInitialConfigurationImporter implements ArecoInitialConfigurationImporter {
 

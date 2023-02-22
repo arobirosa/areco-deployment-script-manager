@@ -36,7 +36,7 @@ import java.util.Set;
 /**
  * This implementation uses Flexible Search.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 @Repository
 @Scope("tenant")

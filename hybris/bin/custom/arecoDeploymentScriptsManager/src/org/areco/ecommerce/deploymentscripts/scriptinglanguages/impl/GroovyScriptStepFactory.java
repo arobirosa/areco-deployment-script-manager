@@ -23,7 +23,7 @@ import java.util.Locale;
 /**
  * It creates steps which run groovy scripts.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 // The configuration of this bean is in the spring application context.
 public abstract class GroovyScriptStepFactory extends AbstractSingleFileScriptStepFactory {

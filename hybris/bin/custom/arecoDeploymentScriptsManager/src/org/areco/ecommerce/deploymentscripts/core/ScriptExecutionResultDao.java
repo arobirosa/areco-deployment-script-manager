@@ -21,7 +21,7 @@ import org.springframework.lang.NonNull;
 /**
  * It manages the script execution result instances which aren't a Hybris Enumeration because their have behavior.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 public interface ScriptExecutionResultDao {
 

@@ -23,7 +23,7 @@ import org.junit.Test;
 /**
  * It checks that the groovy scripts are working correctly.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 @IntegrationTest
 public class RunGroovyScriptTest extends AbstractWithConfigurationRestorationTest {

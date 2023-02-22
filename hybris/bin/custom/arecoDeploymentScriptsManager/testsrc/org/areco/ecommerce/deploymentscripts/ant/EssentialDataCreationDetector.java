@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
  * It is used by the tests to check if the essential data creation was started. The tests are created without using Spring, so the systemsetup annotation
  * doesn't work.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 @Scope("tenant")
 @Component

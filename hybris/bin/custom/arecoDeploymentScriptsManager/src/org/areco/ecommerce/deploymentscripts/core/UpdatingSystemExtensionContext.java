@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 /**
  * It represents the extension being update or initialize during the update system process. It is an immutable object.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 public class UpdatingSystemExtensionContext {
     private static final Logger LOG = LoggerFactory.getLogger(UpdatingSystemExtensionContext.class);

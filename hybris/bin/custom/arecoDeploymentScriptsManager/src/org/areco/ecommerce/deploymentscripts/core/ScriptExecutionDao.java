@@ -20,7 +20,7 @@ import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import java.util.List;
 
 /**
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:areco.manager@areko.consulting>
  */
 public interface ScriptExecutionDao {
     /**
