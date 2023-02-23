@@ -2,12 +2,10 @@
 # If there is an open ticket, decide to postpone the release or move the ticket to the next release
 
 #Create a new release branch
-git flow release start v1.5.3
-# Find all the properties with the version and replace them
-find ./hybris/bin/custom/ -name "*build.number"
+git flow release start v1.5.4
 
 # Update the version
-echo "version=1.5.3" > /tmp/release.areco.txt
+echo "version=1.5.4" > /tmp/release.areco.txt
 find ./hybris/bin/custom/ -name "*build.number" -exec cp -v /tmp/release.areco.txt {}  \;
 find ./hybris/bin/custom/ -name "*build.number" -exec cat {} \;
 
