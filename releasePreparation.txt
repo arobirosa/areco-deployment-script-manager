@@ -42,14 +42,28 @@ mysql --user=root --password --host=127.0.0.1 -e "DROP DATABASE deploymentmanage
 # Run all the tests with MySQL on junit tenant:
 rm -rf hybris/data/* && ant clean all initialize yunitinit qa
 
+# Go to local.properties and set up the Oracle database
+
+# Run all the tests on master tenant:
+rm -rf hybris/data/* && ant clean all yunitinit qa
+
+# Run all the tests on junit tenant:
+rm -rf hybris/data/* && ant clean all initialize yunitinit qa
+
+db.url=jdbc:oracle:thin:@localhost:9521:XE?oracle.net.disableOob=true
+db.driver=oracle.jdbc.driver.OracleDriver
+db.username=SYSTEM
+db.password=<password>
+db.tableprefix=
+
 # Remove the connection information, so the hybris intallation works again with the HyperSQL database
 # If some tests were unsuccessful, solve the isssues and repeat the tests
 
-git flow release finish v1.5.3
+git flow release finish v1.5.4
 git push --all
 git push --tags
 
-git archive --output=deploymentScriptsManager_1.5.3_20200411.zip production hybris/bin/custom
+git archive --output=deploymentScriptsManager_1.5.4_20230223.zip production hybris/bin/custom
 
 # Prepare the release notes with the list of bugs and features
 # Create release in Github from the latest tag
