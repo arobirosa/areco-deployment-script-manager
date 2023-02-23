@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="CompilerConfiguration">
-    <option name="DEFAULT_COMPILER" value="Eclipse" />
-  </component>
-  <component name="EclipseCompilerSettings">
-    <option name="ECJ_TOOL_PATH" value="$PROJECT_DIR$/hybris/bin/platform/resources/ant/lib/ecj-3.15.1.jar" />
-  </component>
-</project>

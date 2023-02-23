@@ -8,14 +8,15 @@
  * ("Confidential Information"). You shall not disclose such Confidential
  * Information and shall use it only in accordance with the terms of the
  * license agreement you entered into with hybris.
- * 
- *  
+ *
+ *
  */
 package org.areco.ecommerce.deploymentscripts.constants;
 
 /**
  * Global class for all ArecoDeploymentScriptsManager constants. You can add global constants for your extension into this class.
  */
+@SuppressWarnings("deprecation")
 public final class ArecoDeploymentScriptsManagerConstants extends GeneratedArecoDeploymentScriptsManagerConstants {
     public static final String EXTENSIONNAME = "arecoDeploymentScriptsManager";
 

@@ -5,7 +5,7 @@ import de.hybris.platform.catalog.model.CatalogVersionModel;
 
 try {
 CatalogSynchronizationService catalogSynchronizationService = (CatalogSynchronizationService) Registry.getApplicationContext().getBean(CatalogSynchronizationService.class);
-CatalogVersionDao catalogVersionDao = (CatalogVersionDao) Registry.getApplicationContext().getBean(CatalogVersionDao.class);
+CatalogVersionDao catalogVersionDao = (CatalogVersionDao) Registry.getApplicationContext().getBean("catalogVersionDao", CatalogVersionDao.class);
 
 final CatalogVersionModel stageVersion = catalogVersionDao.findCatalogVersions("ArecosSyncCataloguesImpexTest", "Staged").iterator().next();
 

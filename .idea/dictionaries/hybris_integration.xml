@@ -3,11 +3,7 @@
     <words>
       <w>NOPMD</w>
       <w>advancedsavedquery</w>
-      <w>arecoDeploymentScriptsExamples</w>
-      <w>arecoDeploymentScriptsManager</w>
       <w>arecodeploymentscriptsbackoffice</w>
-      <w>arecodeploymentscriptsexamples</w>
-      <w>arecodeploymentscriptshmc</w>
       <w>arecodeploymentscriptsmanager</w>
       <w>argumenttype</w>
       <w>atomictype</w>
@@ -17,7 +13,6 @@
       <w>beanutils</w>
       <w>builddate</w>
       <w>catalog</w>
-      <w>cockpit</w>
       <w>cockpitng</w>
       <w>collectiontype</w>
       <w>columntype</w>
@@ -34,7 +29,6 @@
       <w>europe1</w>
       <w>extname</w>
       <w>hac</w>
-      <w>hmc</w>
       <w>hybris</w>
       <w>impex</w>
       <w>itemtype</w>
@@ -45,11 +39,11 @@
       <w>jspc</w>
       <w>jstl</w>
       <w>maintenanceweb</w>
+      <w>manager2205</w>
       <w>maptypes</w>
       <w>mediaweb</w>
       <w>metatype</w>
       <w>nimda</w>
-      <w>npmancillary</w>
       <w>oauth2</w>
       <w>partof</w>
       <w>paymentstandard</w>

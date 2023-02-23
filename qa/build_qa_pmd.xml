@@ -1,6 +1,6 @@
 <project name="ant_qa_pmd" default="pmd" basedir=".">
-	<property name="dir_pmd_home" value="${dir_qa}/pmd-bin-6.21.0"/>
-	<property name="dir_pmd_donwload_url" value="http://downloads.sourceforge.net/project/pmd/pmd/6.21.0/pmd-bin-6.21.0.zip"/>
+	<property name="dir_pmd_home" value="${dir_qa}/pmd-bin-6.54.0"/>
+	<property name="dir_pmd_donwload_url" value="https://github.com/pmd/pmd/releases/download/pmd_releases%2F6.54.0/pmd-bin-6.54.0.zip"/>
 	<property name="dir_pmd_donwload_file" value="${dir_qa}/pmd.zip"/>
 	
 	

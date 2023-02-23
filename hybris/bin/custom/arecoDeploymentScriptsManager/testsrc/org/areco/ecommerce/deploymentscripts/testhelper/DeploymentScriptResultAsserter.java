@@ -22,12 +22,13 @@ import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.junit.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -44,19 +45,19 @@ import java.util.regex.Pattern;
 /**
  * This DAO provides services to the tests.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @Component
 @Scope("tenant")
 public final class DeploymentScriptResultAsserter {
 
-    private static final Logger LOG = Logger.getLogger(DeploymentScriptResultAsserter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeploymentScriptResultAsserter.class);
 
     @Resource
     private FlexibleSearchService flexibleSearchService;
 
     @Resource
-    private ScriptExecutionResultDAO flexibleSearchScriptExecutionResultDao;
+    private ScriptExecutionResultDao scriptExecutionResultDao;
 
     /**
      * It checks is the given deployment script has the expected result.
@@ -69,7 +70,7 @@ public final class DeploymentScriptResultAsserter {
         ServicesUtil.validateParameterNotNullStandardMessage("expectedResult", expectedResult);
         final ScriptExecutionModel executionOfTheScript = getDeploymentScriptExecution(deploymentScriptName);
         Assert.assertEquals("The deployment script " + deploymentScriptName + " has the wrong result. Expected: " + expectedResult.getName() + " Actual: "
-            + executionOfTheScript.getResult().getName(), expectedResult, executionOfTheScript.getResult());
+                + executionOfTheScript.getResult().getName(), expectedResult, executionOfTheScript.getResult());
         return executionOfTheScript;
     }
 
@@ -87,7 +88,7 @@ public final class DeploymentScriptResultAsserter {
      */
     private ScriptExecutionModel getDeploymentScriptExecution(final String deploymentScriptName) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Getting the execution of the script " + deploymentScriptName);
+            LOG.debug("Getting the execution of the script {}", deploymentScriptName);
         }
         final List<ScriptExecutionModel> foundExecutions = getAllDeploymentScriptExecutions(deploymentScriptName);
         if (CollectionUtils.isEmpty(foundExecutions)) {
@@ -112,14 +113,14 @@ public final class DeploymentScriptResultAsserter {
         final StringBuilder queryBuilder = new StringBuilder(45);
 
         queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
-            .append(" as es ").append(" } ").append("WHERE ").append(" {es.").append(ScriptExecutionModel.SCRIPTNAME).append("} = ?")
-            .append(ScriptExecutionModel.SCRIPTNAME);
+                .append(" as es ").append(" } ").append("WHERE ").append(" {es.").append(ScriptExecutionModel.SCRIPTNAME).append("} = ?")
+                .append(ScriptExecutionModel.SCRIPTNAME);
 
         final Map<String, Object> queryParams = new ConcurrentHashMap<>();
         queryParams.put(ScriptExecutionModel.SCRIPTNAME, deploymentScriptName);
 
         if (LOG.isTraceEnabled()) {
-            LOG.trace("Executing the query: '" + queryBuilder.toString() + "' with the parameters " + queryParams);
+            LOG.trace("Executing the query: '{}' with the parameters {}", queryBuilder, queryParams);
         }
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString(), queryParams);
@@ -132,16 +133,16 @@ public final class DeploymentScriptResultAsserter {
         final StringBuilder queryBuilder = new StringBuilder(29);
 
         queryBuilder.append("SELECT {es.").append(ScriptExecutionModel.PK).append("}").append(" FROM {").append(ScriptExecutionModel._TYPECODE)
-            .append(" as es ").append(" } ");
+                .append(" as es ").append(" } ");
 
-        LOG.trace("Executing the query: '" + queryBuilder.toString());
+        LOG.trace("Executing the query: '{}", queryBuilder);
 
         final FlexibleSearchQuery query = new FlexibleSearchQuery(queryBuilder.toString());
 
         final SearchResult<ScriptExecutionModel> result = this.flexibleSearchService.search(query);
-        LOG.trace("Number of executions: " + result.getCount());
+        LOG.trace("Number of executions: {}", result.getCount());
         for (final ScriptExecutionModel anExecution : result.getResult()) {
-            LOG.trace("Executed '" + anExecution.getScriptName() + "'");
+            LOG.trace("Executed '{}'", anExecution.getScriptName());
         }
     }
 
@@ -152,7 +153,7 @@ public final class DeploymentScriptResultAsserter {
      */
     public void assertSuccessfulResult(final String deploymentScriptName) {
         isScriptNameParameterValid(deploymentScriptName);
-        this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getSuccessResult());
+        this.assertResult(deploymentScriptName, this.scriptExecutionResultDao.getSuccessResult());
     }
 
     /**
@@ -162,7 +163,7 @@ public final class DeploymentScriptResultAsserter {
      */
     public void assertErrorResult(final String deploymentScriptName) {
         isScriptNameParameterValid(deploymentScriptName);
-        this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
+        this.assertResult(deploymentScriptName, this.scriptExecutionResultDao.getErrorResult());
     }
 
     /**
@@ -176,20 +177,20 @@ public final class DeploymentScriptResultAsserter {
         assertErrorResult(deploymentScriptName);
 
         final String loadedPattern;
-        try (InputStream expectedPatternStream = DeploymentScriptResultAsserter.class.getResourceAsStream(pathFileExpectedStacktracePattern)) {
+        try (final InputStream expectedPatternStream = DeploymentScriptResultAsserter.class.getResourceAsStream(pathFileExpectedStacktracePattern)) {
             Assert.assertNotNull("The file " + pathFileExpectedStacktracePattern + " with the expected stacktrace wasn't found", expectedPatternStream);
 
             loadedPattern = IOUtils.toString(expectedPatternStream, Charset.forName(DeploymentScript.DEFAULT_FILE_ENCODING)).
-                replaceAll(System.getProperty("line.separator"), "");
+                    replaceAll(System.getProperty("line.separator"), "");
         }
 
         final Pattern compiledStacktracePattern = Pattern.compile(loadedPattern, Pattern.DOTALL);
-        final ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, flexibleSearchScriptExecutionResultDao.getErrorResult());
+        final ScriptExecutionModel executionOfTheScript = this.assertResult(deploymentScriptName, this.scriptExecutionResultDao.getErrorResult());
 
-        final Matcher stacktraceMatcher = compiledStacktracePattern.matcher(executionOfTheScript.getStacktrace());
+        final Matcher stacktraceMatcher = compiledStacktracePattern.matcher(executionOfTheScript.getFullStacktrace());
 
-        Assert.assertTrue(String.format("The stacktrace don't contain the expected pattern. Current stacktrace: %s", executionOfTheScript.getStacktrace()),
-            stacktraceMatcher.matches());
+        Assert.assertTrue(String.format("The stacktrace don't contain the expected pattern. Current stacktrace: %s",
+                executionOfTheScript.getFullStacktrace()), stacktraceMatcher.matches());
     }
 
     /**
@@ -201,6 +202,6 @@ public final class DeploymentScriptResultAsserter {
     public void assertNumberOfResults(final String deploymentScriptName, final int expectedNumberOfExecutions) {
         isScriptNameParameterValid(deploymentScriptName);
         Assert.assertEquals(String.format("The number of executions of %s is incorrect", deploymentScriptName), expectedNumberOfExecutions,
-            getAllDeploymentScriptExecutions(deploymentScriptName).size());
+                getAllDeploymentScriptExecutions(deploymentScriptName).size());
     }
 }

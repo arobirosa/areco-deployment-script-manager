@@ -4,6 +4,8 @@ UPDATE ScriptExecutionResult;name[unique=true];description[lang=de];
 ;ERROR;Fehler
 ;IGNORED_NOT_FOR_THIS_ENVIRONMENT;"Ignoriert: Andere Umgebung"
 ;IGNORED_NOT_FOR_THIS_TENANT;"Ignoriert: Anderer Tenant"
+;IGNORED_REMOVED_ON_DISK;"Ignoriert: Entfernt auf dem Festplatte"
+;WILL_BE_EXECUTED;"Wird ausgeführt"
 
 # These are the out-of-box environments. They may be changed using a deployment script.
 UPDATE DeploymentEnvironment;name[unique=true];description[lang=de];

@@ -1,17 +1,17 @@
 /**
  * Copyright 2014 Antonio Robirosa
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
@@ -35,9 +35,8 @@ import static org.areco.ecommerce.deploymentscripts.constants.ArecoDeploymentScr
 
 /**
  * It checks that the script configuration reader is handling correctly the conversion of the tenants.
- * 
- * @author arobirosa
- * 
+ *
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @UnitTest
 public class TenantConversionInScriptConfigurationTest {
@@ -62,7 +61,7 @@ public class TenantConversionInScriptConfigurationTest {
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
@@ -99,6 +98,7 @@ public class TenantConversionInScriptConfigurationTest {
 
     private void assertTenantConversion(final String expectedTenantID, final String deploymentScriptNameD) throws URISyntaxException {
         final URL scriptUrl = Thread.currentThread().getContextClassLoader().getResource(DEPLOYMENT_SCRIPTS_FOLDER + deploymentScriptNameD);
+        //noinspection ConstantConditions
         final PropertyFileDeploymentScriptConfiguration actualConfiguration = configurationReader.loadConfiguration(new File(scriptUrl.toURI()));
         Assert.assertEquals("The must be one tenant", 1, actualConfiguration.getAllowedTenants().size());
         Assert.assertEquals("The tenant has the wrong ID", expectedTenantID, actualConfiguration.getAllowedTenants().iterator().next().getTenantID());

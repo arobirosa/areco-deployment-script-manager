@@ -1,17 +1,17 @@
 /**
  * Copyright 2014 Antonio Robirosa
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.areco.ecommerce.deploymentscripts.ant;
 
@@ -23,8 +23,9 @@ import de.hybris.platform.jalo.extension.Extension;
 import de.hybris.platform.jalo.extension.ExtensionManager;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.util.JspContext;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -42,8 +43,9 @@ import java.util.Collections;
  * Due to this, no deployment scripts are run.
  * <p>
  * TODO This class uses Jalo and a workaround to trigger the essential data creation. We must find a cleaner way to do this.
+ * TODO Because this class uses jalo, it is difficult to test
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @Service("dataCreatorAndDeploymentScriptsStarter")
 @Scope("tenant")
@@ -52,8 +54,9 @@ import java.util.Collections;
 public class DataCreatorAndDeploymentScriptsStarter {
 
     private static final String JUNIT_TENANT_CREATEESSENTIALDATA_CONF = "deploymentscripts.init.junittenant.createessentialdata";
+    private static final String JUNIT_TENANT_CREATEPROJECTDATA_CONF = "deploymentscripts.init.junittenant.createprojectdata";
 
-    private static final Logger LOG = Logger.getLogger(DataCreatorAndDeploymentScriptsStarter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DataCreatorAndDeploymentScriptsStarter.class);
 
     @Autowired
     private ExtensionHelper extensionHelper;
@@ -68,18 +71,21 @@ public class DataCreatorAndDeploymentScriptsStarter {
      * Creates the essential and project data. This triggers the runs of the deployment scripts in the junit tenant.
      */
     public void runInJunitTenant() {
-        if (!extensionHelper.isDeploymentManagerExtensionTurnedOn()
-                || !Boolean.parseBoolean(this.configurationService.getConfiguration().getString(JUNIT_TENANT_CREATEESSENTIALDATA_CONF))) {
+        if (this.extensionHelper.isDeploymentManagerExtensionTurnedOff()) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("The essential and project data won't be created and the deployment scripts won't be run.");
             }
             return;
         }
-        if (createDataAndLogErrors(SystemSetup.Type.ESSENTIAL)) {
+        boolean success = true;
+        if (Boolean.parseBoolean(this.configurationService.getConfiguration().getString(JUNIT_TENANT_CREATEESSENTIALDATA_CONF))) {
+            success = createDataAndLogErrors(SystemSetup.Type.ESSENTIAL);
+        }
+        if (success && Boolean.parseBoolean(this.configurationService.getConfiguration().getString(JUNIT_TENANT_CREATEPROJECTDATA_CONF))) {
             createDataAndLogErrors(SystemSetup.Type.PROJECT);
         }
-
     }
+
 
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     // We catch all exceptions because this method is called by ant.
@@ -101,7 +107,7 @@ public class DataCreatorAndDeploymentScriptsStarter {
         return true; // All went ok.
     }
 
-    @SuppressWarnings({ "deprecation", "PMD.SignatureDeclareThrowsException" })
+    @SuppressWarnings({"deprecation", "PMD.SignatureDeclareThrowsException", "unchecked"})
     // The caller of this method must handle any exception, because this class is called by ant, which doesn't
     // show the complete stack trace.
     private void createDataForAllExtensions(final SystemSetup.Type aCreationDataType) throws Exception {
@@ -125,7 +131,6 @@ public class DataCreatorAndDeploymentScriptsStarter {
         final JspWriter out = new MockJspWriter(new StringWriter());
         final MockHttpServletRequest request = new MockHttpServletRequest();
         final HttpServletResponse response = new MockHttpServletResponse();
-        final JspContext jspc = new JspContext(out, request, response);
-        return jspc;
+        return new JspContext(out, request, response);
     }
 }

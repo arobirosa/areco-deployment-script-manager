@@ -1,0 +1,1 @@
+This example shows how to configure a deployment script which takes many seconds to execute

@@ -15,72 +15,129 @@
  */
 package org.areco.ecommerce.deploymentscripts.core.impl;
 
+import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.model.ModelService;
-import org.apache.log4j.Logger;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScript;
-import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptExecutionException;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner;
-import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDAO;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionDao;
+import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
+import org.areco.ecommerce.deploymentscripts.core.ScriptResult;
 import org.areco.ecommerce.deploymentscripts.core.UpdatingSystemExtensionContext;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionModel;
-import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.annotation.Resource;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 /**
  * Default script runner.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
-@Service @Scope("tenant") public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
+public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
 
-        private static final Logger LOG = Logger.getLogger(ArecoDeploymentScriptsRunner.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ArecoDeploymentScriptsRunner.class);
 
-        @Autowired private ModelService modelService;
+    private static final String MAXIMUM_CAUSE_STACK_TRACE_CONF_KEY = "deploymentscripts.stacktrace.maximumlength";
 
-        @Autowired
-        // We inject by name because Spring can't see the generic parameters.
-        @Qualifier("deploymentScript2ExecutionConverter") private Converter<DeploymentScript, ScriptExecutionModel> scriptConverter;
+    @Resource
+    private ConfigurationService configurationService;
 
-        @Autowired private ScriptExecutionResultDAO scriptExecutionResultDao;
+    @Resource
+    private ModelService modelService;
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner#run(java.util.List)
-         */
-        @Override public boolean run(final UpdatingSystemExtensionContext updatingSystemContext, final List<DeploymentScript> scriptsToBeRun) {
-                for (final DeploymentScript aScript : scriptsToBeRun) {
-                        final ScriptExecutionModel scriptExecution = this.scriptConverter.convert(aScript);
+    @Resource
+    private Converter<DeploymentScript, ScriptExecutionModel> deploymentScript2ExecutionConverter;
 
-                        try {
-                                final ScriptExecutionResultModel scriptResult = aScript.run();
-                                if (scriptResult == null) {
-                                        throw new DeploymentScriptExecutionException(
-                                                "No script execution result was returned. Please check if the database contains all the "
-                                                        + "ScriptExecutionResultModel required by the Areco deployment manager");
-                                }
-                                scriptExecution.setResult(scriptResult);
-                        } catch (final DeploymentScriptExecutionException e) {
-                                LOG.error("There was an error running " + aScript.getLongName() + ':' + e.getLocalizedMessage(), e);
+    @Resource
+    private ScriptExecutionResultDao scriptExecutionResultDao;
 
-                                scriptExecution.setResult(this.scriptExecutionResultDao.getErrorResult());
-                                scriptExecution.setStacktrace(e.getCauseShortStackTrace());
-                                this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
-                                return true; // We stop after the first error.
-                        }
-                        this.saveAndLogScriptExecution(updatingSystemContext, scriptExecution);
-                }
-                return false; // Everything when successfully
+    @Resource
+    private ScriptExecutionDao flexibleSearchScriptExecutionDao;
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.areco.ecommerce.deploymentscripts.core.DeploymentScriptRunner#run(java.util.List)
+     */
+    @Override
+    @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", justification = "The DAO and the script run method never return null")
+    public boolean run(final UpdatingSystemExtensionContext updatingSystemContext, final List<DeploymentScript> scriptsToBeRun) {
+        final List<Pair<DeploymentScript, ScriptExecutionModel>> scriptsToBeRunWithExecutions = createExecutionsOfScriptsWhichWillBeRun(scriptsToBeRun);
+        // A new loop is started to be sure that all executions are saved at this point
+
+        for (final Pair<DeploymentScript, ScriptExecutionModel> scriptWithExecutionPair : scriptsToBeRunWithExecutions) {
+            Objects.requireNonNull(scriptWithExecutionPair.getValue(), "The script execution is missing");
+
+            final ScriptResult scriptResult = scriptWithExecutionPair.getKey().run();
+            scriptWithExecutionPair.getValue().setResult(scriptResult.getStatus());
+            scriptWithExecutionPair.getValue().setFirstFailedCronjob(scriptResult.getCronJob());
+            scriptWithExecutionPair.getValue().setFullStacktrace(getCauseShortStackTrace(scriptResult.getException()));
+            this.saveAndLogScriptExecution(updatingSystemContext, scriptWithExecutionPair.getValue());
+            if (this.scriptExecutionResultDao.getErrorResult().equals(scriptWithExecutionPair.getValue().getResult())) {
+                return true; // We stop after the first error.
+            }
         }
+        return false; // Everything when successfully
+    }
 
-        private void saveAndLogScriptExecution(final UpdatingSystemExtensionContext context, final ScriptExecutionModel scriptExecution) {
-                modelService.save(scriptExecution);
-                context.logScriptExecutionResult(scriptExecution);
+    private List<Pair<DeploymentScript, ScriptExecutionModel>> createExecutionsOfScriptsWhichWillBeRun(final List<DeploymentScript> scriptsToBeRun) {
+        return scriptsToBeRun.stream().map(s -> new ImmutablePair<>(s, findOrCreateExecution(s))).collect(Collectors.toList());
+    }
+
+    private ScriptExecutionModel findOrCreateExecution(final DeploymentScript aScript) {
+        final ScriptExecutionModel lastExecution = flexibleSearchScriptExecutionDao.getLastErrorOrPendingExecution(aScript.getExtensionName(),
+                aScript.getName());
+        if (nonNull(lastExecution)) {
+            return lastExecution;
         }
+        final ScriptExecutionModel newExecution = this.deploymentScript2ExecutionConverter.convert(aScript);
+        modelService.save(newExecution);
+        return newExecution;
+    }
+
+    private void saveAndLogScriptExecution(final UpdatingSystemExtensionContext context, final ScriptExecutionModel scriptExecution) {
+        this.modelService.save(scriptExecution);
+        context.logScriptExecutionResult(scriptExecution);
+    }
+
+    public String getCauseShortStackTrace(final Throwable exception) {
+        if (isNull(exception)) {
+            return null;
+        }
+        String output = this.getCauseFullStackTrace(exception);
+        final int maximumLength = this.configurationService.getConfiguration()
+                .getInt(MAXIMUM_CAUSE_STACK_TRACE_CONF_KEY, 0);
+        if (maximumLength > 0 && output.length() > maximumLength) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Returning the first {} bytes of the stack trace", maximumLength);
+            }
+            output = output.substring(0, maximumLength - 1);
+        }
+        return output;
+    }
+
+    private String getCauseFullStackTrace(final Throwable exception) {
+        final StringWriter stringWriter = new StringWriter();
+        final PrintWriter printWriter = new PrintWriter(stringWriter);
+        if (exception.getCause() == null) {
+            exception.printStackTrace(printWriter);
+        } else {
+            exception.getCause()
+                    .printStackTrace(printWriter);
+        }
+        return stringWriter.toString();
+    }
 }

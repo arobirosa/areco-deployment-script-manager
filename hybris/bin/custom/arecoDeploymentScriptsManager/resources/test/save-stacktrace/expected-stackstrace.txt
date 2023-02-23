@@ -1,1 +1,1 @@
-.*ImpexImportException: The import of the impex file finished with errors.*
+.*ScriptExecutionException: Script execution has failed \[reason: groovy\.lang\.MissingPropertyException: No such property: unknownMethod for class: java\.lang\.String\].*

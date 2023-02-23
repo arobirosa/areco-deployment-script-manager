@@ -1,17 +1,17 @@
 /**
  * Copyright 2014 Antonio Robirosa
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.areco.ecommerce.deploymentscripts.core;
 
@@ -21,17 +21,17 @@ import de.hybris.platform.core.initialization.SystemSetupContext;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.exceptions.ConfigurationException;
 import edu.umd.cs.findbugs.annotations.SuppressWarnings;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.systemsetup.ExtensionHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 /**
  * It triggers the execution of the deployment scripts.
- * 
- * @author arobirosa
- * 
+ *
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @Service
 @Scope("tenant")
@@ -39,7 +39,7 @@ import org.springframework.stereotype.Service;
 public class DeploymentScriptStarter {
     public static final String CREATE_DATA_TYPE_CONF = "deploymentscripts.createdata.type";
 
-    private static final Logger LOG = Logger.getLogger(DeploymentScriptStarter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeploymentScriptStarter.class);
 
     @Autowired
     private DeploymentScriptService deploymentScriptService;
@@ -56,12 +56,11 @@ public class DeploymentScriptStarter {
      * @return the wasThereAnError
      */
     private boolean isWasThereAnError() {
-        return wasThereAnError;
+        return this.wasThereAnError;
     }
 
     /**
-     * @param wasThereAnError
-     *            the wasThereAnError to set
+     * @param wasThereAnError the wasThereAnError to set
      */
     private void setWasThereAnError(final boolean wasThereAnError) {
         this.wasThereAnError = wasThereAnError;
@@ -85,18 +84,19 @@ public class DeploymentScriptStarter {
             }
             this.runDeploymentScripts(context, false);
         } else {
-            Logger.getLogger(this.getClass())
-                    .trace(String.format("Not running the deployment update scripts because were are in the %s data creation.", hybrisContext.getType()));
+            if (LOG.isTraceEnabled()) {
+                LOG.trace(String.format("Not running the deployment update scripts because were are in the %s data creation.", hybrisContext.getType()));
+            }
         }
     }
 
-    @java.lang.SuppressWarnings({ "PMD.AvoidCatchingGenericException", "PMD.AvoidCatchingNPE" })
+    @java.lang.SuppressWarnings({"PMD.AvoidCatchingGenericException", "PMD.AvoidCatchingNPE"})
     // We catch the null pointer exception to give hints about what is misconfigured
     private SystemSetup.Type getConfiguredCreateDataStep() {
-        final String typeCode = configurationService.getConfiguration().getString(CREATE_DATA_TYPE_CONF);
+        final String typeCode = this.configurationService.getConfiguration().getString(CREATE_DATA_TYPE_CONF, "ESSENTIAL");
         try {
             return SystemSetup.Type.valueOf(typeCode);
-        } catch (IllegalArgumentException | NullPointerException e) {
+        } catch (final IllegalArgumentException e) {
             throw new ConfigurationException(
                     String.format("Unable to find the create data step with code '%s'. Please check the configuration of %s", typeCode, CREATE_DATA_TYPE_CONF),
                     e);
@@ -105,9 +105,8 @@ public class DeploymentScriptStarter {
 
     /**
      * It receibes a SystemSetupContext and it converts it to a UpdatingSystemExtensionContext used by {@link DeploymentScriptService}
-     * 
-     * @param hybrisContext
-     *            Required
+     *
+     * @param hybrisContext Required
      * @return SystemSetupContext Never null.
      */
     private UpdatingSystemExtensionContext getUpdatingContext(final SystemSetupContext hybrisContext) {
@@ -120,12 +119,9 @@ public class DeploymentScriptStarter {
 
     /**
      * Runs the all the pending deployment scripts using the given context.
-     * 
-     * @param context
-     *            Required.
-     * @param runInitScripts
-     *            Required.
-     * 
+     *
+     * @param context        Required.
+     * @param runInitScripts Required.
      * @return true if there was an error.
      */
 
@@ -133,7 +129,7 @@ public class DeploymentScriptStarter {
         if (this.isWasThereAnError()) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("There was an error running the deployment scripts of the previous extensions. "
-                        + "Due to this the deployment scripts of the extension " + context.getExtensionName() + " will be ignored.");
+                        + "Due to this the deployment scripts of the extension {} will be ignored.", context.getExtensionName());
             }
             return true;
         }
@@ -142,7 +138,6 @@ public class DeploymentScriptStarter {
 
     /**
      * It removes any previous error. It is usually call during the initialization and the update process by the core extension.
-     * 
      */
     public void clearErrorFlag() {
         this.setWasThereAnError(false);
@@ -155,7 +150,7 @@ public class DeploymentScriptStarter {
     // This method must catch any error in the execution of the deployment scripts.
     private boolean runDeploymentScriptsAndHandleErrors(final UpdatingSystemExtensionContext context, final boolean runInitScripts) {
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Running the deployment scripts of the extension: " + context.getExtensionName());
+            LOG.debug("Running the deployment scripts of the extension: {}", context.getExtensionName());
         }
 
         try {
@@ -165,14 +160,14 @@ public class DeploymentScriptStarter {
         } catch (final RuntimeException re) {
             this.setWasThereAnError(true);
             // We improve the error logging in case of a runtime exception.
-            LOG.error("There was an error running the deployment scripts: " + re.getLocalizedMessage(), re);
+            LOG.error("There was an error running the deployment scripts: {}", re.getLocalizedMessage(), re);
             throw re;
         }
     }
 
     /**
      * Runs all the pending UPDATE deployment scripts.
-     * 
+     *
      * @return boolean if there was an error.
      */
 
@@ -185,7 +180,7 @@ public class DeploymentScriptStarter {
 
     private boolean runAllPendingScriptsInAllExtensions(final boolean runInitScripts) {
         if (LOG.isInfoEnabled()) {
-            LOG.info("Running all deployment scripts. RunInitScripts? " + runInitScripts);
+            LOG.info("Running all deployment scripts. RunInitScripts? {}", runInitScripts);
         }
         this.clearErrorFlag();
         for (final String extensionName : this.extensionHelper.getExtensionNames()) {
@@ -202,8 +197,7 @@ public class DeploymentScriptStarter {
     /**
      * This method is only called once during the initialization of the core extension. It runs all the INIT deployment scripts sequentially.
      *
-     * @param hybrisContext
-     *            Required. Describes the current update system process.
+     * @param hybrisContext Required. Describes the current update system process.
      */
     @java.lang.SuppressWarnings("unused") // This method is called by Hybris to start the init scripts
     @SystemSetup(type = SystemSetup.Type.ALL, process = SystemSetup.Process.INIT, extension = CoreConstants.EXTENSIONNAME)
@@ -214,15 +208,17 @@ public class DeploymentScriptStarter {
             }
             this.runAllPendingScriptsInAllExtensions(true);
         } else {
-            Logger.getLogger(this.getClass())
-                    .trace(String.format("Not running the init deployment scripts because were are in the %s data creation.", hybrisContext.getType()));
+            if (LOG.isTraceEnabled()) {
+                LOG.trace(String.format("Not running the init deployment scripts because were are in the %s data creation.", hybrisContext.getType()));
+            }
+
         }
     }
 
 
     /**
      * Check if the last executed deployment scripts was successful.
-     * 
+     *
      * @return true if the last deployment script was successful.
      */
     public boolean wasLastScriptSuccessful() {

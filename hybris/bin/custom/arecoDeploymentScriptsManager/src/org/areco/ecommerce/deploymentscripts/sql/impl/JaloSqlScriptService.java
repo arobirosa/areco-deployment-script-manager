@@ -17,8 +17,9 @@ package org.areco.ecommerce.deploymentscripts.sql.impl;
 
 import de.hybris.platform.core.Registry;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.areco.ecommerce.deploymentscripts.sql.SqlScriptService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -33,65 +34,69 @@ import java.util.regex.Pattern;
  * <p/>
  * TODO Find a way to execute SQL without using Jalo.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
-@Service @Scope("tenant") public class JaloSqlScriptService implements SqlScriptService {
+@Service
+@Scope("tenant")
+public class JaloSqlScriptService implements SqlScriptService {
 
-        private static final Logger LOG = Logger.getLogger(JaloSqlScriptService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JaloSqlScriptService.class);
 
-        // CHECKSTYLE.OFF: This annotation generates a long line.
-        @edu.umd.cs.findbugs.annotations.SuppressWarnings(
-                value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING",
-                justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
-        // CHECKSTYLE.ON
-        //The variable affectedRows is needed because the cache must be cleared afterwards.
-        @SuppressWarnings("PMD.UnnecessaryLocalBeforeReturn") @Override public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException {
-                if (StringUtils.isBlank(aStatement)) {
-                        throw new IllegalArgumentException("The parameter aStatement is empty.");
-                }
-                if (aStatement.trim().toUpperCase(Locale.getDefault()).startsWith("SELECT")) {
-                        throw new SQLException("The sql statement can't start with select.");
-                }
-                final String translatedStatement = translateTablePrefix(aStatement);
+    // CHECKSTYLE.OFF: This annotation generates a long line.
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings(
+            value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING",
+            justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
+    // CHECKSTYLE.ON
+    //The variable affectedRows is needed because the cache must be cleared afterwards.
+    @SuppressWarnings("PMD.UnnecessaryLocalBeforeReturn")
+    @Override
+    public int runDeleteOrUpdateStatement(final String aStatement) throws SQLException {
+        if (StringUtils.isBlank(aStatement)) {
+            throw new IllegalArgumentException("The parameter aStatement is empty.");
+        }
+        if (aStatement.trim().toUpperCase(Locale.getDefault()).startsWith("SELECT")) {
+            throw new SQLException("The sql statement can't start with select.");
+        }
+        final String translatedStatement = translateTablePrefix(aStatement);
 
-                final int affectedRows = runStatementOnDatabase(translatedStatement);
+        final int affectedRows = runStatementOnDatabase(translatedStatement);
 
                 /* Because clearing the cache doesn't remove the old values of the attributes saved in the model instances, a refresh of the models
                   is required to get the new values stored in the database. */
-                Registry.getCurrentTenant().getCache().clear();
-                return affectedRows;
-        }
+        Registry.getCurrentTenant().getCache().clear();
+        return affectedRows;
+    }
 
-        // CHECKSTYLE.OFF: This annotation generates a long line.
-        @edu.umd.cs.findbugs.annotations.SuppressWarnings(
-                value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING",
-                justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
-        // CHECKSTYLE.ON
-        private int runStatementOnDatabase(final String translatedStatement) throws SQLException {
+    // CHECKSTYLE.OFF: This annotation generates a long line.
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings(
+            value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING",
+            justification = "The SQL coming from deployment scripts is saved on the server and the user can't modify it.")
+    // CHECKSTYLE.ON
+    private int runStatementOnDatabase(final String translatedStatement) throws SQLException {
 
-                try (Connection aConnection = getConnection(); PreparedStatement prepareStatement = aConnection.prepareStatement(translatedStatement)) {
-                        return prepareStatement.executeUpdate();
-                }
+        try (final Connection aConnection = getConnection(); final PreparedStatement prepareStatement = aConnection.prepareStatement(translatedStatement)) {
+            return prepareStatement.executeUpdate();
         }
+    }
 
-        private String translateTablePrefix(final String aStatement) {
-                if (LOG.isDebugEnabled()) {
-                        LOG.debug("SQL Statement before the translation: <" + aStatement + ">");
-                }
-                Pattern tablePrefixPattern = Pattern.compile("\\{table_prefix\\}", Pattern.CASE_INSENSITIVE);
-                final String returnedStatement = tablePrefixPattern.matcher(aStatement)
-                        .replaceAll(Registry.getCurrentTenant().getDataSource().getTablePrefix());
-                if (LOG.isDebugEnabled()) {
-                        LOG.debug("SQL Statement after the translation: <" + returnedStatement + ">");
-                }
-                return returnedStatement;
+    private String translateTablePrefix(final String aStatement) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("SQL Statement before the translation: <{}>", aStatement);
         }
+        final Pattern tablePrefixPattern = Pattern.compile("\\{table_prefix\\}", Pattern.CASE_INSENSITIVE);
+        final String returnedStatement = tablePrefixPattern.matcher(aStatement)
+                .replaceAll(Registry.getCurrentTenant().getDataSource().getTablePrefix());
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("SQL Statement after the translation: <{}>", returnedStatement);
+        }
+        return returnedStatement;
+    }
 
-        private Connection getConnection() throws SQLException {
-                final Connection connection = Registry.getCurrentTenant().getDataSource().getConnection();
-                if (connection == null) {
-                   throw new SQLException("The connection is down");
-                }
-                return connection;
+    private Connection getConnection() throws SQLException {
+        final Connection connection = Registry.getCurrentTenant().getDataSource().getConnection();
+        if (connection == null) {
+            throw new SQLException("The connection is down");
         }
+        return connection;
+    }
 }

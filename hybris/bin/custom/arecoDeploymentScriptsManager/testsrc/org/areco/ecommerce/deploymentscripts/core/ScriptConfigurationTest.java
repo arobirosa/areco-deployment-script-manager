@@ -1,12 +1,12 @@
 /**
  * Copyright 2014 Antonio Robirosa
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package org.areco.ecommerce.deploymentscripts.core;
+
 import de.hybris.bootstrap.annotations.IntegrationTest;
 import org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchDeploymentEnvironmentDAO;
 import org.junit.Assert;
@@ -22,10 +23,11 @@ import org.junit.Test;
 /**
  * It checks that the script configuration including the contraints are working correctly.
  *
- * @author arobirosa
+ * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
 @IntegrationTest
-@SuppressWarnings({"PMD.TooManyMethods", "PMD.JUnitTestsShouldIncludeAssert"}) //It a test with many cases. The assert statements are inside a private method.
+@SuppressWarnings({"PMD.TooManyMethods", "PMD.JUnitTestsShouldIncludeAssert"})
+//It a test with many cases. The assert statements are inside a private method.
 public class ScriptConfigurationTest extends AbstractWithConfigurationRestorationTest {
     private static final String RESOURCES_FOLDER = "/resources/test/script-configuration-test";
 
@@ -34,7 +36,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "dev-only");
         this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         runAndAssertNoErrors();
-        getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_DEV_CRONJOBS", this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+        getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_DEV_CRONJOBS", this.getScriptExecutionResultDao().getSuccessResult());
     }
 
     private void runAndAssertNoErrors() {
@@ -47,7 +49,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_TEST_CRONJOBS",
-                this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+                this.getScriptExecutionResultDao().getSuccessResult());
     }
 
     @Test
@@ -56,7 +58,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_PROD_CRONJOBS",
-                this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherEnvironmentResult());
+                this.getScriptExecutionResultDao().getIgnoredOtherEnvironmentResult());
     }
 
     @Test
@@ -65,7 +67,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_PROD_CRONJOBS",
-                this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherTenantResult());
+                this.getScriptExecutionResultDao().getIgnoredOtherTenantResult());
     }
 
     @Test
@@ -74,7 +76,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setEnvironment(ServerEnvironments.DEVELOPMENT);
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_TICKET_ADD_TEST_CRONJOBS",
-                this.getFlexibleSearchScriptExecutionResultDao().getIgnoredOtherTenantResult());
+                this.getScriptExecutionResultDao().getIgnoredOtherTenantResult());
     }
 
     @Test(expected = DeploymentScriptConfigurationException.class)
@@ -108,7 +110,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
         this.getDeploymentConfigurationSetter().setEnvironment("QA_WEBSERVICE");
         runAndAssertNoErrors();
         getDeploymentScriptResultAsserter().assertResult("20140814_02_TICKET_ADD_QA_CRONJOBS",
-                this.getFlexibleSearchScriptExecutionResultDao().getSuccessResult());
+                this.getScriptExecutionResultDao().getSuccessResult());
     }
 
     @Test
@@ -117,7 +119,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
             this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment");
             this.getDeploymentConfigurationSetter().setEnvironment(""); // We cannot set a null value.
             this.getDeploymentScriptStarter().runAllPendingScripts();
-        } catch (IllegalStateException e) {
+        } catch (final IllegalStateException e) {
             Assert.assertEquals("The exception has the wrong error message",
                     FlexibleSearchDeploymentEnvironmentDAO.UNCONFIGURATED_CURRENT_ENVIRONMENT_ERROR_MESSAGE, e.getMessage());
             return;
@@ -131,7 +133,7 @@ public class ScriptConfigurationTest extends AbstractWithConfigurationRestoratio
             this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "just-created-environment");
             this.getDeploymentConfigurationSetter().setEnvironment("                "); // We cannot set a null value.
             this.getDeploymentScriptStarter().runAllPendingScripts();
-        } catch (IllegalStateException e) {
+        } catch (final IllegalStateException e) {
             Assert.assertEquals("The exception has the wrong error message",
                     FlexibleSearchDeploymentEnvironmentDAO.UNCONFIGURATED_CURRENT_ENVIRONMENT_ERROR_MESSAGE, e.getMessage());
             return;
