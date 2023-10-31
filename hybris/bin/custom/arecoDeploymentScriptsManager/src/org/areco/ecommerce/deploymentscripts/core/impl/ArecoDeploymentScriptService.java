@@ -79,6 +79,10 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
             return true;
         }
 
+        return findAndRunPendingScripts(context, runInitScripts);
+    }
+
+    private boolean findAndRunPendingScripts(final UpdatingSystemExtensionContext context, final boolean runInitScripts) {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Looking for pending update scripts in the extension {}", context.getExtensionName());
         }

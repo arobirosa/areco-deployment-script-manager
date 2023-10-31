@@ -88,11 +88,9 @@ public class ImpexArecoInitialConfigurationImporter implements ArecoInitialConfi
         }
 
         try {
-            if (this.commonI18NService.getLanguage("de") != null) {
-                if (!this.importConfiguration(INITIAL_CONFIGURATION_FILE_GERMAN)) {
-                    LOG.error("There was an error importing the initial configuration from {}", INITIAL_CONFIGURATION_FILE_GERMAN);
-                    return false;
-                }
+            if (this.commonI18NService.getLanguage("de") != null && !this.importConfiguration(INITIAL_CONFIGURATION_FILE_GERMAN)) {
+                LOG.error("There was an error importing the initial configuration from {}", INITIAL_CONFIGURATION_FILE_GERMAN);
+                return false;
             }
         } catch (final UnknownIdentifierException e) {
             if (LOG.isTraceEnabled()) {
