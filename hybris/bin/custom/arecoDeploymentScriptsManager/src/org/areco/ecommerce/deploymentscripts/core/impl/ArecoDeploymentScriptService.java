@@ -74,7 +74,10 @@ public class ArecoDeploymentScriptService implements DeploymentScriptService {
         if (this.extensionHelper.isDeploymentManagerExtensionTurnedOff()) {
             return false;
         }
-        this.arecoInitialConfigurationImporter.importConfigurationIfRequired(context);
+        if (!this.arecoInitialConfigurationImporter.importConfigurationIfRequired(context)) {
+            context.logError("There were errors importing the initial configuration of the Areco Deployment Manager");
+            return true;
+        }
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("Looking for pending update scripts in the extension {}", context.getExtensionName());

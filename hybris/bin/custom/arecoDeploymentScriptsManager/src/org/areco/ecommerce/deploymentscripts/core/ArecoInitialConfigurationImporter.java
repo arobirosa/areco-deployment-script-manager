@@ -23,9 +23,10 @@ package org.areco.ecommerce.deploymentscripts.core;
  */
 public interface ArecoInitialConfigurationImporter {
     /**
-     * It imports the initial objects if the haven't been imported yet. It throws an exception is there was an error.
+     * It imports the initial objects if they haven't been imported yet
      *
      * @param context Required
+     * @return true if there were no errors
      */
-    void importConfigurationIfRequired(UpdatingSystemExtensionContext context);
+    boolean importConfigurationIfRequired(UpdatingSystemExtensionContext context);
 }

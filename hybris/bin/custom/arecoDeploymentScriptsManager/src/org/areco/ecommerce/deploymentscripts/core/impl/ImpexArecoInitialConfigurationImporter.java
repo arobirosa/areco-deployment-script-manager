@@ -64,29 +64,35 @@ public class ImpexArecoInitialConfigurationImporter implements ArecoInitialConfi
      * { @InheritDoc }
      */
     @Override
-    public void importConfigurationIfRequired(final UpdatingSystemExtensionContext context) {
+    public boolean importConfigurationIfRequired(final UpdatingSystemExtensionContext context) {
         ServicesUtil.validateParameterNotNullStandardMessage("context", context);
         if (!this.extensionHelper.isFirstExtension(context)) {
             if (LOG.isTraceEnabled()) {
                 LOG.trace("This is not the first extension. Quitting without checking if the initial " + " configuration was imported.");
             }
-            return;
+            return true;
         }
         if (this.scriptExecutionResultDao.theInitialResultsWereImported()) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("The initial configuration was already imported.");
             }
-            return;
+            return true;
         }
-        importConfiguration();
+        return importConfiguration();
     }
 
-    private void importConfiguration() {
-        this.importConfiguration(INITIAL_CONFIGURATION_FILE);
+    private boolean importConfiguration() {
+        if (!this.importConfiguration(INITIAL_CONFIGURATION_FILE)) {
+            LOG.error("There was an error importing the initial configuration from {}", INITIAL_CONFIGURATION_FILE);
+            return false;
+        }
 
         try {
             if (this.commonI18NService.getLanguage("de") != null) {
-                this.importConfiguration(INITIAL_CONFIGURATION_FILE_GERMAN);
+                if (!this.importConfiguration(INITIAL_CONFIGURATION_FILE_GERMAN)) {
+                    LOG.error("There was an error importing the initial configuration from {}", INITIAL_CONFIGURATION_FILE_GERMAN);
+                    return false;
+                }
             }
         } catch (final UnknownIdentifierException e) {
             if (LOG.isTraceEnabled()) {
@@ -97,16 +103,22 @@ public class ImpexArecoInitialConfigurationImporter implements ArecoInitialConfi
         // Reload of the results.
         this.scriptExecutionResultDao.initialize();
 
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("The initial configuration was successfully imported.");
+        if (this.scriptExecutionResultDao.theInitialResultsWereImported()) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("The initial configuration was successfully imported.");
+            }
+            return true;
+        } else {
+            LOG.error("There was an error importing the initial configuration of the Areco Deployment Manager. Please check the console");
+            return false;
         }
     }
 
-    private void importConfiguration(final String initialConfigurationFileGerman) {
+    private boolean importConfiguration(final String initialConfigurationFileGerman) {
         final ExtensionInfo extension = ConfigUtil.getPlatformConfig(ArecoDeploymentScriptService.class).getExtensionInfo(
                 ArecoDeploymentScriptsManagerConstants.EXTENSIONNAME);
         final File configurationFile = new File(extension.getExtensionDirectory() + RESOURCES_FOLDER, initialConfigurationFileGerman);
-        this.impexImportService.importImpexFile(configurationFile);
+        return this.impexImportService.importImpexFile(configurationFile).isSuccessful();
     }
 
 }
