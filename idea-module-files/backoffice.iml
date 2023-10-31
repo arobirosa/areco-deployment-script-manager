@@ -193,4 +193,7 @@
     <orderEntry type="module" module-name="auditreportservices" exported="" />
     <orderEntry type="module" module-name="platform" exported="" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="9ec55d11-662a-415a-a61c-7a7100530ffc" />
+  </component>
 </module>

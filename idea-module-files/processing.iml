@@ -140,4 +140,7 @@
     <orderEntry type="module" module-name="commons" exported="" />
     <orderEntry type="module" module-name="scripting" exported="" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="3eb1afe9-f738-4f85-b78e-302dc2a96733" />
+  </component>
 </module>

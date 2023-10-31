@@ -93,4 +93,7 @@
     </orderEntry>
     <orderEntry type="module" module-name="core" exported="" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="da7285f5-3a25-49a3-bc30-c076436fe5ef" />
+  </component>
 </module>

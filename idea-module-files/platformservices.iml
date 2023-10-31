@@ -104,4 +104,7 @@
     <orderEntry type="module" module-name="europe1" exported="" />
     <orderEntry type="module" module-name="paymentstandard" exported="" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="3b007212-b1e8-433a-a338-13bd41934415" />
+  </component>
 </module>
