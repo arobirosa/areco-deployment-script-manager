@@ -65,7 +65,7 @@ public class AntDeploymentScriptsStarterErrorHandlingTest extends AbstractWithCo
     @Test
     public void testScriptWhichRequiresAdmin() {
         Assert.assertEquals("The user before running the scripts must be anonymous", userService.getAnonymousUser(), userService.getCurrentUser());
-        
+
         this.assertReturnValue("script-requiring-admin", true);
         this.deploymentScriptResultAsserter.assertSuccessfulResult("20230216_18_REQUIRES_ADMIN");
 

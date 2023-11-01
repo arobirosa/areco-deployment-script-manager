@@ -38,7 +38,7 @@ import org.springframework.stereotype.Service;
 @Scope("tenant")
 public class AntDeploymentScriptsStarter {
     public static final String STOP_ANT_ON_ERROR_CONF = "deploymentscripts.stopantonerror";
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AntDeploymentScriptsStarter.class);
 
     @Autowired
