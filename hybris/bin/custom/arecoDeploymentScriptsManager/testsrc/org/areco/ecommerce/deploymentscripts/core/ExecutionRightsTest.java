@@ -32,7 +32,7 @@ public class ExecutionRightsTest extends AbstractWithConfigurationRestorationTes
 
     @Test
     public void testAdminExecutionRights() {
-        antDeploymentScriptsStarter.runPendingScripts();
+        antDeploymentScriptsStarter.runPendingScriptsAndThrowExceptionIfThereWasAnError();
         deploymentScriptResultAsserter.assertSuccessfulResult("20190807_54_EXECUTION_RIGHTS");
     }
 }

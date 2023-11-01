@@ -7,9 +7,7 @@
         import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
             	
         AntDeploymentScriptsStarter starter = (AntDeploymentScriptsStarter) Registry.getApplicationContext().getBean(AntDeploymentScriptsStarter.class);
-        boolean wasLastScriptSuccessful = starter.wasLastScriptSuccessful();
-        de.hybris.platform.util.RedeployUtilities.shutdown();
-        System.exit(wasLastScriptSuccessful ? 0 : 1);
+        starter.stopAntBuildIfTheLastScriptFailed();
             </yrun>
             </sequential>
     </macrodef>
@@ -28,9 +26,7 @@
 				DataCreatorAndDeploymentScriptsStarter dataCreator = (DataCreatorAndDeploymentScriptsStarter) Registry.getApplicationContext().getBean(DataCreatorAndDeploymentScriptsStarter.class);
 
 				dataCreator.runInJunitTenant();
-				boolean wasLastScriptSuccessful = starter.wasLastScriptSuccessful();
-				de.hybris.platform.util.RedeployUtilities.shutdown();
-				System.exit(wasLastScriptSuccessful ? 0 : 1);
+				starter.stopAntBuildIfTheLastScriptFailed();
 			</yrun>
 		</sequential>
 	</macrodef>
@@ -70,9 +66,7 @@
 		import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
 				                
 		AntDeploymentScriptsStarter starter = (AntDeploymentScriptsStarter) Registry.getApplicationContext().getBean(AntDeploymentScriptsStarter.class);
-       	int exitCode = starter.runPendingScripts();
-        de.hybris.platform.util.RedeployUtilities.shutdown();
-        System.exit(exitCode);
+       	starter.runPendingScriptsAndThrowExceptionIfThereWasAnError()
        </yrun>
 		</sequential>
 	</macrodef>

@@ -75,14 +75,27 @@ public class AntDeploymentScriptsStarterErrorHandlingTest extends AbstractWithCo
     private void assertReturnValue(final String scriptFolder, final boolean expectedWereScriptsSuccessful) {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, scriptFolder);
 
-        final int returnValueScripts = this.antDeploymentScriptsStarter.runPendingScripts();
-        if (expectedWereScriptsSuccessful) {
-            Assert.assertEquals("There were errors", 0, returnValueScripts);
-        } else {
-            Assert.assertNotSame("There were no errors", 0, returnValueScripts);
+        try {
+            this.antDeploymentScriptsStarter.runPendingScriptsAndThrowExceptionIfThereWasAnError();
+            if (!expectedWereScriptsSuccessful) {
+                Assert.fail("There were no errors");
+            }
+        } catch (final DeploymentScriptFailureException e) {
+            if (expectedWereScriptsSuccessful) {
+                Assert.fail("There were errors");
+            }
         }
-        final boolean wereScriptsSuccessful = this.antDeploymentScriptsStarter.wasLastScriptSuccessful();
-        Assert.assertEquals("The result of the check after the scripts were run is wrong", expectedWereScriptsSuccessful, wereScriptsSuccessful);
+
+        try {
+            this.antDeploymentScriptsStarter.stopAntBuildIfTheLastScriptFailed();
+            if (!expectedWereScriptsSuccessful) {
+                Assert.fail("The last script was expected to fail");
+            }
+        } catch (final DeploymentScriptFailureException e) {
+            if (expectedWereScriptsSuccessful) {
+                Assert.fail("The last script failed");
+            }
+        }
     }
 
 }
