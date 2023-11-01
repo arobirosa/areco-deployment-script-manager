@@ -91,4 +91,7 @@
     </orderEntry>
     <orderEntry type="module" module-name="validation" exported="" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="e246f275-8942-493b-9773-69304f2a315f" />
+  </component>
 </module>

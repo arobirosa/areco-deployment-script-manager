@@ -114,4 +114,7 @@
     </orderEntry>
     <orderEntry type="library" exported="" name="Platform Bootstrap" level="project" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="84cb2dcb-8762-497e-82cf-8a4278179a07" />
+  </component>
 </module>

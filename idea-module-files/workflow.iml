@@ -94,4 +94,7 @@
     <orderEntry type="module" module-name="catalog" exported="" />
     <orderEntry type="module" module-name="platformservices" exported="" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="4e503099-02a2-4498-bdb5-54425cb586d6" />
+  </component>
 </module>

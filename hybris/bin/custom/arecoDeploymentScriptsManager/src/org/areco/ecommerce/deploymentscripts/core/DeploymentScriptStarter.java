@@ -175,17 +175,17 @@ public class DeploymentScriptStarter {
         if (LOG.isInfoEnabled()) {
             LOG.info("Running all pending update deployment scripts.");
         }
-        return this.runAllPendingScriptsInAllExtensions(false);
+        return this.runAllPendingScriptsInAllExtensions(false, null);
     }
 
-    private boolean runAllPendingScriptsInAllExtensions(final boolean runInitScripts) {
+    private boolean runAllPendingScriptsInAllExtensions(final boolean runInitScripts, final SystemSetupContext hybrisContext) {
         if (LOG.isInfoEnabled()) {
             LOG.info("Running all deployment scripts. RunInitScripts? {}", runInitScripts);
         }
         this.clearErrorFlag();
         for (final String extensionName : this.extensionHelper.getExtensionNames()) {
             final UpdatingSystemExtensionContext aContext = new UpdatingSystemExtensionContext(extensionName, runInitScripts ? SystemSetup.Process.INIT
-                    : SystemSetup.Process.UPDATE);
+                    : SystemSetup.Process.UPDATE, hybrisContext == null ? null : hybrisContext.getJspContext());
             final boolean somethingWentWrong = this.runDeploymentScripts(aContext, runInitScripts);
             if (somethingWentWrong) {
                 return true;
@@ -206,7 +206,7 @@ public class DeploymentScriptStarter {
             if (LOG.isInfoEnabled()) {
                 LOG.info("Running all INIT deployment scripts.");
             }
-            this.runAllPendingScriptsInAllExtensions(true);
+            this.runAllPendingScriptsInAllExtensions(true, hybrisContext);
         } else {
             if (LOG.isTraceEnabled()) {
                 LOG.trace(String.format("Not running the init deployment scripts because were are in the %s data creation.", hybrisContext.getType()));

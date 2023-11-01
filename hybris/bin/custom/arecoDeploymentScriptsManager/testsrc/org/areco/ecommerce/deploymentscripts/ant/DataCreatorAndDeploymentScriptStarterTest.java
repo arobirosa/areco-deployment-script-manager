@@ -75,7 +75,7 @@ public class DataCreatorAndDeploymentScriptStarterTest extends AbstractWithConfi
     public void testRunDataCreationSteps() {
         this.getDeploymentConfigurationSetter().setTestFolders(CREATOR_RESOURCES_FOLDER, DEFAULT_UPDATE_SCRIPTS_FOLDER, DEFAULT_INIT_SCRIPTS_FOLDER);
         this.dataCreatorAndDeploymentScriptsStarter.runInJunitTenant();
-        Assert.assertTrue("There were errors running the deployment scripts", this.antDeploymentScriptsStarter.wasLastScriptSuccessful());
+        this.antDeploymentScriptsStarter.stopAntBuildIfTheLastScriptFailed();
         this.deploymentScriptResultAsserter.assertSuccessfulResult("20141005_RELOAD_CMS_CONF");
         this.deploymentScriptResultAsserter.assertSuccessfulResult("20141004_RELOAD_CMS_CONF");
         Assert.assertTrue("The creation of the essential data wasn't triggered.", this.essentialDataCreationDetector.isWasEssentialDataCreated());
@@ -86,7 +86,7 @@ public class DataCreatorAndDeploymentScriptStarterTest extends AbstractWithConfi
     public void testInitAndUpdateScriptsOrder() {
         this.getDeploymentConfigurationSetter().setTestFolders(ORDER_TEST_RESOURCES_FOLDER, DEFAULT_UPDATE_SCRIPTS_FOLDER, DEFAULT_INIT_SCRIPTS_FOLDER);
         this.dataCreatorAndDeploymentScriptsStarter.runInJunitTenant();
-        Assert.assertTrue("The update script was run before the init script", this.antDeploymentScriptsStarter.wasLastScriptSuccessful());
+        this.antDeploymentScriptsStarter.stopAntBuildIfTheLastScriptFailed();
         this.deploymentScriptResultAsserter.assertSuccessfulResult("20190512_INSERT_TAX");
         this.deploymentScriptResultAsserter.assertSuccessfulResult("20190512_UPDATE_TAX");
         final List<TaxModel> foundTaxes = this.taxDao.findTaxesByCode("dummyRunOrderTax");

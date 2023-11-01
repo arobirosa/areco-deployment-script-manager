@@ -18,6 +18,7 @@ package org.areco.ecommerce.deploymentscripts.testhelper;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
 import org.apache.commons.configuration.Configuration;
+import org.areco.ecommerce.deploymentscripts.ant.AntDeploymentScriptsStarter;
 import org.areco.ecommerce.deploymentscripts.core.impl.ArecoDeploymentScriptFinder;
 import org.areco.ecommerce.deploymentscripts.core.impl.FlexibleSearchDeploymentEnvironmentDAO;
 import org.areco.ecommerce.deploymentscripts.impex.impl.LocalizedImpexImportService;
@@ -137,5 +138,14 @@ public class DeploymentConfigurationSetter {
     private void setConfigurationAndLog(final String key, final String value) {
         LOG.debug("Setting the configuration key '{}' with the value '{}'", key, value);
         this.getConfiguration().setProperty(key, value);
+    }
+
+    /**
+     * Turns on or off stopping the ant build process. If there is an error and is turned off, no exception is thrown.
+     *
+     * @param newValue False if no exception must be thrown on error
+     */
+    public void setStopAntOnError(final boolean newValue) {
+        setConfigurationAndLog(AntDeploymentScriptsStarter.STOP_ANT_ON_ERROR_CONF, Boolean.toString(newValue));
     }
 }

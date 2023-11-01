@@ -17,6 +17,7 @@ package org.areco.ecommerce.deploymentscripts.impex;
 
 import org.areco.ecommerce.deploymentscripts.core.ScriptStepResult;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 
 /**
@@ -31,5 +32,6 @@ public interface ImpexImportService {
      * @param impexFile Required
      * @return Never null.
      */
+    @Nonnull
     ScriptStepResult importImpexFile(File impexFile);
 }

@@ -47,12 +47,13 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
     @Before
     public void setUpFolder() {
         Assert.assertTrue("The database has failed scripts from other test", arecoDeploymentScriptService.wasLastScriptSuccessful());
+        this.getDeploymentConfigurationSetter().setStopAntOnError(false);
     }
 
     @Test
     public void testTwoShortScripts() {
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "update-deployment-scripts");
-        antDeploymentScriptsStarter.runPendingScripts();
+        antDeploymentScriptsStarter.runPendingScriptsAndThrowExceptionIfThereWasAnError();
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
         deploymentScriptResultAsserter.assertErrorResult("20150513_PENDING_SCRIPT_WRONG");
         Assert.assertFalse("The last script must fail", arecoDeploymentScriptService.wasLastScriptSuccessful());
@@ -64,7 +65,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "with-will-executed-test");
 
         // When
-        antDeploymentScriptsStarter.runPendingScripts();
+        antDeploymentScriptsStarter.runPendingScriptsAndThrowExceptionIfThereWasAnError();
 
         // Then
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
@@ -77,7 +78,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
     public void testIfFailedScriptWhichAreRemovedOnDiskAreIgnored() {
         // Given
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "with-will-executed-test");
-        antDeploymentScriptsStarter.runPendingScripts();
+        antDeploymentScriptsStarter.runPendingScriptsAndThrowExceptionIfThereWasAnError();
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
         deploymentScriptResultAsserter.assertErrorResult("20150513_PENDING_SCRIPT_WRONG");
         deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDao().getWillBeExecuted());
@@ -86,7 +87,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "with-removed-error-script-on-disk");
 
         // When
-        antDeploymentScriptsStarter.runPendingScripts();
+        antDeploymentScriptsStarter.runPendingScriptsAndThrowExceptionIfThereWasAnError();
 
         // Then
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
@@ -99,7 +100,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
     public void testIfFailedScriptWhichAreRemovedOnDiskAndAddedAgainAreExecuted() {
         // Given
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "with-will-executed-test");
-        antDeploymentScriptsStarter.runPendingScripts();
+        antDeploymentScriptsStarter.runPendingScriptsAndThrowExceptionIfThereWasAnError();
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
         deploymentScriptResultAsserter.assertErrorResult("20150513_PENDING_SCRIPT_WRONG");
         deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDao().getWillBeExecuted());
@@ -107,7 +108,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
 
         // Change the script directory. Now 20150513_PENDING_SCRIPT_WRONG don't exist on Disk
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "with-removed-error-script-on-disk");
-        antDeploymentScriptsStarter.runPendingScripts();
+        antDeploymentScriptsStarter.runPendingScriptsAndThrowExceptionIfThereWasAnError();
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
         deploymentScriptResultAsserter.assertResult("20150513_PENDING_SCRIPT_WRONG", getScriptExecutionResultDao().getIgnoredRemovedOnDisk());
         deploymentScriptResultAsserter.assertSuccessfulResult("20230220_WILL_BE_EXECUTED");
@@ -115,7 +116,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
 
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "with-corrected-will-executed-test");
         // When
-        antDeploymentScriptsStarter.runPendingScripts();
+        antDeploymentScriptsStarter.runPendingScriptsAndThrowExceptionIfThereWasAnError();
 
         // Then
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
@@ -128,7 +129,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
     public void testIfWillBeExecutedScriptWhichAreRemovedOnDiskAreIgnored() {
         // Given
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "with-will-executed-test");
-        antDeploymentScriptsStarter.runPendingScripts();
+        antDeploymentScriptsStarter.runPendingScriptsAndThrowExceptionIfThereWasAnError();
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
         deploymentScriptResultAsserter.assertErrorResult("20150513_PENDING_SCRIPT_WRONG");
         deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDao().getWillBeExecuted());
@@ -137,7 +138,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "with-removed-will-be-executed-script-on-disk");
 
         // When
-        antDeploymentScriptsStarter.runPendingScripts();
+        antDeploymentScriptsStarter.runPendingScriptsAndThrowExceptionIfThereWasAnError();
 
         // Then
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
@@ -150,7 +151,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
     public void testIfFailedAndWillBeExecutedScriptsWhichAreRemovedOnDiskAreIgnored() {
         // Given
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "with-will-executed-test");
-        antDeploymentScriptsStarter.runPendingScripts();
+        antDeploymentScriptsStarter.runPendingScriptsAndThrowExceptionIfThereWasAnError();
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");
         deploymentScriptResultAsserter.assertErrorResult("20150513_PENDING_SCRIPT_WRONG");
         deploymentScriptResultAsserter.assertResult("20230220_WILL_BE_EXECUTED", getScriptExecutionResultDao().getWillBeExecuted());
@@ -159,7 +160,7 @@ public class LastFailedScriptTest extends AbstractWithConfigurationRestorationTe
         this.getDeploymentConfigurationSetter().setTestFolders(RESOURCES_FOLDER, "with-removed-failed-and-will-be-executed-script-on-disk");
 
         // When
-        antDeploymentScriptsStarter.runPendingScripts();
+        antDeploymentScriptsStarter.runPendingScriptsAndThrowExceptionIfThereWasAnError();
 
         // Then
         deploymentScriptResultAsserter.assertSuccessfulResult("20150512_PENDING_SCRIPT_CORRECT");

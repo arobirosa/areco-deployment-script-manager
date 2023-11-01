@@ -15,6 +15,7 @@
  */
 package org.areco.ecommerce.deploymentscripts.ant;
 
+import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.session.SessionExecutionBody;
 import de.hybris.platform.servicelayer.session.SessionService;
 import de.hybris.platform.servicelayer.user.UserService;
@@ -36,6 +37,8 @@ import org.springframework.stereotype.Service;
 @Service("antDeploymentScriptsStarter")
 @Scope("tenant")
 public class AntDeploymentScriptsStarter {
+    public static final String STOP_ANT_ON_ERROR_CONF = "deploymentscripts.stopantonerror";
+
     private static final Logger LOG = LoggerFactory.getLogger(AntDeploymentScriptsStarter.class);
 
     @Autowired
@@ -47,12 +50,37 @@ public class AntDeploymentScriptsStarter {
     @Autowired
     private SessionService sessionService;
 
+    @Autowired
+    private ConfigurationService configurationService;
+
+    /**
+     * Run any deployment script which wasn't run yet. Depending on the configuration, throw an exception to stop the build process if there
+     * was an error.
+     *
+     * @throws DeploymentScriptFailureException if there was an error and the build process must be stopped
+     */
+    public void runPendingScriptsAndThrowExceptionIfThereWasAnError() {
+        if (this.runPendingScripts()) {
+            return;
+        }
+        throwExceptionToStopAntBuildOrLogMessage("There were errors running the deployment scripts. Check the logs");
+    }
+
+    private void throwExceptionToStopAntBuildOrLogMessage(final String message) {
+        if (configurationService.getConfiguration().getBoolean(STOP_ANT_ON_ERROR_CONF, true)) {
+            throw new DeploymentScriptFailureException(message);
+        }
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("There were errors but the ant process must continue. {}", message);
+        }
+    }
+
     /**
      * Run any deployment script which wasn't run yet. The method is called by the ant script.
      *
-     * @return 0 if everything went ok.
+     * @return true if everything went ok.
      */
-    public int runPendingScripts() {
+    private boolean runPendingScripts() {
         if (LOG.isInfoEnabled()) {
             LOG.info("Running any pending UPDATE deployment scripts.");
         }
@@ -65,20 +93,23 @@ public class AntDeploymentScriptsStarter {
 
         if (wasThereAnError) {
             LOG.error("There was an error running the deployment scripts. Please check the console.");
-            return 1; // Error
+            return false; // Error
         }
         if (LOG.isInfoEnabled()) {
             LOG.info("All pending scripts were run successfully.");
         }
-        return 0;
+        return true;
     }
 
     /**
-     * Check if the last executed deployment scripts was successful.
+     * Check if the last executed deployment script had an error and throw an exception if the ant build must be stopped.
      *
-     * @return true if the last deployment script was successful.
+     * @throws DeploymentScriptFailureException if there was an error and the build process must be stopped
      */
-    public boolean wasLastScriptSuccessful() {
-        return this.deploymentScriptStarter.wasLastScriptSuccessful();
+    public void stopAntBuildIfTheLastScriptFailed() {
+        if (this.deploymentScriptStarter.wasLastScriptSuccessful()) {
+            return;
+        }
+        throwExceptionToStopAntBuildOrLogMessage("The last deployment script failed");
     }
 }
