@@ -24,8 +24,6 @@ import org.areco.ecommerce.deploymentscripts.core.DeploymentScriptConfiguration;
 import org.areco.ecommerce.deploymentscripts.core.ScriptExecutionResultDao;
 import org.areco.ecommerce.deploymentscripts.model.ScriptExecutionResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.Set;
@@ -35,9 +33,6 @@ import java.util.Set;
  *
  * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
-// Every time the step factory is called, it creates a new instance.
-@Scope("prototype")
-@Component
 public class PropertyFileDeploymentScriptConfiguration implements DeploymentScriptConfiguration {
     @Autowired
     private ScriptExecutionResultDao scriptExecutionResultDao;
@@ -86,14 +81,16 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
         this.longExecution = hasLongExecution;
     }
 
-    private boolean isAllowedInThisDeploymentEnvironment() {
+    // Visible to subclasses to permit customizations
+    protected boolean isAllowedInThisDeploymentEnvironment() {
         if (CollectionUtils.isEmpty(this.getAllowedDeploymentEnvironmentNames())) {
             return true;
         }
         return this.isCurrentEnvironmentIn(this.getAllowedDeploymentEnvironmentNames());
     }
 
-    private boolean isAllowedInThisTenant() {
+    // Visible to subclasses to permit customizations
+    protected boolean isAllowedInThisTenant() {
         if (CollectionUtils.isEmpty(this.getAllowedTenants())) {
             return true;
         }
@@ -155,6 +152,7 @@ public class PropertyFileDeploymentScriptConfiguration implements DeploymentScri
         this.allowedDeploymentEnvironmentNames = allowedDeploymentEnvironmentNames;
     }
 
+    // Visible to subclasses to permit customizations
     public boolean isRunMultipleTimes() {
         return this.runMultipleTimes;
     }

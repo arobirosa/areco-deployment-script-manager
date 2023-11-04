@@ -30,8 +30,6 @@ import org.areco.ecommerce.deploymentscripts.impex.ImpexImportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,8 +42,6 @@ import java.nio.file.Paths;
  *
  * @author Antonio Robirosa <mailto:deployment.manager@areko.consulting>
  */
-@Scope("tenant")
-@Service
 public class LocalizedImpexImportService implements ImpexImportService {
 
     public static final String IMPEX_LOCALE_CONF = "deploymentscripts.impex.locale";
