@@ -86,7 +86,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
             scriptWithExecutionPair.getValue().setFirstFailedCronjob(scriptResult.getCronJob());
             scriptWithExecutionPair.getValue().setFullStacktrace(getCauseShortStackTrace(scriptResult.getException()));
             this.saveAndLogScriptExecution(updatingSystemContext, scriptWithExecutionPair.getValue());
-            if (this.scriptExecutionResultDao.getErrorResult().equals(scriptWithExecutionPair.getValue().getResult())) {
+            if (this.getScriptExecutionResultDao().getErrorResult().equals(scriptWithExecutionPair.getValue().getResult())) {
                 return true; // We stop after the first error.
             }
         }
@@ -98,18 +98,18 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
     }
 
     private ScriptExecutionModel findOrCreateExecution(final DeploymentScript aScript) {
-        final ScriptExecutionModel lastExecution = flexibleSearchScriptExecutionDao.getLastErrorOrPendingExecution(aScript.getExtensionName(),
+        final ScriptExecutionModel lastExecution = this.getFlexibleSearchScriptExecutionDao().getLastErrorOrPendingExecution(aScript.getExtensionName(),
                 aScript.getName());
         if (nonNull(lastExecution)) {
             return lastExecution;
         }
-        final ScriptExecutionModel newExecution = this.deploymentScript2ExecutionConverter.convert(aScript);
+        final ScriptExecutionModel newExecution = this.getDeploymentScript2ExecutionConverter().convert(aScript);
         modelService.save(newExecution);
         return newExecution;
     }
 
     private void saveAndLogScriptExecution(final UpdatingSystemExtensionContext context, final ScriptExecutionModel scriptExecution) {
-        this.modelService.save(scriptExecution);
+        this.getModelService().save(scriptExecution);
         context.logScriptExecutionResult(scriptExecution);
     }
 
@@ -118,7 +118,7 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
             return null;
         }
         String output = this.getCauseFullStackTrace(exception);
-        final int maximumLength = this.configurationService.getConfiguration()
+        final int maximumLength = this.getConfigurationService().getConfiguration()
                 .getInt(MAXIMUM_CAUSE_STACK_TRACE_CONF_KEY, 0);
         if (maximumLength > 0 && output.length() > maximumLength) {
             if (LOG.isDebugEnabled()) {
@@ -139,5 +139,30 @@ public class ArecoDeploymentScriptsRunner implements DeploymentScriptRunner {
                     .printStackTrace(printWriter);
         }
         return stringWriter.toString();
+    }
+
+    // Visible to subclasses to permit customizations
+    protected ConfigurationService getConfigurationService() {
+        return configurationService;
+    }
+
+    // Visible to subclasses to permit customizations
+    protected ModelService getModelService() {
+        return modelService;
+    }
+
+    // Visible to subclasses to permit customizations
+    protected Converter<DeploymentScript, ScriptExecutionModel> getDeploymentScript2ExecutionConverter() {
+        return deploymentScript2ExecutionConverter;
+    }
+
+    // Visible to subclasses to permit customizations
+    protected ScriptExecutionResultDao getScriptExecutionResultDao() {
+        return scriptExecutionResultDao;
+    }
+
+    // Visible to subclasses to permit customizations
+    protected ScriptExecutionDao getFlexibleSearchScriptExecutionDao() {
+        return flexibleSearchScriptExecutionDao;
     }
 }

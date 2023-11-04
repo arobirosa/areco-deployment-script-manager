@@ -78,6 +78,9 @@
         <lookup-method name="newDeploymentScript" bean="deploymentScript" />
     </bean>
 
+    <!-- Every time the step factory is called, it creates a new instance. -->
+    <bean scope="prototype" class="org.areco.ecommerce.deploymentscripts.core.impl.PropertyFileDeploymentScriptConfiguration" />
+
     <alias name="arecoLocalizedImpexService" alias="impexImportService" />
     <bean id="arecoLocalizedImpexService" class="org.areco.ecommerce.deploymentscripts.impex.impl.LocalizedImpexImportService"
         scope="tenant"/>
