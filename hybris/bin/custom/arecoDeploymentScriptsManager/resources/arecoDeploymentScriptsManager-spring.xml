@@ -77,4 +77,8 @@
           scope="tenant">
         <lookup-method name="newDeploymentScript" bean="deploymentScript" />
     </bean>
+
+    <alias name="arecoLocalizedImpexService" alias="impexImportService" />
+    <bean id="arecoLocalizedImpexService" class="org.areco.ecommerce.deploymentscripts.impex.impl.LocalizedImpexImportService"
+        scope="tenant"/>
 </beans>
