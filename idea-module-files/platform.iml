@@ -106,4 +106,7 @@
     <orderEntry type="module" module-name="workflow" exported="" />
     <orderEntry type="module" module-name="config" exported="" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="74dbbca3-dd2c-47bd-a9cf-15e717d59839" />
+  </component>
 </module>

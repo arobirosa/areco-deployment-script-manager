@@ -19,6 +19,7 @@
                classprefix="ArecoDeploymentScriptsManager"
                managername="ArecoDeploymentScriptsManagerManager"
                managersuperclass="de.hybris.platform.jalo.extension.Extension"
+               jaloLogicFree="true"
                >
 
       <coremodule	packageroot="org.areco.ecommerce.deploymentscripts"

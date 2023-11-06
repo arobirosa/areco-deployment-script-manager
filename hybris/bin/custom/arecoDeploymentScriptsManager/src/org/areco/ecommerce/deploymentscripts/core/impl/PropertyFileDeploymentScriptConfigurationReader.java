@@ -97,7 +97,8 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
         return this.createConfigurationFrom(configurationFile);
     }
 
-    private PropertyFileDeploymentScriptConfiguration createConfigurationFrom(final File configurationFile) {
+    // Visible to subclasses to permit customizations
+    protected PropertyFileDeploymentScriptConfiguration createConfigurationFrom(final File configurationFile) {
         final Properties properties = new Properties();
 
         try (final InputStream configurationFileStream = Files.newInputStream(Paths.get(configurationFile.toURI()))) {
@@ -162,7 +163,8 @@ public abstract class PropertyFileDeploymentScriptConfigurationReader implements
         return tenants;
     }
 
-    private File findConfigurationFile(final File deploymentScriptFolder) {
+    // Visible to subclasses to permit customizations
+    protected File findConfigurationFile(final File deploymentScriptFolder) {
         /*
          * { @InheritDoc }
          */

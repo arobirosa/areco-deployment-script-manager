@@ -30,14 +30,25 @@ db.tableprefix=
 mysql.optional.tabledefs=CHARSET=utf8 COLLATE=utf8_bin
 mysql.tabletype=InnoDB
 
+## In case, you install mysql server again
+## sudo su
+## mysql
+## Now you are logged as root
+## Create an user for your local linux user with:
+## CREATE USER 'arobirosa'@'localhost' IDENTIFIED WITH auth_socket;
+## GRANT ALL PRIVILEGES ON *.* TO 'arobirosa'@'localhost' WITH GRANT OPTION;
+##
+## Now create an user for the areco deployment manager
+## CREATE USER 'arecomanager'@'localhost' IDENTIFIED BY 'changeme';
+
 # Remove the old database:
-mysql --user=root --password --host=127.0.0.1 -e "DROP DATABASE deploymentmanager; CREATE DATABASE deploymentmanager; grant all privileges on deploymentmanager.* to manager" deploymentmanager
+mysql -e "DROP DATABASE deploymentmanager; CREATE DATABASE deploymentmanager; grant all privileges on deploymentmanager.* to arecomanager@localhost" deploymentmanager
 
 # Run all the tests with MySQL on master tenant:
 rm -rf hybris/data/* && ant clean all yunitinit qa
 
 # Remove the old database:
-mysql --user=root --password --host=127.0.0.1 -e "DROP DATABASE deploymentmanager; CREATE DATABASE deploymentmanager; grant all privileges on deploymentmanager.* to manager" deploymentmanager
+mysql -e "DROP DATABASE deploymentmanager; CREATE DATABASE deploymentmanager; grant all privileges on deploymentmanager.* to arecomanager@localhost" deploymentmanager
 
 # Run all the tests with MySQL on junit tenant:
 rm -rf hybris/data/* && ant clean all initialize yunitinit qa

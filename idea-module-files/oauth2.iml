@@ -132,4 +132,7 @@
     </orderEntry>
     <orderEntry type="module" module-name="platformservices" exported="" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="818e9516-a124-45d5-8ee9-6ec53c1618ee" />
+  </component>
 </module>

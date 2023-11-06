@@ -16,6 +16,8 @@
 package org.areco.ecommerce.deploymentscripts.sql;
 
 import de.hybris.platform.core.Registry;
+import de.hybris.platform.jalo.GenericItem;
+import de.hybris.platform.jalo.security.JaloSecurityException;
 import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.testframework.HybrisJUnit4ClassRunner;
 import de.hybris.platform.testframework.RunListeners;
@@ -23,7 +25,6 @@ import de.hybris.platform.testframework.runlistener.LogRunListener;
 import de.hybris.platform.testframework.runlistener.PlatformRunListener;
 import de.hybris.platform.tx.Transaction;
 import org.areco.ecommerce.deploymentscripts.core.DeploymentEnvironmentDAO;
-import org.areco.ecommerce.deploymentscripts.jalo.DeploymentEnvironment;
 import org.areco.ecommerce.deploymentscripts.model.DeploymentEnvironmentModel;
 import org.junit.After;
 import org.junit.Assert;
@@ -80,7 +81,7 @@ public class CacheManagementSqlScriptTest {
     }
 
     @Test
-    public void emptyCacheAfterSqlScript() throws SQLException {
+    public void emptyCacheAfterSqlScript() throws SQLException, JaloSecurityException {
         createDummyEnvironment();
         updateDescriptionWithSQLScript();
         assertUpdatedEnvironment();
@@ -98,13 +99,13 @@ public class CacheManagementSqlScriptTest {
         Assert.assertEquals("The must be one updated row.", 1, numberOfAffectedRows);
     }
 
-    private void assertUpdatedEnvironment() {
+    private void assertUpdatedEnvironment() throws JaloSecurityException {
         final Set<DeploymentEnvironmentModel> dummyEnvironments = this.flexibleSearchDeploymentEnvironmentDAO.loadEnvironments(this.dummyEnvironmentsNames);
         Assert.assertEquals("There must be only one dummy environment", 1, dummyEnvironments.size());
         //Models cached the values of their attributes, so we need to get the jalo item, for this to work.
-        final DeploymentEnvironment jaloDummyEnvironment = modelService.getSource(dummyEnvironments.iterator().next());
+        final GenericItem jaloDummyEnvironment = modelService.getSource(dummyEnvironments.iterator().next());
         Assert.assertEquals("The description must have been updated", DUMMY_ENVIRONMENT_DESCRIPTION + UPDATED_SUBFIX,
-                jaloDummyEnvironment.getDescription());
+                jaloDummyEnvironment.getAttribute("description"));
     }
 
     private void createDummyEnvironment() {

@@ -107,4 +107,7 @@
     <orderEntry type="module" module-name="backoffice" exported="" />
     <orderEntry type="module" module-name="platformbackoffice" exported="" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="35a31fac-e270-403f-a1b3-0a9cfc4d150d" />
+  </component>
 </module>

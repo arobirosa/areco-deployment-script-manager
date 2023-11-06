@@ -92,4 +92,7 @@
     </orderEntry>
     <orderEntry type="module" module-name="impex" exported="" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="b709eda0-6ebf-4d3a-86b2-776502293dba" />
+  </component>
 </module>

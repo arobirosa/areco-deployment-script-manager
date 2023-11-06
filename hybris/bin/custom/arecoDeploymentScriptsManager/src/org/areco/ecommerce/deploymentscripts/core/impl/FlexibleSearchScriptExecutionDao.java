@@ -91,6 +91,10 @@ public class FlexibleSearchScriptExecutionDao implements ScriptExecutionDao {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Checking if the last deployment script was successful");
         }
+        if (!this.scriptExecutionResultDao.theInitialResultsWereImported()) {
+            LOG.error("The initial configuration of the Areco Deployment Manager couldn't be imported.");
+            return false;
+        }
         final StringBuilder queryBuilder = new StringBuilder(79);
 
         // The creation time is unreliable because on fast machines two items can have the same creation time.

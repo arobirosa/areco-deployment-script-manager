@@ -8,7 +8,6 @@
      <!-- The jalo classes are going to be serialized in a non-persistent session. -->
      <Match>
 		<Class name="~.*\.jalo\..*" />
-		<Bug code="SnVI" />
      </Match>
      
      <!-- The hmc classes are going to be serialized in a non-persistent session. -->

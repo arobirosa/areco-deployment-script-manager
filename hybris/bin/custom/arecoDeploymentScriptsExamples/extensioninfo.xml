@@ -19,6 +19,7 @@
                classprefix="ArecoDeploymentScriptsExamples"
                managername="ArecoDeploymentScriptsExamplesManager"
                managersuperclass="de.hybris.platform.jalo.extension.Extension"
+               jaloLogicFree="true"
       >
       <requires-extension name="arecoDeploymentScriptsManager" />
        <!-- The reload cockpit configuration examples uses de.hybris.platform.cockpit.systemsetup.CockpitImportConfig -->

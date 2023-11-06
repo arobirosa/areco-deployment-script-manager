@@ -103,4 +103,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="platform" exported="" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="eaed4c19-055e-41a2-8743-d9f82d68edb2" />
+  </component>
 </module>

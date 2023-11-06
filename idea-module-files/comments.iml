@@ -92,4 +92,7 @@
     </orderEntry>
     <orderEntry type="module" module-name="workflow" exported="" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="b774102d-075a-482e-8e2d-de85d4744f83" />
+  </component>
 </module>

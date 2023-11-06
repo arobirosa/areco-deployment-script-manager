@@ -11,7 +11,9 @@
   ~ license agreement you entered into with hybris.
   --><extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
 
-	<extension abstractclassprefix="Generated" classprefix="Arecodeploymentscriptsbackoffice" managername="ArecodeploymentscriptsbackofficeManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="arecodeploymentscriptsbackoffice" usemaven="false">
+	<extension abstractclassprefix="Generated" classprefix="Arecodeploymentscriptsbackoffice"
+			   managername="ArecodeploymentscriptsbackofficeManager" managersuperclass="de.hybris.platform.jalo.extension.Extension"
+			   name="arecodeploymentscriptsbackoffice" usemaven="false" jaloLogicFree="true">
 
 		<requires-extension name="platformbackoffice" />
 		<requires-extension name="arecoDeploymentScriptsManager" />

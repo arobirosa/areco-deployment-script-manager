@@ -137,4 +137,17 @@ public class UpdatingSystemExtensionContext {
         }
     }
 
+    /**
+     * It logs the given string with the prefix error.
+     *
+     * @param errorMessage Required
+     */
+    public void logError(final String errorMessage) {
+        ServicesUtil.validateParameterNotNullStandardMessage("errorMessage", errorMessage);
+        LOG.error(errorMessage);
+        if (this.getJspContext() != null) {
+            this.getJspContext().println("ERROR " + errorMessage);
+        }
+    }
+
 }
