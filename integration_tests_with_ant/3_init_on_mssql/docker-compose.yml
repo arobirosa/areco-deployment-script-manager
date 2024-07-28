@@ -1,0 +1,20 @@
+services:
+  areco-database:
+    image: ${DB_IMAGE_NAME:-areco-mssql}:${DB_IMAGE_TAG:-2017-latest}
+    container_name: ${DB_CONTAINER_NAME:-areco-mssql}
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${DB_SA_PASSWORD:-ar3c0-sa}
+    ports:
+      - ${DB_PORT:-1433}:1433
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$${MSSQL_SA_PASSWORD}" -Q "SELECT 1" -b -o /dev/null
+      interval: 6s
+      timeout: 6s
+      retries: 10
+      start_period: 10s
+    networks:
+      - areco
+networks:
+  areco:
+    name: areco

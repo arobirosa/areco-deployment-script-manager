@@ -1,0 +1,23 @@
+services:
+  areco-database:
+    image: ${DB_IMAGE_NAME:-mysql}:${DB_IMAGE_VERSION:-8}
+    command: ["--innodb_flush_log_at_trx_commit=0"]
+    container_name: ${DB_IMAGE_NAME:-areco-mysql}
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD:-root}
+      - MYSQL_DATABASE=${DB_NAME:-areco}
+      - MYSQL_USER=${DB_USER_NAME:-areco}
+      - MYSQL_PASSWORD=${DB_USER_PASSWORD:-areco}
+    ports:
+      - ${DB_PORT:-3306}:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 6s
+      timeout: 6s
+      retries: 10
+      start_period: 10s
+    networks:
+      - areco
+networks:
+  areco:
+    name: areco
