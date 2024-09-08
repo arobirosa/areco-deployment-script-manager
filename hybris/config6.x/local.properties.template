@@ -1,3 +1,21 @@
 log4j2.logger.arecodeploymentscriptsmanager.level = ALL
 deploymentscripts.environment.current=DEV
 
+initialpassword.admin=nimda
+
+# Sonar configuration
+sonar.projectName=Areco Deployment Script Manager
+sonar.projectKey=arobirosa_areco-deployment-script-manager
+sonar.organization=open-source-areko-consulting
+sonar.projectVersion=1.0
+sonar.extensions=arecoDeploymentScriptsManager,arecodeploymentscriptsbackoffice
+sonar.host.url=https://sonarcloud.io
+sonar.login=<ASK ANTONIO ROBIROSA>
+
+# Path is relative to the sonar-project.properties file. Replace "\" by "/" on Windows.
+sonar.sources=gensrc,src,web/src
+sonar.binaries=classes
+sonar.tests=testsrc,web/testsrc
+
+# Encoding of the source code. Default is default system encoding
+sonar.sourceEncoding=UTF-8
